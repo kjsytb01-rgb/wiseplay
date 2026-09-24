@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WISEPLAY - Daily Meta (오늘의 천상계 메타)</title>
+  <style>
+    :root {
+      --bg-dark: #0f1115;
+      --card-bg: #1a1d24;
+      --card-border: #2a2e39;
+      --accent-color: #00ff88;
+      --accent-blue: #00b4d8;
+      --accent-gold: #ffbb00;
+      --text-main: #f0f2f5;
+      --text-muted: #8b949e;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* 상단 헤더: index.html 톤앤매너 완벽 통일 */
+    header {
+      background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 36px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+    .brand-link:hover {
+      transform: scale(1.02);
+    }
+
+    .brand-logo {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
+    }
+
+    .brand-text-logo {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #fff;
+    }
+    .brand-text-logo span {
+      color: var(--accent-color);
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: #9ba3af;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-top: 2px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* 네비게이션 탭 메뉴 */
+    .nav-tabs {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 18px;
+      background: #14171f;
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tab-btn:hover {
+      color: #fff;
+    }
+    .tab-btn.active {
+      background: var(--accent-color);
+      color: #0b0d11;
+      box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    /* 타이틀 정보 바 */
+    .meta-intro-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .meta-title-group h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .meta-title-group p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      color: var(--accent-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+    }
+
+    /* 메타 포메이션 카드 */
+    .meta-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .meta-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .formation-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .formation-share {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    /* 게이지 바 */
+    .gauge-bg {
+      background: #11141a;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .gauge-fill {
+      background: linear-gradient(90deg, #00b4d8, var(--accent-color));
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    /* 섹션 레이블 */
+    .sec-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* 빌드업 루트 */
+    .route-item {
+      background: #141720;
+      border-left: 3px solid var(--accent-color);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      color: #d1d5db;
+      margin-bottom: 6px;
+    }
+
+    /* 핵심 선수 배지 */
+    .player-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .player-tag {
+      background: #232834;
+      border: 1px solid #3b4252;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+    .player-tag b {
+      color: var(--accent-blue);
+      margin-right: 5px;
+    }
+
+    /* 전술 복사용 구단주 버튼 칩 */
+    .ranker-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ranker-chip {
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid rgba(0, 255, 136, 0.35);
+      color: var(--accent-color);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .ranker-chip:hover {
+      background: var(--accent-color);
+      color: #0b0d11;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+    }
+
+    /* 토스트 팝업 */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background: #00ff88;
+      color: #0b0d11;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px 18px;
+      position: fixed;
+      z-index: 10000;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+    #toast.show {
+      visibility: visible;
+      animation: fadein 0.3s, fadeout 0.3s 1.7s;
+    }
+    @keyframes fadein { from { bottom: 10px; opacity: 0; } to { bottom: 30px; opacity: 1; } }
+    @keyframes fadeout { from { bottom: 30px; opacity: 1; } to { bottom: 10px; opacity: 0; } }
+
+    .loading-box {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 헤더: index.html과 완전 일치 -->
+  <header>
+    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'; document.getElementById('textLogo').style.display='block';">
+      <div id="textLogo" class="brand-text-logo" style="display:none;">WISE<span>PLAY</span></div>
+      <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
+    </a>
+
+    <!-- 중앙 탭 메뉴 (Daily Meta 활성화 상태) -->
+    <div class="nav-tabs">
+      <a href="/" class="tab-btn">Tactics (전술 DB)</a>
+      <a href="/" class="tab-btn" onclick="sessionStorage.setItem('openTab', 'pads');">Controller (패드 벤치마크)</a>
+      <a href="/meta" class="tab-btn active">🔥 Daily Meta (오늘의 메타)</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="meta-intro-bar">
+      <div class="meta-title-group">
+        <h1>📊 천상계 실시간 메타 분석</h1>
+        <p id="metaUpdateInfo">데이터를 동기화하는 중입니다...</p>
+      </div>
+      <div class="live-badge">
+        <span class="pulse-dot"></span>
+        공식 100위 전수 실측
+      </div>
+    </div>
+
+    <div id="metaContentList">
+      <div class="loading-box">최신 메타 데이터를 불러오고 있습니다...</div>
+    </div>
+  </main>
+
+  <div id="toast">📋 구단주명이 복사되었습니다!</div>
+
+  <script>
+    function copyRanker(name) {
+      navigator.clipboard.writeText(name).then(() => {
+        const toast = document.getElementById("toast");
+        toast.innerText = `📋 '${name}' 구단주명이 복사되었습니다!`;
+        toast.className = "show";
+        setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2000);
+      });
+    }
+
+    fetch('./data/meta_today.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('metaUpdateInfo').innerText = 
+          `실측 기준 일시: ${data.updated_at} (공식 1vs1 TOP ${data.total_rankers}명 표본)`;
+
+        const container = document.getElementById('metaContentList');
+        container.innerHTML = '';
+
+        data.meta_list.forEach(item => {
+          const routesHtml = item.tactical_routes.map(r => 
+            `<div class="route-item">▪ ${r}</div>`
+          ).join('');
+
+          const playersHtml = Object.entries(item.key_players).map(([pos, name]) => 
+            `<div class="player-tag"><b>${pos}</b> ${name}</div>`
+          ).join('');
+
+          const rankersHtml = item.recommended_rankers.map(nick => 
+            `<div class="ranker-chip" onclick="copyRanker('${nick}')" title="클릭 시 인게임 전술 복사용 닉네임 복사">
+              <span>🎮</span> ${nick}
+             </div>`
+          ).join('');
+
+          container.innerHTML += `
+            <div class="meta-card">
+              <div class="meta-card-header">
+                <span class="formation-name">${item.formation}</span>
+                <span class="formation-share">점유율 ${item.share}% (${item.count}명)</span>
+              </div>
+              <div class="gauge-bg">
+                <div class="gauge-fill" style="width: ${item.share}%;"></div>
+              </div>
+
+              <div class="sec-label">🎯 주요 빌드업 및 득점 루트</div>
+              ${routesHtml}
+
+              <div class="sec-label">⭐ 포지션별 1픽 핵심 선수</div>
+              <div class="player-tags">${playersHtml}</div>
+
+              <div class="sec-label">📋 인게임 전술 복사용 구단주 (클릭 시 닉네임 복사)</div>
+              <div class="ranker-chips">${rankersHtml}</div>
+            </div>
+          `;
+        });
+      })
+      .catch(err => {
+        document.getElementById('metaUpdateInfo').innerText = '데이터를 불러오지 못했습니다. data/meta_today.json 파일을 확인해주세요.';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
