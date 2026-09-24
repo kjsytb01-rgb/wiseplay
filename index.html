@@ -712,7 +712,6 @@
   </header>
 
   <main>
-  
     <div class="controls-bar" id="controlsBar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -804,7 +803,7 @@
       </div>
 
       <div id="viewYtSection">
-        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;" id="t-yt-btn-tactics">
+        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
           ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
         </a>
       </div>
@@ -918,19 +917,20 @@
       </div>
 
       <div>
-        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;" id="t-yt-btn-pads">
+        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
           ▶ LJ Lee 정밀 벤치마크 영상 보기
         </a>
       </div>
     </section>
   </main>
+
   <!-- 애드센스 심사용 하단 푸터 -->
-<footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
-  <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
-  <p>
-    <a href="/privacy.html" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">개인정보처리방침 (Privacy Policy)</a>
-  </p>
-</footer>
+  <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+    <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
+    <p>
+      <a href="/privacy.html" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">개인정보처리방침 (Privacy Policy)</a>
+    </p>
+  </footer>
 
   <div id="imageModal" onclick="closeLightbox(event)">
     <img id="modalImg" alt="Enlarged">
@@ -1049,7 +1049,7 @@
         viewSpecHint: "(Xem thông số Benchmark →)",
         reviewSecTitle: "⭐ Đánh Giá Thực Tế Từ Người Dùng",
         submitBtn: "Gửi",
-        ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (FIFA CAMPER)",
+        ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (즐인권 FIFA CAMPER)",
         ytBtnPads: "▶ Xem Video Đo Đạc Benchmark (LJ Lee)",
         dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
         padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
@@ -1093,7 +1093,7 @@
         viewSpecHint: "(ดูสเปกผลทดสอบ →)",
         reviewSecTitle: "⭐ ความคิดเห็นและรีวิวจากผู้ใช้จริง",
         submitBtn: "ส่งความคิดเห็น",
-        ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (FIFA CAMPER)",
+        ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (즐인권 FIFA CAMPER)",
         ytBtnPads: "▶ รับชมคลิปผลทดสอบบน YouTube (LJ Lee)",
         dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
         padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
@@ -1128,7 +1128,6 @@
     let currentSelectedPad = null;
     const translationCache = {};
 
-    // 구글 무료 번역 API를 활용한 실시간 동적 텍스트 번역 함수
     async function translateDynamicText(text, targetLang) {
       if (!text || targetLang === 'ko') return text;
       const cacheKey = `${targetLang}_${text}`;
@@ -1184,8 +1183,14 @@
       const rst2 = document.getElementById('t-review-sec-title2'); if(rst2) rst2.innerText = t.reviewSecTitle;
       const sb1 = document.getElementById('t-review-submit-btn1'); if(sb1) sb1.innerText = t.submitBtn;
       const sb2 = document.getElementById('t-review-submit-btn2'); if(sb2) sb2.innerText = t.submitBtn;
-      const ytt = document.getElementById('t-yt-btn-tactics'); if(ytt) ytt.innerText = t.ytBtnTactics;
-      const ytp = document.getElementById('t-yt-btn-pads'); if(ytp) ytp.innerText = t.ytBtnPads;
+
+      // 유튜브 링크 버튼 텍스트 교정
+      const ytt = document.getElementById('viewYtLink');
+      if (ytt) ytt.innerText = t.ytBtnTactics;
+
+      const ytp = document.getElementById('viewPadYtBtn');
+      if (ytp) ytp.innerText = t.ytBtnPads;
+
       const ds1 = document.getElementById('t-dash-sub1'); if(ds1) ds1.innerText = t.dashSub1;
       const put = document.getElementById('t-pad-users-title'); if(put) put.innerText = t.padUsersTitle;
       const bt = document.getElementById('t-bench-table-title'); if(bt) bt.innerText = t.benchTitle;
@@ -1334,7 +1339,6 @@
         </div>
       `).join('');
 
-      // 비동기 카드 설명 번역 적용
       if (currentLang !== 'ko') {
         list.forEach((item, idx) => {
           if (item.reviewText) {
@@ -1403,7 +1407,6 @@
         `;
       }).join('');
 
-      // 비동기 카드 장점 번역 적용
       if (currentLang !== 'ko') {
         list.forEach((pad, idx) => {
           if (pad.pros) {
@@ -1461,12 +1464,16 @@
         document.getElementById('viewPadSection').style.display = 'none';
       }
 
+      const ytBtn = document.getElementById('viewYtLink');
       if (t.ytUrl) {
         document.getElementById('viewYtSection').style.display = 'block';
-        document.getElementById('viewYtLink').href = t.ytUrl;
+        ytBtn.href = t.ytUrl;
       } else {
         document.getElementById('viewYtSection').style.display = 'none';
       }
+
+      const i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      ytBtn.innerText = i18nTexts.ytBtnTactics;
 
       showTacticsTabImg('formation');
       renderReviews('tactics', t.playerName || 'default_tactic');
@@ -1478,7 +1485,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 전술 세부 코멘트 실시간 자동 번역 갱신
     async function updateTacticsDetailLang() {
       if (!currentSelectedTactics) return;
       const rawText = currentSelectedTactics.reviewText || '-';
@@ -1536,6 +1542,9 @@
         ytBtn.style.display = 'none';
       }
 
+      const i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      ytBtn.innerText = i18nTexts.ytBtnPads;
+
       renderReviews('pad', p.padName || 'default_pad');
 
       document.getElementById('section-pads').style.display = 'none';
@@ -1545,7 +1554,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 패드 실전 조언 및 장단점 실시간 자동 번역 갱신
     async function updatePadDetailLang() {
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
