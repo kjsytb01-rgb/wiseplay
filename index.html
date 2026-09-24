@@ -26,7 +26,6 @@
       padding-bottom: 60px;
     }
 
-    /* 상단 헤더: 메인 와이드 로고 중앙 배치 */
     header {
       background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
       border-bottom: 1px solid var(--card-border);
@@ -39,7 +38,6 @@
       position: relative;
     }
 
-    /* 4개국어 언어 셀렉터 (우측 상단) */
     .lang-selector-wrap {
       position: absolute;
       top: 16px;
@@ -98,7 +96,6 @@
       opacity: 0.85;
     }
 
-    /* 네비게이션 탭 메뉴 */
     .nav-tabs {
       display: inline-flex;
       gap: 10px;
@@ -342,7 +339,7 @@
       grid-column: 1 / -1;
     }
 
-    /* 상세 페이지 뷰 (모달 X, 단일 페이지 전환) */
+    /* 상세 페이지 뷰 */
     .detail-view-container {
       display: none;
       background: #161920;
@@ -669,7 +666,6 @@
     .comment-score { color: #ffbb00; font-weight: 700; font-size: 0.8rem; }
     .comment-body { color: #c9d1d9; line-height: 1.4; }
 
-    /* 라이트박스 */
     #imageModal {
       display: none;
       position: fixed;
@@ -696,7 +692,6 @@
 <body>
 
   <header>
-    <!-- 4개국어 언어 셀렉터 -->
     <div class="lang-selector-wrap">
       <button class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
       <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
@@ -724,7 +719,7 @@
       </div>
     </div>
 
-    <!-- 1. Tactics 목록 섹션 -->
+    <!-- 1. Tactics 목록 -->
     <section id="section-tactics">
       <h2 class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span></h2>
       <div id="tactics-list" class="cards-grid">
@@ -732,7 +727,7 @@
       </div>
     </section>
 
-    <!-- 2. Pads (Controller) 목록 섹션 -->
+    <!-- 2. Pads 목록 -->
     <section id="section-pads" style="display: none;">
       <h2 class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span></h2>
       <div id="pads-list" class="cards-grid">
@@ -936,7 +931,7 @@
   <script>
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
-    // 4개국어 사전 (메인 index.html UI)
+    // 4개국어 UI 정적 텍스트 사전
     const I18N_INDEX = {
       ko: {
         navTactics: "Tactics (전술 DB)",
@@ -974,8 +969,6 @@
         prosConsTitle: "⚖️ 장점 및 아쉬운 점 (Pros & Cons)",
         prosLabel: "[장점]",
         consLabel: "[단점]",
-        loadingTactics: "구글 시트에서 최신 전술 데이터를 불러오는 중...",
-        loadingPads: "구글 시트에서 패드 벤치마크 데이터를 불러오는 중...",
         usedPadPrefix: "선수 사용 패드: ",
         detailLinkTactics: "상세 분석 →",
         detailLinkPads: "세부 벤치마크 →",
@@ -1020,8 +1013,6 @@
         prosConsTitle: "⚖️ Pros & Cons",
         prosLabel: "[Pros]",
         consLabel: "[Cons]",
-        loadingTactics: "Loading latest tactics from Google Sheets...",
-        loadingPads: "Loading pad benchmark data...",
         usedPadPrefix: "Used Controller: ",
         detailLinkTactics: "View Details →",
         detailLinkPads: "View Benchmark →",
@@ -1066,8 +1057,6 @@
         prosConsTitle: "⚖️ Ưu Điểm & Nhược Điểm (Pros & Cons)",
         prosLabel: "[Ưu điểm]",
         consLabel: "[Nhược điểm]",
-        loadingTactics: "Đang tải dữ liệu chiến thuật từ Google Sheets...",
-        loadingPads: "Đang tải dữ liệu benchmark tay cầm...",
         usedPadPrefix: "Tay cầm sử dụng: ",
         detailLinkTactics: "Xem chi tiết →",
         detailLinkPads: "Xem thông số →",
@@ -1112,8 +1101,6 @@
         prosConsTitle: "⚖️ จุดเด่น & ข้อพิจารณา (Pros & Cons)",
         prosLabel: "[จุดเด่น]",
         consLabel: "[ข้อเสีย]",
-        loadingTactics: "กำลังโหลดข้อมูลแทคติกจาก Google Sheets...",
-        loadingPads: "กำลังโหลดข้อมูลจอยเกม...",
         usedPadPrefix: "จอยที่ใช้: ",
         detailLinkTactics: "ดูรายละเอียด →",
         detailLinkPads: "ดูผลทดสอบ →",
@@ -1131,6 +1118,25 @@
     let allPads = [];
     let currentSelectedTactics = null;
     let currentSelectedPad = null;
+    const translationCache = {};
+
+    // 구글 무료 번역 API를 활용한 실시간 동적 텍스트 번역 함수
+    async function translateDynamicText(text, targetLang) {
+      if (!text || targetLang === 'ko') return text;
+      const cacheKey = `${targetLang}_${text}`;
+      if (translationCache[cacheKey]) return translationCache[cacheKey];
+
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        const translated = data[0].map(item => item[0]).join('');
+        translationCache[cacheKey] = translated;
+        return translated;
+      } catch (e) {
+        return text;
+      }
+    }
 
     function setLang(lang) {
       currentLang = lang;
@@ -1141,6 +1147,11 @@
       applyI18n();
       renderTactics(allTactics);
       renderPads(allPads);
+
+      if (isDetailView) {
+        if (currentSelectedTactics) updateTacticsDetailLang();
+        if (currentSelectedPad) updatePadDetailLang();
+      }
     }
 
     function applyI18n() {
@@ -1299,7 +1310,7 @@
           <div class="card-body">
             <span class="card-badge">${item.formation || 'FORMATION'}</span>
             <h3 class="card-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
-            <p class="card-desc">${item.reviewText || '-'}</p>
+            <p class="card-desc" id="card-desc-tactics-${idx}">${item.reviewText || '-'}</p>
             
             ${item.padName ? `
               <div style="font-size:0.8rem; color:var(--accent-color); margin-top:4px;">
@@ -1314,6 +1325,18 @@
           </div>
         </div>
       `).join('');
+
+      // 비동기 카드 설명 번역 적용
+      if (currentLang !== 'ko') {
+        list.forEach((item, idx) => {
+          if (item.reviewText) {
+            translateDynamicText(item.reviewText, currentLang).then(trans => {
+              const el = document.getElementById(`card-desc-tactics-${idx}`);
+              if (el) el.innerText = trans;
+            });
+          }
+        });
+      }
     }
 
     function getUserAvgScore(type, id) {
@@ -1364,13 +1387,25 @@
               </table>
 
               <div class="card-meta">
-                <span style="color:var(--accent-color);">${t.prosCardLabel}${pad.pros ? pad.pros.substring(0, 14) + '...' : '-'}</span>
+                <span style="color:var(--accent-color);">${t.prosCardLabel}<span id="card-pros-${idx}">${pad.pros ? pad.pros.substring(0, 14) + '...' : '-'}</span></span>
                 <span style="color:var(--accent-blue); font-weight:700;">${t.detailLinkPads}</span>
               </div>
             </div>
           </div>
         `;
       }).join('');
+
+      // 비동기 카드 장점 번역 적용
+      if (currentLang !== 'ko') {
+        list.forEach((pad, idx) => {
+          if (pad.pros) {
+            translateDynamicText(pad.pros, currentLang).then(trans => {
+              const el = document.getElementById(`card-pros-${idx}`);
+              if (el) el.innerText = trans.substring(0, 18) + '...';
+            });
+          }
+        });
+      }
     }
 
     function handleSearch() {
@@ -1407,7 +1442,8 @@
       document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
       document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
       document.getElementById('viewSubInfo').innerText = `${t.country || 'GLOBAL'} | ${t.versionName || '-'}`;
-      document.getElementById('viewReviewText').innerText = t.reviewText || '-';
+
+      updateTacticsDetailLang();
 
       if (t.padName) {
         document.getElementById('viewPadSection').style.display = 'block';
@@ -1432,6 +1468,13 @@
       document.getElementById('detail-view-tactics').style.display = 'block';
       isDetailView = true;
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 전술 세부 코멘트 실시간 자동 번역 갱신
+    async function updateTacticsDetailLang() {
+      if (!currentSelectedTactics) return;
+      const rawText = currentSelectedTactics.reviewText || '-';
+      document.getElementById('viewReviewText').innerText = await translateDynamicText(rawText, currentLang);
     }
 
     function openPadDetail(index) {
@@ -1466,20 +1509,16 @@
       document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
       document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
       document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
-      document.getElementById('pW_adv').innerText = p.wAdvice || '-';
 
       document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
       document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
       document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
-      document.getElementById('pD_adv').innerText = p.dAdvice || '-';
 
       document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
       document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
       document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
-      document.getElementById('pB_adv').innerText = p.bAdvice || '-';
 
-      document.getElementById('viewPadPros').innerText = p.pros || '-';
-      document.getElementById('viewPadCons').innerText = p.cons || '-';
+      updatePadDetailLang();
 
       const ytBtn = document.getElementById('viewPadYtBtn');
       if (p.ytUrl) {
@@ -1496,6 +1535,17 @@
       document.getElementById('detail-view-pads').style.display = 'block';
       isDetailView = true;
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 패드 실전 조언 및 장단점 실시간 자동 번역 갱신
+    async function updatePadDetailLang() {
+      if (!currentSelectedPad) return;
+      const p = currentSelectedPad;
+      document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
+      document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
+      document.getElementById('pW_adv').innerText = await translateDynamicText(p.wAdvice || '-', currentLang);
+      document.getElementById('pD_adv').innerText = await translateDynamicText(p.dAdvice || '-', currentLang);
+      document.getElementById('pB_adv').innerText = await translateDynamicText(p.bAdvice || '-', currentLang);
     }
 
     function navigateToPad(padName) {
