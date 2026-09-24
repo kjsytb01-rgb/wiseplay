@@ -26,7 +26,7 @@
       padding-bottom: 60px;
     }
 
-    /* 상단 헤더: index.html 톤앤매너 완벽 통일 */
+    /* 상단 헤더 */
     header {
       background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
       border-bottom: 1px solid var(--card-border);
@@ -311,18 +311,18 @@
 </head>
 <body>
 
-  <!-- 상단 헤더: index.html과 완전 일치 -->
+  <!-- 상단 헤더 -->
   <header>
-    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+    <a href="/#tactics" class="brand-link" title="메인 화면으로 돌아가기">
       <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'; document.getElementById('textLogo').style.display='block';">
       <div id="textLogo" class="brand-text-logo" style="display:none;">WISE<span>PLAY</span></div>
       <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
     </a>
 
-    <!-- 중앙 탭 메뉴 (Daily Meta 활성화 상태) -->
+    <!-- 중앙 탭 메뉴 (해시 파라미터 직결) -->
     <div class="nav-tabs">
-      <a href="/" class="tab-btn">Tactics (전술 DB)</a>
-      <a href="/" class="tab-btn" onclick="sessionStorage.setItem('openTab', 'pads');">Controller (패드 벤치마크)</a>
+      <a href="/#tactics" class="tab-btn">Tactics (전술 DB)</a>
+      <a href="/#controller" class="tab-btn">Controller (패드 벤치마크)</a>
       <a href="/meta" class="tab-btn active">🔥 Daily Meta (오늘의 메타)</a>
     </div>
   </header>
@@ -356,8 +356,13 @@
       });
     }
 
-    fetch('./data/meta_today.json')
-      .then(res => res.json())
+    // 캐시 방지 타임스탬프 적용 및 데이터 호출
+    const timestamp = new Date().getTime();
+    fetch(`/data/meta_today.json?v=${timestamp}`)
+      .then(res => {
+        if (!res.ok) throw new Error("JSON 응답 실패");
+        return res.json();
+      })
       .then(data => {
         document.getElementById('metaUpdateInfo').innerText = 
           `실측 기준 일시: ${data.updated_at} (공식 1vs1 TOP ${data.total_rankers}명 표본)`;
@@ -365,16 +370,21 @@
         const container = document.getElementById('metaContentList');
         container.innerHTML = '';
 
+        if (!data.meta_list || data.meta_list.length === 0) {
+          container.innerHTML = '<div class="loading-box">수집된 메타 데이터가 없습니다. 파이프라인을 확인해주세요.</div>';
+          return;
+        }
+
         data.meta_list.forEach(item => {
-          const routesHtml = item.tactical_routes.map(r => 
+          const routesHtml = (item.tactical_routes || []).map(r => 
             `<div class="route-item">▪ ${r}</div>`
           ).join('');
 
-          const playersHtml = Object.entries(item.key_players).map(([pos, name]) => 
+          const playersHtml = Object.entries(item.key_players || {}).map(([pos, name]) => 
             `<div class="player-tag"><b>${pos}</b> ${name}</div>`
           ).join('');
 
-          const rankersHtml = item.recommended_rankers.map(nick => 
+          const rankersHtml = (item.recommended_rankers || []).map(nick => 
             `<div class="ranker-chip" onclick="copyRanker('${nick}')" title="클릭 시 인게임 전술 복사용 닉네임 복사">
               <span>🎮</span> ${nick}
              </div>`
