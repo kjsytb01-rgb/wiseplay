@@ -1,5 +1,69 @@
 {
-  "updated_at": "2026-09-24 13:02:18",
-  "total_rankers": 0,
-  "meta_list": []
+  "updated_at": "2026-09-24 13:30:47",
+  "total_rankers": 12,
+  "meta_list": [
+    {
+      "formation": "4-2-2-1-1",
+      "count": 41,
+      "share": 41.7,
+      "tactical_routes": [
+        "4-2-2-1-1 천상계 빌드업: 2선과 전방 원투패스 후 침투 연계",
+        "측면 윙어/풀백 공간 창출 및 박스 안 컷백 마무리"
+      ],
+      "key_players": {
+        "ST": "셰우첸코",
+        "CAM": "굴리트",
+        "CDM": "발락",
+        "CB": "뤼디거"
+      },
+      "recommended_rankers": [
+        "T1Seon9min",
+        "태연",
+        "혜원",
+        "삼켜",
+        "청소"
+      ]
+    },
+    {
+      "formation": "4-2-2-2",
+      "count": 33,
+      "share": 33.3,
+      "tactical_routes": [
+        "4-2-2-2 천상계 빌드업: 2선과 전방 원투패스 후 침투 연계",
+        "측면 윙어/풀백 공간 창출 및 박스 안 컷백 마무리"
+      ],
+      "key_players": {
+        "ST": "호나우두",
+        "CF": "굴리트",
+        "CDM": "로드리",
+        "CB": "반데이크"
+      },
+      "recommended_rankers": [
+        "youngsookim",
+        "제이드",
+        "Prime림광철",
+        "크몽신경섭"
+      ]
+    },
+    {
+      "formation": "4-2-3-1",
+      "count": 25,
+      "share": 25.0,
+      "tactical_routes": [
+        "4-2-3-1 천상계 빌드업: 2선과 전방 원투패스 후 침투 연계",
+        "측면 윙어/풀백 공간 창출 및 박스 안 컷백 마무리"
+      ],
+      "key_players": {
+        "ST": "호나우두",
+        "CAM": "지단",
+        "CDM": "야야 투레",
+        "CB": "말디니"
+      },
+      "recommended_rankers": [
+        "T1Pierce",
+        "DKNova",
+        "한똥똥"
+      ]
+    }
+  ]
 }
