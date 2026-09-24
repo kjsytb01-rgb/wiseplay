@@ -26,7 +26,6 @@
       padding-bottom: 60px;
     }
 
-    /* 상단 헤더 */
     header {
       background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
       border-bottom: 1px solid var(--card-border);
@@ -39,7 +38,6 @@
       position: relative;
     }
 
-    /* 다국어 언어 셀렉터 (우측 상단) */
     .lang-selector-wrap {
       position: absolute;
       top: 16px;
@@ -61,9 +59,6 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 4px;
     }
     .lang-btn:hover { color: #fff; }
     .lang-btn.active {
@@ -101,7 +96,6 @@
       opacity: 0.85;
     }
 
-    /* 네비게이션 탭 메뉴 */
     .nav-tabs {
       display: inline-flex;
       gap: 10px;
@@ -138,7 +132,6 @@
       padding: 0 16px;
     }
 
-    /* 상단 배너 */
     .meta-top-banner {
       display: flex;
       justify-content: space-between;
@@ -188,7 +181,6 @@
       border: 1px solid rgba(0, 180, 216, 0.3);
     }
 
-    /* 포메이션 메타 카드 */
     .formation-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -197,9 +189,7 @@
       margin-bottom: 20px;
       transition: transform 0.2s, border-color 0.2s;
     }
-    .formation-card:hover {
-      border-color: var(--accent-color);
-    }
+    .formation-card:hover { border-color: var(--accent-color); }
     .card-top {
       display: flex;
       justify-content: space-between;
@@ -332,12 +322,11 @@
 <body>
 
   <header>
-    <!-- 4개국어 언어 셀렉터 -->
     <div class="lang-selector-wrap">
-      <button class="lang-btn active" onclick="setLang('ko')">🇰🇷 KO</button>
-      <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
-      <button class="lang-btn" onclick="setLang('vi')">🇻🇳 VI</button>
-      <button class="lang-btn" onclick="setLang('th')">🇹🇭 TH</button>
+      <button class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
+      <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" id="btn-lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+      <button class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
     </div>
 
     <a href="/" class="brand-link" title="Home">
@@ -372,7 +361,6 @@
   <div id="toast">구단주명이 복사되었습니다!</div>
 
   <script>
-    // 4개국어 사전 (UI 및 포메이션별 실전 빌드업 루트)
     const I18N = {
       ko: {
         navTactics: "Tactics (전술 DB)",
@@ -526,12 +514,42 @@
 
     let currentLang = localStorage.getItem('wiseplay_lang') || 'ko';
     let metaCachedData = null;
+    const nameTranslationCache = {};
+
+    async function translatePlayerName(name, targetLang) {
+      if (!name || targetLang === 'ko') return name;
+      const key = `${targetLang}_${name}`;
+      if (nameTranslationCache[key]) return nameTranslationCache[key];
+
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=${targetLang}&dt=t&q=${encodeURIComponent(name)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        const trans = data[0].map(item => item[0]).join('');
+        nameTranslationCache[key] = trans;
+        return trans;
+      } catch (e) {
+        return name;
+      }
+    }
+
+    // 4-2-2-1 오타까지 4-2-2-1-1로 강제 매핑하는 핵심 함수
+    function normalizeFormKey(str) {
+      if (!str) return "4-2-2-1-1";
+      const cleaned = str.replace(/[^0-9]/g, '');
+      if (cleaned === '42211' || cleaned === '4221') return '4-2-2-1-1';
+      if (cleaned === '4231') return '4-2-3-1';
+      if (cleaned === '4222') return '4-2-2-2';
+      if (cleaned === '4141') return '4-1-4-1';
+      if (cleaned === '4123') return '4-1-2-3';
+      return str.trim();
+    }
 
     function setLang(lang) {
       currentLang = lang;
       localStorage.setItem('wiseplay_lang', lang);
       document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.toLowerCase().includes(lang));
+        btn.classList.toggle('active', btn.id === `btn-lang-${lang}`);
       });
       applyI18n();
       if (metaCachedData) renderMetaCards(metaCachedData);
@@ -569,16 +587,19 @@
       const container = document.getElementById('meta-list-container');
       container.innerHTML = '';
 
-      data.meta_list.forEach((item) => {
+      data.meta_list.forEach((item, cardIdx) => {
         const card = document.createElement('div');
         card.className = 'formation-card';
 
+        // 4-2-2-1 또는 4-2-2-1-1을 완벽히 매핑
+        const formKey = normalizeFormKey(item.formation);
+
         const playersHtml = Object.entries(item.key_players || {})
-          .map(([pos, name]) => `<span class="player-tag"><b>${pos}</b> ${name}</span>`)
+          .map(([pos, name], pIdx) => `<span class="player-tag"><b>${pos}</b> <span id="meta-player-${cardIdx}-${pIdx}">${name}</span></span>`)
           .join('');
 
-        // 언어별 전술 루트 매핑 (사전에 정의된 다국어 텍스트 우선, 없을 시 원본)
-        const routesList = (t.routes && t.routes[item.formation]) || item.tactical_routes || [];
+        // 무조건 사전에 정의된 정밀 전술 텍스트와 번역문 우선 출력
+        const routesList = (t.routes && t.routes[formKey]) || item.tactical_routes || [];
         const routesHtml = routesList.map(r => `<li>${r}</li>`).join('');
 
         const rankersHtml = (item.recommended_rankers || [])
@@ -587,7 +608,7 @@
 
         card.innerHTML = `
           <div class="card-top">
-            <div class="form-title">${item.formation} <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${item.count} ${t.rankerCount})</span></div>
+            <div class="form-title">${formKey} <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${item.count} ${t.rankerCount})</span></div>
             <div class="form-share">${item.share}%</div>
           </div>
           <div class="gauge-bg">
@@ -601,6 +622,16 @@
           <div class="ranker-chips-wrap">${rankersHtml}</div>
         `;
         container.appendChild(card);
+
+        // 선수 이름 외국어 실시간 번역
+        if (currentLang !== 'ko' && item.key_players) {
+          Object.values(item.key_players).forEach((pName, pIdx) => {
+            translatePlayerName(pName, currentLang).then(transName => {
+              const el = document.getElementById(`meta-player-${cardIdx}-${pIdx}`);
+              if (el) el.innerText = transName;
+            });
+          });
+        }
       });
     }
 
