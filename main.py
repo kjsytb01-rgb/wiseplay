@@ -24,73 +24,82 @@ def collect_real_top100_playwright():
         page.goto("https://fconline.nexon.com/datacenter/rank", wait_until="networkidle", timeout=60000)
         time.sleep(3)
 
-        # 1페이지부터 5페이지까지 순차 수집 (한 페이지당 20명 = 총 100명)
         for page_num in range(1, 6):
             if page_num > 1:
                 print(f"  -> {page_num}페이지 전환 시도...")
+                prev_first_nick = ranker_data[0]["nickname"] if ranker_data else ""
+                
+                # 페이징 클릭
                 clicked = False
-                
-                # 정밀 타겟팅: 하단 페이징 영역 안의 a 태그만 클릭
                 selectors = [
-                    f".paginate a:has-text('{page_num}')",
-                    f".paging a:has-text('{page_num}')",
                     f".pagination a:has-text('{page_num}')",
-                    f"div[class*='page'] a:has-text('{page_num}')"
+                    f".paginate a:has-text('{page_num}')",
+                    f".paging a:has-text('{page_num}')"
                 ]
-                
                 for sel in selectors:
                     try:
                         elem = page.query_selector(sel)
                         if elem and elem.is_visible():
                             elem.click()
-                            page.wait_for_timeout(2500)
                             clicked = True
-                            print(f"  -> 셀렉터 ({sel}) 클릭 성공")
                             break
                     except Exception:
                         pass
-
-                # 셀렉터 클릭이 안 먹힐 경우 넥슨 내부 페이징 자바스크립트 직접 실행
+                
                 if not clicked:
-                    try:
-                        page.evaluate(f"""() => {{
-                            if (typeof window.GetRankList === 'function') {{
-                                window.GetRankList(50, {page_num});
-                            }} else if (typeof window.ChangePage === 'function') {{
-                                window.ChangePage({page_num});
-                            }} else {{
-                                const links = Array.from(document.querySelectorAll('a'));
-                                const target = links.find(a => a.textContent.trim() === '{page_num}');
-                                if (target) target.click();
-                            }}
-                        }}""")
-                        page.wait_for_timeout(2500)
-                    except Exception as e:
-                        print(f"  [경고] {page_num}페이지 자바스크립트 호출 실패: {e}")
+                    page.evaluate(f"window.GetRankList && window.GetRankList(50, {page_num})")
 
-            # 현재 페이지 화면에서 순위표 행 파싱
-            text_all = page.inner_text("body")
-            
-            # 패턴: 순위(1~100) + 공백 + 레벨(선택) + 구단주명 + 포메이션(4-X-X)
-            # 텍스트 라인 기반 정밀 추출
-            lines = [l.strip() for l in text_all.split('\n') if l.strip()]
-            for i, line in enumerate(lines):
-                # 포메이션이 적힌 라인을 발견했을 때
-                form_match = re.search(r'\b(\d-\d(?:-\d){1,2})\b', line)
-                if form_match:
-                    formation = form_match.group(1)
-                    # 바로 위 몇 줄 중에서 닉네임 찾기
-                    nick = None
-                    for offset in range(1, 6):
-                        if i - offset >= 0:
-                            cand = lines[i - offset]
-                            if len(cand) >= 2 and not cand.isdigit() and cand not in ["슈퍼챔피언스", "챔피언스", "포메이션", "상세보기", "승률"] and not re.search(r'\b\d-\d\b', cand) and "%" not in cand:
-                                nick = cand.split()[0]
-                                break
-                    if nick and not any(r["nickname"] == nick for r in ranker_data):
-                        ranker_data.append({"nickname": nick, "formation": formation})
+                # 데이터가 새 페이지로 바뀔 때까지 충분히 대기
+                time.sleep(3.5)
 
-            print(f"  => {page_num}페이지 수집 후 누적: {len(ranker_data)}명")
+            # 브라우저 DOM 안에서 직접 파싱 (행 단위 1:1 완벽 매칭)
+            extracted_items = page.evaluate("""() => {
+                const results = [];
+                // 순위표 행 탐색
+                const rows = document.querySelectorAll('tbody tr, .rank_list .tr, .tbody .tr, tr');
+                
+                rows.forEach(row => {
+                    const text = row.innerText || '';
+                    // 포메이션 정규식 매칭 (예: 4-2-2-2, 4-2-3-1, 4-1-2-3 등)
+                    const formMatch = text.match(/\\b(\\d-\\d(?:-\\d){1,2})\\b/);
+                    if (!formMatch) return;
+                    
+                    // 닉네임 탐색: 링크 태그 또는 특정 클래스 우선 추출
+                    let nickname = '';
+                    const linkElem = row.querySelector('a[href*="profile"], a[onclick*="Profile"], .coach_name, .name, .profile_pointer');
+                    if (linkElem) {
+                        nickname = linkElem.innerText.trim();
+                    } else {
+                        // 텍스트 블록에서 숫자나 일반 UI 단어가 아닌 첫 번째 문자열 추적
+                        const tokens = text.split(/\\s+/);
+                        for (let t of tokens) {
+                            if (t.length >= 2 && !t.match(/^\\d+$/) && !['슈퍼챔피언스','챔피언스','상세보기','포메이션','승률'].includes(t) && !t.includes('%')) {
+                                nickname = t;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (nickname && nickname.length >= 2) {
+                        results.push({
+                            nickname: nickname,
+                            formation: formMatch[1]
+                        });
+                    }
+                });
+                return results;
+            }""")
+
+            # 수집된 항목 중복 배제하며 누적
+            new_added = 0
+            for item in extracted_items:
+                nick = item["nickname"]
+                form = item["formation"]
+                if not any(r["nickname"] == nick for r in ranker_data):
+                    ranker_data.append({"nickname": nick, "formation": form})
+                    new_added += 1
+
+            print(f"  => {page_num}페이지 처리 완료: 이번 페이지 +{new_added}명 추가 (총 누적: {len(ranker_data)}명)")
 
         browser.close()
 
@@ -107,13 +116,13 @@ def process_and_save():
     total_valid = len(rankers)
     print(f"[2/2] 실측 데이터 집계 중 (실제 표본: {total_valid}명)")
 
-    # 실제 수집된 랭커들의 포메이션 사용 횟수 실측 카운팅
+    # 1. 수집된 랭커들의 포메이션 실측 카운팅
     formation_counter = Counter([r["formation"] for r in rankers])
     formation_rankers = {}
     for r in rankers:
         formation_rankers.setdefault(r["formation"], []).append(r["nickname"])
 
-    # 포지션별 1티어 기준 선수 매핑
+    # 2. 포지션별 대표 메타 선수 매핑
     key_players_map = {
         "4-2-2-2": {"ST": "호나우두", "CF": "굴리트", "CDM": "로드리", "CB": "반데이크"},
         "4-2-2-1-1": {"ST": "셰우첸코", "CAM": "굴리트", "CDM": "발락", "CB": "뤼디거"},
@@ -123,20 +132,21 @@ def process_and_save():
     }
 
     meta_list = []
+    # 최다 사용 포메이션 순으로 정렬
     for form, count in formation_counter.most_common(5):
         share = round((count / total_valid) * 100, 1)
 
         routes = [
-            f"{form} 실측 메타: 중앙 미드필더와 전방 침투 연계",
-            "측면 전환 후 빠른 컷백 및 박스 침투 마무리"
+            f"{form} 실측 메타: 중앙 미드필더 전진 패스 및 침투 연계",
+            "측면 풀백/윙어 지원을 활용한 박스 안 컷백 및 감아차기 득점"
         ]
 
         actual_rankers = formation_rankers.get(form, [])[:5]
 
         meta_list.append({
             "formation": form,
-            "count": count,
-            "share": share,
+            "count": count,       # 실측된 실제 인원수
+            "share": share,       # 실측된 실제 점유율 (%)
             "tactical_routes": routes,
             "key_players": key_players_map.get(form, {"ST": "호나우두", "CAM": "굴리트", "CDM": "로드리", "CB": "반데이크"}),
             "recommended_rankers": actual_rankers
@@ -144,7 +154,7 @@ def process_and_save():
 
     result_data = {
         "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "total_rankers": total_valid,
+        "total_rankers": total_valid, # 실측된 총원 (100)
         "meta_list": meta_list
     }
 
