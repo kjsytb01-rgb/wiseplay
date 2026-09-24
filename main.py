@@ -35,7 +35,7 @@ TACTICAL_BLUEPRINTS = {
     ]
 }
 
-# 넥슨 선수 고유 메타데이터 매핑용
+# 넥슨 선수 메타데이터 매핑용
 SPID_META = {}
 def get_spid_metadata():
     global SPID_META
@@ -48,7 +48,7 @@ def get_spid_metadata():
         pass
 
 def fetch_real_squad_players(nickname):
-    """실제 랭커의 최근 1vs1 공식경기 선발 11명 전수 추출"""
+    """실제 랭커의 최근 1vs1 공식경기 선발 11명 전수 추출 및 정확한 포지션 매핑"""
     if not API_KEY:
         return {}
 
@@ -69,7 +69,7 @@ def fetch_real_squad_players(nickname):
         if not match_ids:
             return {}
 
-        # 3. 매치 상세 데이터에서 선발 라인업 파싱
+        # 3. 매치 상세 데이터에서 선발 라인업 추출
         detail_res = requests.get(f"{BASE_URL}/match-detail?matchid={match_ids[0]}", headers=HEADERS, timeout=5)
         if detail_res.status_code != 200:
             return {}
@@ -82,23 +82,35 @@ def fetch_real_squad_players(nickname):
             return {}
 
         players = target_info.get("player", [])
+        # 선발 선수 필터링 (spPosition != 28: 후보 제외)
         starting_players = [p for p in players if p.get("spPosition") != 28]
 
         extracted = {}
         for p in starting_players:
             pos_id = p.get("spPosition")
             sp_id = p.get("spId")
-            p_name = SPID_META.get(sp_id, f"선수ID:{sp_id}")
+            p_name = SPID_META.get(sp_id, f"ID:{sp_id}")
 
-            # 실측 포지션 분류 (ST, MID, CDM, CB)
-            if pos_id in [0, 1, 2, 3] and "ST" not in extracted:
+            # 넥슨 공식 포지션 ID 기준 정확한 매핑
+            # 1) 최전방 공격수: 20(ST), 21(CF), 24(RS), 25(LS)
+            if pos_id in [20, 21, 24, 25] and "ST" not in extracted:
                 extracted["ST"] = p_name
-            elif pos_id in [8, 9, 10, 11, 12, 13, 14, 15, 16, 17] and "MID" not in extracted:
+            # 2) 공격형/중앙 미드필더: 12~19 (CAM, CM, LAM, RAM)
+            elif pos_id in [12, 13, 14, 15, 16, 17, 18, 19] and "MID" not in extracted:
                 extracted["MID"] = p_name
-            elif pos_id in [4, 5, 6, 7] and "CDM" not in extracted:
+            # 3) 수비형 미드필더: 9, 10, 11 (CDM, RDM, LDM)
+            elif pos_id in [9, 10, 11] and "CDM" not in extracted:
                 extracted["CDM"] = p_name
-            elif pos_id in [20, 21, 22, 23, 24, 25, 26, 27] and "CB" not in extracted:
+            # 4) 센터백: 4, 5, 6, 7 (CB, RCB, LCB, SW)
+            elif pos_id in [4, 5, 6, 7] and "CB" not in extracted:
                 extracted["CB"] = p_name
+
+        # 만약 특정 포지션이 비었을 경우 추가 선발에서 보충 탐색
+        if "ST" not in extracted:
+            for p in starting_players:
+                if p.get("spPosition") in [22, 23, 26, 27]: # LW, RW 등 윙포워드
+                    extracted["ST"] = SPID_META.get(p.get("spId"), "공격수")
+                    break
 
         return extracted
     except Exception:
@@ -199,7 +211,6 @@ def process_and_save():
     for form, count in formation_counter.most_common(5):
         share = round((count / total_valid) * 100, 1)
         
-        # [전문가 분석 코멘트 매핑]
         routes = TACTICAL_BLUEPRINTS.get(form, [
             f"{form} 포메이션 고유 빌드업 및 전환 패스 루트",
             "측면 공간 창출 후 박스 안 마무리"
@@ -208,7 +219,7 @@ def process_and_save():
         actual_rankers = formation_rankers.get(form, [])
         top_rankers_for_chip = actual_rankers[:5]
 
-        # 넥슨 공식 API로 해당 포메이션 최상위 랭커의 실제 선발 선수 실측 추출
+        # 넥슨 공식 API로 해당 포메이션 최상위 랭커의 실제 선발 라인업 조회
         real_squad_players = {}
         if actual_rankers:
             top_nick = actual_rankers[0]
@@ -216,7 +227,6 @@ def process_and_save():
             real_squad_players = fetch_real_squad_players(top_nick)
             time.sleep(0.5)
 
-        # 조회 지연/미응답 시 폴백
         if not real_squad_players:
             real_squad_players = {
                 "ST": "호나우두", "MID": "굴리트", "CDM": "로드리", "CB": "반데이크"
