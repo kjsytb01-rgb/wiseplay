@@ -30,12 +30,42 @@
     header {
       background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
       border-bottom: 1px solid var(--card-border);
-      padding: 36px 20px 20px;
+      padding: 24px 20px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      position: relative;
+    }
+
+    /* 4개국어 언어 셀렉터 (우측 상단) */
+    .lang-selector-wrap {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      display: flex;
+      gap: 6px;
+      background: #14171f;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { color: #fff; }
+    .lang-btn.active {
+      background: var(--card-border);
+      color: var(--accent-color);
     }
 
     .brand-link {
@@ -46,17 +76,15 @@
       color: inherit;
       cursor: pointer;
       transition: transform 0.25s ease;
+      margin-top: 10px;
     }
-    .brand-link:hover {
-      transform: scale(1.02);
-    }
+    .brand-link:hover { transform: scale(1.02); }
 
     .brand-logo {
       width: 100%;
       max-width: 680px;
       height: auto;
       object-fit: contain;
-      margin-bottom: 0px;
       filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
     }
 
@@ -196,9 +224,7 @@
       object-fit: contain;
       transition: transform 0.3s;
     }
-    .card:hover .card-img-wrapper img {
-      transform: scale(1.04);
-    }
+    .card:hover .card-img-wrapper img { transform: scale(1.04); }
     .card-hover-hint {
       position: absolute;
       bottom: 8px;
@@ -316,9 +342,7 @@
       grid-column: 1 / -1;
     }
 
-    /* =========================================
-       인라인 상세 페이지 뷰 (모달 X, 자연스러운 화면 전환)
-       ========================================= */
+    /* 상세 페이지 뷰 (모달 X, 단일 페이지 전환) */
     .detail-view-container {
       display: none;
       background: #161920;
@@ -561,9 +585,7 @@
       transition: opacity 0.2s;
       width: 100%;
     }
-    .detail-footer-btn:hover {
-      opacity: 0.9;
-    }
+    .detail-footer-btn:hover { opacity: 0.9; }
 
     /* 유저 평점 & 댓글 폼 */
     .user-review-box {
@@ -579,10 +601,7 @@
       gap: 8px;
       margin-bottom: 14px;
     }
-    .review-input-row {
-      display: flex;
-      gap: 8px;
-    }
+    .review-input-row { display: flex; gap: 8px; }
     .review-nick-input {
       width: 140px;
       padding: 8px 12px;
@@ -625,9 +644,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .review-submit-btn:hover {
-      background: #00dd77;
-    }
+    .review-submit-btn:hover { background: #00dd77; }
 
     .comment-list {
       display: flex;
@@ -648,19 +665,9 @@
       justify-content: space-between;
       margin-bottom: 4px;
     }
-    .comment-author {
-      font-weight: 700;
-      color: #fff;
-    }
-    .comment-score {
-      color: #ffbb00;
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-    .comment-body {
-      color: #c9d1d9;
-      line-height: 1.4;
-    }
+    .comment-author { font-weight: 700; color: #fff; }
+    .comment-score { color: #ffbb00; font-weight: 700; font-size: 0.8rem; }
+    .comment-body { color: #c9d1d9; line-height: 1.4; }
 
     /* 라이트박스 */
     #imageModal {
@@ -688,24 +695,28 @@
 </head>
 <body>
 
-  <!-- 상단 헤더: 메인 와이드 로고 중앙 배치 -->
   <header>
-    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+    <!-- 4개국어 언어 셀렉터 -->
+    <div class="lang-selector-wrap">
+      <button class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
+      <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" id="btn-lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+      <button class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
+    </div>
+
+    <a href="/" class="brand-link" title="Home">
       <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
     </a>
 
-    <!-- 중앙 탭 메뉴 -->
     <div class="nav-tabs">
       <button class="tab-btn active" id="tabNavTactics" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
       <button class="tab-btn" id="tabNavPads" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
-      <a href="/meta" class="tab-btn meta-btn">🔥 Daily Meta (오늘의 메타)</a>
+      <a href="/meta" class="tab-btn meta-btn" id="tabNavMeta">🔥 Daily Meta</a>
     </div>
   </header>
 
-  <!-- 본문 -->
   <main>
-    <!-- 검색창 바 (목록 화면에서만 보임) -->
     <div class="controls-bar" id="controlsBar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
@@ -715,23 +726,23 @@
 
     <!-- 1. Tactics 목록 섹션 -->
     <section id="section-tactics">
-      <h2 class="section-title">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span></h2>
+      <h2 class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span></h2>
       <div id="tactics-list" class="cards-grid">
-        <div class="loading">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
+        <div class="loading" id="t-loading-tactics">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
       </div>
     </section>
 
     <!-- 2. Pads (Controller) 목록 섹션 -->
     <section id="section-pads" style="display: none;">
-      <h2 class="section-title">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span></h2>
+      <h2 class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span></h2>
       <div id="pads-list" class="cards-grid">
-        <div class="loading">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
+        <div class="loading" id="t-loading-pads">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
       </div>
     </section>
 
-    <!-- 3. 전술 세부 화면 (인라인 화면 전환) -->
+    <!-- 3. 전술 세부 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
-      <button class="back-btn" onclick="backToList()">&larr; 목록으로 돌아가기</button>
+      <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
       <div class="detail-view-header">
         <span class="card-badge" id="viewFormation">포메이션</span>
@@ -740,55 +751,55 @@
       </div>
 
       <div class="tactics-img-tabs">
-        <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. 포메이션 배치도</button>
-        <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. 개인 전술 세팅</button>
-        <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. 팀 전술 세팅</button>
+        <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. <span class="t-img-tab1">포메이션 배치도</span></button>
+        <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. <span class="t-img-tab2">개인 전술 세팅</span></button>
+        <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. <span class="t-img-tab3">팀 전술 세팅</span></button>
       </div>
 
       <div style="position:relative;">
-        <img id="viewImgDisplay" class="view-display-img" src="" alt="전술 캡처" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
-        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
+        <img id="viewImgDisplay" class="view-display-img" src="" alt="Tactics" onclick="openLightbox(this.src)">
+        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;" id="t-zoom-hint">
           🔍 클릭하면 원본 크기로 확대됩니다
         </div>
       </div>
 
       <div class="detail-section">
-        <h4>📋 전술 분석 및 실전 코멘트</h4>
-        <p id="viewReviewText">설명 내용이 들어갑니다.</p>
+        <h4 id="t-desc-title">📋 전술 분석 및 실전 코멘트</h4>
+        <p id="viewReviewText">설명 내용</p>
       </div>
 
       <div class="detail-section" id="viewPadSection">
-        <h4>🎮 선수가 사용하는 패드</h4>
+        <h4 id="t-player-pad-title">🎮 선수가 사용하는 패드</h4>
         <div style="margin-top:6px;">
           <div id="viewPadNameBadge" class="cross-link-badge" onclick="navigateToPad(this.dataset.pad)">
-            🎮 <span id="viewPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;">(벤치마크 스펙 보기 &rarr;)</span>
+            🎮 <span id="viewPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;" id="t-view-spec-hint">(벤치마크 스펙 보기 &rarr;)</span>
           </div>
         </div>
       </div>
 
       <div class="detail-section">
-        <h4>⭐ 유저 실전 체감 평점 & 코멘트</h4>
+        <h4 id="t-review-sec-title">⭐ 유저 실전 체감 평점 & 코멘트</h4>
         <div class="user-review-box">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
             <span style="font-size:1.4rem; font-weight:900; color:var(--accent-gold);" id="tacticsAvgScore">0.0</span>
             <span style="color:var(--accent-gold); font-size:1.1rem;" id="tacticsAvgStars">☆☆☆☆☆</span>
-            <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0명 참여)</span>
+            <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0)</span>
           </div>
 
           <div class="review-form">
             <div class="review-input-row">
-              <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임 (티어 등)">
+              <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임">
               <select id="tReviewScore" class="review-score-select">
-                <option value="5">★ 5점 (강추)</option>
-                <option value="4">★ 4점 (좋음)</option>
-                <option value="3">★ 3점 (보통)</option>
-                <option value="2">★ 2점 (애매)</option>
-                <option value="1">★ 1점 (비추)</option>
+                <option value="5">★ 5</option>
+                <option value="4">★ 4</option>
+                <option value="3">★ 3</option>
+                <option value="2">★ 2</option>
+                <option value="1">★ 1</option>
               </select>
             </div>
             <div style="display:flex; gap:8px;">
-              <input type="text" id="tReviewText" class="review-text-input" placeholder="이 전술의 체감이나 실전 팁을 남겨주세요...">
-              <button class="review-submit-btn" onclick="submitReview('tactics')">등록</button>
+              <input type="text" id="tReviewText" class="review-text-input" placeholder="한줄평 후기를 남겨주세요...">
+              <button class="review-submit-btn" onclick="submitReview('tactics')" id="t-review-submit-btn1">등록</button>
             </div>
           </div>
 
@@ -797,15 +808,15 @@
       </div>
 
       <div id="viewYtSection">
-        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
+        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;" id="t-yt-btn-tactics">
           ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
         </a>
       </div>
     </section>
 
-    <!-- 4. 컨트롤러 세부 화면 (인라인 화면 전환) -->
+    <!-- 4. 컨트롤러 세부 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
-      <button class="back-btn" onclick="backToList()">&larr; 목록으로 돌아가기</button>
+      <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
       <div class="detail-view-header">
         <span class="card-badge" style="background:rgba(0,180,216,0.2); color:var(--accent-blue);">BENCHMARK & USER REVIEW</span>
@@ -820,7 +831,7 @@
             <span class="dash-big-num lj" id="viewPadScoreVal">0</span>
             <span class="dash-max-num">/ 100</span>
           </div>
-          <span class="dash-sub-text">폴링/레이턴시 실측 종합 벤치</span>
+          <span class="dash-sub-text" id="t-dash-sub1">폴링/레이턴시 실측 종합 벤치</span>
         </div>
 
         <div class="dash-box user-box">
@@ -829,51 +840,48 @@
             <span class="dash-big-num user" id="viewPadUserScoreVal">0.0</span>
             <span class="dash-max-num">/ 5.0</span>
           </div>
-          <span class="dash-sub-text" id="viewPadUserCountText">실사용자 0명 평가</span>
+          <span class="dash-sub-text" id="viewPadUserCountText">0 reviews</span>
         </div>
       </div>
 
       <div style="position:relative;">
-        <img id="viewPadImg" class="view-display-img" src="" alt="패드 외형" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
-        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
-          🔍 클릭하면 원본 크기로 확대됩니다
-        </div>
+        <img id="viewPadImg" class="view-display-img" src="" alt="Controller" onclick="openLightbox(this.src)">
       </div>
 
       <div class="detail-section" id="viewPadUsersSection">
-        <h4>🏆 이 패드를 사용하는 선수 / 프로게이머</h4>
+        <h4 id="t-pad-users-title">🏆 이 패드를 사용하는 선수 / 프로게이머</h4>
         <div id="viewPadUserList" class="player-tag-list"></div>
       </div>
 
       <div class="detail-section">
-        <h4>📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
+        <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
         <table class="bench-table">
           <thead>
             <tr>
-              <th>연결 방식</th>
-              <th>폴링레이트 (Hz)</th>
-              <th>스틱 레이턴시 (ms)</th>
-              <th>버튼 레이턴시 (ms)</th>
-              <th>실전 권장 및 조언</th>
+              <th id="th-mode">연결 방식</th>
+              <th id="th-poll">폴링레이트 (Hz)</th>
+              <th id="th-slat">스틱 레이턴시 (ms)</th>
+              <th id="th-blat">버튼 레이턴시 (ms)</th>
+              <th id="th-adv">실전 권장 및 조언</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>유선 (Wired)</b></td>
+              <td><b id="tb-wired">유선 (Wired)</b></td>
               <td id="pW_poll">-</td>
               <td id="pW_sLat">-</td>
               <td id="pW_bLat">-</td>
               <td id="pW_adv" style="color:#d1d5db;">-</td>
             </tr>
             <tr>
-              <td><b>동글 (Dongle)</b></td>
+              <td><b id="tb-dongle">동글 (Dongle)</b></td>
               <td id="pD_poll">-</td>
               <td id="pD_sLat">-</td>
               <td id="pD_bLat">-</td>
               <td id="pD_adv" style="color:#d1d5db;">-</td>
             </tr>
             <tr>
-              <td><b>블루투스 (BT)</b></td>
+              <td><b id="tb-bt">블루투스 (BT)</b></td>
               <td id="pB_poll">-</td>
               <td id="pB_sLat">-</td>
               <td id="pB_bLat">-</td>
@@ -884,28 +892,28 @@
       </div>
 
       <div class="detail-section">
-        <h4>⚖️ 장점 및 아쉬운 점 (Pros & Cons)</h4>
-        <p><b style="color:var(--accent-color);">[장점]</b> <span id="viewPadPros">-</span></p>
-        <p style="margin-top:6px;"><b style="color:#ff6b6b;">[단점]</b> <span id="viewPadCons">-</span></p>
+        <h4 id="t-pros-cons-title">⚖️ 장점 및 아쉬운 점 (Pros & Cons)</h4>
+        <p><b style="color:var(--accent-color);" id="t-pros-label">[장점]</b> <span id="viewPadPros">-</span></p>
+        <p style="margin-top:6px;"><b style="color:#ff6b6b;" id="t-cons-label">[단점]</b> <span id="viewPadCons">-</span></p>
       </div>
 
       <div class="detail-section">
-        <h4>🎮 유저 실사용 평점 & 리뷰 작성</h4>
+        <h4 id="t-review-sec-title2">🎮 유저 실사용 평점 & 리뷰 작성</h4>
         <div class="user-review-box">
           <div class="review-form">
             <div class="review-input-row">
               <input type="text" id="pReviewNick" class="review-nick-input" placeholder="닉네임">
               <select id="pReviewScore" class="review-score-select">
-                <option value="5">★ 5점 (인생패드)</option>
-                <option value="4">★ 4점 (만족)</option>
-                <option value="3">★ 3점 (무난함)</option>
-                <option value="2">★ 2점 (아쉬움)</option>
-                <option value="1">★ 1점 (돈아까움)</option>
+                <option value="5">★ 5</option>
+                <option value="4">★ 4</option>
+                <option value="3">★ 3</option>
+                <option value="2">★ 2</option>
+                <option value="1">★ 1</option>
               </select>
             </div>
             <div style="display:flex; gap:8px;">
               <input type="text" id="pReviewText" class="review-text-input" placeholder="그립감, 십자키, 스틱 텐션 실사용 후기...">
-              <button class="review-submit-btn" onclick="submitReview('pad')">등록</button>
+              <button class="review-submit-btn" onclick="submitReview('pad')" id="t-review-submit-btn2">등록</button>
             </div>
           </div>
 
@@ -913,23 +921,210 @@
         </div>
       </div>
 
-      <!-- 단독 유튜브 버튼 (구매 바로가기 완전 제외) -->
       <div>
-        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
+        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;" id="t-yt-btn-pads">
           ▶ LJ Lee 정밀 벤치마크 영상 보기
         </a>
       </div>
     </section>
   </main>
 
-  <!-- 라이트박스 원본 이미지 확대 팝업 (이미지 클릭 시에만 가동) -->
   <div id="imageModal" onclick="closeLightbox(event)">
-    <img id="modalImg" alt="원본 확대">
+    <img id="modalImg" alt="Enlarged">
   </div>
 
   <script>
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
+    // 4개국어 사전 (메인 index.html UI)
+    const I18N_INDEX = {
+      ko: {
+        navTactics: "Tactics (전술 DB)",
+        navController: "Controller (패드 벤치마크)",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "선수명, 포메이션, 사용 패드 검색...",
+        searchPlaceholderPads: "패드명, 스틱 방식, 장단점 검색...",
+        secTitleTactics: "⚽ 선수 & 인게임 전술 DB",
+        secSubTactics: "(카드를 클릭하면 상세 세부 페이지로 전환됩니다)",
+        secTitlePads: "🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측)",
+        secSubPads: "(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)",
+        backBtn: "목록으로 돌아가기",
+        imgTab1: "포메이션 배치도",
+        imgTab2: "개인 전술 세팅",
+        imgTab3: "팀 전술 세팅",
+        zoomHint: "🔍 클릭하면 원본 크기로 확대됩니다",
+        descTitle: "📋 전술 분석 및 실전 코멘트",
+        playerPadTitle: "🎮 선수가 사용하는 패드",
+        viewSpecHint: "(벤치마크 스펙 보기 →)",
+        reviewSecTitle: "⭐ 유저 실전 체감 평점 & 코멘트",
+        submitBtn: "등록",
+        ytBtnTactics: "▶ 즐인권의 실전 전술 해설 유튜브 영상 보기",
+        ytBtnPads: "▶ LJ Lee 정밀 벤치마크 영상 보기",
+        dashSub1: "폴링/레이턴시 실측 종합 벤치",
+        padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
+        benchTitle: "📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)",
+        thMode: "연결 방식",
+        thPoll: "폴링레이트 (Hz)",
+        thSlat: "스틱 레이턴시 (ms)",
+        thBlat: "버튼 레이턴시 (ms)",
+        thAdv: "실전 권장 및 조언",
+        tbWired: "유선 (Wired)",
+        tbDongle: "동글 (Dongle)",
+        tbBt: "블루투스 (BT)",
+        prosConsTitle: "⚖️ 장점 및 아쉬운 점 (Pros & Cons)",
+        prosLabel: "[장점]",
+        consLabel: "[단점]",
+        loadingTactics: "구글 시트에서 최신 전술 데이터를 불러오는 중...",
+        loadingPads: "구글 시트에서 패드 벤치마크 데이터를 불러오는 중...",
+        usedPadPrefix: "선수 사용 패드: ",
+        detailLinkTactics: "상세 분석 →",
+        detailLinkPads: "세부 벤치마크 →",
+        stickMechLabel: "스틱 방식",
+        wiredStatLabel: "유선 폴링/딜레이",
+        dongleStatLabel: "동글(무선) 폴링",
+        prosCardLabel: "장점: "
+      },
+      en: {
+        navTactics: "Tactics DB",
+        navController: "Controller Benchmarks",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "Search player, formation, controller...",
+        searchPlaceholderPads: "Search controller name, stick type, pros...",
+        secTitleTactics: "⚽ Player & In-Game Tactics DB",
+        secSubTactics: "(Click card to view details)",
+        secTitlePads: "🎮 Controller Precise Benchmarks (LJ Lee Tested)",
+        secSubPads: "(Click card to view benchmark)",
+        backBtn: "Back to List",
+        imgTab1: "Formation Map",
+        imgTab2: "Player Tactics",
+        imgTab3: "Team Tactics",
+        zoomHint: "🔍 Click to zoom full image",
+        descTitle: "📋 Tactical Analysis & In-Game Notes",
+        playerPadTitle: "🎮 Controller Used by Player",
+        viewSpecHint: "(View Benchmark Specs →)",
+        reviewSecTitle: "⭐ User Ratings & Practical Feedback",
+        submitBtn: "Post",
+        ytBtnTactics: "▶ Watch Tactical Analysis on YouTube (FIFA CAMPER)",
+        ytBtnPads: "▶ Watch Benchmark Video on YouTube (LJ Lee)",
+        dashSub1: "Measured Polling & Latency Composite Bench",
+        padUsersTitle: "🏆 Pro Players Using This Pad",
+        benchTitle: "📊 3-Mode Latency Benchmark (LJ Lee Measured)",
+        thMode: "Connection",
+        thPoll: "Polling (Hz)",
+        thSlat: "Stick Latency (ms)",
+        thBlat: "Button Latency (ms)",
+        thAdv: "Practical Advice",
+        tbWired: "Wired",
+        tbDongle: "Dongle 2.4G",
+        tbBt: "Bluetooth",
+        prosConsTitle: "⚖️ Pros & Cons",
+        prosLabel: "[Pros]",
+        consLabel: "[Cons]",
+        loadingTactics: "Loading latest tactics from Google Sheets...",
+        loadingPads: "Loading pad benchmark data...",
+        usedPadPrefix: "Used Controller: ",
+        detailLinkTactics: "View Details →",
+        detailLinkPads: "View Benchmark →",
+        stickMechLabel: "Stick Mechanism",
+        wiredStatLabel: "Wired Poll/Lat",
+        dongleStatLabel: "Dongle Poll",
+        prosCardLabel: "Pros: "
+      },
+      vi: {
+        navTactics: "Chiến thuật (DB)",
+        navController: "Tay cầm (Benchmark)",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "Tìm tuyển thủ, sơ đồ, tay cầm...",
+        searchPlaceholderPads: "Tìm tên tay cầm, cần analog, ưu điểm...",
+        secTitleTactics: "⚽ DB Tuyển Thủ & Chiến Thuật In-Game",
+        secSubTactics: "(Nhấp vào thẻ để xem chi tiết)",
+        secTitlePads: "🎮 Benchmark Tay Cầm Chi Tiết (LJ Lee Đo Thực Tế)",
+        secSubPads: "(Nhấp vào thẻ để xem benchmark)",
+        backBtn: "Quay lại danh sách",
+        imgTab1: "Sơ đồ bố trí",
+        imgTab2: "Chiến thuật đơn",
+        imgTab3: "Chiến thuật đội",
+        zoomHint: "🔍 Nhấp để phóng to ảnh gốc",
+        descTitle: "📋 Phân Tích Chiến Thuật & Lưu Ý",
+        playerPadTitle: "🎮 Tay Cầm Tuyển Thủ Sử Dụng",
+        viewSpecHint: "(Xem thông số Benchmark →)",
+        reviewSecTitle: "⭐ Đánh Giá Thực Tế Từ Người Dùng",
+        submitBtn: "Gửi",
+        ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (FIFA CAMPER)",
+        ytBtnPads: "▶ Xem Video Đo Đạc Benchmark (LJ Lee)",
+        dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
+        padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
+        benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối (LJ Lee Thực Đo)",
+        thMode: "Kết nối",
+        thPoll: "Polling (Hz)",
+        thSlat: "Độ trễ cần (ms)",
+        thBlat: "Độ trễ nút (ms)",
+        thAdv: "Lời khuyên thực chiến",
+        tbWired: "Dây (Wired)",
+        tbDongle: "Đầu thu (Dongle)",
+        tbBt: "Bluetooth",
+        prosConsTitle: "⚖️ Ưu Điểm & Nhược Điểm (Pros & Cons)",
+        prosLabel: "[Ưu điểm]",
+        consLabel: "[Nhược điểm]",
+        loadingTactics: "Đang tải dữ liệu chiến thuật từ Google Sheets...",
+        loadingPads: "Đang tải dữ liệu benchmark tay cầm...",
+        usedPadPrefix: "Tay cầm sử dụng: ",
+        detailLinkTactics: "Xem chi tiết →",
+        detailLinkPads: "Xem thông số →",
+        stickMechLabel: "Cơ chế cần",
+        wiredStatLabel: "Dây Poll/Trễ",
+        dongleStatLabel: "Dongle Poll",
+        prosCardLabel: "Ưu điểm: "
+      },
+      th: {
+        navTactics: "แผนการเล่น (DB)",
+        navController: "จอยคอนโทรลเลอร์ (Benchmark)",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "ค้นหานักแข่ง, แผนการเล่น, จอยที่ใช้...",
+        searchPlaceholderPads: "ค้นหาชื่อจอย, อนาล็อก, จุดเด่น...",
+        secTitleTactics: "⚽ ฐานข้อมูลแผนการเล่น & นักแข่ง",
+        secSubTactics: "(คลิกการ์ดเพื่อดูรายละเอียด)",
+        secTitlePads: "🎮 ผลทดสอบจอยเกมอย่างละเอียด (LJ Lee วัดค่าจริง)",
+        secSubPads: "(คลิกการ์ดเพื่อดูผลทดสอบ)",
+        backBtn: "กลับสู่หน้ารายการ",
+        imgTab1: "ผังตำแหน่ง",
+        imgTab2: "แทคติกส่วนตัว",
+        imgTab3: "แทคติกทีม",
+        zoomHint: "🔍 คลิกเพื่อขยายภาพขนาดเต็ม",
+        descTitle: "📋 วิเคราะห์แทคติกและข้อแนะนำการเล่น",
+        playerPadTitle: "🎮 จอยที่นักแข่งคนนี้เลือกใช้",
+        viewSpecHint: "(ดูสเปกผลทดสอบ →)",
+        reviewSecTitle: "⭐ ความคิดเห็นและรีวิวจากผู้ใช้จริง",
+        submitBtn: "ส่งความคิดเห็น",
+        ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (FIFA CAMPER)",
+        ytBtnPads: "▶ รับชมคลิปผลทดสอบบน YouTube (LJ Lee)",
+        dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
+        padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
+        benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ (LJ Lee)",
+        thMode: "การเชื่อมต่อ",
+        thPoll: "Polling (Hz)",
+        thSlat: "ดีเลย์แกนอนาล็อก (ms)",
+        thBlat: "ดีเลย์ปุ่มกด (ms)",
+        thAdv: "คำแนะนำการใช้งานจริง",
+        tbWired: "ต่อสาย (Wired)",
+        tbDongle: "ดองเกิล (Dongle)",
+        tbBt: "บลูทูธ (Bluetooth)",
+        prosConsTitle: "⚖️ จุดเด่น & ข้อพิจารณา (Pros & Cons)",
+        prosLabel: "[จุดเด่น]",
+        consLabel: "[ข้อเสีย]",
+        loadingTactics: "กำลังโหลดข้อมูลแทคติกจาก Google Sheets...",
+        loadingPads: "กำลังโหลดข้อมูลจอยเกม...",
+        usedPadPrefix: "จอยที่ใช้: ",
+        detailLinkTactics: "ดูรายละเอียด →",
+        detailLinkPads: "ดูผลทดสอบ →",
+        stickMechLabel: "ระบบอนาล็อก",
+        wiredStatLabel: "สาย Poll/ดีเลย์",
+        dongleStatLabel: "ดองเกิล Poll",
+        prosCardLabel: "จุดเด่น: "
+      }
+    };
+
+    let currentLang = localStorage.getItem('wiseplay_lang') || 'ko';
     let currentTab = 'tactics';
     let isDetailView = false;
     let allTactics = [];
@@ -937,32 +1132,89 @@
     let currentSelectedTactics = null;
     let currentSelectedPad = null;
 
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('wiseplay_lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.id === `btn-lang-${lang}`);
+      });
+      applyI18n();
+      renderTactics(allTactics);
+      renderPads(allPads);
+    }
+
+    function applyI18n() {
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      document.getElementById('tabNavTactics').innerText = t.navTactics;
+      document.getElementById('tabNavPads').innerText = t.navController;
+      document.getElementById('tabNavMeta').innerText = t.navMeta;
+      document.getElementById('t-sec-title-tactics').childNodes[0].nodeValue = t.secTitleTactics + " ";
+      document.getElementById('t-sec-sub-tactics').innerText = t.secSubTactics;
+      document.getElementById('t-sec-title-pads').childNodes[0].nodeValue = t.secTitlePads + " ";
+      document.getElementById('t-sec-sub-pads').innerText = t.secSubPads;
+
+      document.querySelectorAll('.t-back-btn').forEach(el => el.innerText = t.backBtn);
+      const tab1 = document.querySelector('.t-img-tab1'); if(tab1) tab1.innerText = t.imgTab1;
+      const tab2 = document.querySelector('.t-img-tab2'); if(tab2) tab2.innerText = t.imgTab2;
+      const tab3 = document.querySelector('.t-img-tab3'); if(tab3) tab3.innerText = t.imgTab3;
+      const zh = document.getElementById('t-zoom-hint'); if(zh) zh.innerText = t.zoomHint;
+      const dt = document.getElementById('t-desc-title'); if(dt) dt.innerText = t.descTitle;
+      const ppt = document.getElementById('t-player-pad-title'); if(ppt) ppt.innerText = t.playerPadTitle;
+      const vsh = document.getElementById('t-view-spec-hint'); if(vsh) vsh.innerText = t.viewSpecHint;
+      const rst = document.getElementById('t-review-sec-title'); if(rst) rst.innerText = t.reviewSecTitle;
+      const rst2 = document.getElementById('t-review-sec-title2'); if(rst2) rst2.innerText = t.reviewSecTitle;
+      const sb1 = document.getElementById('t-review-submit-btn1'); if(sb1) sb1.innerText = t.submitBtn;
+      const sb2 = document.getElementById('t-review-submit-btn2'); if(sb2) sb2.innerText = t.submitBtn;
+      const ytt = document.getElementById('t-yt-btn-tactics'); if(ytt) ytt.innerText = t.ytBtnTactics;
+      const ytp = document.getElementById('t-yt-btn-pads'); if(ytp) ytp.innerText = t.ytBtnPads;
+      const ds1 = document.getElementById('t-dash-sub1'); if(ds1) ds1.innerText = t.dashSub1;
+      const put = document.getElementById('t-pad-users-title'); if(put) put.innerText = t.padUsersTitle;
+      const bt = document.getElementById('t-bench-table-title'); if(bt) bt.innerText = t.benchTitle;
+
+      document.getElementById('th-mode').innerText = t.thMode;
+      document.getElementById('th-poll').innerText = t.thPoll;
+      document.getElementById('th-slat').innerText = t.thSlat;
+      document.getElementById('th-blat').innerText = t.thBlat;
+      document.getElementById('th-adv').innerText = t.thAdv;
+      document.getElementById('tb-wired').innerText = t.tbWired;
+      document.getElementById('tb-dongle').innerText = t.tbDongle;
+      document.getElementById('tb-bt').innerText = t.tbBt;
+      document.getElementById('t-pros-cons-title').innerText = t.prosConsTitle;
+      document.getElementById('t-pros-label').innerText = t.prosLabel;
+      document.getElementById('t-cons-label').innerText = t.consLabel;
+
+      const searchInput = document.getElementById('searchInput');
+      if (currentTab === 'tactics') {
+        searchInput.placeholder = t.searchPlaceholderTactics;
+      } else {
+        searchInput.placeholder = t.searchPlaceholderPads;
+      }
+    }
+
     function switchTab(tab) {
       currentTab = tab;
       isDetailView = false;
-
-      // 상세 화면 닫기 및 컨트롤바 표시
       document.getElementById('detail-view-tactics').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'flex';
 
       const tabNavTactics = document.getElementById('tabNavTactics');
       const tabNavPads = document.getElementById('tabNavPads');
-      const searchInput = document.getElementById('searchInput');
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
       if (tab === 'tactics') {
         tabNavTactics.classList.add('active');
         tabNavPads.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
-        searchInput.placeholder = "선수명, 포메이션, 사용 패드 검색...";
+        document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
         history.replaceState(null, null, '#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
         tabNavTactics.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
-        searchInput.placeholder = "패드명, 스틱 방식, 장단점 검색...";
+        document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
         history.replaceState(null, null, '#controller');
       }
       handleSearch();
@@ -976,14 +1228,12 @@
     function parseCSV(text) {
       const lines = text.trim().split('\n');
       if (lines.length <= 1) return [];
-      
       const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
       const data = [];
 
       for (let i = 1; i < lines.length; i++) {
         const line = lines[i];
         if (!line.trim()) continue;
-
         const row = [];
         let inQuotes = false;
         let field = '';
@@ -1020,7 +1270,6 @@
         renderTactics(allTactics);
       } catch (err) {
         console.error(err);
-        document.getElementById('tactics-list').innerHTML = '<div class="loading">전술 데이터를 불러오지 못했습니다.</div>';
       }
     }
 
@@ -1033,37 +1282,34 @@
         renderPads(allPads);
       } catch (err) {
         console.error(err);
-        document.getElementById('pads-list').innerHTML = '<div class="loading">패드 데이터를 불러오지 못했습니다.</div>';
       }
     }
 
     function renderTactics(list) {
       const container = document.getElementById('tactics-list');
-      if (list.length === 0) {
-        container.innerHTML = '<div class="loading">검색 결과 또는 등록된 전술이 없습니다.</div>';
-        return;
-      }
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      if (!list || list.length === 0) return;
 
       container.innerHTML = list.map((item, idx) => `
         <div class="card" onclick="openTacticsDetail(${idx})">
           <div class="card-img-wrapper">
-            <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || '전술'}" onerror="this.src='logo.png'">
-            <div class="card-hover-hint">클릭하여 상세 보기</div>
+            <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='logo.png'">
+            <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
           </div>
           <div class="card-body">
-            <span class="card-badge">${item.formation || '포메이션'}</span>
-            <h3 class="card-title">${item.playerName || '선수명'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
-            <p class="card-desc">${item.reviewText || '전술 설명이 없습니다.'}</p>
+            <span class="card-badge">${item.formation || 'FORMATION'}</span>
+            <h3 class="card-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
+            <p class="card-desc">${item.reviewText || '-'}</p>
             
             ${item.padName ? `
               <div style="font-size:0.8rem; color:var(--accent-color); margin-top:4px;">
-                🎮 선수 사용 패드: <b>${item.padName}</b>
+                🎮 ${t.usedPadPrefix}<b>${item.padName}</b>
               </div>
             ` : ''}
 
             <div class="card-meta">
-              <span>버전: ${item.versionName || '-'}</span>
-              <span style="color:var(--accent-color); font-weight:700;">상세 분석 &rarr;</span>
+              <span>${item.versionName || '-'}</span>
+              <span style="color:var(--accent-color); font-weight:700;">${t.detailLinkTactics}</span>
             </div>
           </div>
         </div>
@@ -1084,10 +1330,8 @@
 
     function renderPads(list) {
       const container = document.getElementById('pads-list');
-      if (list.length === 0) {
-        container.innerHTML = '<div class="loading">검색 결과 또는 등록된 패드가 없습니다.</div>';
-        return;
-      }
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      if (!list || list.length === 0) return;
 
       container.innerHTML = list.map((pad, idx) => {
         const ljScore = pad.metaScore || '-';
@@ -1096,8 +1340,8 @@
         return `
           <div class="card" onclick="openPadDetail(${idx})">
             <div class="card-img-wrapper">
-              <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || '패드'}" onerror="this.src='logo.png'">
-              <div class="card-hover-hint">클릭하여 상세 보기</div>
+              <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || 'Pad'}" onerror="this.src='logo.png'">
+              <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
             </div>
             <div class="card-body">
               <div class="dual-score-grid">
@@ -1107,21 +1351,21 @@
                 </div>
                 <div class="dual-score-card">
                   <span class="dual-score-header">USER RATING</span>
-                  <span class="dual-score-val user">${userStats.avg} <small>${userStats.count > 0 ? `(${userStats.count}명)` : '/ 5.0'}</small></span>
+                  <span class="dual-score-val user">${userStats.avg} <small>${userStats.count > 0 ? `(${userStats.count})` : '/ 5.0'}</small></span>
                 </div>
               </div>
 
-              <h3 class="card-title">${pad.padName || '패드명 미입력'}</h3>
+              <h3 class="card-title">${pad.padName || '-'}</h3>
               
               <table class="mini-spec-table">
-                <tr><td>스틱 방식</td><td>${pad.stickMech || '-'}</td></tr>
-                <tr><td>유선 폴링/딜레이</td><td>${pad.wPoll || '-'}Hz / ${pad.wStickLat || '-'}ms</td></tr>
-                <tr><td>동글(무선) 폴링</td><td>${pad.dPoll || '-'}Hz / ${pad.dStickLat || '-'}ms</td></tr>
+                <tr><td>${t.stickMechLabel}</td><td>${pad.stickMech || '-'}</td></tr>
+                <tr><td>${t.wiredStatLabel}</td><td>${pad.wPoll || '-'}Hz / ${pad.wStickLat || '-'}ms</td></tr>
+                <tr><td>${t.dongleStatLabel}</td><td>${pad.dPoll || '-'}Hz / ${pad.dStickLat || '-'}ms</td></tr>
               </table>
 
               <div class="card-meta">
-                <span style="color:var(--accent-color);">장점: ${pad.pros ? pad.pros.substring(0, 14) + '...' : '-'}</span>
-                <span style="color:var(--accent-blue); font-weight:700;">세부 벤치마크 &rarr;</span>
+                <span style="color:var(--accent-color);">${t.prosCardLabel}${pad.pros ? pad.pros.substring(0, 14) + '...' : '-'}</span>
+                <span style="color:var(--accent-blue); font-weight:700;">${t.detailLinkPads}</span>
               </div>
             </div>
           </div>
@@ -1131,7 +1375,6 @@
 
     function handleSearch() {
       const query = document.getElementById('searchInput').value.toLowerCase().trim();
-
       if (currentTab === 'tactics') {
         const filtered = allTactics.filter(item => {
           return (
@@ -1156,16 +1399,15 @@
       }
     }
 
-    /* 화면 전환: 전술 세부 페이지 뷰 */
     function openTacticsDetail(index) {
       currentSelectedTactics = allTactics[index];
       if (!currentSelectedTactics) return;
 
       const t = currentSelectedTactics;
-      document.getElementById('viewFormation').innerText = t.formation || '포메이션';
-      document.getElementById('viewPlayerName').innerText = `${t.playerName || '선수명'} 전술 상세`;
-      document.getElementById('viewSubInfo').innerText = `국가: ${t.country || 'GLOBAL'} | 대회 버전: ${t.versionName || '-'}`;
-      document.getElementById('viewReviewText').innerText = t.reviewText || '전술 설명이 없습니다.';
+      document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
+      document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
+      document.getElementById('viewSubInfo').innerText = `${t.country || 'GLOBAL'} | ${t.versionName || '-'}`;
+      document.getElementById('viewReviewText').innerText = t.reviewText || '-';
 
       if (t.padName) {
         document.getElementById('viewPadSection').style.display = 'block';
@@ -1185,7 +1427,6 @@
       showTacticsTabImg('formation');
       renderReviews('tactics', t.playerName || 'default_tactic');
 
-      // 리스트 숨기고 상세 뷰 표시
       document.getElementById('section-tactics').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'block';
@@ -1193,16 +1434,14 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* 화면 전환: 패드 세부 벤치마크 뷰 */
     function openPadDetail(index) {
       currentSelectedPad = allPads[index];
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
 
-      document.getElementById('viewPadName').innerText = p.padName || '게임패드 상세';
-      document.getElementById('viewPadSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
+      document.getElementById('viewPadName').innerText = p.padName || 'Gamepad';
+      document.getElementById('viewPadSub').innerText = `${p.stickMech || '-'} | KeyMap: ${p.keyMap || '-'} | Macro: ${p.macro || '-'}`;
       document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
-      
       document.getElementById('viewPadImg').src = p.imgUrl || 'logo.png';
 
       const currentPadName = (p.padName || '').toLowerCase().trim();
@@ -1211,13 +1450,13 @@
       const userListContainer = document.getElementById('viewPadUserList');
       if (matchedPlayers.length > 0) {
         userListContainer.innerHTML = matchedPlayers.map(t => `
-          <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')" title="클릭 시 선수의 세부 전술창으로 이동">
-            ⚽ <b>${t.playerName}</b> (${t.formation || '전술'})
+          <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')">
+            ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
           </div>
         `).join('');
         document.getElementById('viewPadUsersSection').style.display = 'block';
       } else {
-        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">현재 DB에 이 패드를 사용하는 것으로 등록된 선수가 없습니다.</span>';
+        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
         document.getElementById('viewPadUsersSection').style.display = 'block';
       }
 
@@ -1252,7 +1491,6 @@
 
       renderReviews('pad', p.padName || 'default_pad');
 
-      // 리스트 숨기고 상세 뷰 표시
       document.getElementById('section-pads').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'block';
@@ -1264,15 +1502,12 @@
       if (!padName) return;
       const targetName = padName.toLowerCase().trim();
       const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
-      
       if (padIndex !== -1) {
         document.getElementById('detail-view-tactics').style.display = 'none';
         currentTab = 'pads';
         document.getElementById('tabNavPads').classList.add('active');
         document.getElementById('tabNavTactics').classList.remove('active');
         openPadDetail(padIndex);
-      } else {
-        alert(`'${padName}' 패드의 상세 벤치마크 데이터가 아직 등록되지 않았습니다.`);
       }
     }
 
@@ -1280,7 +1515,6 @@
       if (!playerName) return;
       const targetName = playerName.toLowerCase().trim();
       const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
-      
       if (tacticIndex !== -1) {
         document.getElementById('detail-view-pads').style.display = 'none';
         currentTab = 'tactics';
@@ -1328,21 +1562,21 @@
         if (list.length === 0) {
           avgScoreEl.innerText = '0.0';
           avgStarsEl.innerText = '☆☆☆☆☆';
-          countEl.innerText = '(0명 참여)';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 작성된 리뷰가 없습니다. 첫 리뷰를 남겨보세요!</div>';
+          countEl.innerText = '(0)';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">-</div>';
         } else {
           const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
           const avg = (total / list.length).toFixed(1);
           avgScoreEl.innerText = avg;
-          countEl.innerText = `(${list.length}명 참여)`;
+          countEl.innerText = `(${list.length})`;
           const starCount = Math.round(Number(avg));
           avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
 
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
-                <span class="comment-author">${item.nick || '익명'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)} ${item.score}점</span>
+                <span class="comment-author">${item.nick || 'User'}</span>
+                <span class="comment-score">${'★'.repeat(item.score)}</span>
               </div>
               <div class="comment-body">${item.text}</div>
             </div>
@@ -1355,19 +1589,19 @@
 
         if (list.length === 0) {
           padUserScoreEl.innerText = '-';
-          padUserCountEl.innerText = '실사용자 0명 평가';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 작성된 리뷰가 없습니다. 첫 리뷰를 남겨보세요!</div>';
+          padUserCountEl.innerText = '0 reviews';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">-</div>';
         } else {
           const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
           const avg = (total / list.length).toFixed(1);
           padUserScoreEl.innerText = avg;
-          padUserCountEl.innerText = `실사용자 ${list.length}명 평가`;
+          padUserCountEl.innerText = `${list.length} reviews`;
 
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
-                <span class="comment-author">${item.nick || '익명'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)} ${item.score}점</span>
+                <span class="comment-author">${item.nick || 'User'}</span>
+                <span class="comment-score">${'★'.repeat(item.score)}</span>
               </div>
               <div class="comment-body">${item.text}</div>
             </div>
@@ -1396,11 +1630,8 @@
         text = document.getElementById('pReviewText').value.trim();
       }
 
-      if (!text) {
-        alert('한줄평 내용을 입력해 주세요!');
-        return;
-      }
-      if (!nick) nick = '익명 유저';
+      if (!text) return;
+      if (!nick) nick = 'User';
 
       const key = getStorageKey(type, itemId);
       let list = [];
@@ -1423,7 +1654,6 @@
         document.getElementById('pReviewText').value = '';
         renderPads(allPads);
       }
-
       renderReviews(type, itemId);
     }
 
@@ -1449,7 +1679,6 @@
       }
     });
 
-    // 해시 감지 탭 전환
     function checkHashAndSwitch() {
       const hash = window.location.hash;
       if (hash === '#controller' || hash === '#pads') {
@@ -1460,6 +1689,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      setLang(currentLang);
       loadTactics();
       loadPads();
       checkHashAndSwitch();
