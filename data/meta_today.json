@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24 14:52:10",
+  "updated_at": "2026-09-24 15:09:33",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -53,11 +53,17 @@
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "MID": {
-          "ko": "요한 크루이프",
-          "en": "Johan Cruyff",
-          "vi": "Johan Cruyff",
-          "th": "โยฮัน ครัฟฟ์"
+        "CB": {
+          "ko": "릴리앙 튀람",
+          "en": "릴리앙 튀람",
+          "vi": "릴리앙 튀람",
+          "th": "릴리앙 튀람"
+        },
+        "CDM": {
+          "ko": "잔루카 잠브로타",
+          "en": "잔루카 잠브로타",
+          "vi": "잔루카 잠브로타",
+          "th": "잔루카 잠브로타"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -65,17 +71,11 @@
           "vi": "Samuel Eto'o",
           "th": "ซามูเอล เอโต้"
         },
-        "CB": {
-          "ko": "발데",
-          "en": "balde",
-          "vi": "đầu trọc",
-          "th": "หัวล้าน"
-        },
-        "CDM": {
-          "ko": "페드리",
-          "en": "Pedri",
-          "vi": "Pedri",
-          "th": "เปดรี"
+        "MID": {
+          "ko": "페드로",
+          "en": "페드로",
+          "vi": "페드로",
+          "th": "페드로"
         }
       },
       "recommended_rankers": [
@@ -97,27 +97,27 @@
       "key_players": {
         "CB": {
           "ko": "로랑 블랑",
-          "en": "Laurent Blanc",
-          "vi": "Laurent Blanc",
-          "th": "โลรองต์ บลังค์"
+          "en": "로랑 블랑",
+          "vi": "로랑 블랑",
+          "th": "로랑 블랑"
         },
         "MID": {
           "ko": "안토니 엘랑가",
-          "en": "Anthony Elanga",
-          "vi": "Anthony Elanga",
-          "th": "แอนโทนี่ เอลังกา"
+          "en": "안토니 엘랑가",
+          "vi": "안토니 엘랑가",
+          "th": "안토니 엘랑가"
         },
         "ST": {
           "ko": "카를로스 테베스",
-          "en": "Carlos Tevez",
-          "vi": "Carlos Tevez",
-          "th": "คาร์ลอส เตเวซ"
+          "en": "카를로스 테베스",
+          "vi": "카를로스 테베스",
+          "th": "카를로스 테베스"
         },
         "CDM": {
           "ko": "박지성",
-          "en": "Park Ji-sung",
-          "vi": "Park Ji Sung",
-          "th": "ปาร์ค จีซอง"
+          "en": "박지성",
+          "vi": "박지성",
+          "th": "박지성"
         }
       },
       "recommended_rankers": [
@@ -139,27 +139,27 @@
       "key_players": {
         "CB": {
           "ko": "윌리암 살리바",
-          "en": "William Saliba",
-          "vi": "William Saliba",
-          "th": "วิลเลียม ซาลิบา"
+          "en": "윌리암 살리바",
+          "vi": "윌리암 살리바",
+          "th": "윌리암 살리바"
         },
         "MID": {
           "ko": "데클런 라이스",
-          "en": "Declan Rice",
-          "vi": "Gạo Declan",
-          "th": "เดแคลน ไรซ์"
+          "en": "데클런 라이스",
+          "vi": "데클런 라이스",
+          "th": "데클런 라이스"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "en": "수비멘디",
+          "vi": "수비멘디",
+          "th": "수비멘디"
         },
         "ST": {
           "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาแวร์ตซ์"
+          "en": "카이 하베르츠",
+          "vi": "카이 하베르츠",
+          "th": "카이 하베르츠"
         }
       },
       "recommended_rankers": [
@@ -180,21 +180,21 @@
       "key_players": {
         "CB": {
           "ko": "테오 에르난데스",
-          "en": "Theo Hernández",
-          "vi": "Theo Hernández",
-          "th": "ธีโอ เฮอร์นันเดซ"
+          "en": "테오 에르난데스",
+          "vi": "테오 에르난데스",
+          "th": "테오 에르난데스"
         },
         "CDM": {
           "ko": "산드로 토날리",
-          "en": "Sandro Tonali",
-          "vi": "Sandro Tonali",
-          "th": "ซานโดร โตนาลี"
+          "en": "산드로 토날리",
+          "vi": "산드로 토날리",
+          "th": "산드로 토날리"
         },
         "MID": {
           "ko": "하칸 찰하놀루",
-          "en": "Hakan Çalhanoğlu",
-          "vi": "Hakan Çalhanoğlu",
-          "th": "ฮาคาน ชาลฮาโนกลู"
+          "en": "하칸 찰하놀루",
+          "vi": "하칸 찰하놀루",
+          "th": "하칸 찰하놀루"
         },
         "ST": {
           "ko": "호나우두",
