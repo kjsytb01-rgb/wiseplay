@@ -1,176 +1,111 @@
 import os
 import re
-import time
 import json
+import time
 from datetime import datetime
 from collections import Counter
-import requests
+from playwright.sync_api import sync_playwright
 
-API_KEY = os.environ.get("NEXON_API_KEY", "").strip()
-HEADERS = {"x-nxopen-api-key": API_KEY}
-BASE_URL = "https://open.api.nexon.com/fconline/v1"
+def collect_real_top100_playwright():
+    print("[1/2] 헤드리스 크롬 가동 및 넥슨 공식 순위표 실시간 1~100위 전수 수집 시작...")
+    
+    ranker_data = [] # 실측 수집 리스트: [{"rank": 1, "nickname": "...", "formation": "..."}, ...]
 
-def fetch_top100_superchampions():
-    print("[1/2] FC 온라인 슈퍼챔피언스 실시간 1~100위 전수 수집 시작...")
+    with sync_playwright() as p:
+        # 브라우저 실행 (실제 크롬 환경과 동일)
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+            locale="ko-KR",
+            viewport={"width": 1920, "height": 1080}
+        )
+        page = context.new_page()
 
-    session = requests.Session()
-    session.headers.update({
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Referer": "https://fconline.nexon.com/datacenter/rank",
-        "X-Requested-With": "XMLHttpRequest"
-    })
+        print("  -> 넥슨 데이터센터 랭킹 페이지 접속 중...")
+        page.goto("https://fconline.nexon.com/datacenter/rank", wait_until="networkidle", timeout=60000)
+        time.sleep(2)
 
-    ranker_list = []
+        # 1페이지부터 5페이지까지 실제 클릭하면서 20명씩 수집 (총 100명)
+        for page_num in range(1, 6):
+            if page_num > 1:
+                print(f"  -> {page_num}페이지 버튼 클릭 및 전환 대기...")
+                # 페이지 번호 링크 클릭 (페이지네이션 엘리먼트 클릭)
+                try:
+                    page.click(f"a:has-text('{page_num}')", timeout=5000)
+                    page.wait_for_timeout(2000) # 비동기 렌더링 완료 대기
+                except Exception as e:
+                    print(f"  [경고] {page_num}페이지 클릭 재시도 중: {e}")
+                    # 페이지 스크립트 실행으로 전환
+                    page.evaluate(f"window.GetRankList && window.GetRankList(50, {page_num})")
+                    page.wait_for_timeout(2000)
 
-    # 1. 넥슨 데이터센터 순위표 비동기 API 호출 시도 (1~5페이지 = 100명)
-    for page in range(1, 6):
-        url = f"https://fconline.nexon.com/datacenter/Rank/GetRankList?matchtype=50&page={page}"
-        try:
-            res = session.get(url, timeout=8)
-            if res.status_code == 200 and len(res.text) > 100:
-                nicks = re.findall(r'class="[^"]*(?:coach|name|pointer)[^"]*"[^>]*>([^<]+)</span>', res.text)
-                forms = re.findall(r'\b(\d-\d(?:-\d){1,2})\b', res.text)
-                for i, nick in enumerate(nicks):
-                    clean = nick.strip()
-                    if clean and clean not in ["순위", "구단주", "포메이션"] and not any(r["nickname"] == clean for r in ranker_list):
-                        f = forms[i] if i < len(forms) else "4-2-2-1-1"
-                        ranker_list.append({"nickname": clean, "formation": f})
-        except Exception:
-            pass
-        time.sleep(0.2)
+            # 현재 페이지 화면의 전체 텍스트 및 HTML 파싱
+            content = page.content()
+            
+            # 행 단위 구단주 및 포메이션 파싱
+            # 넥슨 데이터센터 순위표 아이템 셀 추출
+            # 정규식 패턴: 순위(1~100) + 닉네임 + 포메이션(예: 4-2-2-2)
+            # DOM 셀 셀렉터로 직접 추출
+            rows = page.query_selector_all(".tr, tr, .rank_list li")
+            page_extracted = 0
 
-    # 2. 크롤링 차단 시 실시간 1~100위 슈챔 전수 검증 데이터셋 로드 (100명 전체)
-    if len(ranker_list) < 50:
-        print("  => 공식 순위표 실시간 1~100위 슈챔 전수 데이터셋 가동 (100명)")
-        superchamps_100 = [
-            # 1 ~ 20위
-            {"nickname": "youngsookim", "formation": "4-2-2-2"},
-            {"nickname": "제이드", "formation": "4-2-2-2"},
-            {"nickname": "T1Seon9min", "formation": "4-2-2-1-1"},
-            {"nickname": "Prime림광철", "formation": "4-2-2-2"},
-            {"nickname": "T1Pierce", "formation": "4-2-3-1"},
-            {"nickname": "크몽신경섭", "formation": "4-2-2-2"},
-            {"nickname": "DKNova", "formation": "4-2-3-1"},
-            {"nickname": "태연", "formation": "4-2-2-1-1"},
-            {"nickname": "GCTwonder08", "formation": "4-2-2-2"},
-            {"nickname": "KRXTak", "formation": "4-2-2-1-1"},
-            {"nickname": "DRXSavior", "formation": "4-2-2-1-1"},
-            {"nickname": "BFXKaiser", "formation": "4-2-3-1"},
-            {"nickname": "혜원", "formation": "4-2-2-1-1"},
-            {"nickname": "삼켜", "formation": "4-2-2-1-1"},
-            {"nickname": "청소", "formation": "4-2-2-1-1"},
-            {"nickname": "한똥똥", "formation": "4-2-3-1"},
-            {"nickname": "BenzHyeonSeung", "formation": "4-2-3-1"},
-            {"nickname": "광동포키", "formation": "4-1-2-3"},
-            {"nickname": "GEN강준호", "formation": "4-1-2-3"},
-            {"nickname": "리바이브곽", "formation": "4-1-4-1"},
+            for r in rows:
+                txt = r.inner_text().strip()
+                if not txt:
+                    continue
+                
+                # 포메이션 감지 (4-2-3-1, 4-2-2-2, 4-1-2-3 등)
+                form_match = re.search(r'\b(\d-\d(?:-\d){1,2})\b', txt)
+                if not form_match:
+                    continue
+                formation = form_match.group(1)
 
-            # 21 ~ 40위
-            {"nickname": "FC박기홍", "formation": "4-2-2-1-1"},
-            {"nickname": "KT김정민", "formation": "4-2-2-1-1"},
-            {"nickname": "대전하나민태", "formation": "4-1-2-3"},
-            {"nickname": "울산HD이원상", "formation": "4-2-2-2"},
-            {"nickname": "BNK박지민", "formation": "4-2-3-1"},
-            {"nickname": "미남박찬화", "formation": "4-2-3-1"},
-            {"nickname": "강화의신", "formation": "4-2-2-2"},
-            {"nickname": "천상계원창연", "formation": "4-2-2-2"},
-            {"nickname": "수원정성민", "formation": "4-2-2-1-1"},
-            {"nickname": "울산김병권", "formation": "4-2-2-2"},
-            {"nickname": "포항신보석", "formation": "4-1-4-1"},
-            {"nickname": "제주김유민", "formation": "4-2-2-2"},
-            {"nickname": "성남김관형", "formation": "4-1-2-3"},
-            {"nickname": "DN곽준혁", "formation": "4-1-4-1"},
-            {"nickname": "광동최호석", "formation": "4-2-2-1-1"},
-            {"nickname": "KT박찬화", "formation": "4-2-3-1"},
-            {"nickname": "GEN변우진", "formation": "4-2-2-1-1"},
-            {"nickname": "인천유나이티드민", "formation": "4-2-2-2"},
-            {"nickname": "대구에이스정", "formation": "4-1-2-3"},
-            {"nickname": "서울이랜드현", "formation": "4-2-3-1"},
+                # 구단주명 추출 (링크 또는 텍스트 내에서 추출)
+                lines = [line.strip() for line in txt.split('\n') if line.strip()]
+                nick = None
+                for line in lines:
+                    # 순위 숫자나 레벨, 경기수, 승률이 아닌 순수 닉네임 라인 탐색
+                    if len(line) >= 2 and not line.isdigit() and line not in ["슈퍼챔피언스", "챔피언스", "포메이션", "상세보기", "승률"] and not re.search(r'\d-\d', line) and "%" not in line:
+                        nick = line.split()[0]
+                        break
 
-            # 41 ~ 60위
-            {"nickname": "전북현대승", "formation": "4-2-2-1-1"},
-            {"nickname": "포항스틸러스혁", "formation": "4-2-2-2"},
-            {"nickname": "광주FC호", "formation": "4-2-2-1-1"},
-            {"nickname": "제주유나이티드태", "formation": "4-1-2-3"},
-            {"nickname": "강원FC석", "formation": "4-1-4-1"},
-            {"nickname": "수원FC진", "formation": "4-2-3-1"},
-            {"nickname": "충남아산준", "formation": "4-2-2-2"},
-            {"nickname": "부천FC현", "formation": "4-2-2-1-1"},
-            {"nickname": "부산아이파크우", "formation": "4-2-2-2"},
-            {"nickname": "안양에이스민", "formation": "4-1-2-3"},
-            {"nickname": "김포골잡이", "formation": "4-2-3-1"},
-            {"nickname": "경남FC성", "formation": "4-2-2-1-1"},
-            {"nickname": "전남드래곤즈재", "formation": "4-2-2-2"},
-            {"nickname": "천안시티승", "formation": "4-1-4-1"},
-            {"nickname": "청주FC윤", "formation": "4-2-2-1-1"},
-            {"nickname": "안산그리너스환", "formation": "4-2-3-1"},
-            {"nickname": "성남FC수", "formation": "4-2-2-2"},
-            {"nickname": "화성에이스기", "formation": "4-1-2-3"},
-            {"nickname": "파주챔피언", "formation": "4-2-2-1-1"},
-            {"nickname": "김해에이스", "formation": "4-2-3-1"},
+                if nick and not any(x["nickname"] == nick for x in ranker_data):
+                    ranker_data.append({"nickname": nick, "formation": formation})
+                    page_extracted += 1
 
-            # 61 ~ 80위
-            {"nickname": "창원FC탑", "formation": "4-2-2-2"},
-            {"nickname": "울산시민구단", "formation": "4-2-2-1-1"},
-            {"nickname": "시흥시민축구", "formation": "4-1-2-3"},
-            {"nickname": "양평에이스", "formation": "4-2-2-2"},
-            {"nickname": "포천챔프", "formation": "4-2-3-1"},
-            {"nickname": "춘천슈챔", "formation": "4-1-4-1"},
-            {"nickname": "대전코레일탑", "formation": "4-2-2-1-1"},
-            {"nickname": "부산교통공사승", "formation": "4-2-2-2"},
-            {"nickname": "목포에이스", "formation": "4-2-3-1"},
-            {"nickname": "강릉시민축구단", "formation": "4-1-2-3"},
-            {"nickname": "경주한수원탑", "formation": "4-2-2-1-1"},
-            {"nickname": "서울노원유나", "formation": "4-2-2-2"},
-            {"nickname": "중랑에이스", "formation": "4-2-3-1"},
-            {"nickname": "양주시민축구", "formation": "4-2-2-1-1"},
-            {"nickname": "평택시티즌탑", "formation": "4-1-4-1"},
-            {"nickname": "여주FC챔프", "formation": "4-2-2-2"},
-            {"nickname": "거제시민축구단", "formation": "4-1-2-3"},
-            {"nickname": "진주시민에이스", "formation": "4-2-3-1"},
-            {"nickname": "전주시민구단주", "formation": "4-2-2-1-1"},
-            {"nickname": "평창유나이티드", "formation": "4-2-2-2"},
+            # 만약 개별 셀렉터가 어긋난 경우 텍스트 전체 블록에서 정규식 보정
+            if page_extracted == 0:
+                text_all = page.inner_text("body")
+                matches = re.findall(r'(\d{1,3})\s+(?:\d+\s+)?([A-Za-z0-9가-힣_]+)[\s\S]{1,150}?(\d-\d(?:-\d){1,2})', text_all)
+                for r_num, n_cand, f_cand in matches:
+                    if int(r_num) <= 100 and n_cand not in ["슈퍼챔피언스", "포메이션"] and len(n_cand) >= 2:
+                        if not any(x["nickname"] == n_cand for x in ranker_data):
+                            ranker_data.append({"nickname": n_cand, "formation": f_cand})
 
-            # 81 ~ 100위
-            {"nickname": "충주시민탑", "formation": "4-2-2-1-1"},
-            {"nickname": "세종바네스", "formation": "4-2-3-1"},
-            {"nickname": "남동에이스", "formation": "4-1-2-3"},
-            {"nickname": "고양시민축구", "formation": "4-2-2-2"},
-            {"nickname": "가평챔피언", "formation": "4-1-4-1"},
-            {"nickname": "의정부슈챔", "formation": "4-2-2-1-1"},
-            {"nickname": "동두천에이스", "formation": "4-2-2-2"},
-            {"nickname": "연천탑랭커", "formation": "4-2-3-1"},
-            {"nickname": "포천시민구단주", "formation": "4-2-2-1-1"},
-            {"nickname": "철원에이스", "formation": "4-1-2-3"},
-            {"nickname": "화천챔프", "formation": "4-2-2-2"},
-            {"nickname": "양구탑랭크", "formation": "4-2-3-1"},
-            {"nickname": "인제에이스", "formation": "4-2-2-1-1"},
-            {"nickname": "고성슈챔", "formation": "4-1-4-1"},
-            {"nickname": "양양챔피언", "formation": "4-2-2-2"},
-            {"nickname": "속초에이스", "formation": "4-1-2-3"},
-            {"nickname": "홍천탑랭커", "formation": "4-2-3-1"},
-            {"nickname": "횡성슈챔", "formation": "4-2-2-1-1"},
-            {"nickname": "평창골잡이", "formation": "4-2-2-2"},
-            {"nickname": "정선마스터", "formation": "4-2-2-1-1"}
-        ]
-        ranker_list = superchamps_100
+            print(f"  => {page_num}페이지 수집 완료: 현재 누적 {len(ranker_data)}명 확보")
 
-    print(f"  => 슈퍼챔피언스 랭커 확보 완료: 총 {len(ranker_list)}명")
-    return ranker_list
+        browser.close()
 
-def generate_meta_file():
-    rankers = fetch_top100_superchampions()
+    print(f"  => 최종 실측 수집된 실시간 랭커 총원: {len(ranker_data)}명")
+    return ranker_data
 
-    # 100명 전수 실측 포메이션 카운팅
+def process_and_save():
+    rankers = collect_real_top100_playwright()
+
+    if not rankers:
+        print("[오류] 실제 랭커 데이터를 수집하지 못했습니다. 기존 파일을 유지합니다.")
+        return
+
+    total_valid = len(rankers)
+    print(f"[2/2] 실측 데이터 집계 중 (실제 표본: {total_valid}명)")
+
+    # 1. 실제 수집된 랭커들의 포메이션 사용 횟수 실측 카운팅
     formation_counter = Counter([r["formation"] for r in rankers])
     formation_rankers = {}
     for r in rankers:
         formation_rankers.setdefault(r["formation"], []).append(r["nickname"])
 
-    total_valid = len(rankers)
-    print(f"[2/2] 실측 포메이션 100명 전수 분석 완료 (표본: {total_valid}명)")
-
-    # 포지션별 1픽 핵심 선수 매핑
+    # 2. 포지션별 1티어 기준 선수 매핑 (프리셋)
     key_players_map = {
         "4-2-2-2": {"ST": "호나우두", "CF": "굴리트", "CDM": "로드리", "CB": "반데이크"},
         "4-2-2-1-1": {"ST": "셰우첸코", "CAM": "굴리트", "CDM": "발락", "CB": "뤼디거"},
@@ -180,27 +115,31 @@ def generate_meta_file():
     }
 
     meta_list = []
-    # 점유율 상위 5개 포메이션 정리
+    # 가장 많이 사용된 상위 포메이션 순으로 정렬
     for form, count in formation_counter.most_common(5):
+        # 실측된 수치 그대로 % 계산
         share = round((count / total_valid) * 100, 1)
 
         routes = [
-            f"{form} 슈챔 빌드업: 2선과 전방 원투패스 후 침투 연계",
-            "측면 윙어/풀백 공간 창출 및 박스 안 컷백 마무리"
+            f"{form} 실측 메타: 중앙 미드필더와 전방 침투 연계",
+            "측면 전환 후 빠른 컷백 및 박스 침투 마무리"
         ]
+
+        # 해당 포메이션을 '실제로 사용하고 있는' 수집된 랭커 닉네임만 상위 5명 노출
+        actual_rankers_for_this_form = formation_rankers.get(form, [])[:5]
 
         meta_list.append({
             "formation": form,
-            "count": count,
-            "share": share,
+            "count": count,       # 실측된 실제 인원수
+            "share": share,       # 실측된 실제 점유율 (%)
             "tactical_routes": routes,
             "key_players": key_players_map.get(form, {"ST": "호나우두", "CAM": "굴리트", "CDM": "로드리", "CB": "반데이크"}),
-            "recommended_rankers": formation_rankers.get(form, [])[:5]
+            "recommended_rankers": actual_rankers_for_this_form # 100% 실측된 닉네임
         })
 
     result_data = {
         "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "total_rankers": total_valid,
+        "total_rankers": total_valid, # 실측된 총 인원수
         "meta_list": meta_list
     }
 
@@ -208,7 +147,7 @@ def generate_meta_file():
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"  => data/meta_today.json 슈퍼챔피언스 100명 전수 저장 완료!")
+    print(f"  => data/meta_today.json 실측 데이터 저장 완료! (총 {total_valid}명 전수 집계)")
 
 if __name__ == "__main__":
-    generate_meta_file()
+    process_and_save()
