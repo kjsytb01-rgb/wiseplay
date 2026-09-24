@@ -848,6 +848,7 @@
         <div id="viewPadUserList" class="player-tag-list"></div>
       </div>
 
+      <!-- 정밀 벤치마크 테이블 (실전 권장 및 조언 열 완전 제거) -->
       <div class="detail-section">
         <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
         <table class="bench-table">
@@ -857,7 +858,6 @@
               <th id="th-poll">폴링레이트 (Hz)</th>
               <th id="th-slat">스틱 레이턴시 (ms)</th>
               <th id="th-blat">버튼 레이턴시 (ms)</th>
-              <th id="th-adv">실전 권장 및 조언</th>
             </tr>
           </thead>
           <tbody>
@@ -866,21 +866,18 @@
               <td id="pW_poll">-</td>
               <td id="pW_sLat">-</td>
               <td id="pW_bLat">-</td>
-              <td id="pW_adv" style="color:#d1d5db;">-</td>
             </tr>
             <tr>
               <td><b id="tb-dongle">동글 (Dongle)</b></td>
               <td id="pD_poll">-</td>
               <td id="pD_sLat">-</td>
               <td id="pD_bLat">-</td>
-              <td id="pD_adv" style="color:#d1d5db;">-</td>
             </tr>
             <tr>
               <td><b id="tb-bt">블루투스 (BT)</b></td>
               <td id="pB_poll">-</td>
               <td id="pB_sLat">-</td>
               <td id="pB_bLat">-</td>
-              <td id="pB_adv" style="color:#d1d5db;">-</td>
             </tr>
           </tbody>
         </table>
@@ -939,7 +936,6 @@
   <script>
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
-    // 4개국어 UI 정적 텍스트 사전
     const I18N_INDEX = {
       ko: {
         navTactics: "Tactics (전술 DB)",
@@ -970,7 +966,6 @@
         thPoll: "폴링레이트 (Hz)",
         thSlat: "스틱 레이턴시 (ms)",
         thBlat: "버튼 레이턴시 (ms)",
-        thAdv: "실전 권장 및 조언",
         tbWired: "유선 (Wired)",
         tbDongle: "동글 (Dongle)",
         tbBt: "블루투스 (BT)",
@@ -1014,7 +1009,6 @@
         thPoll: "Polling (Hz)",
         thSlat: "Stick Latency (ms)",
         thBlat: "Button Latency (ms)",
-        thAdv: "Practical Advice",
         tbWired: "Wired",
         tbDongle: "Dongle 2.4G",
         tbBt: "Bluetooth",
@@ -1058,7 +1052,6 @@
         thPoll: "Polling (Hz)",
         thSlat: "Độ trễ cần (ms)",
         thBlat: "Độ trễ nút (ms)",
-        thAdv: "Lời khuyên thực chiến",
         tbWired: "Dây (Wired)",
         tbDongle: "Đầu thu (Dongle)",
         tbBt: "Bluetooth",
@@ -1102,7 +1095,6 @@
         thPoll: "Polling (Hz)",
         thSlat: "ดีเลย์แกนอนาล็อก (ms)",
         thBlat: "ดีเลย์ปุ่มกด (ms)",
-        thAdv: "คำแนะนำการใช้งานจริง",
         tbWired: "ต่อสาย (Wired)",
         tbDongle: "ดองเกิล (Dongle)",
         tbBt: "บลูทูธ (Bluetooth)",
@@ -1184,7 +1176,6 @@
       const sb1 = document.getElementById('t-review-submit-btn1'); if(sb1) sb1.innerText = t.submitBtn;
       const sb2 = document.getElementById('t-review-submit-btn2'); if(sb2) sb2.innerText = t.submitBtn;
 
-      // 유튜브 링크 버튼 텍스트 교정
       const ytt = document.getElementById('viewYtLink');
       if (ytt) ytt.innerText = t.ytBtnTactics;
 
@@ -1199,7 +1190,6 @@
       document.getElementById('th-poll').innerText = t.thPoll;
       document.getElementById('th-slat').innerText = t.thSlat;
       document.getElementById('th-blat').innerText = t.thBlat;
-      document.getElementById('th-adv').innerText = t.thAdv;
       document.getElementById('tb-wired').innerText = t.tbWired;
       document.getElementById('tb-dongle').innerText = t.tbDongle;
       document.getElementById('tb-bt').innerText = t.tbBt;
@@ -1559,9 +1549,6 @@
       const p = currentSelectedPad;
       document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
       document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
-      document.getElementById('pW_adv').innerText = await translateDynamicText(p.wAdvice || '-', currentLang);
-      document.getElementById('pD_adv').innerText = await translateDynamicText(p.dAdvice || '-', currentLang);
-      document.getElementById('pB_adv').innerText = await translateDynamicText(p.bAdvice || '-', currentLang);
     }
 
     function navigateToPad(padName) {
