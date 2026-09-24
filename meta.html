@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WISEPLAY - 실시간 슈퍼챔피언스 메타 (FIFA CAMPER X LJ Lee)</title>
+  <title>WISEPLAY - Super Champions Daily Meta (FIFA CAMPER X LJ Lee)</title>
   <style>
     :root {
       --bg-dark: #0f1115;
@@ -30,12 +30,45 @@
     header {
       background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
       border-bottom: 1px solid var(--card-border);
-      padding: 36px 20px 20px;
+      padding: 24px 20px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      position: relative;
+    }
+
+    /* 다국어 언어 셀렉터 (우측 상단) */
+    .lang-selector-wrap {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      display: flex;
+      gap: 6px;
+      background: #14171f;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn:hover { color: #fff; }
+    .lang-btn.active {
+      background: var(--card-border);
+      color: var(--accent-color);
     }
 
     .brand-link {
@@ -46,17 +79,15 @@
       color: inherit;
       cursor: pointer;
       transition: transform 0.25s ease;
+      margin-top: 10px;
     }
-    .brand-link:hover {
-      transform: scale(1.02);
-    }
+    .brand-link:hover { transform: scale(1.02); }
 
     .brand-logo {
       width: 100%;
       max-width: 680px;
       height: auto;
       object-fit: contain;
-      margin-bottom: 0px;
       filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
     }
 
@@ -94,13 +125,7 @@
       display: inline-flex;
       align-items: center;
     }
-    .tab-btn:hover {
-      color: var(--text-main);
-    }
-    .tab-btn.meta-btn {
-      color: var(--accent-blue);
-      border: 1px solid rgba(0, 180, 216, 0.35);
-    }
+    .tab-btn:hover { color: var(--text-main); }
     .tab-btn.meta-btn.active {
       background: var(--accent-blue);
       color: #0b0d11;
@@ -152,7 +177,6 @@
       font-size: 0.8rem;
       font-weight: 700;
     }
-    /* 시간 기준 배지 (LIVE 대체) */
     .badge-time {
       background: rgba(0, 255, 136, 0.12);
       color: var(--accent-color);
@@ -296,9 +320,7 @@
       transition: opacity 0.25s ease;
       z-index: 10000;
     }
-    #toast.show {
-      opacity: 1;
-    }
+    #toast.show { opacity: 1; }
 
     .loading-box {
       text-align: center;
@@ -310,22 +332,30 @@
 <body>
 
   <header>
-    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+    <!-- 4개국어 언어 셀렉터 -->
+    <div class="lang-selector-wrap">
+      <button class="lang-btn active" onclick="setLang('ko')">🇰🇷 KO</button>
+      <button class="lang-btn" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" onclick="setLang('vi')">🇻🇳 VI</button>
+      <button class="lang-btn" onclick="setLang('th')">🇹🇭 TH</button>
+    </div>
+
+    <a href="/" class="brand-link" title="Home">
       <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
     </a>
 
     <div class="nav-tabs">
-      <a href="/#tactics" class="tab-btn">Tactics (전술 DB)</a>
-      <a href="/#controller" class="tab-btn">Controller (패드 벤치마크)</a>
-      <a href="/meta" class="tab-btn meta-btn active">🔥 Daily Meta (오늘의 메타)</a>
+      <a href="/#tactics" class="tab-btn" id="t-nav-tactics">Tactics (전술 DB)</a>
+      <a href="/#controller" class="tab-btn" id="t-nav-controller">Controller (패드 벤치마크)</a>
+      <a href="/meta" class="tab-btn meta-btn active" id="t-nav-meta">🔥 Daily Meta</a>
     </div>
   </header>
 
   <main>
     <div class="meta-top-banner">
       <div class="meta-title-area">
-        <h2>🔥 슈퍼챔피언스 메타 통계</h2>
+        <h2 id="t-banner-title">🔥 슈퍼챔피언스 메타 통계</h2>
         <p id="meta-updated-time">넥슨 공식 데이터센터 매일 08:00 KST 전수 실측 집계</p>
       </div>
       <div class="badge-wrap">
@@ -335,80 +365,259 @@
     </div>
 
     <div id="meta-list-container">
-      <div class="loading-box">메타 데이터를 불러오는 중입니다...</div>
+      <div class="loading-box" id="t-loading">메타 데이터를 불러오는 중입니다...</div>
     </div>
   </main>
 
   <div id="toast">구단주명이 복사되었습니다!</div>
 
   <script>
+    // 4개국어 사전 (UI 및 포메이션별 실전 빌드업 루트)
+    const I18N = {
+      ko: {
+        navTactics: "Tactics (전술 DB)",
+        navController: "Controller (패드 벤치마크)",
+        navMeta: "🔥 Daily Meta",
+        bannerTitle: "🔥 슈퍼챔피언스 메타 통계",
+        bannerDesc: "넥슨 공식 데이터센터 매일 08:00 KST 전수 실측 집계",
+        badgeTime: "⏱️ 매일 08:00 갱신",
+        sampleSuffix: "공식 1vs1 TOP {n}명 표본",
+        rankerCount: "명 기용",
+        secRoutes: "핵심 빌드업 & 전술 전개 루트",
+        secPlayers: "포지션별 1티어 1픽 핵심 선수",
+        secRankers: "실제 플레이 랭커 구단주 (클릭 시 복사)",
+        toastCopy: "'{name}' 구단주명이 복사되었습니다!",
+        loading: "메타 데이터를 불러오는 중입니다...",
+        routes: {
+          "4-2-2-1-1": [
+            "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
+            "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
+          ],
+          "4-2-3-1": [
+            "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
+            "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
+          ],
+          "4-2-2-2": [
+            "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
+            "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
+          ],
+          "4-1-4-1": [
+            "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
+            "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
+          ],
+          "4-1-2-3": [
+            "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
+            "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
+          ]
+        }
+      },
+      en: {
+        navTactics: "Tactics DB",
+        navController: "Controller Benchmarks",
+        navMeta: "🔥 Daily Meta",
+        bannerTitle: "🔥 Super Champions Meta Stats",
+        bannerDesc: "Nexon Datacenter Top 100 Census (Updated Daily at 08:00 KST)",
+        badgeTime: "⏱️ Daily 08:00 KST",
+        sampleSuffix: "Official 1v1 TOP {n} Rankers",
+        rankerCount: "users",
+        secRoutes: "Key Build-up & Tactical Routes",
+        secPlayers: "Tier 1 Core Pick Players",
+        secRankers: "Actual Top Rankers (Click to copy)",
+        toastCopy: "'{name}' copied to clipboard!",
+        loading: "Loading meta data...",
+        routes: {
+          "4-2-2-1-1": [
+            "Side switching via long balls & exploiting half-space channels",
+            "Box finishing assisted by fullback/winger crosses and cutbacks"
+          ],
+          "4-2-3-1": [
+            "Fast counter-attack led by CAM & deep box runs from LAM/RAM",
+            "Fullback overlapping into wide space created by wingers for cutbacks"
+          ],
+          "4-2-2-2": [
+            "Fast counter-attacks breaking center-back lines with two-striker links",
+            "Direct wing switches for LM/RM; fullback cutbacks for LAM/RAM setups"
+          ],
+          "4-1-4-1": [
+            "Solid defensive shape and patient positional build-up across midfield",
+            "Creating 5-man attacking superiority against opponent back four"
+          ],
+          "4-1-2-3": [
+            "Direct, aggressive counters utilizing an explosive 3-forward line",
+            "Attacking 5-man overload with penetrating CMs dismantling backline"
+          ]
+        }
+      },
+      vi: {
+        navTactics: "Chiến thuật (DB)",
+        navController: "Tay cầm (Benchmark)",
+        navMeta: "🔥 Daily Meta",
+        bannerTitle: "🔥 Thống Kê Meta Siêu Sao (Super Champions)",
+        bannerDesc: "Thu thập từ dữ liệu Nexon vào 08:00 KST mỗi ngày",
+        badgeTime: "⏱️ Cập nhật 08:00",
+        sampleSuffix: "Mẫu TOP {n} Xếp Hạng 1vs1",
+        rankerCount: "người dùng",
+        secRoutes: "Lộ Trình Tấn Công & Triển Khai Chiến Thuật",
+        secPlayers: "Cầu Thủ Chủ Chốt Ưu Tiên (Top Pick)",
+        secRankers: "Xếp Hạng Người Chơi Thực Tế (Nhấp để sao chép)",
+        toastCopy: "Đã sao chép HLV: '{name}'!",
+        loading: "Đang tải dữ liệu meta...",
+        routes: {
+          "4-2-2-1-1": [
+            "Chuyền dài chuyển hướng tấn công và khai thác khoảng trống Half-space",
+            "Tạt cánh và trả ngược (cutback) nhờ sự hỗ trợ của hậu vệ cánh/tiền đạo cánh"
+          ],
+          "4-2-3-1": [
+            "Phản công nhanh qua CAM và xâm nhập vòng cấm cùng LAM/RAM",
+            "Tận dụng khoảng trống biên cho hậu vệ cánh dâng cao tạt bóng & trả ngược"
+          ],
+          "4-2-2-2": [
+            "Bộ đôi tiền đạo phối hợp phản công nhanh phá vỡ cặp trung vệ đối phương",
+            "Chuyển hướng biên với LM/RM; phối hợp trả ngược với LAM/RAM"
+          ],
+          "4-1-4-1": [
+            "Kiểm soát bóng vững chắc và duy trì cự ly đội hình phòng ngự chặt chẽ",
+            "Tiền vệ dâng cao tạo thế áp đảo 5 tiền đạo tấn công hàng thủ 4 người"
+          ],
+          "4-1-2-3": [
+            "Tấn công trực diện cực nhanh với bộ 3 tiền đạo đầy đột biến",
+            "Tiền vệ trung tâm xâm nhập tạo ưu thế 5 người áp đảo hoàn toàn vòng cấm"
+          ]
+        }
+      },
+      th: {
+        navTactics: "แผนการเล่น (DB)",
+        navController: "จอยคอนโทรลเลอร์ (Benchmark)",
+        navMeta: "🔥 Daily Meta",
+        bannerTitle: "🔥 สถิติเมต้า Super Champions",
+        bannerDesc: "ดึงข้อมูลสถิติทางการจาก Nexon ทุกวันเวลา 08:00 KST",
+        badgeTime: "⏱️ อัปเดต 08:00 KST",
+        sampleSuffix: "กลุ่มตัวอย่าง TOP {n} อันดับ 1vs1",
+        rankerCount: "คน",
+        secRoutes: "แนวทางการบิลด์อัพและเจาะเข้าทำประตู",
+        secPlayers: "นักเตะตัวเลือกยอดนิยมอันดับ 1",
+        secRankers: "ผู้เล่นอันดับท็อปตัวจริง (คลิกเพื่อคัดลอก)",
+        toastCopy: "คัดลอกชื่อผู้จัดการทีม '{name}' แล้ว!",
+        loading: "กำลังโหลดข้อมูลเมต้า...",
+        routes: {
+          "4-2-2-1-1": [
+            "วางบอลยาวเปลี่ยนแกนและโจมตีพื้นที่ฮาล์ฟสเปซด้านหลัง",
+            "ฟูลแบ็กและปีกเติมเกมเพื่อเปิดบอล/คัตแบ็กจบสกอร์ในกรอบเขตโทษ"
+          ],
+          "4-2-3-1": [
+            "โต้กลับเร็วผ่าน CAM พร้อมสอดทะลุช่องด้วย LAM และ RAM",
+            "ใช้พื้นที่ริมเส้นที่ปีกดึงตัวประกบให้ฟูลแบ็กเติมเปิดบอลและคัตแบ็ก"
+          ],
+          "4-2-2-2": [
+            "คู่กองหน้าประสานงานโต้กลับเร็วเจาะทำลายคู่เซ็นเตอร์แบ็ก",
+            "เปลี่ยนแกนตรงด้วย LM/RM หรือเล่นคัตแบ็กเข้าทำด้วย LAM/RAM"
+          ],
+          "4-1-4-1": [
+            "เกมรับเหนียวแน่นสร้างเกมครองบอลอย่างใจเย็นจากแดนกลาง",
+            "ดันมิดฟิลด์ขึ้นไปสร้างความได้เปรียบ 5 คนปะทะกองหลัง 4 คน"
+          ],
+          "4-1-2-3": [
+            "โต้กลับเร็วด้วย 3 กองหน้าที่มีความอันตรายสูง",
+            "มิดฟิลด์ตัวกลางสอดเข้าเขตโทษสร้างแนวรุก 5 คนทำลายแนวรับ"
+          ]
+        }
+      }
+    };
+
+    let currentLang = localStorage.getItem('wiseplay_lang') || 'ko';
+    let metaCachedData = null;
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('wiseplay_lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.toLowerCase().includes(lang));
+      });
+      applyI18n();
+      if (metaCachedData) renderMetaCards(metaCachedData);
+    }
+
+    function applyI18n() {
+      const t = I18N[currentLang] || I18N.ko;
+      document.getElementById('t-nav-tactics').innerText = t.navTactics;
+      document.getElementById('t-nav-controller').innerText = t.navController;
+      document.getElementById('t-nav-meta').innerText = t.navMeta;
+      document.getElementById('t-banner-title').innerText = t.bannerTitle;
+      document.getElementById('badge-update-status').innerText = t.badgeTime;
+      document.getElementById('meta-updated-time').innerText = t.bannerDesc;
+      const loadEl = document.getElementById('t-loading');
+      if (loadEl) loadEl.innerText = t.loading;
+    }
+
     async function loadRealMeta() {
-      const container = document.getElementById('meta-list-container');
       try {
         const res = await fetch('/data/meta_today.json?t=' + Date.now());
-        if (!res.ok) throw new Error("데이터 수신 오류");
-        const data = await res.json();
-
-        // 갱신 시각 및 표본 수 반영
-        if (data.updated_at) {
-          const updateDate = data.updated_at.split(' ')[0];
-          document.getElementById('badge-update-status').innerText = `⏱️ ${updateDate} 08:00 기준`;
-          document.getElementById('meta-updated-time').innerText = `넥슨 공식 데이터센터 실측 집계 (${data.updated_at} 갱신)`;
-        }
-        document.getElementById('sample-count').innerText = `공식 1vs1 TOP ${data.total_rankers}명 전수 표본`;
-
-        container.innerHTML = '';
-        data.meta_list.forEach((item) => {
-          const card = document.createElement('div');
-          card.className = 'formation-card';
-
-          // 포지션과 선수명 사이에 공백 추가 (CB 마르틴 카세레스)
-          const playersHtml = Object.entries(item.key_players || {})
-            .map(([pos, name]) => `<span class="player-tag"><b>${pos}</b> ${name}</span>`)
-            .join('');
-
-          const routesHtml = (item.tactical_routes || [])
-            .map(r => `<li>${r}</li>`)
-            .join('');
-
-          const rankersHtml = (item.recommended_rankers || [])
-            .map(nick => `<button class="ranker-chip" onclick="copyRankerNick('${nick}')">📋 ${nick}</button>`)
-            .join('');
-
-          card.innerHTML = `
-            <div class="card-top">
-              <div class="form-title">${item.formation} <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${item.count}명 기용)</span></div>
-              <div class="form-share">${item.share}%</div>
-            </div>
-            <div class="gauge-bg">
-              <div class="gauge-fill" style="width: ${item.share}%;"></div>
-            </div>
-            <div class="meta-sub-header">핵심 빌드업 & 전술 전개 루트</div>
-            <ul class="tactics-route-list">${routesHtml}</ul>
-            <div class="meta-sub-header">포지션별 1티어 1픽 핵심 선수</div>
-            <div class="key-player-row">${playersHtml}</div>
-            <div class="meta-sub-header">실제 플레이 랭커 구단주 (클릭 시 복사)</div>
-            <div class="ranker-chips-wrap">${rankersHtml}</div>
-          `;
-          container.appendChild(card);
-        });
-
+        if (!res.ok) throw new Error("Fetch error");
+        metaCachedData = await res.json();
+        renderMetaCards(metaCachedData);
       } catch (err) {
         console.error(err);
-        container.innerHTML = '<div class="loading-box" style="color:#ff6b6b;">메타 데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</div>';
+        document.getElementById('meta-list-container').innerHTML = 
+          `<div class="loading-box" style="color:#ff6b6b;">Error loading meta data. Please refresh.</div>`;
       }
     }
 
+    function renderMetaCards(data) {
+      const t = I18N[currentLang] || I18N.ko;
+      document.getElementById('sample-count').innerText = t.sampleSuffix.replace('{n}', data.total_rankers);
+
+      const container = document.getElementById('meta-list-container');
+      container.innerHTML = '';
+
+      data.meta_list.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'formation-card';
+
+        const playersHtml = Object.entries(item.key_players || {})
+          .map(([pos, name]) => `<span class="player-tag"><b>${pos}</b> ${name}</span>`)
+          .join('');
+
+        // 언어별 전술 루트 매핑 (사전에 정의된 다국어 텍스트 우선, 없을 시 원본)
+        const routesList = (t.routes && t.routes[item.formation]) || item.tactical_routes || [];
+        const routesHtml = routesList.map(r => `<li>${r}</li>`).join('');
+
+        const rankersHtml = (item.recommended_rankers || [])
+          .map(nick => `<button class="ranker-chip" onclick="copyRankerNick('${nick}')">📋 ${nick}</button>`)
+          .join('');
+
+        card.innerHTML = `
+          <div class="card-top">
+            <div class="form-title">${item.formation} <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${item.count} ${t.rankerCount})</span></div>
+            <div class="form-share">${item.share}%</div>
+          </div>
+          <div class="gauge-bg">
+            <div class="gauge-fill" style="width: ${item.share}%;"></div>
+          </div>
+          <div class="meta-sub-header">${t.secRoutes}</div>
+          <ul class="tactics-route-list">${routesHtml}</ul>
+          <div class="meta-sub-header">${t.secPlayers}</div>
+          <div class="key-player-row">${playersHtml}</div>
+          <div class="meta-sub-header">${t.secRankers}</div>
+          <div class="ranker-chips-wrap">${rankersHtml}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
     function copyRankerNick(nick) {
+      const t = I18N[currentLang] || I18N.ko;
       navigator.clipboard.writeText(nick).then(() => {
         const toast = document.getElementById('toast');
-        toast.innerText = `'${nick}' 구단주명이 복사되었습니다!`;
+        toast.innerText = t.toastCopy.replace('{name}', nick);
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
 
-    window.addEventListener('DOMContentLoaded', loadRealMeta);
+    window.addEventListener('DOMContentLoaded', () => {
+      setLang(currentLang);
+      loadRealMeta();
+    });
   </script>
 </body>
 </html>
