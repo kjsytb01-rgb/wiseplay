@@ -60,16 +60,6 @@
       filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
     }
 
-    .brand-text-logo {
-      font-size: 2.2rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #fff;
-    }
-    .brand-text-logo span {
-      color: var(--accent-color);
-    }
-
     .brand-sub {
       font-size: 0.85rem;
       color: #9ba3af;
@@ -109,11 +99,11 @@
       color: #0b0d11;
       box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
     }
-    .tab-btn.meta-link {
+    .tab-btn.meta-btn {
       color: var(--accent-blue);
-      border: 1px solid rgba(0, 180, 216, 0.3);
+      border: 1px solid rgba(0, 180, 216, 0.35);
     }
-    .tab-btn.meta-link:hover {
+    .tab-btn.meta-btn:hover {
       background: rgba(0, 180, 216, 0.15);
       border-color: var(--accent-blue);
     }
@@ -239,6 +229,7 @@
       align-self: flex-start;
     }
 
+    /* ★ 카드 상단: LJ 메타스코어 & 유저 스코어 트윈 뱃지 ★ */
     .dual-score-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -448,6 +439,7 @@
       white-space: pre-wrap;
     }
 
+    /* ★ 세부 모달 상단: 전문가 메타스코어 vs 유저 스코어 듀얼 대시보드 ★ */
     .dual-dashboard {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -587,6 +579,7 @@
       opacity: 0.9;
     }
 
+    /* 유저 평점 & 댓글 폼 */
     .user-review-box {
       background: #12141a;
       border: 1px solid #282d3b;
@@ -712,16 +705,15 @@
   <!-- 상단 헤더: 메인 와이드 로고 중앙 배치 -->
   <header>
     <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
-      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'; document.getElementById('textLogo').style.display='block';">
-      <div id="textLogo" class="brand-text-logo" style="display:none;">WISE<span>PLAY</span></div>
+      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
     </a>
 
-    <!-- 중앙 탭 메뉴: Tactics / Controller / Daily Meta -->
+    <!-- 중앙 탭 메뉴 -->
     <div class="nav-tabs">
-      <button class="tab-btn active" id="btn-tab-tactics" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
-      <button class="tab-btn" id="btn-tab-pads" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
-      <a href="/meta" class="tab-btn meta-link">🔥 Daily Meta (오늘의 메타)</a>
+      <button class="tab-btn active" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
+      <button class="tab-btn" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
+      <a href="/meta" class="tab-btn meta-btn">🔥 Daily Meta (오늘의 메타)</a>
     </div>
   </header>
 
@@ -742,7 +734,7 @@
       </div>
     </section>
 
-    <!-- 2. Controller (Pads) 섹션 -->
+    <!-- 2. Pads (Controller) 섹션 -->
     <section id="section-pads" style="display: none;">
       <h2 class="section-title">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 벤치마크 세부창이 열립니다)</span></h2>
       <div id="pads-list" class="cards-grid">
@@ -920,6 +912,7 @@
           <p style="margin-top:6px;"><b style="color:#ff6b6b;">[단점]</b> <span id="padModalCons">-</span></p>
         </div>
 
+        <!-- 유저 평점 & 한줄평 리뷰 -->
         <div class="detail-section">
           <h4>🎮 유저 실사용 평점 & 리뷰 작성</h4>
           <div class="user-review-box">
@@ -972,17 +965,17 @@
 
     function switchTab(tab) {
       currentTab = tab;
-      document.getElementById('btn-tab-tactics').classList.remove('active');
-      document.getElementById('btn-tab-pads').classList.remove('active');
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(b => b.classList.remove('active'));
       const searchInput = document.getElementById('searchInput');
       
       if (tab === 'tactics') {
-        document.getElementById('btn-tab-tactics').classList.add('active');
+        tabBtns[0].classList.add('active');
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
         searchInput.placeholder = "선수명, 포메이션, 사용 패드 검색...";
-      } else {
-        document.getElementById('btn-tab-pads').classList.add('active');
+      } else if (tab === 'pads') {
+        tabBtns[1].classList.add('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
         searchInput.placeholder = "패드명, 스틱 방식, 장단점 검색...";
