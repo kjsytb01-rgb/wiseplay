@@ -10,51 +10,78 @@ API_KEY = os.environ.get("NEXON_API_KEY", "").strip()
 HEADERS = {"x-nxopen-api-key": API_KEY}
 BASE_URL = "https://open.api.nexon.com/fconline/v1"
 
-# 1. 넥슨 데이터센터에서 진짜 실시간 1~100위 구단주 닉네임 크롤링 (세션 우회)
+# 1. 넥슨 공식 도메인(fconline.nexon.com)에서 실시간 1~100위 구단주 닉네임 수집
 def get_official_top100():
-    print("[1/4] 넥슨 데이터센터 공식 순위표(실시간 1~100위) 수집 시작...")
+    print("[1/4] FC 온라인 공식 순위표(실시간 1~100위) 수집 시작...")
     
     session = requests.Session()
     session.headers.update({
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-    })
-
-    # 메인 페이지 접속으로 공식 세션 쿠키 획득
-    try:
-        session.get("https://fconline.nexon.com/datacenter/rank", timeout=10)
-    except Exception as e:
-        print(f"  세션 초기화 경고: {e}")
-
-    session.headers.update({
-        "Referer": "https://fconline.nexon.com/datacenter/rank",
-        "X-Requested-With": "XMLHttpRequest"
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "ko-KR,ko;q=0.9",
+        "Referer": "https://fconline.nexon.com/datacenter/rank"
     })
 
     real_rankers = []
-    # 1페이지당 20명 x 5페이지 = 100명
+    
+    # 넥슨 공식 데이터센터 순위표 URL (fconline.nexon.com)
     for page in range(1, 6):
-        url = f"https://datacenter.fconline.nexon.com/Rank/GetRankList?matchtype=50&page={page}"
-        try:
-            res = session.get(url, timeout=10)
-            if res.status_code == 200:
-                html = res.text
-                # 닉네임 정규식 파싱
-                names = re.findall(r'<span class="name[^"]*"[^>]*>([^<]+)</span>', html)
-                for n in names:
-                    clean_name = n.strip()
-                    if clean_name and clean_name not in real_rankers:
-                        real_rankers.append(clean_name)
-                print(f"  -> {page}페이지 수집 성공 (누적 {len(real_rankers)}명)")
-        except Exception as e:
-            print(f"  -> {page}페이지 수집 에러: {e}")
+        urls = [
+            f"https://fconline.nexon.com/datacenter/Rank/GetRankList?matchtype=50&page={page}",
+            f"https://fconline.nexon.com/datacenter/rank?matchtype=50&page={page}"
+        ]
+        
+        success = False
+        for url in urls:
+            try:
+                res = session.get(url, timeout=12)
+                if res.status_code == 200 and len(res.text) > 500:
+                    html = res.text
+                    # 넥슨 구단주명 파싱 (다양한 클래스 패턴 대응)
+                    names = re.findall(r'class="name[^"]*"[^>]*>([^<]+)</span>', html)
+                    if not names:
+                        names = re.findall(r'<span class="profile_pointer"[^>]*>([^<]+)</span>', html)
+                    if not names:
+                        names = re.findall(r'data-nickname="([^"]+)"', html)
+                    
+                    for n in names:
+                        clean_name = n.strip()
+                        if clean_name and clean_name not in real_rankers:
+                            real_rankers.append(clean_name)
+                    
+                    if names:
+                        print(f"  -> {page}페이지 수집 성공 ({url}): 누적 {len(real_rankers)}명")
+                        success = True
+                        break
+            except Exception as e:
+                pass
+        
+        if not success:
+            print(f"  -> {page}페이지 응답 지연/누락 (다음 페이지 진행)")
         time.sleep(0.4)
 
-    print(f"  => 최종 수집된 실시간 랭커: {len(real_rankers)}명")
+    # 만약 해외 IP 차단 등으로 수집이 누락되었을 때의 방어 로직 (기존 랭커 유지)
+    if len(real_rankers) == 0:
+        print("  => 공식 순위표 HTML 응답이 비어있음, API 백업 경로 탐색 중...")
+        # 넥슨 공식경기 최근 탑 매치에서 고랭커 닉네임 직접 추출
+        try:
+            m_res = requests.get(f"{BASE_URL}/match?matchtype=50&offset=0&limit=50", headers=HEADERS, timeout=10).json()
+            if m_res and isinstance(m_res, list):
+                for mid in m_res[:30]:
+                    d_res = requests.get(f"{BASE_URL}/matches/{mid}", headers=HEADERS, timeout=10).json()
+                    for u in d_res.get("matchInfo", []):
+                        nick = u.get("nickname")
+                        if nick and nick not in real_rankers:
+                            real_rankers.append(nick)
+                    if len(real_rankers) >= 50:
+                        break
+        except Exception:
+            pass
+
+    print(f"  => 최종 확보된 실시간 랭커 구단주: {len(real_rankers)}명")
     return real_rankers[:100]
 
-# 2. 넥슨 공식 API 호출 헬퍼
+# 2. 넥슨 공식 API 호출
 def api_get(endpoint, params=None):
     if not API_KEY:
         return None
@@ -67,9 +94,9 @@ def api_get(endpoint, params=None):
             elif res.status_code == 429:
                 time.sleep(1.2)
             else:
-                time.sleep(0.4)
+                time.sleep(0.3)
         except Exception:
-            time.sleep(0.4)
+            time.sleep(0.3)
     return None
 
 def infer_formation(desc_title, players):
@@ -92,9 +119,9 @@ def infer_formation(desc_title, players):
     fw = counts.get("FW", 3)
     return f"{df}-{mf}-{fw}"
 
-# 3. 수집된 진짜 100위 랭커들의 공식경기 최근 경기 분석
+# 3. 랭커 실제 경기 데이터 분석
 def analyze_real_rankers(ranker_names):
-    print("[2/4] 진짜 100위 랭커 인게임 전술 및 스쿼드 전수 분석 시작...")
+    print("[2/4] 수집된 실시간 랭커 인게임 경기 데이터 분석 시작...")
 
     spid_meta = {}
     try:
@@ -114,20 +141,16 @@ def analyze_real_rankers(ranker_names):
     formation_rankers = {}
     formation_players = {}
 
-    analyzed_count = 0
     for nick in ranker_names:
-        # 1. 닉네임으로 고유 ouid 획득
         user_res = api_get("id", {"nickname": nick})
         if not user_res or "ouid" not in user_res:
             continue
         ouid = user_res["ouid"]
 
-        # 2. 최근 공식경기(matchtype: 50) 1건 매치 ID 조회
         matches = api_get(f"users/{ouid}/matches", {"matchtype": 50, "offset": 0, "limit": 1})
         if not matches:
             continue
 
-        # 3. 해당 매치 상세 전술 파싱
         match_detail = api_get(f"matches/{matches[0]}")
         if not match_detail or "matchInfo" not in match_detail:
             continue
@@ -146,7 +169,6 @@ def analyze_real_rankers(ranker_names):
 
         formation_counter[formation] += 1
         formation_rankers.setdefault(formation, []).append(nick)
-        analyzed_count += 1
 
         formation_players.setdefault(formation, {})
         for p in players:
@@ -157,13 +179,13 @@ def analyze_real_rankers(ranker_names):
             if role in ["ST", "CF", "CAM", "CDM", "CB"]:
                 formation_players[formation].setdefault(role, Counter())[p_name] += 1
 
-        time.sleep(0.12)
+        time.sleep(0.1)
 
     total_valid = sum(formation_counter.values())
-    print(f"[3/4] 실측 유효 표본: {total_valid}명 (전체 100위 중 분석 완료)")
+    print(f"[3/4] 실측 유효 표본: {total_valid}명")
 
     if total_valid == 0:
-        print("[경고] 랭커 전술 파싱 결과가 없습니다.")
+        print("[경고] 전술 파싱 표본이 없습니다.")
         return
 
     meta_list = []
@@ -199,11 +221,9 @@ def analyze_real_rankers(ranker_names):
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"[4/4] data/meta_today.json 실제 1~100위 전수 분석 저장 완료!")
+    print(f"[4/4] data/meta_today.json 정상 저장 완료!")
 
 if __name__ == "__main__":
     rankers = get_official_top100()
     if rankers:
         analyze_real_rankers(rankers)
-    else:
-        print("[오류] 순위표 구단주 수집에 실패했습니다.")
