@@ -11,7 +11,7 @@ API_KEY = os.environ.get("NEXON_API_KEY", "").strip()
 HEADERS = {"x-nxopen-api-key": API_KEY}
 BASE_URL = "https://open.api.nexon.com/fconline/v1"
 
-# [전문가 직접 검증] 포메이션별 실전 빌드업 & 전개 메커니즘
+# [전문가 직접 검증] 포메이션별 고유 실전 빌드업 메커니즘
 TACTICAL_BLUEPRINTS = {
     "4-2-2-1-1": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
@@ -35,7 +35,6 @@ TACTICAL_BLUEPRINTS = {
     ]
 }
 
-# 넥슨 선수 메타데이터 매핑용
 SPID_META = {}
 def get_spid_metadata():
     global SPID_META
@@ -48,12 +47,10 @@ def get_spid_metadata():
         pass
 
 def fetch_real_squad_players(nickname):
-    """실제 랭커의 최근 1vs1 공식경기 선발 11명 전수 추출 및 정확한 포지션 매핑"""
     if not API_KEY:
         return {}
 
     try:
-        # 1. 닉네임 -> OUID 조회
         id_res = requests.get(f"{BASE_URL}/id?nickname={nickname}", headers=HEADERS, timeout=5)
         if id_res.status_code != 200:
             return {}
@@ -61,7 +58,6 @@ def fetch_real_squad_players(nickname):
         if not ouid:
             return {}
 
-        # 2. 최근 1vs1 공식경기 매치 ID 조회 (matchtype 50)
         matches_res = requests.get(f"{BASE_URL}/user/match?ouid={ouid}&matchtype=50&offset=0&limit=1", headers=HEADERS, timeout=5)
         if matches_res.status_code != 200:
             return {}
@@ -69,20 +65,17 @@ def fetch_real_squad_players(nickname):
         if not match_ids:
             return {}
 
-        # 3. 매치 상세 데이터에서 선발 라인업 추출
         detail_res = requests.get(f"{BASE_URL}/match-detail?matchid={match_ids[0]}", headers=HEADERS, timeout=5)
         if detail_res.status_code != 200:
             return {}
         
         detail_data = detail_res.json()
         match_info = detail_data.get("matchInfo", [])
-        
         target_info = next((m for m in match_info if m.get("ouid") == ouid), match_info[0] if match_info else None)
         if not target_info:
             return {}
 
         players = target_info.get("player", [])
-        # 선발 선수 필터링 (spPosition != 28: 후보 제외)
         starting_players = [p for p in players if p.get("spPosition") != 28]
 
         extracted = {}
@@ -91,26 +84,15 @@ def fetch_real_squad_players(nickname):
             sp_id = p.get("spId")
             p_name = SPID_META.get(sp_id, f"ID:{sp_id}")
 
-            # 넥슨 공식 포지션 ID 기준 정확한 매핑
-            # 1) 최전방 공격수: 20(ST), 21(CF), 24(RS), 25(LS)
+            # 넥슨 공식 포지션 기준
             if pos_id in [20, 21, 24, 25] and "ST" not in extracted:
                 extracted["ST"] = p_name
-            # 2) 공격형/중앙 미드필더: 12~19 (CAM, CM, LAM, RAM)
             elif pos_id in [12, 13, 14, 15, 16, 17, 18, 19] and "MID" not in extracted:
                 extracted["MID"] = p_name
-            # 3) 수비형 미드필더: 9, 10, 11 (CDM, RDM, LDM)
             elif pos_id in [9, 10, 11] and "CDM" not in extracted:
                 extracted["CDM"] = p_name
-            # 4) 센터백: 4, 5, 6, 7 (CB, RCB, LCB, SW)
             elif pos_id in [4, 5, 6, 7] and "CB" not in extracted:
                 extracted["CB"] = p_name
-
-        # 만약 특정 포지션이 비었을 경우 추가 선발에서 보충 탐색
-        if "ST" not in extracted:
-            for p in starting_players:
-                if p.get("spPosition") in [22, 23, 26, 27]: # LW, RW 등 윙포워드
-                    extracted["ST"] = SPID_META.get(p.get("spId"), "공격수")
-                    break
 
         return extracted
     except Exception:
@@ -157,9 +139,14 @@ def collect_real_top100_playwright():
                 const rows = document.querySelectorAll('tbody tr, .rank_list .tr, .tbody .tr, tr');
                 rows.forEach(row => {
                     const text = row.innerText || '';
-                    const formMatch = text.match(/\\b(\\d-\\d(?:-\\d){1,2})\\b/);
+                    // 4-2-2-1-1까지 완벽히 매칭하는 정규식
+                    const formMatch = text.match(/\\b(\\d(?:-\\d){2,4})\\b/);
                     if (!formMatch) return;
                     
+                    let formStr = formMatch[1];
+                    // 혹시라도 4-2-2-1로 잡혔다면 4-2-2-1-1로 보정
+                    if (formStr === '4-2-2-1') formStr = '4-2-2-1-1';
+
                     let nickname = '';
                     const linkElem = row.querySelector('a[href*="profile"], a[onclick*="Profile"], .coach_name, .name, .profile_pointer');
                     if (linkElem) {
@@ -174,7 +161,7 @@ def collect_real_top100_playwright():
                         }
                     }
                     if (nickname && nickname.length >= 2) {
-                        results.push({ nickname: nickname, formation: formMatch[1] });
+                        results.push({ nickname: nickname, formation: formStr });
                     }
                 });
                 return results;
@@ -205,25 +192,22 @@ def process_and_save():
     for r in rankers:
         formation_rankers.setdefault(r["formation"], []).append(r["nickname"])
 
-    print("[2/3] 포메이션별 최상위 랭커의 실제 인게임 스쿼드 11명 API 전수 분석 중...")
+    print("[2/3] 포메이션별 최상위 랭커 실제 인게임 라인업 추출 중...")
 
     meta_list = []
     for form, count in formation_counter.most_common(5):
         share = round((count / total_valid) * 100, 1)
         
-        routes = TACTICAL_BLUEPRINTS.get(form, [
-            f"{form} 포메이션 고유 빌드업 및 전환 패스 루트",
-            "측면 공간 창출 후 박스 안 마무리"
-        ])
+        # 4-2-2-1-1 키 완벽 매칭
+        routes = TACTICAL_BLUEPRINTS.get(form, TACTICAL_BLUEPRINTS.get(form.replace('4-2-2-1', '4-2-2-1-1'), []))
 
         actual_rankers = formation_rankers.get(form, [])
         top_rankers_for_chip = actual_rankers[:5]
 
-        # 넥슨 공식 API로 해당 포메이션 최상위 랭커의 실제 선발 라인업 조회
         real_squad_players = {}
         if actual_rankers:
             top_nick = actual_rankers[0]
-            print(f"  -> '{form}' 최상위 랭커 [{top_nick}]의 실제 경기 선발 라인업 조회 중...")
+            print(f"  -> '{form}' 최상위 랭커 [{top_nick}] 라인업 조회...")
             real_squad_players = fetch_real_squad_players(top_nick)
             time.sleep(0.5)
 
@@ -251,7 +235,7 @@ def process_and_save():
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"[3/3] data/meta_today.json 실측 및 전문가 코멘트 매핑 완료! (표본: {total_valid}명)")
+    print(f"[3/3] data/meta_today.json 업데이트 완료! (표본: {total_valid}명)")
 
 if __name__ == "__main__":
     process_and_save()
