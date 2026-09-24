@@ -3,115 +3,357 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WISEPLAY - FC 온라인 실시간 데일리 메타</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>WISEPLAY - 실시간 슈퍼챔피언스 메타 (FIFA CAMPER X LJ Lee)</title>
   <style>
     :root {
-      --bg-color: #0b0e14;
-      --card-bg: #151a23;
+      --bg-dark: #0f1115;
+      --card-bg: #1a1d24;
+      --card-border: #2a2e39;
       --accent-color: #00ff88;
-      --text-main: #ffffff;
+      --accent-blue: #00b4d8;
+      --accent-gold: #ffbb00;
+      --text-main: #f0f2f5;
       --text-muted: #8b949e;
-      --border-color: #232a36;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* 상단 헤더: 메인 와이드 로고 중앙 배치 */
+    header {
+      background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 36px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+    .brand-link:hover {
+      transform: scale(1.02);
+    }
+
+    .brand-logo {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 0px;
+      filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: #9ba3af;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-top: 2px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* 네비게이션 탭 메뉴 (메인과 완벽 통일) */
+    .nav-tabs {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 18px;
+      background: #14171f;
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+    .tab-btn.active {
+      background: var(--accent-color);
+      color: #0b0d11;
+      box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
+    }
+    .tab-btn.meta-btn {
+      color: var(--accent-blue);
+      border: 1px solid rgba(0, 180, 216, 0.35);
+    }
+    .tab-btn.meta-btn.active {
+      background: var(--accent-blue);
+      color: #0b0d11;
+      box-shadow: 0 4px 14px rgba(0, 180, 216, 0.25);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .meta-top-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #161920;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+    }
+    .meta-title-area h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .meta-title-area p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .badge-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .badge-live {
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--accent-color);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+    .badge-sample {
+      background: rgba(0, 180, 216, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+    }
+
+    /* 포메이션 메타 카드 */
+    .formation-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .formation-card:hover {
+      border-color: var(--accent-color);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .form-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .form-share {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--accent-color);
+    }
     
-    /* 네비게이션 헤더 */
-    header { background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
-    .logo { font-size: 1.3rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .logo span { color: var(--accent-color); }
-    .nav-links { display: flex; gap: 20px; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
+    .gauge-bg {
+      width: 100%;
+      height: 7px;
+      background: #11141a;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      border: 1px solid #232732;
+    }
+    .gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-color), var(--accent-blue));
+      border-radius: 4px;
+    }
 
-    /* 메인 콘텐츠 */
-    .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-    .meta-header { margin-bottom: 30px; text-align: center; }
-    .meta-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
-    .meta-badge-wrap { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
-    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
-    .badge-live { background: rgba(0, 255, 136, 0.15); color: var(--accent-color); border: 1px solid rgba(0, 255, 136, 0.3); }
-    .badge-sample { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .meta-sub-header {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
 
-    /* 포메이션 카드 */
-    .formation-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px; padding: 24px; margin-bottom: 24px; }
-    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .formation-title { font-size: 1.4rem; font-weight: 700; color: #fff; }
-    .formation-share { font-size: 1.2rem; font-weight: 800; color: var(--accent-color); }
-    
-    /* 게이지 바 */
-    .bar-bg { width: 100%; height: 8px; background: #232a36; border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
-    .bar-fill { height: 100%; background: linear-gradient(90deg, #00ff88, #00bdff); border-radius: 4px; }
+    .tactics-route-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    .tactics-route-list li {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tactics-route-list li::before {
+      content: "▶";
+      color: var(--accent-color);
+      font-size: 0.65rem;
+    }
 
-    /* 추천 선수 및 루트 */
-    .meta-section-title { font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
-    .routes-list { list-style: none; margin-bottom: 18px; }
-    .routes-list li { font-size: 0.95rem; color: #cbd5e1; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-    .routes-list li i { color: var(--accent-color); font-size: 0.8rem; }
+    .key-player-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .player-tag {
+      background: #12151c;
+      border: 1px solid #282d3b;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #f0f2f5;
+    }
+    .player-tag b {
+      color: var(--accent-blue);
+      margin-right: 5px;
+    }
 
-    .key-players { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .player-tag { background: #1c2333; border: 1px solid #2d3748; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; color: #e2e8f0; }
-    .player-tag b { color: #38bdf8; margin-right: 4px; }
+    .ranker-chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ranker-chip {
+      background: #12151c;
+      border: 1px solid #282d3b;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .ranker-chip:hover {
+      background: var(--accent-color);
+      color: #0b0d11;
+      border-color: var(--accent-color);
+      font-weight: 700;
+    }
 
-    /* 랭커 닉네임 칩 */
-    .ranker-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-    .chip { background: #1e293b; border: 1px solid #334155; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; color: #fff; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-    .chip:hover { background: #334155; border-color: var(--accent-color); color: var(--accent-color); }
-    .chip i { font-size: 0.75rem; color: var(--text-muted); }
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-color);
+      color: #0b0d11;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 10000;
+    }
+    #toast.show {
+      opacity: 1;
+    }
 
-    /* 토스트 알림 */
-    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00ff88; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 1000; }
-    #toast.show { opacity: 1; }
+    .loading-box {
+      text-align: center;
+      padding: 70px 0;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
 
+  <!-- 상단 헤더: 메인 와이드 로고 중앙 배치 (메인과 완벽 일치) -->
   <header>
-    <div class="nav-container">
-      <a href="/" class="logo"><i class="fa-solid fa-gamepad"></i> WISE<span>PLAY</span></a>
-      <nav class="nav-links">
-        <a href="/#tactics"><i class="fa-solid fa-futbol"></i> 전술 추천</a>
-        <a href="/#controller"><i class="fa-solid fa-gamepad"></i> 컨트롤러 추천</a>
-        <a href="/meta" class="active"><i class="fa-solid fa-fire"></i> Daily Meta</a>
-      </nav>
+    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
+      <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
+    </a>
+
+    <!-- 중앙 탭 메뉴 (메인 페이지 해시 #tactics, #controller 로 즉시 전환 연동) -->
+    <div class="nav-tabs">
+      <a href="/#tactics" class="tab-btn">Tactics (전술 DB)</a>
+      <a href="/#controller" class="tab-btn">Controller (패드 벤치마크)</a>
+      <a href="/meta" class="tab-btn meta-btn active">🔥 Daily Meta (오늘의 메타)</a>
     </div>
   </header>
 
-  <main class="container">
-    <div class="meta-header">
-      <h1>실시간 슈퍼챔피언스 메타 통계</h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">넥슨 공식 데이터센터 실시간 1~100위 전수 실측 집계</p>
-      <div class="meta-badge-wrap">
-        <span class="badge badge-live"><i class="fa-solid fa-circle-dot"></i> LIVE</span>
+  <main>
+    <div class="meta-top-banner">
+      <div class="meta-title-area">
+        <h2>🔥 실시간 슈퍼챔피언스 메타 통계</h2>
+        <p>넥슨 공식 데이터센터 실시간 1~100위 전수 실측 집계</p>
+      </div>
+      <div class="badge-wrap">
+        <span class="badge badge-live">● LIVE</span>
         <span class="badge badge-sample" id="sample-count">공식 1vs1 TOP 100명 표본</span>
       </div>
     </div>
 
-    <div id="meta-container">
-      <!-- 자바스크립트로 메타 카드 동적 로드 -->
-      <div style="text-align: center; color: var(--text-muted); padding: 60px 0;">
-        <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-        <p style="margin-top: 12px;">실시간 메타 데이터를 불러오는 중입니다...</p>
-      </div>
+    <div id="meta-list-container">
+      <div class="loading-box">실시간 슈퍼챔피언스 메타 데이터를 불러오는 중...</div>
     </div>
   </main>
 
   <div id="toast">구단주명이 복사되었습니다!</div>
 
   <script>
-    async function loadMeta() {
+    async function loadRealMeta() {
+      const container = document.getElementById('meta-list-container');
       try {
         const res = await fetch('/data/meta_today.json?t=' + Date.now());
-        if (!res.ok) throw new Error("데이터 수신 실패");
+        if (!res.ok) throw new Error("데이터 수신 오류");
         const data = await res.json();
 
         document.getElementById('sample-count').innerText = `공식 1vs1 TOP ${data.total_rankers}명 전수 표본`;
 
-        const container = document.getElementById('meta-container');
         container.innerHTML = '';
-
         data.meta_list.forEach((item) => {
           const card = document.createElement('div');
           card.className = 'formation-card';
@@ -121,51 +363,47 @@
             .join('');
 
           const routesHtml = (item.tactical_routes || [])
-            .map(r => `<li><i class="fa-solid fa-angle-right"></i> ${r}</li>`)
+            .map(r => `<li>${r}</li>`)
             .join('');
 
           const rankersHtml = (item.recommended_rankers || [])
-            .map(nick => `<button class="chip" onclick="copyNick('${nick}')">${nick} <i class="fa-regular fa-copy"></i></button>`)
+            .map(nick => `<button class="ranker-chip" onclick="copyRankerNick('${nick}')">📋 ${nick}</button>`)
             .join('');
 
           card.innerHTML = `
             <div class="card-top">
-              <div class="formation-title">${item.formation} <span style="font-size:0.9rem; color:var(--text-muted); font-weight:normal;">(${item.count}명)</span></div>
-              <div class="formation-share">${item.share}%</div>
+              <div class="form-title">${item.formation} <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${item.count}명 기용)</span></div>
+              <div class="form-share">${item.share}%</div>
             </div>
-            <div class="bar-bg">
-              <div class="bar-fill" style="width: ${item.share}%;"></div>
+            <div class="gauge-bg">
+              <div class="gauge-fill" style="width: ${item.share}%;"></div>
             </div>
-            <div class="meta-section-title">핵심 전술 빌드업 루트</div>
-            <ul class="routes-list">${routesHtml}</ul>
-            <div class="meta-section-title">포지션별 핵심 1픽 선수</div>
-            <div class="key-players">${playersHtml}</div>
-            <div class="meta-section-title">실제 플레이 랭커 (클릭 시 복사)</div>
-            <div class="ranker-chips">${rankersHtml}</div>
+            <div class="meta-sub-header">핵심 빌드업 & 전술 전개 루트</div>
+            <ul class="tactics-route-list">${routesHtml}</ul>
+            <div class="meta-sub-header">포지션별 1티어 1픽 핵심 선수</div>
+            <div class="key-player-row">${playersHtml}</div>
+            <div class="meta-sub-header">실제 플레이 랭커 구단주 (클릭 시 복사)</div>
+            <div class="ranker-chips-wrap">${rankersHtml}</div>
           `;
           container.appendChild(card);
         });
 
       } catch (err) {
         console.error(err);
-        document.getElementById('meta-container').innerHTML = `
-          <div style="text-align: center; color: #ef4444; padding: 40px 0;">
-            <p>메타 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
-          </div>
-        `;
+        container.innerHTML = '<div class="loading-box" style="color:#ff6b6b;">메타 데이터를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</div>';
       }
     }
 
-    function copyNick(name) {
-      navigator.clipboard.writeText(name).then(() => {
+    function copyRankerNick(nick) {
+      navigator.clipboard.writeText(nick).then(() => {
         const toast = document.getElementById('toast');
-        toast.innerText = `'${name}' 구단주명이 복사되었습니다!`;
+        toast.innerText = `'${nick}' 구단주명이 복사되었습니다!`;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
       });
     }
 
-    loadMeta();
+    window.addEventListener('DOMContentLoaded', loadRealMeta);
   </script>
 </body>
 </html>
