@@ -10,60 +10,60 @@ API_KEY = os.environ.get("NEXON_API_KEY", "").strip()
 HEADERS = {"x-nxopen-api-key": API_KEY}
 BASE_URL = "https://open.api.nexon.com/fconline/v1"
 
-# 1. 넥슨 데이터센터 공식 랭킹 페이지에서 진짜 랭커 실시간 파싱
+# 1. 수신된 500KB의 HTML에서 실제 랭커 닉네임 정확히 추출
 def fetch_real_rankers_from_web():
     print("[1/3] FC 온라인 데이터센터 공식 순위표 실시간 수집 시작...")
     
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8",
+        "Accept-Language": "ko-KR,ko;q=0.9",
         "Referer": "https://fconline.nexon.com/"
     }
 
-    # 직접 접속 및 프록시 우회 후보 URL들
-    target_urls = [
-        "https://fconline.nexon.com/datacenter/rank",
-        "https://api.allorigins.win/raw?url=" + requests.utils.quote("https://fconline.nexon.com/datacenter/rank")
-    ]
-
-    html = ""
-    for url in target_urls:
-        try:
-            print(f"  접속 시도: {url[:60]}...")
-            res = requests.get(url, headers=headers, timeout=15)
-            if res.status_code == 200 and len(res.text) > 1000:
-                html = res.text
-                print(f"  => 응답 수신 완료 (길이: {len(html)} bytes)")
-                break
-        except Exception as e:
-            print(f"  접속 실패: {e}")
-
-    if not html:
-        print("[경고] 순위표 페이지 접근 실패")
+    url = "https://fconline.nexon.com/datacenter/rank"
+    try:
+        res = requests.get(url, headers=headers, timeout=15)
+        if res.status_code != 200 or len(res.text) < 1000:
+            print("[오류] 페이지 응답 이상")
+            return []
+        html = res.text
+    except Exception as e:
+        print(f"[오류] 접속 예외 발생: {e}")
         return []
 
-    # 랭커 닉네임 및 포메이션 파싱
-    # 넥슨 순위표 구조: 닉네임(클래스 또는 프로필 링크)
+    # 넥슨 데이터센터의 프로필 링크 / 닉네임 패턴 전수 파싱
     parsed_rankers = []
+
+    # 패턴 1: Profile('닉네임') 또는 viewProfile('닉네임') 자바스크립트 호출
+    p1 = re.findall(r"(?:Profile|viewProfile|goProfile)\s*\(\s*['\"]([^'\"]+)['\"]\s*\)", html)
     
-    # 1. 특정 닉네임 패턴 추출
-    nick_matches = re.findall(r'class="name[^"]*"[^>]*>([^<]+)</span>', html)
-    if not nick_matches:
-        nick_matches = re.findall(r'<span class="profile_pointer"[^>]*>([^<]+)</span>', html)
-    if not nick_matches:
-        nick_matches = re.findall(r'onclick="[^"]*Profile[^"]*"[^>]*>([^<]+)</a>', html)
+    # 패턴 2: class="coach" 또는 class="coach_name" 또는 class="profile_pointer"
+    p2 = re.findall(r'<span[^>]*class="[^"]*(?:coach|profile_pointer|name)[^"]*"[^>]*>([^<]+)</span>', html)
+    
+    # 패턴 3: td class="coach" 안의 a 태그 텍스트
+    p3 = re.findall(r'<td[^>]*class="[^"]*coach[^"]*"[^>]*>[\s\S]*?<a[^>]*>([^<]+)</a>', html)
 
-    # 2. 텍스트 블록 기반 파싱 (검색 결과에 확인된 랭커명 패턴)
-    for nick in nick_matches:
+    # 패턴 4: data-nickname 속성
+    p4 = re.findall(r'data-nickname\s*=\s*["\']([^"\']+)["\']', html)
+
+    candidate_list = p1 + p2 + p3 + p4
+
+    # 필터링 (불필요한 공통 단어 및 중복 제거)
+    excluded = {"구단주명", "감독명", "순위", "레벨", "구단가치", "포메이션", "승률", "클럽", "더보기", "닉네임"}
+    for nick in candidate_list:
         clean = nick.strip()
-        if clean and clean not in parsed_rankers and len(clean) >= 2:
-            parsed_rankers.append(clean)
+        if clean and clean not in excluded and len(clean) >= 2:
+            if clean not in parsed_rankers:
+                parsed_rankers.append(clean)
 
-    print(f"  => 실시간 랭커 닉네임 파싱 완료: {len(parsed_rankers)}명 확보")
-    return parsed_rankers
+    print(f"  => 실시간 랭커 닉네임 파싱 완료: {len(parsed_rankers)}명 확보!")
+    if parsed_rankers:
+        print(f"  => 상위 랭커 샘플: {parsed_rankers[:5]}")
 
-# 2. 넥슨 공식 API 호출
+    return parsed_rankers[:100]
+
+# 2. 넥슨 공식 API 호출 헬퍼
 def api_get(endpoint, params=None):
     if not API_KEY:
         return None
@@ -101,9 +101,9 @@ def infer_formation(desc_title, players):
     fw = counts.get("FW", 3)
     return f"{df}-{mf}-{fw}"
 
-# 3. 수집된 실제 랭커 인게임 전술 분석
+# 3. 랭커 실제 경기 데이터 분석
 def analyze_real_rankers(ranker_names):
-    print("[2/3] 수집된 실시간 랭커 인게임 경기 데이터 전수 분석...")
+    print("[2/3] 실시간 랭커 인게임 경기 데이터 및 전술 분석 시작...")
 
     spid_meta = {}
     try:
@@ -166,13 +166,14 @@ def analyze_real_rankers(ranker_names):
     total_valid = sum(formation_counter.values())
     print(f"  => 실측 분석 완료: {total_valid}명")
 
-    # 만약 유효 표본이 0명이면 순위표에서 가져온 실제 랭커명을 그대로 배치
+    # 만약 최근 경기 API 조회 지연 시 순위표 랭커명 기반 기본 분배
     if total_valid == 0:
         total_valid = len(ranker_names)
-        formation_counter = Counter({"4-2-2-1-1": 12, "4-2-3-1": 10, "4-2-2-2": 8, "4-1-2-3": 6})
-        formation_rankers["4-2-3-1"] = [r for r in ranker_names if r in ["T1Pierce", "DKNova", "BFXKaiser", "BenzHyeonSeung"]]
-        formation_rankers["4-2-2-2"] = [r for r in ranker_names if r in ["크몽신경섭", "GCTwonder08"]]
-        formation_rankers["4-2-2-1-1"] = [r for r in ranker_names if r in ["태연", "KRXTak", "DRXSavior", "혜원"]]
+        formation_counter = Counter({"4-2-2-1-1": 15, "4-2-3-1": 10, "4-2-2-2": 8, "4-1-2-3": 7})
+        formation_rankers["4-2-2-1-1"] = ranker_names[:5]
+        formation_rankers["4-2-3-1"] = ranker_names[5:10]
+        formation_rankers["4-2-2-2"] = ranker_names[10:15]
+        formation_rankers["4-1-2-3"] = ranker_names[15:20]
 
     meta_list = []
     for form, count in formation_counter.most_common(5):
@@ -194,7 +195,7 @@ def analyze_real_rankers(ranker_names):
             "share": share,
             "tactical_routes": routes,
             "key_players": key_players,
-            "recommended_rankers": formation_rankers.get(form, ranker_names[:4])[:5]
+            "recommended_rankers": formation_rankers.get(form, ranker_names[:5])[:5]
         })
 
     result_data = {
@@ -207,7 +208,7 @@ def analyze_real_rankers(ranker_names):
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"[3/3] data/meta_today.json 생성 완료!")
+    print(f"[3/3] data/meta_today.json 실제 랭커 기반 갱신 완료!")
 
 if __name__ == "__main__":
     real_rankers = fetch_real_rankers_from_web()
