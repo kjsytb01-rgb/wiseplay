@@ -3,146 +3,1487 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WISEPLAY - FC 온라인 전술 & 컨트롤러 추천</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>WISEPLAY - FIFA CAMPER X LJ Lee</title>
   <style>
     :root {
-      --bg-color: #0b0e14;
-      --card-bg: #151a23;
+      --bg-dark: #0f1115;
+      --card-bg: #1a1d24;
+      --card-border: #2a2e39;
       --accent-color: #00ff88;
-      --text-main: #ffffff;
+      --accent-blue: #00b4d8;
+      --accent-gold: #ffbb00;
+      --text-main: #f0f2f5;
       --text-muted: #8b949e;
-      --border-color: #232a36;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.6; }
 
-    /* 헤더 */
-    header { background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
-    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
-    .logo { font-size: 1.3rem; font-weight: 800; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-    .logo span { color: var(--accent-color); }
-    .nav-links { display: flex; gap: 20px; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
 
-    /* 메인 탭 */
-    .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-    .tab-nav { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; }
-    .tab-btn { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-muted); padding: 12px 24px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-    .tab-btn:hover { border-color: #3b4252; color: #fff; }
-    .tab-btn.active { background: rgba(0, 255, 136, 0.1); border-color: var(--accent-color); color: var(--accent-color); }
+    /* 상단 헤더: 메인 와이드 로고 중앙 배치 */
+    header {
+      background: radial-gradient(circle at center top, rgba(0, 255, 136, 0.08) 0%, rgba(15, 17, 21, 0.98) 75%);
+      border-bottom: 1px solid var(--card-border);
+      padding: 36px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-    /* 탭 콘텐츠 */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .brand-link {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+    .brand-link:hover {
+      transform: scale(1.02);
+    }
 
-    /* 그리드 카드 */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-    .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; }
-    .card h3 { font-size: 1.25rem; margin-bottom: 12px; color: #fff; }
-    .card p { color: var(--text-muted); font-size: 0.95rem; }
-    .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 255, 136, 0.15); color: var(--accent-color); margin-bottom: 10px; }
+    .brand-logo {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 0px;
+      filter: drop-shadow(0 6px 20px rgba(0, 255, 136, 0.25));
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      color: #9ba3af;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-top: 2px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* 네비게이션 탭 메뉴 */
+    .nav-tabs {
+      display: inline-flex;
+      gap: 10px;
+      margin-top: 18px;
+      background: #14171f;
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .tab-btn.active {
+      background: var(--accent-color);
+      color: #0b0d11;
+      box-shadow: 0 4px 14px rgba(0, 255, 136, 0.25);
+    }
+    .tab-btn.meta-btn {
+      color: var(--accent-blue);
+      border: 1px solid rgba(0, 180, 216, 0.35);
+    }
+    .tab-btn.meta-btn:hover {
+      background: rgba(0, 180, 216, 0.15);
+      border-color: var(--accent-blue);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .controls-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      align-items: center;
+    }
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 13px 18px 13px 44px;
+      background: #161920;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-color);
+      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.12);
+    }
+
+    .card-img-wrapper {
+      width: 100%;
+      height: 220px;
+      background: #11141a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      padding: 12px;
+    }
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+    .card:hover .card-img-wrapper img {
+      transform: scale(1.04);
+    }
+    .card-hover-hint {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--accent-color);
+      align-self: flex-start;
+    }
+
+    /* ★ 카드 상단: LJ 메타스코어 & 유저 스코어 트윈 뱃지 ★ */
+    .dual-score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .dual-score-card {
+      background: #12151c;
+      border: 1px solid #282d3b;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .dual-score-header {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .dual-score-val {
+      font-size: 1.15rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+    .dual-score-val.lj { color: var(--accent-color); }
+    .dual-score-val.user { color: var(--accent-gold); }
+    .dual-score-val small {
+      font-size: 0.75rem;
+      color: #717b88;
+      font-weight: 600;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.8rem;
+      color: #717b88;
+      margin-top: auto;
+    }
+
+    .mini-spec-table {
+      width: 100%;
+      font-size: 0.8rem;
+      border-collapse: collapse;
+      margin: 4px 0;
+    }
+    .mini-spec-table td {
+      padding: 3px 4px;
+      border-bottom: 1px solid #232732;
+    }
+    .mini-spec-table td:first-child {
+      color: var(--text-muted);
+      width: 44%;
+    }
+    .mini-spec-table td:last-child {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    /* 모달 공통 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(5, 7, 10, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .detail-modal {
+      background: #161920;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 820px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .detail-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: sticky;
+      top: 0;
+      background: #161920;
+      z-index: 10;
+    }
+    .detail-header-info h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .detail-header-info p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+    .detail-close-btn {
+      background: #232732;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .detail-close-btn:hover {
+      background: #ff4757;
+    }
+    .detail-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .tactics-img-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+    }
+    .tactics-img-tab-btn {
+      background: #232732;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .tactics-img-tab-btn.active {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .modal-display-img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: contain;
+      background: #0d0f14;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      cursor: zoom-in;
+      padding: 8px;
+    }
+
+    .detail-section {
+      background: #1c202a;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #282d3b;
+    }
+    .detail-section h4 {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+    .detail-section p {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    /* ★ 세부 모달 상단: 전문가 메타스코어 vs 유저 스코어 듀얼 대시보드 ★ */
+    .dual-dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .dash-box {
+      background: linear-gradient(135deg, #131722 0%, #1c2230 100%);
+      border: 1px solid #2d3648;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .dash-box.user-box {
+      border-color: rgba(255, 187, 0, 0.3);
+      background: linear-gradient(135deg, #18161f 0%, #24202d 100%);
+    }
+    .dash-box-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .dash-box-label.lj { color: var(--accent-blue); }
+    .dash-box-label.user { color: var(--accent-gold); }
+
+    .dash-box-val-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .dash-big-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .dash-big-num.lj {
+      color: var(--accent-color);
+      text-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
+    }
+    .dash-big-num.user {
+      color: var(--accent-gold);
+      text-shadow: 0 0 16px rgba(255, 187, 0, 0.25);
+    }
+    .dash-max-num {
+      font-size: 1rem;
+      color: #717b88;
+      font-weight: 700;
+    }
+    .dash-sub-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .cross-link-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 180, 216, 0.15);
+      color: var(--accent-blue);
+      border: 1px solid rgba(0, 180, 216, 0.4);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cross-link-badge:hover {
+      background: var(--accent-blue);
+      color: #000;
+    }
+
+    .player-tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .player-tag {
+      background: #232834;
+      color: #fff;
+      border: 1px solid #3b4252;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .player-tag:hover {
+      background: var(--accent-color);
+      color: #000;
+      border-color: var(--accent-color);
+      font-weight: 700;
+    }
+
+    .bench-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 6px;
+    }
+    .bench-table th, .bench-table td {
+      padding: 10px 12px;
+      border: 1px solid #2d3342;
+      text-align: left;
+    }
+    .bench-table th {
+      background: #232834;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+    .bench-table td {
+      background: #181c25;
+      color: var(--text-main);
+    }
+
+    .detail-footer-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 8px;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+    .detail-footer-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* 유저 평점 & 댓글 폼 */
+    .user-review-box {
+      background: #12141a;
+      border: 1px solid #282d3b;
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+    .review-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .review-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .review-nick-input {
+      width: 140px;
+      padding: 8px 12px;
+      background: #1c202a;
+      border: 1px solid #2d3342;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .review-score-select {
+      width: 100px;
+      padding: 8px 10px;
+      background: #1c202a;
+      border: 1px solid #2d3342;
+      border-radius: 6px;
+      color: #ffbb00;
+      font-size: 0.85rem;
+      font-weight: 700;
+      outline: none;
+    }
+    .review-text-input {
+      flex: 1;
+      padding: 8px 12px;
+      background: #1c202a;
+      border: 1px solid #2d3342;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .review-submit-btn {
+      background: var(--accent-color);
+      color: #0b0d11;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .review-submit-btn:hover {
+      background: #00dd77;
+    }
+
+    .comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .comment-item {
+      background: #191c24;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-color);
+      font-size: 0.85rem;
+    }
+    .comment-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .comment-author {
+      font-weight: 700;
+      color: #fff;
+    }
+    .comment-score {
+      color: #ffbb00;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .comment-body {
+      color: #c9d1d9;
+      line-height: 1.4;
+    }
+
+    /* 라이트박스 */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 99999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(5, 7, 10, 0.92);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+    #modalImg {
+      max-width: 94vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+      object-fit: contain;
+    }
   </style>
 </head>
 <body>
 
+  <!-- 상단 헤더: 메인 와이드 로고 중앙 배치 -->
   <header>
-    <div class="nav-container">
-      <a href="/" class="logo"><i class="fa-solid fa-gamepad"></i> WISE<span>PLAY</span></a>
-      <nav class="nav-links">
-        <a onclick="switchTab('tactics')" id="nav-tactics" class="active"><i class="fa-solid fa-futbol"></i> 전술 추천</a>
-        <a onclick="switchTab('controller')" id="nav-controller"><i class="fa-solid fa-gamepad"></i> 컨트롤러 추천</a>
-        <a href="/meta"><i class="fa-solid fa-fire"></i> Daily Meta</a>
-      </nav>
+    <a href="/" class="brand-link" title="메인 화면으로 돌아가기">
+      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
+      <div class="brand-sub">FIFA CAMPER X LJ Lee</div>
+    </a>
+
+    <!-- 중앙 탭 메뉴 -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
+      <button class="tab-btn" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
+      <a href="/meta" class="tab-btn meta-btn">🔥 Daily Meta (오늘의 메타)</a>
     </div>
   </header>
 
-  <main class="container">
-    <div class="tab-nav">
-      <button class="tab-btn active" id="btn-tactics" onclick="switchTab('tactics')"><i class="fa-solid fa-futbol"></i> 티어별 추천 전술</button>
-      <button class="tab-btn" id="btn-controller" onclick="switchTab('controller')"><i class="fa-solid fa-gamepad"></i> 패드/컨트롤러 추천</button>
+  <!-- 본문 -->
+  <main>
+    <div class="controls-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="선수명, 포메이션, 사용 패드 검색..." oninput="handleSearch()">
+      </div>
     </div>
 
-    <!-- 전술 추천 탭 -->
-    <section id="section-tactics" class="tab-content active">
-      <div class="grid">
-        <div class="card">
-          <span class="badge">1티어 전술</span>
-          <h3>4-2-2-1-1 밸런스 전술</h3>
-          <p>공격형 미드필더(CAM)를 활용한 중앙 침투와 수비 밸런스를 동시에 챙기는 표준 메타 전술입니다.</p>
-        </div>
-        <div class="card">
-          <span class="badge">역습 특화</span>
-          <h3>4-2-2-2 투톱 역습 전술</h3>
-          <p>빠른 양 측면 윙어 전개와 투톱 간의 원투 패스로 순식간에 골 찬스를 만들어내는 전술입니다.</p>
-        </div>
-        <div class="card">
-          <span class="badge">점유율</span>
-          <h3>4-2-3-1 지공 지배 전술</h3>
-          <p>2선 미드필더 3명의 유기적인 패스워크로 상대를 가두고 ZD 감아차기 각을 노리는 전술입니다.</p>
-        </div>
+    <!-- 1. Tactics 섹션 -->
+    <section id="section-tactics">
+      <h2 class="section-title">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 상세 세부창이 열립니다)</span></h2>
+      <div id="tactics-list" class="cards-grid">
+        <div class="loading">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
       </div>
     </section>
 
-    <!-- 컨트롤러 추천 탭 -->
-    <section id="section-controller" class="tab-content">
-      <div class="grid">
-        <div class="card">
-          <span class="badge">현역 프로 1픽</span>
-          <h3>Xbox 4세대 무선 컨트롤러</h3>
-          <p>가장 표준적인 비대칭 아날로그 스틱 배열과 즉각적인 반응성으로 FC 온라인에 최적화된 패드입니다.</p>
-        </div>
-        <div class="card">
-          <span class="badge">대칭형 추천</span>
-          <h3>DualSense (듀얼센스)</h3>
-          <p>묵직한 그립감과 정밀한 방향 전환 조작감을 선호하는 유저들에게 최고의 평가를 받는 패드입니다.</p>
-        </div>
-        <div class="card">
-          <span class="badge">가성비 종결</span>
-          <h3>8BitDo 얼티메이트 무선</h3>
-          <p>홀 이펙트 센서 탑재로 스틱 쏠림 방지 및 충전독 기본 제공으로 편의성을 극대화한 컨트롤러입니다.</p>
-        </div>
+    <!-- 2. Pads (Controller) 섹션 -->
+    <section id="section-pads" style="display: none;">
+      <h2 class="section-title">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 벤치마크 세부창이 열립니다)</span></h2>
+      <div id="pads-list" class="cards-grid">
+        <div class="loading">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
       </div>
     </section>
   </main>
 
-  <script>
-    // 탭 전환 함수
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+  <!-- 1. 선수 전술 세부 모달창 -->
+  <div id="tacticsModal" class="modal-overlay" onclick="closeModalByBg(event, 'tacticsModal')">
+    <div class="detail-modal">
+      <div class="detail-header">
+        <div class="detail-header-info">
+          <span class="card-badge" id="modalFormation">포메이션</span>
+          <h2 id="modalPlayerName">선수명</h2>
+          <p id="modalSubInfo">국가 | 대회 버전</p>
+        </div>
+        <button class="detail-close-btn" onclick="forceCloseModal('tacticsModal')">&times;</button>
+      </div>
 
-      if (tabId === 'controller') {
-        document.getElementById('section-controller').classList.add('active');
-        document.getElementById('btn-controller').classList.add('active');
-        document.getElementById('nav-controller').classList.add('active');
-        history.replaceState(null, null, '#controller');
-      } else {
-        document.getElementById('section-tactics').classList.add('active');
-        document.getElementById('btn-tactics').classList.add('active');
-        document.getElementById('nav-tactics').classList.add('active');
+      <div class="detail-body">
+        <div class="tactics-img-tabs">
+          <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. 포메이션 배치도</button>
+          <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. 개인 전술 세팅</button>
+          <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. 팀 전술 세팅</button>
+        </div>
+
+        <div style="position:relative;">
+          <img id="detailImgDisplay" class="modal-display-img" src="" alt="전술 캡처" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
+          <div style="position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
+            🔍 클릭하면 원본 크기로 확대됩니다
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>📋 전술 분석 및 실전 코멘트</h4>
+          <p id="modalReviewText">설명 내용이 들어갑니다.</p>
+        </div>
+
+        <div class="detail-section" id="modalPadSection">
+          <h4>🎮 선수가 사용하는 패드</h4>
+          <div style="margin-top:6px;">
+            <div id="modalPadNameBadge" class="cross-link-badge" onclick="navigateToPad(this.dataset.pad)">
+              🎮 <span id="modalPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;">(벤치마크 스펙 보기 &rarr;)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 유저 평점 & 댓글 (전술) -->
+        <div class="detail-section">
+          <h4>⭐ 유저 실전 체감 평점 & 코멘트</h4>
+          <div class="user-review-box">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+              <span style="font-size:1.4rem; font-weight:900; color:var(--accent-gold);" id="tacticsAvgScore">0.0</span>
+              <span style="color:var(--accent-gold); font-size:1.1rem;" id="tacticsAvgStars">☆☆☆☆☆</span>
+              <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0명 참여)</span>
+            </div>
+
+            <div class="review-form">
+              <div class="review-input-row">
+                <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임 (티어 등)">
+                <select id="tReviewScore" class="review-score-select">
+                  <option value="5">★ 5점 (강추)</option>
+                  <option value="4">★ 4점 (좋음)</option>
+                  <option value="3">★ 3점 (보통)</option>
+                  <option value="2">★ 2점 (애매)</option>
+                  <option value="1">★ 1점 (비추)</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="tReviewText" class="review-text-input" placeholder="이 전술의 체감이나 실전 팁을 남겨주세요...">
+                <button class="review-submit-btn" onclick="submitReview('tactics')">등록</button>
+              </div>
+            </div>
+
+            <div class="comment-list" id="tacticsCommentList"></div>
+          </div>
+        </div>
+
+        <div id="modalYtSection">
+          <a id="modalYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000; width:100%;">
+            ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 게임패드 세부 벤치마크 모달창 -->
+  <div id="padModal" class="modal-overlay" onclick="closeModalByBg(event, 'padModal')">
+    <div class="detail-modal">
+      <div class="detail-header">
+        <div class="detail-header-info">
+          <span class="card-badge" style="background:rgba(0,180,216,0.2); color:var(--accent-blue);">BENCHMARK & USER REVIEW</span>
+          <h2 id="padModalName">패드명</h2>
+          <p id="padModalSub">스틱 방식: - | 매핑: - | 매크로: -</p>
+        </div>
+        <button class="detail-close-btn" onclick="forceCloseModal('padModal')">&times;</button>
+      </div>
+
+      <div class="detail-body">
+        <div class="dual-dashboard">
+          <div class="dash-box">
+            <span class="dash-box-label lj">LJ's META SCORE</span>
+            <div class="dash-box-val-row">
+              <span class="dash-big-num lj" id="padModalScoreVal">0</span>
+              <span class="dash-max-num">/ 100</span>
+            </div>
+            <span class="dash-sub-text">폴링/레이턴시 실측 종합 벤치</span>
+          </div>
+
+          <div class="dash-box user-box">
+            <span class="dash-box-label user">USER's RATING</span>
+            <div class="dash-box-val-row">
+              <span class="dash-big-num user" id="padModalUserScoreVal">0.0</span>
+              <span class="dash-max-num">/ 5.0</span>
+            </div>
+            <span class="dash-sub-text" id="padModalUserCountText">실사용자 0명 평가</span>
+          </div>
+        </div>
+
+        <div style="position:relative;">
+          <img id="padModalImg" class="modal-display-img" src="" alt="패드 외형" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
+          <div style="position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
+            🔍 클릭하면 원본 크기로 확대됩니다
+          </div>
+        </div>
+
+        <div class="detail-section" id="padUsersSection">
+          <h4>🏆 이 패드를 사용하는 선수 / 프로게이머</h4>
+          <div id="padUserList" class="player-tag-list"></div>
+        </div>
+
+        <div class="detail-section">
+          <h4>📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
+          <table class="bench-table">
+            <thead>
+              <tr>
+                <th>연결 방식</th>
+                <th>폴링레이트 (Hz)</th>
+                <th>스틱 레이턴시 (ms)</th>
+                <th>버튼 레이턴시 (ms)</th>
+                <th>실전 권장 및 조언</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>유선 (Wired)</b></td>
+                <td id="pW_poll">-</td>
+                <td id="pW_sLat">-</td>
+                <td id="pW_bLat">-</td>
+                <td id="pW_adv" style="color:#d1d5db;">-</td>
+              </tr>
+              <tr>
+                <td><b>동글 (Dongle)</b></td>
+                <td id="pD_poll">-</td>
+                <td id="pD_sLat">-</td>
+                <td id="pD_bLat">-</td>
+                <td id="pD_adv" style="color:#d1d5db;">-</td>
+              </tr>
+              <tr>
+                <td><b>블루투스 (BT)</b></td>
+                <td id="pB_poll">-</td>
+                <td id="pB_sLat">-</td>
+                <td id="pB_bLat">-</td>
+                <td id="pB_adv" style="color:#d1d5db;">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="detail-section">
+          <h4>⚖️ 장점 및 아쉬운 점 (Pros & Cons)</h4>
+          <p><b style="color:var(--accent-color);">[장점]</b> <span id="padModalPros">-</span></p>
+          <p style="margin-top:6px;"><b style="color:#ff6b6b;">[단점]</b> <span id="padModalCons">-</span></p>
+        </div>
+
+        <!-- 유저 평점 & 한줄평 리뷰 -->
+        <div class="detail-section">
+          <h4>🎮 유저 실사용 평점 & 리뷰 작성</h4>
+          <div class="user-review-box">
+            <div class="review-form">
+              <div class="review-input-row">
+                <input type="text" id="pReviewNick" class="review-nick-input" placeholder="닉네임">
+                <select id="pReviewScore" class="review-score-select">
+                  <option value="5">★ 5점 (인생패드)</option>
+                  <option value="4">★ 4점 (만족)</option>
+                  <option value="3">★ 3점 (무난함)</option>
+                  <option value="2">★ 2점 (아쉬움)</option>
+                  <option value="1">★ 1점 (돈아까움)</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="pReviewText" class="review-text-input" placeholder="그립감, 십자키, 스틱 텐션 실사용 후기...">
+                <button class="review-submit-btn" onclick="submitReview('pad')">등록</button>
+              </div>
+            </div>
+
+            <div class="comment-list" id="padCommentList"></div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a id="padModalBuyBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#00b4d8; flex:1;">
+            🛒 구매 바로가기
+          </a>
+          <a id="padModalYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000; flex:1;">
+            ▶ LJ Lee 정밀 벤치마크 영상 보기
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 최상위 라이트박스 원본 확대 팝업 -->
+  <div id="imageModal" onclick="closeLightbox(event)">
+    <img id="modalImg" alt="원본 확대">
+  </div>
+
+  <script>
+    const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
+
+    let currentTab = 'tactics';
+    let allTactics = [];
+    let allPads = [];
+    let currentSelectedTactics = null;
+    let currentSelectedPad = null;
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(b => b.classList.remove('active'));
+      const searchInput = document.getElementById('searchInput');
+      
+      if (tab === 'tactics') {
+        tabBtns[0].classList.add('active');
+        document.getElementById('section-tactics').style.display = 'block';
+        document.getElementById('section-pads').style.display = 'none';
+        searchInput.placeholder = "선수명, 포메이션, 사용 패드 검색...";
         history.replaceState(null, null, '#tactics');
+      } else if (tab === 'pads') {
+        tabBtns[1].classList.add('active');
+        document.getElementById('section-tactics').style.display = 'none';
+        document.getElementById('section-pads').style.display = 'block';
+        searchInput.placeholder = "패드명, 스틱 방식, 장단점 검색...";
+        history.replaceState(null, null, '#controller');
+      }
+      handleSearch();
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length <= 1) return [];
+      
+      const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
+      const data = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim()) continue;
+
+        const row = [];
+        let inQuotes = false;
+        let field = '';
+
+        for (let j = 0; j < line.length; j++) {
+          const char = line[j];
+          if (char === '"' || char === "'") {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            row.push(field.trim());
+            field = '';
+          } else {
+            field += char;
+          }
+        }
+        row.push(field.trim());
+
+        const obj = {};
+        headers.forEach((h, idx) => {
+          let val = row[idx] || '';
+          obj[h] = val.replace(/^["']|["']$/g, '').trim();
+        });
+        data.push(obj);
+      }
+      return data;
+    }
+
+    async function loadTactics() {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        allTactics = parseCSV(text);
+        renderTactics(allTactics);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('tactics-list').innerHTML = '<div class="loading">전술 데이터를 불러오지 못했습니다.</div>';
       }
     }
 
-    // 외부 URL 해시(#controller) 감지 자동 탭 전환
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.location.hash === '#controller') {
-        switchTab('controller');
+    async function loadPads() {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        allPads = parseCSV(text);
+        renderPads(allPads);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('pads-list').innerHTML = '<div class="loading">패드 데이터를 불러오지 못했습니다.</div>';
+      }
+    }
+
+    function renderTactics(list) {
+      const container = document.getElementById('tactics-list');
+      if (list.length === 0) {
+        container.innerHTML = '<div class="loading">검색 결과 또는 등록된 전술이 없습니다.</div>';
+        return;
+      }
+
+      container.innerHTML = list.map((item, idx) => `
+        <div class="card" onclick="openTacticsDetail(${idx})">
+          <div class="card-img-wrapper">
+            <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || '전술'}" onerror="this.src='logo.png'">
+            <div class="card-hover-hint">클릭하여 세부 전술 보기</div>
+          </div>
+          <div class="card-body">
+            <span class="card-badge">${item.formation || '포메이션'}</span>
+            <h3 class="card-title">${item.playerName || '선수명'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
+            <p class="card-desc">${item.reviewText || '전술 설명이 없습니다.'}</p>
+            
+            ${item.padName ? `
+              <div style="font-size:0.8rem; color:var(--accent-color); margin-top:4px;">
+                🎮 선수 사용 패드: <b>${item.padName}</b>
+              </div>
+            ` : ''}
+
+            <div class="card-meta">
+              <span>버전: ${item.versionName || '-'}</span>
+              <span style="color:var(--accent-color); font-weight:700;">세부 분석 보기 &rarr;</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function getUserAvgScore(type, id) {
+      const key = `GNT_REVIEWS_${type}_${encodeURIComponent(id)}`;
+      try {
+        const list = JSON.parse(localStorage.getItem(key)) || [];
+        if (list.length === 0) return { avg: '-', count: 0 };
+        const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
+        return { avg: (total / list.length).toFixed(1), count: list.length };
+      } catch (e) {
+        return { avg: '-', count: 0 };
+      }
+    }
+
+    function renderPads(list) {
+      const container = document.getElementById('pads-list');
+      if (list.length === 0) {
+        container.innerHTML = '<div class="loading">검색 결과 또는 등록된 패드가 없습니다.</div>';
+        return;
+      }
+
+      container.innerHTML = list.map((pad, idx) => {
+        const ljScore = pad.metaScore || '-';
+        const userStats = getUserAvgScore('pad', pad.padName || 'default_pad');
+
+        return `
+          <div class="card" onclick="openPadDetail(${idx})">
+            <div class="card-img-wrapper">
+              <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || '패드'}" onerror="this.src='logo.png'">
+              <div class="card-hover-hint">클릭하여 세부 벤치마크 보기</div>
+            </div>
+            <div class="card-body">
+              <div class="dual-score-grid">
+                <div class="dual-score-card">
+                  <span class="dual-score-header">LJ META SCORE</span>
+                  <span class="dual-score-val lj">${ljScore} <small>/ 100</small></span>
+                </div>
+                <div class="dual-score-card">
+                  <span class="dual-score-header">USER RATING</span>
+                  <span class="dual-score-val user">${userStats.avg} <small>${userStats.count > 0 ? `(${userStats.count}명)` : '/ 5.0'}</small></span>
+                </div>
+              </div>
+
+              <h3 class="card-title">${pad.padName || '패드명 미입력'}</h3>
+              
+              <table class="mini-spec-table">
+                <tr><td>스틱 방식</td><td>${pad.stickMech || '-'}</td></tr>
+                <tr><td>유선 폴링/딜레이</td><td>${pad.wPoll || '-'}Hz / ${pad.wStickLat || '-'}ms</td></tr>
+                <tr><td>동글(무선) 폴링</td><td>${pad.dPoll || '-'}Hz / ${pad.dStickLat || '-'}ms</td></tr>
+              </table>
+
+              <div class="card-meta">
+                <span style="color:var(--accent-color);">장점: ${pad.pros ? pad.pros.substring(0, 14) + '...' : '-'}</span>
+                <span style="color:var(--accent-blue); font-weight:700;">세부 벤치마크 &rarr;</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+
+      if (currentTab === 'tactics') {
+        const filtered = allTactics.filter(item => {
+          return (
+            (item.playerName && item.playerName.toLowerCase().includes(query)) ||
+            (item.formation && item.formation.toLowerCase().includes(query)) ||
+            (item.country && item.country.toLowerCase().includes(query)) ||
+            (item.padName && item.padName.toLowerCase().includes(query)) ||
+            (item.reviewText && item.reviewText.toLowerCase().includes(query))
+          );
+        });
+        renderTactics(filtered);
       } else {
+        const filtered = allPads.filter(pad => {
+          return (
+            (pad.padName && pad.padName.toLowerCase().includes(query)) ||
+            (pad.stickMech && pad.stickMech.toLowerCase().includes(query)) ||
+            (pad.pros && pad.pros.toLowerCase().includes(query)) ||
+            (pad.cons && pad.cons.toLowerCase().includes(query))
+          );
+        });
+        renderPads(filtered);
+      }
+    }
+
+    function openTacticsDetail(index) {
+      currentSelectedTactics = allTactics[index];
+      if (!currentSelectedTactics) return;
+
+      const t = currentSelectedTactics;
+      document.getElementById('modalFormation').innerText = t.formation || '포메이션';
+      document.getElementById('modalPlayerName').innerText = `${t.playerName || '선수명'} 전술 상세`;
+      document.getElementById('modalSubInfo').innerText = `국가: ${t.country || 'GLOBAL'} | 대회 버전: ${t.versionName || '-'}`;
+      document.getElementById('modalReviewText').innerText = t.reviewText || '전술 설명이 없습니다.';
+
+      if (t.padName) {
+        document.getElementById('modalPadSection').style.display = 'block';
+        document.getElementById('modalPadNameText').innerText = t.padName;
+        document.getElementById('modalPadNameBadge').dataset.pad = t.padName;
+      } else {
+        document.getElementById('modalPadSection').style.display = 'none';
+      }
+
+      if (t.ytUrl) {
+        document.getElementById('modalYtSection').style.display = 'block';
+        document.getElementById('modalYtLink').href = t.ytUrl;
+      } else {
+        document.getElementById('modalYtSection').style.display = 'none';
+      }
+
+      showTacticsTabImg('formation');
+      renderReviews('tactics', t.playerName || 'default_tactic');
+
+      document.getElementById('tacticsModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function navigateToPad(padName) {
+      if (!padName) return;
+      const targetName = padName.toLowerCase().trim();
+      const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
+      
+      if (padIndex !== -1) {
+        forceCloseModal('tacticsModal');
+        openPadDetail(padIndex);
+      } else {
+        alert(`'${padName}' 패드의 상세 벤치마크 데이터가 아직 등록되지 않았습니다.`);
+      }
+    }
+
+    function navigateToPlayer(playerName) {
+      if (!playerName) return;
+      const targetName = playerName.toLowerCase().trim();
+      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
+      
+      if (tacticIndex !== -1) {
+        forceCloseModal('padModal');
         switchTab('tactics');
+        openTacticsDetail(tacticIndex);
+      }
+    }
+
+    function showTacticsTabImg(tabType) {
+      if (!currentSelectedTactics) return;
+      const t = currentSelectedTactics;
+      const imgDisplay = document.getElementById('detailImgDisplay');
+      document.querySelectorAll('.tactics-img-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      if (tabType === 'formation') {
+        document.getElementById('tabBtnFormation').classList.add('active');
+        imgDisplay.src = t.imgFormation || 'logo.png';
+      } else if (tabType === 'personal') {
+        document.getElementById('tabBtnPersonal').classList.add('active');
+        imgDisplay.src = t.imgPersonal || t.imgFormation || 'logo.png';
+      } else if (tabType === 'team') {
+        document.getElementById('tabBtnTeam').classList.add('active');
+        imgDisplay.src = t.imgTeam || t.imgFormation || 'logo.png';
+      }
+    }
+
+    function openPadDetail(index) {
+      currentSelectedPad = allPads[index];
+      if (!currentSelectedPad) return;
+      const p = currentSelectedPad;
+
+      document.getElementById('padModalName').innerText = p.padName || '게임패드 상세';
+      document.getElementById('padModalSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
+      document.getElementById('padModalScoreVal').innerText = p.metaScore || '0';
+      
+      document.getElementById('padModalImg').src = p.imgUrl || 'logo.png';
+
+      const currentPadName = (p.padName || '').toLowerCase().trim();
+      const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
+      
+      const userListContainer = document.getElementById('padUserList');
+      if (matchedPlayers.length > 0) {
+        userListContainer.innerHTML = matchedPlayers.map(t => `
+          <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')" title="클릭 시 선수의 세부 전술창으로 이동">
+            ⚽ <b>${t.playerName}</b> (${t.formation || '전술'})
+          </div>
+        `).join('');
+        document.getElementById('padUsersSection').style.display = 'block';
+      } else {
+        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">현재 DB에 이 패드를 사용하는 것으로 등록된 선수가 없습니다.</span>';
+        document.getElementById('padUsersSection').style.display = 'block';
+      }
+
+      const formatHz = (val) => val ? `${val} Hz` : '-';
+      const formatMs = (val) => val ? `${val} ms` : '-';
+
+      document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
+      document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
+      document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
+      document.getElementById('pW_adv').innerText = p.wAdvice || '-';
+
+      document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
+      document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
+      document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
+      document.getElementById('pD_adv').innerText = p.dAdvice || '-';
+
+      document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
+      document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
+      document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
+      document.getElementById('pB_adv').innerText = p.bAdvice || '-';
+
+      document.getElementById('padModalPros').innerText = p.pros || '-';
+      document.getElementById('padModalCons').innerText = p.cons || '-';
+
+      const buyBtn = document.getElementById('padModalBuyBtn');
+      if (p.buyUrl) {
+        buyBtn.href = p.buyUrl;
+        buyBtn.style.display = 'inline-flex';
+      } else {
+        buyBtn.style.display = 'none';
+      }
+
+      const ytBtn = document.getElementById('padModalYtBtn');
+      if (p.ytUrl) {
+        ytBtn.href = p.ytUrl;
+        ytBtn.style.display = 'inline-flex';
+      } else {
+        ytBtn.style.display = 'none';
+      }
+
+      renderReviews('pad', p.padName || 'default_pad');
+
+      document.getElementById('padModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function getStorageKey(type, id) {
+      return `GNT_REVIEWS_${type}_${encodeURIComponent(id)}`;
+    }
+
+    function renderReviews(type, itemId) {
+      const key = getStorageKey(type, itemId);
+      let list = [];
+      try {
+        list = JSON.parse(localStorage.getItem(key)) || [];
+      } catch (e) { list = []; }
+
+      if (type === 'tactics') {
+        const avgScoreEl = document.getElementById('tacticsAvgScore');
+        const avgStarsEl = document.getElementById('tacticsAvgStars');
+        const countEl = document.getElementById('tacticsReviewCount');
+        const commentListEl = document.getElementById('tacticsCommentList');
+
+        if (list.length === 0) {
+          avgScoreEl.innerText = '0.0';
+          avgStarsEl.innerText = '☆☆☆☆☆';
+          countEl.innerText = '(0명 참여)';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 작성된 리뷰가 없습니다. 첫 리뷰를 남겨보세요!</div>';
+        } else {
+          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
+          const avg = (total / list.length).toFixed(1);
+          avgScoreEl.innerText = avg;
+          countEl.innerText = `(${list.length}명 참여)`;
+          const starCount = Math.round(Number(avg));
+          avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
+
+          commentListEl.innerHTML = list.map(item => `
+            <div class="comment-item">
+              <div class="comment-top">
+                <span class="comment-author">${item.nick || '익명'}</span>
+                <span class="comment-score">${'★'.repeat(item.score)} ${item.score}점</span>
+              </div>
+              <div class="comment-body">${item.text}</div>
+            </div>
+          `).reverse().join('');
+        }
+      } else {
+        const padUserScoreEl = document.getElementById('padModalUserScoreVal');
+        const padUserCountEl = document.getElementById('padModalUserCountText');
+        const commentListEl = document.getElementById('padCommentList');
+
+        if (list.length === 0) {
+          padUserScoreEl.innerText = '-';
+          padUserCountEl.innerText = '실사용자 0명 평가';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 작성된 리뷰가 없습니다. 첫 리뷰를 남겨보세요!</div>';
+        } else {
+          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
+          const avg = (total / list.length).toFixed(1);
+          padUserScoreEl.innerText = avg;
+          padUserCountEl.innerText = `실사용자 ${list.length}명 평가`;
+
+          commentListEl.innerHTML = list.map(item => `
+            <div class="comment-item">
+              <div class="comment-top">
+                <span class="comment-author">${item.nick || '익명'}</span>
+                <span class="comment-score">${'★'.repeat(item.score)} ${item.score}점</span>
+              </div>
+              <div class="comment-body">${item.text}</div>
+            </div>
+          `).reverse().join('');
+        }
+      }
+    }
+
+    function submitReview(type) {
+      let itemId = '';
+      let nick = '';
+      let score = 5;
+      let text = '';
+
+      if (type === 'tactics') {
+        if (!currentSelectedTactics) return;
+        itemId = currentSelectedTactics.playerName || 'default_tactic';
+        nick = document.getElementById('tReviewNick').value.trim();
+        score = Number(document.getElementById('tReviewScore').value);
+        text = document.getElementById('tReviewText').value.trim();
+      } else {
+        if (!currentSelectedPad) return;
+        itemId = currentSelectedPad.padName || 'default_pad';
+        nick = document.getElementById('pReviewNick').value.trim();
+        score = Number(document.getElementById('pReviewScore').value);
+        text = document.getElementById('pReviewText').value.trim();
+      }
+
+      if (!text) {
+        alert('한줄평 내용을 입력해 주세요!');
+        return;
+      }
+      if (!nick) nick = '익명 유저';
+
+      const key = getStorageKey(type, itemId);
+      let list = [];
+      try {
+        list = JSON.parse(localStorage.getItem(key)) || [];
+      } catch (e) { list = []; }
+
+      list.push({
+        nick: nick,
+        score: score,
+        text: text,
+        date: new Date().toISOString()
+      });
+
+      localStorage.setItem(key, JSON.stringify(list));
+
+      if (type === 'tactics') {
+        document.getElementById('tReviewText').value = '';
+      } else {
+        document.getElementById('pReviewText').value = '';
+        renderPads(allPads);
+      }
+
+      renderReviews(type, itemId);
+    }
+
+    function closeModalByBg(e, modalId) {
+      if (e.target.id === modalId) {
+        forceCloseModal(modalId);
+      }
+    }
+
+    function forceCloseModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function openLightbox(src) {
+      if (!src || src.endsWith('logo.png')) return;
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function closeLightbox(e) {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (document.getElementById('imageModal').style.display === 'flex') {
+          closeLightbox();
+        } else if (document.getElementById('tacticsModal').style.display === 'flex') {
+          forceCloseModal('tacticsModal');
+        } else if (document.getElementById('padModal').style.display === 'flex') {
+          forceCloseModal('padModal');
+        }
       }
     });
 
-    window.addEventListener('hashchange', () => {
-      if (window.location.hash === '#controller') {
-        switchTab('controller');
-      } else {
+    // ★ 해시(#controller 또는 #pads) 감지 자동 탭 전환 로직 ★
+    function checkHashAndSwitch() {
+      const hash = window.location.hash;
+      if (hash === '#controller' || hash === '#pads') {
+        switchTab('pads');
+      } else if (hash === '#tactics') {
         switchTab('tactics');
       }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadTactics();
+      loadPads();
+      checkHashAndSwitch();
     });
+
+    window.addEventListener('hashchange', checkHashAndSwitch);
   </script>
 </body>
 </html>
