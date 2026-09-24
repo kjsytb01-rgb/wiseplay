@@ -514,26 +514,7 @@
 
     let currentLang = localStorage.getItem('wiseplay_lang') || 'ko';
     let metaCachedData = null;
-    const nameTranslationCache = {};
 
-    async function translatePlayerName(name, targetLang) {
-      if (!name || targetLang === 'ko') return name;
-      const key = `${targetLang}_${name}`;
-      if (nameTranslationCache[key]) return nameTranslationCache[key];
-
-      try {
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=${targetLang}&dt=t&q=${encodeURIComponent(name)}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        const trans = data[0].map(item => item[0]).join('');
-        nameTranslationCache[key] = trans;
-        return trans;
-      } catch (e) {
-        return name;
-      }
-    }
-
-    // 4-2-2-1 오타까지 4-2-2-1-1로 강제 매핑하는 핵심 함수
     function normalizeFormKey(str) {
       if (!str) return "4-2-2-1-1";
       const cleaned = str.replace(/[^0-9]/g, '');
@@ -580,6 +561,12 @@
       }
     }
 
+    function getPlayerDisplayName(playerObj, lang) {
+      if (!playerObj) return "-";
+      if (typeof playerObj === 'string') return playerObj;
+      return playerObj[lang] || playerObj['en'] || playerObj['ko'] || "-";
+    }
+
     function renderMetaCards(data) {
       const t = I18N[currentLang] || I18N.ko;
       document.getElementById('sample-count').innerText = t.sampleSuffix.replace('{n}', data.total_rankers);
@@ -587,18 +574,20 @@
       const container = document.getElementById('meta-list-container');
       container.innerHTML = '';
 
-      data.meta_list.forEach((item, cardIdx) => {
+      data.meta_list.forEach((item) => {
         const card = document.createElement('div');
         card.className = 'formation-card';
 
-        // 4-2-2-1 또는 4-2-2-1-1을 완벽히 매핑
         const formKey = normalizeFormKey(item.formation);
 
+        // 선수명이 다국어 객체로 들어왔으므로 즉시 선택한 언어의 이름으로 렌더링
         const playersHtml = Object.entries(item.key_players || {})
-          .map(([pos, name], pIdx) => `<span class="player-tag"><b>${pos}</b> <span id="meta-player-${cardIdx}-${pIdx}">${name}</span></span>`)
+          .map(([pos, pData]) => {
+            const nameToDisplay = getPlayerDisplayName(pData, currentLang);
+            return `<span class="player-tag"><b>${pos}</b> ${nameToDisplay}</span>`;
+          })
           .join('');
 
-        // 무조건 사전에 정의된 정밀 전술 텍스트와 번역문 우선 출력
         const routesList = (t.routes && t.routes[formKey]) || item.tactical_routes || [];
         const routesHtml = routesList.map(r => `<li>${r}</li>`).join('');
 
@@ -622,16 +611,6 @@
           <div class="ranker-chips-wrap">${rankersHtml}</div>
         `;
         container.appendChild(card);
-
-        // 선수 이름 외국어 실시간 번역
-        if (currentLang !== 'ko' && item.key_players) {
-          Object.values(item.key_players).forEach((pName, pIdx) => {
-            translatePlayerName(pName, currentLang).then(transName => {
-              const el = document.getElementById(`meta-player-${cardIdx}-${pIdx}`);
-              if (el) el.innerText = transName;
-            });
-          });
-        }
       });
     }
 
