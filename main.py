@@ -10,10 +10,44 @@ API_KEY = os.environ.get("NEXON_API_KEY", "").strip()
 HEADERS = {"x-nxopen-api-key": API_KEY}
 BASE_URL = "https://open.api.nexon.com/fconline/v1"
 
-# 1. 넥슨 공식 API 호출 헬퍼
+# 1. 넥슨 데이터센터 순위표에서 실제 1~100위 구단주 닉네임 추출
+def get_real_top_rankers():
+    print("[1/4] FC온라인 공식 랭킹 순위표(1~100위) 수집 시작...")
+    rankers = []
+    
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        "Referer": "https://fconline.nexon.com/datacenter/rank",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+
+    # 1페이지당 20명 x 5페이지 = 100명
+    for page in range(1, 6):
+        url = f"https://datacenter.fconline.nexon.com/Rank/GetRankList?matchtype=50&page={page}"
+        try:
+            res = requests.get(url, headers=headers, timeout=10)
+            if res.status_code == 200:
+                html = res.text
+                # 구단주 닉네임 파싱
+                names = re.findall(r'class="name profile_pointer"[^>]*>([^<]+)</span>', html)
+                if not names:
+                    names = re.findall(r'class="name[^"]*"[^>]*>([^<]+)</span>', html)
+                
+                for n in names:
+                    clean_name = n.strip()
+                    if clean_name and clean_name not in rankers:
+                        rankers.append(clean_name)
+                print(f"  -> {page}페이지 수집 완료 (현재 {len(rankers)}명)")
+        except Exception as e:
+            print(f"  -> {page}페이지 수집 실패: {e}")
+        time.sleep(0.3)
+
+    print(f"  => 최종 유효 실시간 랭커 수집 완료: {len(rankers)}명")
+    return rankers[:100]
+
+# 2. 넥슨 Open API 호출 헬퍼
 def api_get(endpoint, params=None):
     if not API_KEY:
-        print("API 키가 설정되지 않았습니다.")
         return None
     url = f"{BASE_URL}/{endpoint}"
     for _ in range(3):
@@ -29,31 +63,6 @@ def api_get(endpoint, params=None):
             time.sleep(0.5)
     return None
 
-# 2. 넥슨 공식 API에서 실시간 공경 1on1(50) 랭커 TOP 100 전수 추출
-def get_real_top_rankers():
-    print("[1/4] 넥슨 공식 랭커 API에서 실제 1~100위 구단주 수집 중...")
-    # 공식경기 1on1(matchtype: 50) 상위 랭커 조회
-    ranker_data = api_get("ranker", {"matchtype": 50})
-    
-    rankers = []
-    if ranker_data:
-        for item in ranker_data:
-            ouid = item.get("ouid")
-            nickname = item.get("nickname")
-            if ouid and nickname:
-                rankers.append({"ouid": ouid, "nickname": nickname})
-            elif ouid:
-                # 닉네임이 누락된 경우 역조회
-                u_info = api_get(f"users/{ouid}")
-                if u_info and "nickname" in u_info:
-                    rankers.append({"ouid": ouid, "nickname": u_info["nickname"]})
-            if len(rankers) >= 100:
-                break
-
-    print(f"  => 실제 공식경기 랭커 {len(rankers)}명 확보 완료")
-    return rankers
-
-# 3. 포메이션 역추정 로직
 def infer_formation(desc_title, players):
     if desc_title and any(c.isdigit() for c in desc_title):
         match = re.search(r'\d+-\d+(-\d+)+', desc_title)
@@ -74,9 +83,9 @@ def infer_formation(desc_title, players):
     fw = counts.get("FW", 3)
     return f"{df}-{mf}-{fw}"
 
-# 4. 실시간 랭커 최신 경기 및 전술 분석
-def analyze_matches(ranker_list):
-    print("[2/4] 실제 랭커 인게임 최근 경기 전술 전수 분석 중...")
+# 3. 실제 랭커 인게임 전술 분석
+def analyze_matches(rankers):
+    print("[2/4] 랭커 인게임 실시간 경기 데이터 전수 분석 중...")
     
     pos_map = {
         25: "ST", 26: "CF", 27: "LW", 23: "RW",
@@ -96,9 +105,11 @@ def analyze_matches(ranker_list):
     formation_rankers = {}
     formation_players = {}
 
-    for r in ranker_list:
-        ouid = r["ouid"]
-        nick = r["nickname"]
+    for nick in rankers:
+        ouid_data = api_get("id", {"nickname": nick})
+        if not ouid_data or "ouid" not in ouid_data:
+            continue
+        ouid = ouid_data["ouid"]
 
         matches = api_get(f"users/{ouid}/matches", {"matchtype": 50, "offset": 0, "limit": 1})
         if not matches:
@@ -110,7 +121,7 @@ def analyze_matches(ranker_list):
 
         target_info = None
         for m in match_detail["matchInfo"]:
-            if m.get("ouid") == ouid:
+            if m.get("ouid") == ouid or m.get("nickname") == nick:
                 target_info = m
                 break
         if not target_info:
@@ -132,22 +143,18 @@ def analyze_matches(ranker_list):
             if role in ["ST", "CF", "CAM", "CDM", "CB"]:
                 formation_players[formation].setdefault(role, Counter())[p_name] += 1
 
-        time.sleep(0.15)
+        time.sleep(0.12)
 
     total_valid = sum(formation_counter.values())
-    if total_valid == 0:
-        print("분석된 경기 데이터가 없습니다.")
-        return
+    print(f"[3/4] 실측 유효 표본: {total_valid}명")
 
-    print(f"[3/4] 실측 완료 (유효 표본: {total_valid}명). JSON 생성 중...")
     meta_list = []
-
     for form, count in formation_counter.most_common(5):
         share = round((count / total_valid) * 100, 1)
         
         routes = [
-            f"실제 랭커 {form} 빌드업: 중앙 미드필더 전진 패스 및 침투",
-            "측면 풀백/윙어 지원을 활용한 박스 안 컷백 플레이"
+            f"{form} 특화: 중앙 2선 빌드업 및 침투 연계",
+            "측면 윙어 돌파 후 박스 안 컷백 및 감아차기 슈팅"
         ]
 
         key_players = {}
@@ -174,8 +181,8 @@ def analyze_matches(ranker_list):
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"[4/4] data/meta_today.json 실제 랭커 데이터 저장 완료!")
+    print(f"[4/4] data/meta_today.json 생성 완료!")
 
 if __name__ == "__main__":
-    top_rankers = get_real_top_rankers()
-    analyze_matches(top_rankers)
+    real_rankers = get_real_top_rankers()
+    analyze_matches(real_rankers)
