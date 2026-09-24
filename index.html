@@ -229,7 +229,6 @@
       align-self: flex-start;
     }
 
-    /* ★ 카드 상단: LJ 메타스코어 & 유저 스코어 트윈 뱃지 ★ */
     .dual-score-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -317,76 +316,58 @@
       grid-column: 1 / -1;
     }
 
-    /* 모달 공통 */
-    .modal-overlay {
+    /* =========================================
+       인라인 상세 페이지 뷰 (모달 X, 자연스러운 화면 전환)
+       ========================================= */
+    .detail-view-container {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(5, 7, 10, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-    .detail-modal {
       background: #161920;
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      width: 100%;
-      max-width: 820px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      display: flex;
-      flex-direction: column;
-      position: relative;
+      padding: 24px;
+      margin-top: 10px;
+      animation: fadeIn 0.25s ease-in-out;
     }
-    .detail-header {
-      padding: 20px 24px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-btn {
+      background: #232732;
+      border: 1px solid #3b4252;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--accent-color);
+      color: #0b0d11;
+      border-color: var(--accent-color);
+    }
+
+    .detail-view-header {
       border-bottom: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      position: sticky;
-      top: 0;
-      background: #161920;
-      z-index: 10;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
     }
-    .detail-header-info h2 {
-      font-size: 1.5rem;
+    .detail-view-header h2 {
+      font-size: 1.6rem;
       font-weight: 800;
       color: #fff;
+      margin-top: 6px;
     }
-    .detail-header-info p {
+    .detail-view-header p {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 4px;
-    }
-    .detail-close-btn {
-      background: #232732;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .detail-close-btn:hover {
-      background: #ff4757;
-    }
-    .detail-body {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+      font-size: 0.9rem;
     }
 
     .tactics-img-tabs {
@@ -394,38 +375,42 @@
       gap: 8px;
       border-bottom: 1px solid var(--card-border);
       padding-bottom: 10px;
+      margin-bottom: 14px;
     }
     .tactics-img-tab-btn {
       background: #232732;
       border: none;
       color: var(--text-muted);
-      padding: 8px 14px;
+      padding: 9px 16px;
       border-radius: 6px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
+      transition: all 0.2s;
     }
     .tactics-img-tab-btn.active {
       background: var(--accent-color);
       color: #000;
     }
 
-    .modal-display-img {
+    .view-display-img {
       width: 100%;
-      max-height: 440px;
+      max-height: 480px;
       object-fit: contain;
       background: #0d0f14;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--card-border);
       cursor: zoom-in;
-      padding: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
     }
 
     .detail-section {
       background: #1c202a;
-      padding: 16px;
+      padding: 18px;
       border-radius: 10px;
       border: 1px solid #282d3b;
+      margin-bottom: 18px;
     }
     .detail-section h4 {
       font-size: 0.95rem;
@@ -433,17 +418,17 @@
       margin-bottom: 8px;
     }
     .detail-section p {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: #d1d5db;
       line-height: 1.6;
       white-space: pre-wrap;
     }
 
-    /* ★ 세부 모달 상단: 전문가 메타스코어 vs 유저 스코어 듀얼 대시보드 ★ */
     .dual-dashboard {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
+      margin-bottom: 20px;
     }
     .dash-box {
       background: linear-gradient(135deg, #131722 0%, #1c2230 100%);
@@ -503,7 +488,7 @@
       background: rgba(0, 180, 216, 0.15);
       color: var(--accent-blue);
       border: 1px solid rgba(0, 180, 216, 0.4);
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.95rem;
@@ -567,13 +552,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 20px;
+      padding: 14px 20px;
       color: #fff;
       text-decoration: none;
       font-weight: 700;
       border-radius: 8px;
       gap: 8px;
       transition: opacity 0.2s;
+      width: 100%;
     }
     .detail-footer-btn:hover {
       opacity: 0.9;
@@ -711,245 +697,232 @@
 
     <!-- 중앙 탭 메뉴 -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
-      <button class="tab-btn" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
+      <button class="tab-btn active" id="tabNavTactics" onclick="switchTab('tactics')">Tactics (전술 DB)</button>
+      <button class="tab-btn" id="tabNavPads" onclick="switchTab('pads')">Controller (패드 벤치마크)</button>
       <a href="/meta" class="tab-btn meta-btn">🔥 Daily Meta (오늘의 메타)</a>
     </div>
   </header>
 
   <!-- 본문 -->
   <main>
-    <div class="controls-bar">
+    <!-- 검색창 바 (목록 화면에서만 보임) -->
+    <div class="controls-bar" id="controlsBar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
         <input type="text" id="searchInput" placeholder="선수명, 포메이션, 사용 패드 검색..." oninput="handleSearch()">
       </div>
     </div>
 
-    <!-- 1. Tactics 섹션 -->
+    <!-- 1. Tactics 목록 섹션 -->
     <section id="section-tactics">
-      <h2 class="section-title">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 상세 세부창이 열립니다)</span></h2>
+      <h2 class="section-title">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span></h2>
       <div id="tactics-list" class="cards-grid">
         <div class="loading">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
       </div>
     </section>
 
-    <!-- 2. Pads (Controller) 섹션 -->
+    <!-- 2. Pads (Controller) 목록 섹션 -->
     <section id="section-pads" style="display: none;">
-      <h2 class="section-title">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 벤치마크 세부창이 열립니다)</span></h2>
+      <h2 class="section-title">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span></h2>
       <div id="pads-list" class="cards-grid">
         <div class="loading">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
       </div>
     </section>
+
+    <!-- 3. 전술 세부 화면 (인라인 화면 전환) -->
+    <section id="detail-view-tactics" class="detail-view-container">
+      <button class="back-btn" onclick="backToList()">&larr; 목록으로 돌아가기</button>
+      
+      <div class="detail-view-header">
+        <span class="card-badge" id="viewFormation">포메이션</span>
+        <h2 id="viewPlayerName">선수명</h2>
+        <p id="viewSubInfo">국가 | 대회 버전</p>
+      </div>
+
+      <div class="tactics-img-tabs">
+        <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. 포메이션 배치도</button>
+        <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. 개인 전술 세팅</button>
+        <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. 팀 전술 세팅</button>
+      </div>
+
+      <div style="position:relative;">
+        <img id="viewImgDisplay" class="view-display-img" src="" alt="전술 캡처" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
+        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
+          🔍 클릭하면 원본 크기로 확대됩니다
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>📋 전술 분석 및 실전 코멘트</h4>
+        <p id="viewReviewText">설명 내용이 들어갑니다.</p>
+      </div>
+
+      <div class="detail-section" id="viewPadSection">
+        <h4>🎮 선수가 사용하는 패드</h4>
+        <div style="margin-top:6px;">
+          <div id="viewPadNameBadge" class="cross-link-badge" onclick="navigateToPad(this.dataset.pad)">
+            🎮 <span id="viewPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;">(벤치마크 스펙 보기 &rarr;)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h4>⭐ 유저 실전 체감 평점 & 코멘트</h4>
+        <div class="user-review-box">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+            <span style="font-size:1.4rem; font-weight:900; color:var(--accent-gold);" id="tacticsAvgScore">0.0</span>
+            <span style="color:var(--accent-gold); font-size:1.1rem;" id="tacticsAvgStars">☆☆☆☆☆</span>
+            <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0명 참여)</span>
+          </div>
+
+          <div class="review-form">
+            <div class="review-input-row">
+              <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임 (티어 등)">
+              <select id="tReviewScore" class="review-score-select">
+                <option value="5">★ 5점 (강추)</option>
+                <option value="4">★ 4점 (좋음)</option>
+                <option value="3">★ 3점 (보통)</option>
+                <option value="2">★ 2점 (애매)</option>
+                <option value="1">★ 1점 (비추)</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="tReviewText" class="review-text-input" placeholder="이 전술의 체감이나 실전 팁을 남겨주세요...">
+              <button class="review-submit-btn" onclick="submitReview('tactics')">등록</button>
+            </div>
+          </div>
+
+          <div class="comment-list" id="tacticsCommentList"></div>
+        </div>
+      </div>
+
+      <div id="viewYtSection">
+        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
+          ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. 컨트롤러 세부 화면 (인라인 화면 전환) -->
+    <section id="detail-view-pads" class="detail-view-container">
+      <button class="back-btn" onclick="backToList()">&larr; 목록으로 돌아가기</button>
+
+      <div class="detail-view-header">
+        <span class="card-badge" style="background:rgba(0,180,216,0.2); color:var(--accent-blue);">BENCHMARK & USER REVIEW</span>
+        <h2 id="viewPadName">패드명</h2>
+        <p id="viewPadSub">스틱 방식: - | 매핑: - | 매크로: -</p>
+      </div>
+
+      <div class="dual-dashboard">
+        <div class="dash-box">
+          <span class="dash-box-label lj">LJ's META SCORE</span>
+          <div class="dash-box-val-row">
+            <span class="dash-big-num lj" id="viewPadScoreVal">0</span>
+            <span class="dash-max-num">/ 100</span>
+          </div>
+          <span class="dash-sub-text">폴링/레이턴시 실측 종합 벤치</span>
+        </div>
+
+        <div class="dash-box user-box">
+          <span class="dash-box-label user">USER's RATING</span>
+          <div class="dash-box-val-row">
+            <span class="dash-big-num user" id="viewPadUserScoreVal">0.0</span>
+            <span class="dash-max-num">/ 5.0</span>
+          </div>
+          <span class="dash-sub-text" id="viewPadUserCountText">실사용자 0명 평가</span>
+        </div>
+      </div>
+
+      <div style="position:relative;">
+        <img id="viewPadImg" class="view-display-img" src="" alt="패드 외형" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
+        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
+          🔍 클릭하면 원본 크기로 확대됩니다
+        </div>
+      </div>
+
+      <div class="detail-section" id="viewPadUsersSection">
+        <h4>🏆 이 패드를 사용하는 선수 / 프로게이머</h4>
+        <div id="viewPadUserList" class="player-tag-list"></div>
+      </div>
+
+      <div class="detail-section">
+        <h4>📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th>연결 방식</th>
+              <th>폴링레이트 (Hz)</th>
+              <th>스틱 레이턴시 (ms)</th>
+              <th>버튼 레이턴시 (ms)</th>
+              <th>실전 권장 및 조언</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>유선 (Wired)</b></td>
+              <td id="pW_poll">-</td>
+              <td id="pW_sLat">-</td>
+              <td id="pW_bLat">-</td>
+              <td id="pW_adv" style="color:#d1d5db;">-</td>
+            </tr>
+            <tr>
+              <td><b>동글 (Dongle)</b></td>
+              <td id="pD_poll">-</td>
+              <td id="pD_sLat">-</td>
+              <td id="pD_bLat">-</td>
+              <td id="pD_adv" style="color:#d1d5db;">-</td>
+            </tr>
+            <tr>
+              <td><b>블루투스 (BT)</b></td>
+              <td id="pB_poll">-</td>
+              <td id="pB_sLat">-</td>
+              <td id="pB_bLat">-</td>
+              <td id="pB_adv" style="color:#d1d5db;">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="detail-section">
+        <h4>⚖️ 장점 및 아쉬운 점 (Pros & Cons)</h4>
+        <p><b style="color:var(--accent-color);">[장점]</b> <span id="viewPadPros">-</span></p>
+        <p style="margin-top:6px;"><b style="color:#ff6b6b;">[단점]</b> <span id="viewPadCons">-</span></p>
+      </div>
+
+      <div class="detail-section">
+        <h4>🎮 유저 실사용 평점 & 리뷰 작성</h4>
+        <div class="user-review-box">
+          <div class="review-form">
+            <div class="review-input-row">
+              <input type="text" id="pReviewNick" class="review-nick-input" placeholder="닉네임">
+              <select id="pReviewScore" class="review-score-select">
+                <option value="5">★ 5점 (인생패드)</option>
+                <option value="4">★ 4점 (만족)</option>
+                <option value="3">★ 3점 (무난함)</option>
+                <option value="2">★ 2점 (아쉬움)</option>
+                <option value="1">★ 1점 (돈아까움)</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="pReviewText" class="review-text-input" placeholder="그립감, 십자키, 스틱 텐션 실사용 후기...">
+              <button class="review-submit-btn" onclick="submitReview('pad')">등록</button>
+            </div>
+          </div>
+
+          <div class="comment-list" id="padCommentList"></div>
+        </div>
+      </div>
+
+      <!-- 단독 유튜브 버튼 (구매 바로가기 완전 제외) -->
+      <div>
+        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
+          ▶ LJ Lee 정밀 벤치마크 영상 보기
+        </a>
+      </div>
+    </section>
   </main>
 
-  <!-- 1. 선수 전술 세부 모달창 -->
-  <div id="tacticsModal" class="modal-overlay" onclick="closeModalByBg(event, 'tacticsModal')">
-    <div class="detail-modal">
-      <div class="detail-header">
-        <div class="detail-header-info">
-          <span class="card-badge" id="modalFormation">포메이션</span>
-          <h2 id="modalPlayerName">선수명</h2>
-          <p id="modalSubInfo">국가 | 대회 버전</p>
-        </div>
-        <button class="detail-close-btn" onclick="forceCloseModal('tacticsModal')">&times;</button>
-      </div>
-
-      <div class="detail-body">
-        <div class="tactics-img-tabs">
-          <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. 포메이션 배치도</button>
-          <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. 개인 전술 세팅</button>
-          <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. 팀 전술 세팅</button>
-        </div>
-
-        <div style="position:relative;">
-          <img id="detailImgDisplay" class="modal-display-img" src="" alt="전술 캡처" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
-          <div style="position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
-            🔍 클릭하면 원본 크기로 확대됩니다
-          </div>
-        </div>
-
-        <div class="detail-section">
-          <h4>📋 전술 분석 및 실전 코멘트</h4>
-          <p id="modalReviewText">설명 내용이 들어갑니다.</p>
-        </div>
-
-        <div class="detail-section" id="modalPadSection">
-          <h4>🎮 선수가 사용하는 패드</h4>
-          <div style="margin-top:6px;">
-            <div id="modalPadNameBadge" class="cross-link-badge" onclick="navigateToPad(this.dataset.pad)">
-              🎮 <span id="modalPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;">(벤치마크 스펙 보기 &rarr;)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 유저 평점 & 댓글 (전술) -->
-        <div class="detail-section">
-          <h4>⭐ 유저 실전 체감 평점 & 코멘트</h4>
-          <div class="user-review-box">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-              <span style="font-size:1.4rem; font-weight:900; color:var(--accent-gold);" id="tacticsAvgScore">0.0</span>
-              <span style="color:var(--accent-gold); font-size:1.1rem;" id="tacticsAvgStars">☆☆☆☆☆</span>
-              <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0명 참여)</span>
-            </div>
-
-            <div class="review-form">
-              <div class="review-input-row">
-                <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임 (티어 등)">
-                <select id="tReviewScore" class="review-score-select">
-                  <option value="5">★ 5점 (강추)</option>
-                  <option value="4">★ 4점 (좋음)</option>
-                  <option value="3">★ 3점 (보통)</option>
-                  <option value="2">★ 2점 (애매)</option>
-                  <option value="1">★ 1점 (비추)</option>
-                </select>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <input type="text" id="tReviewText" class="review-text-input" placeholder="이 전술의 체감이나 실전 팁을 남겨주세요...">
-                <button class="review-submit-btn" onclick="submitReview('tactics')">등록</button>
-              </div>
-            </div>
-
-            <div class="comment-list" id="tacticsCommentList"></div>
-          </div>
-        </div>
-
-        <div id="modalYtSection">
-          <a id="modalYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000; width:100%;">
-            ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. 게임패드 세부 벤치마크 모달창 -->
-  <div id="padModal" class="modal-overlay" onclick="closeModalByBg(event, 'padModal')">
-    <div class="detail-modal">
-      <div class="detail-header">
-        <div class="detail-header-info">
-          <span class="card-badge" style="background:rgba(0,180,216,0.2); color:var(--accent-blue);">BENCHMARK & USER REVIEW</span>
-          <h2 id="padModalName">패드명</h2>
-          <p id="padModalSub">스틱 방식: - | 매핑: - | 매크로: -</p>
-        </div>
-        <button class="detail-close-btn" onclick="forceCloseModal('padModal')">&times;</button>
-      </div>
-
-      <div class="detail-body">
-        <div class="dual-dashboard">
-          <div class="dash-box">
-            <span class="dash-box-label lj">LJ's META SCORE</span>
-            <div class="dash-box-val-row">
-              <span class="dash-big-num lj" id="padModalScoreVal">0</span>
-              <span class="dash-max-num">/ 100</span>
-            </div>
-            <span class="dash-sub-text">폴링/레이턴시 실측 종합 벤치</span>
-          </div>
-
-          <div class="dash-box user-box">
-            <span class="dash-box-label user">USER's RATING</span>
-            <div class="dash-box-val-row">
-              <span class="dash-big-num user" id="padModalUserScoreVal">0.0</span>
-              <span class="dash-max-num">/ 5.0</span>
-            </div>
-            <span class="dash-sub-text" id="padModalUserCountText">실사용자 0명 평가</span>
-          </div>
-        </div>
-
-        <div style="position:relative;">
-          <img id="padModalImg" class="modal-display-img" src="" alt="패드 외형" onclick="openLightbox(this.src)" title="클릭 시 화면 전체 원본 크기 확대">
-          <div style="position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;">
-            🔍 클릭하면 원본 크기로 확대됩니다
-          </div>
-        </div>
-
-        <div class="detail-section" id="padUsersSection">
-          <h4>🏆 이 패드를 사용하는 선수 / 프로게이머</h4>
-          <div id="padUserList" class="player-tag-list"></div>
-        </div>
-
-        <div class="detail-section">
-          <h4>📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
-          <table class="bench-table">
-            <thead>
-              <tr>
-                <th>연결 방식</th>
-                <th>폴링레이트 (Hz)</th>
-                <th>스틱 레이턴시 (ms)</th>
-                <th>버튼 레이턴시 (ms)</th>
-                <th>실전 권장 및 조언</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>유선 (Wired)</b></td>
-                <td id="pW_poll">-</td>
-                <td id="pW_sLat">-</td>
-                <td id="pW_bLat">-</td>
-                <td id="pW_adv" style="color:#d1d5db;">-</td>
-              </tr>
-              <tr>
-                <td><b>동글 (Dongle)</b></td>
-                <td id="pD_poll">-</td>
-                <td id="pD_sLat">-</td>
-                <td id="pD_bLat">-</td>
-                <td id="pD_adv" style="color:#d1d5db;">-</td>
-              </tr>
-              <tr>
-                <td><b>블루투스 (BT)</b></td>
-                <td id="pB_poll">-</td>
-                <td id="pB_sLat">-</td>
-                <td id="pB_bLat">-</td>
-                <td id="pB_adv" style="color:#d1d5db;">-</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="detail-section">
-          <h4>⚖️ 장점 및 아쉬운 점 (Pros & Cons)</h4>
-          <p><b style="color:var(--accent-color);">[장점]</b> <span id="padModalPros">-</span></p>
-          <p style="margin-top:6px;"><b style="color:#ff6b6b;">[단점]</b> <span id="padModalCons">-</span></p>
-        </div>
-
-        <!-- 유저 평점 & 한줄평 리뷰 -->
-        <div class="detail-section">
-          <h4>🎮 유저 실사용 평점 & 리뷰 작성</h4>
-          <div class="user-review-box">
-            <div class="review-form">
-              <div class="review-input-row">
-                <input type="text" id="pReviewNick" class="review-nick-input" placeholder="닉네임">
-                <select id="pReviewScore" class="review-score-select">
-                  <option value="5">★ 5점 (인생패드)</option>
-                  <option value="4">★ 4점 (만족)</option>
-                  <option value="3">★ 3점 (무난함)</option>
-                  <option value="2">★ 2점 (아쉬움)</option>
-                  <option value="1">★ 1점 (돈아까움)</option>
-                </select>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <input type="text" id="pReviewText" class="review-text-input" placeholder="그립감, 십자키, 스틱 텐션 실사용 후기...">
-                <button class="review-submit-btn" onclick="submitReview('pad')">등록</button>
-              </div>
-            </div>
-
-            <div class="comment-list" id="padCommentList"></div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a id="padModalBuyBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#00b4d8; flex:1;">
-            🛒 구매 바로가기
-          </a>
-          <a id="padModalYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000; flex:1;">
-            ▶ LJ Lee 정밀 벤치마크 영상 보기
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. 최상위 라이트박스 원본 확대 팝업 -->
+  <!-- 라이트박스 원본 이미지 확대 팝업 (이미지 클릭 시에만 가동) -->
   <div id="imageModal" onclick="closeLightbox(event)">
     <img id="modalImg" alt="원본 확대">
   </div>
@@ -958,6 +931,7 @@
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
     let currentTab = 'tactics';
+    let isDetailView = false;
     let allTactics = [];
     let allPads = [];
     let currentSelectedTactics = null;
@@ -965,24 +939,38 @@
 
     function switchTab(tab) {
       currentTab = tab;
-      const tabBtns = document.querySelectorAll('.tab-btn');
-      tabBtns.forEach(b => b.classList.remove('active'));
+      isDetailView = false;
+
+      // 상세 화면 닫기 및 컨트롤바 표시
+      document.getElementById('detail-view-tactics').style.display = 'none';
+      document.getElementById('detail-view-pads').style.display = 'none';
+      document.getElementById('controlsBar').style.display = 'flex';
+
+      const tabNavTactics = document.getElementById('tabNavTactics');
+      const tabNavPads = document.getElementById('tabNavPads');
       const searchInput = document.getElementById('searchInput');
-      
+
       if (tab === 'tactics') {
-        tabBtns[0].classList.add('active');
+        tabNavTactics.classList.add('active');
+        tabNavPads.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
         searchInput.placeholder = "선수명, 포메이션, 사용 패드 검색...";
         history.replaceState(null, null, '#tactics');
       } else if (tab === 'pads') {
-        tabBtns[1].classList.add('active');
+        tabNavPads.classList.add('active');
+        tabNavTactics.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
         searchInput.placeholder = "패드명, 스틱 방식, 장단점 검색...";
         history.replaceState(null, null, '#controller');
       }
       handleSearch();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToList() {
+      switchTab(currentTab);
     }
 
     function parseCSV(text) {
@@ -1060,7 +1048,7 @@
         <div class="card" onclick="openTacticsDetail(${idx})">
           <div class="card-img-wrapper">
             <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || '전술'}" onerror="this.src='logo.png'">
-            <div class="card-hover-hint">클릭하여 세부 전술 보기</div>
+            <div class="card-hover-hint">클릭하여 상세 보기</div>
           </div>
           <div class="card-body">
             <span class="card-badge">${item.formation || '포메이션'}</span>
@@ -1075,7 +1063,7 @@
 
             <div class="card-meta">
               <span>버전: ${item.versionName || '-'}</span>
-              <span style="color:var(--accent-color); font-weight:700;">세부 분석 보기 &rarr;</span>
+              <span style="color:var(--accent-color); font-weight:700;">상세 분석 &rarr;</span>
             </div>
           </div>
         </div>
@@ -1109,7 +1097,7 @@
           <div class="card" onclick="openPadDetail(${idx})">
             <div class="card-img-wrapper">
               <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || '패드'}" onerror="this.src='logo.png'">
-              <div class="card-hover-hint">클릭하여 세부 벤치마크 보기</div>
+              <div class="card-hover-hint">클릭하여 상세 보기</div>
             </div>
             <div class="card-body">
               <div class="dual-score-grid">
@@ -1168,106 +1156,69 @@
       }
     }
 
+    /* 화면 전환: 전술 세부 페이지 뷰 */
     function openTacticsDetail(index) {
       currentSelectedTactics = allTactics[index];
       if (!currentSelectedTactics) return;
 
       const t = currentSelectedTactics;
-      document.getElementById('modalFormation').innerText = t.formation || '포메이션';
-      document.getElementById('modalPlayerName').innerText = `${t.playerName || '선수명'} 전술 상세`;
-      document.getElementById('modalSubInfo').innerText = `국가: ${t.country || 'GLOBAL'} | 대회 버전: ${t.versionName || '-'}`;
-      document.getElementById('modalReviewText').innerText = t.reviewText || '전술 설명이 없습니다.';
+      document.getElementById('viewFormation').innerText = t.formation || '포메이션';
+      document.getElementById('viewPlayerName').innerText = `${t.playerName || '선수명'} 전술 상세`;
+      document.getElementById('viewSubInfo').innerText = `국가: ${t.country || 'GLOBAL'} | 대회 버전: ${t.versionName || '-'}`;
+      document.getElementById('viewReviewText').innerText = t.reviewText || '전술 설명이 없습니다.';
 
       if (t.padName) {
-        document.getElementById('modalPadSection').style.display = 'block';
-        document.getElementById('modalPadNameText').innerText = t.padName;
-        document.getElementById('modalPadNameBadge').dataset.pad = t.padName;
+        document.getElementById('viewPadSection').style.display = 'block';
+        document.getElementById('viewPadNameText').innerText = t.padName;
+        document.getElementById('viewPadNameBadge').dataset.pad = t.padName;
       } else {
-        document.getElementById('modalPadSection').style.display = 'none';
+        document.getElementById('viewPadSection').style.display = 'none';
       }
 
       if (t.ytUrl) {
-        document.getElementById('modalYtSection').style.display = 'block';
-        document.getElementById('modalYtLink').href = t.ytUrl;
+        document.getElementById('viewYtSection').style.display = 'block';
+        document.getElementById('viewYtLink').href = t.ytUrl;
       } else {
-        document.getElementById('modalYtSection').style.display = 'none';
+        document.getElementById('viewYtSection').style.display = 'none';
       }
 
       showTacticsTabImg('formation');
       renderReviews('tactics', t.playerName || 'default_tactic');
 
-      document.getElementById('tacticsModal').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      // 리스트 숨기고 상세 뷰 표시
+      document.getElementById('section-tactics').style.display = 'none';
+      document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-tactics').style.display = 'block';
+      isDetailView = true;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function navigateToPad(padName) {
-      if (!padName) return;
-      const targetName = padName.toLowerCase().trim();
-      const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
-      
-      if (padIndex !== -1) {
-        forceCloseModal('tacticsModal');
-        openPadDetail(padIndex);
-      } else {
-        alert(`'${padName}' 패드의 상세 벤치마크 데이터가 아직 등록되지 않았습니다.`);
-      }
-    }
-
-    function navigateToPlayer(playerName) {
-      if (!playerName) return;
-      const targetName = playerName.toLowerCase().trim();
-      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
-      
-      if (tacticIndex !== -1) {
-        forceCloseModal('padModal');
-        switchTab('tactics');
-        openTacticsDetail(tacticIndex);
-      }
-    }
-
-    function showTacticsTabImg(tabType) {
-      if (!currentSelectedTactics) return;
-      const t = currentSelectedTactics;
-      const imgDisplay = document.getElementById('detailImgDisplay');
-      document.querySelectorAll('.tactics-img-tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      if (tabType === 'formation') {
-        document.getElementById('tabBtnFormation').classList.add('active');
-        imgDisplay.src = t.imgFormation || 'logo.png';
-      } else if (tabType === 'personal') {
-        document.getElementById('tabBtnPersonal').classList.add('active');
-        imgDisplay.src = t.imgPersonal || t.imgFormation || 'logo.png';
-      } else if (tabType === 'team') {
-        document.getElementById('tabBtnTeam').classList.add('active');
-        imgDisplay.src = t.imgTeam || t.imgFormation || 'logo.png';
-      }
-    }
-
+    /* 화면 전환: 패드 세부 벤치마크 뷰 */
     function openPadDetail(index) {
       currentSelectedPad = allPads[index];
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
 
-      document.getElementById('padModalName').innerText = p.padName || '게임패드 상세';
-      document.getElementById('padModalSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
-      document.getElementById('padModalScoreVal').innerText = p.metaScore || '0';
+      document.getElementById('viewPadName').innerText = p.padName || '게임패드 상세';
+      document.getElementById('viewPadSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
+      document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
       
-      document.getElementById('padModalImg').src = p.imgUrl || 'logo.png';
+      document.getElementById('viewPadImg').src = p.imgUrl || 'logo.png';
 
       const currentPadName = (p.padName || '').toLowerCase().trim();
       const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
       
-      const userListContainer = document.getElementById('padUserList');
+      const userListContainer = document.getElementById('viewPadUserList');
       if (matchedPlayers.length > 0) {
         userListContainer.innerHTML = matchedPlayers.map(t => `
           <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')" title="클릭 시 선수의 세부 전술창으로 이동">
             ⚽ <b>${t.playerName}</b> (${t.formation || '전술'})
           </div>
         `).join('');
-        document.getElementById('padUsersSection').style.display = 'block';
+        document.getElementById('viewPadUsersSection').style.display = 'block';
       } else {
         userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">현재 DB에 이 패드를 사용하는 것으로 등록된 선수가 없습니다.</span>';
-        document.getElementById('padUsersSection').style.display = 'block';
+        document.getElementById('viewPadUsersSection').style.display = 'block';
       }
 
       const formatHz = (val) => val ? `${val} Hz` : '-';
@@ -1288,18 +1239,10 @@
       document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
       document.getElementById('pB_adv').innerText = p.bAdvice || '-';
 
-      document.getElementById('padModalPros').innerText = p.pros || '-';
-      document.getElementById('padModalCons').innerText = p.cons || '-';
+      document.getElementById('viewPadPros').innerText = p.pros || '-';
+      document.getElementById('viewPadCons').innerText = p.cons || '-';
 
-      const buyBtn = document.getElementById('padModalBuyBtn');
-      if (p.buyUrl) {
-        buyBtn.href = p.buyUrl;
-        buyBtn.style.display = 'inline-flex';
-      } else {
-        buyBtn.style.display = 'none';
-      }
-
-      const ytBtn = document.getElementById('padModalYtBtn');
+      const ytBtn = document.getElementById('viewPadYtBtn');
       if (p.ytUrl) {
         ytBtn.href = p.ytUrl;
         ytBtn.style.display = 'inline-flex';
@@ -1309,8 +1252,60 @@
 
       renderReviews('pad', p.padName || 'default_pad');
 
-      document.getElementById('padModal').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+      // 리스트 숨기고 상세 뷰 표시
+      document.getElementById('section-pads').style.display = 'none';
+      document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-pads').style.display = 'block';
+      isDetailView = true;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function navigateToPad(padName) {
+      if (!padName) return;
+      const targetName = padName.toLowerCase().trim();
+      const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
+      
+      if (padIndex !== -1) {
+        document.getElementById('detail-view-tactics').style.display = 'none';
+        currentTab = 'pads';
+        document.getElementById('tabNavPads').classList.add('active');
+        document.getElementById('tabNavTactics').classList.remove('active');
+        openPadDetail(padIndex);
+      } else {
+        alert(`'${padName}' 패드의 상세 벤치마크 데이터가 아직 등록되지 않았습니다.`);
+      }
+    }
+
+    function navigateToPlayer(playerName) {
+      if (!playerName) return;
+      const targetName = playerName.toLowerCase().trim();
+      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
+      
+      if (tacticIndex !== -1) {
+        document.getElementById('detail-view-pads').style.display = 'none';
+        currentTab = 'tactics';
+        document.getElementById('tabNavTactics').classList.add('active');
+        document.getElementById('tabNavPads').classList.remove('active');
+        openTacticsDetail(tacticIndex);
+      }
+    }
+
+    function showTacticsTabImg(tabType) {
+      if (!currentSelectedTactics) return;
+      const t = currentSelectedTactics;
+      const imgDisplay = document.getElementById('viewImgDisplay');
+      document.querySelectorAll('.tactics-img-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      if (tabType === 'formation') {
+        document.getElementById('tabBtnFormation').classList.add('active');
+        imgDisplay.src = t.imgFormation || 'logo.png';
+      } else if (tabType === 'personal') {
+        document.getElementById('tabBtnPersonal').classList.add('active');
+        imgDisplay.src = t.imgPersonal || t.imgFormation || 'logo.png';
+      } else if (tabType === 'team') {
+        document.getElementById('tabBtnTeam').classList.add('active');
+        imgDisplay.src = t.imgTeam || t.imgFormation || 'logo.png';
+      }
     }
 
     function getStorageKey(type, id) {
@@ -1354,8 +1349,8 @@
           `).reverse().join('');
         }
       } else {
-        const padUserScoreEl = document.getElementById('padModalUserScoreVal');
-        const padUserCountEl = document.getElementById('padModalUserCountText');
+        const padUserScoreEl = document.getElementById('viewPadUserScoreVal');
+        const padUserCountEl = document.getElementById('viewPadUserCountText');
         const commentListEl = document.getElementById('padCommentList');
 
         if (list.length === 0) {
@@ -1432,17 +1427,6 @@
       renderReviews(type, itemId);
     }
 
-    function closeModalByBg(e, modalId) {
-      if (e.target.id === modalId) {
-        forceCloseModal(modalId);
-      }
-    }
-
-    function forceCloseModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
     function openLightbox(src) {
       if (!src || src.endsWith('logo.png')) return;
       const modal = document.getElementById('imageModal');
@@ -1459,15 +1443,13 @@
       if (e.key === 'Escape') {
         if (document.getElementById('imageModal').style.display === 'flex') {
           closeLightbox();
-        } else if (document.getElementById('tacticsModal').style.display === 'flex') {
-          forceCloseModal('tacticsModal');
-        } else if (document.getElementById('padModal').style.display === 'flex') {
-          forceCloseModal('padModal');
+        } else if (isDetailView) {
+          backToList();
         }
       }
     });
 
-    // ★ 해시(#controller 또는 #pads) 감지 자동 탭 전환 로직 ★
+    // 해시 감지 탭 전환
     function checkHashAndSwitch() {
       const hash = window.location.hash;
       if (hash === '#controller' || hash === '#pads') {
