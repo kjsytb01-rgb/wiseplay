@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24 14:47:02",
+  "updated_at": "2026-09-24 14:52:10",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -11,10 +11,30 @@
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "CDM": "주앙 네베스",
-        "ST": "우스만 뎀벨레",
-        "MID": "크바라츠헬리아",
-        "CB": "누누 멘데스"
+        "CDM": {
+          "ko": "주앙 네베스",
+          "en": "João Neves",
+          "vi": "João Neves",
+          "th": "โชเอา เนเวส"
+        },
+        "ST": {
+          "ko": "우스만 뎀벨레",
+          "en": "O. Dembélé",
+          "vi": "O. Dembélé",
+          "th": "อุสมาน เดมเบเล่"
+        },
+        "MID": {
+          "ko": "크바라츠헬리아",
+          "en": "Kvaratskhelia",
+          "vi": "Kvaratskhelia",
+          "th": "ควารัตสเคเลีย"
+        },
+        "CB": {
+          "ko": "누누 멘데스",
+          "en": "Nuno Mendes",
+          "vi": "Nuno Mendes",
+          "th": "นูโน เมนเดส"
+        }
       },
       "recommended_rankers": [
         "태연",
@@ -33,10 +53,30 @@
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "MID": "요한 크루이프",
-        "ST": "사뮈엘 에토",
-        "CB": "발데",
-        "CDM": "페드리"
+        "MID": {
+          "ko": "요한 크루이프",
+          "en": "Johan Cruyff",
+          "vi": "Johan Cruyff",
+          "th": "โยฮัน ครัฟฟ์"
+        },
+        "ST": {
+          "ko": "사뮈엘 에토",
+          "en": "Samuel Eto'o",
+          "vi": "Samuel Eto'o",
+          "th": "ซามูเอล เอโต้"
+        },
+        "CB": {
+          "ko": "발데",
+          "en": "balde",
+          "vi": "đầu trọc",
+          "th": "หัวล้าน"
+        },
+        "CDM": {
+          "ko": "페드리",
+          "en": "Pedri",
+          "vi": "Pedri",
+          "th": "เปดรี"
+        }
       },
       "recommended_rankers": [
         "T1Pierce",
@@ -55,10 +95,30 @@
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
-        "CB": "로랑 블랑",
-        "MID": "안토니 엘랑가",
-        "ST": "카를로스 테베스",
-        "CDM": "박지성"
+        "CB": {
+          "ko": "로랑 블랑",
+          "en": "Laurent Blanc",
+          "vi": "Laurent Blanc",
+          "th": "โลรองต์ บลังค์"
+        },
+        "MID": {
+          "ko": "안토니 엘랑가",
+          "en": "Anthony Elanga",
+          "vi": "Anthony Elanga",
+          "th": "แอนโทนี่ เอลังกา"
+        },
+        "ST": {
+          "ko": "카를로스 테베스",
+          "en": "Carlos Tevez",
+          "vi": "Carlos Tevez",
+          "th": "คาร์ลอส เตเวซ"
+        },
+        "CDM": {
+          "ko": "박지성",
+          "en": "Park Ji-sung",
+          "vi": "Park Ji Sung",
+          "th": "ปาร์ค จีซอง"
+        }
       },
       "recommended_rankers": [
         "youngsookim",
@@ -77,10 +137,30 @@
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
-        "CB": "윌리암 살리바",
-        "MID": "데클런 라이스",
-        "CDM": "수비멘디",
-        "ST": "카이 하베르츠"
+        "CB": {
+          "ko": "윌리암 살리바",
+          "en": "William Saliba",
+          "vi": "William Saliba",
+          "th": "วิลเลียม ซาลิบา"
+        },
+        "MID": {
+          "ko": "데클런 라이스",
+          "en": "Declan Rice",
+          "vi": "Gạo Declan",
+          "th": "เดแคลน ไรซ์"
+        },
+        "CDM": {
+          "ko": "수비멘디",
+          "en": "Subi Mendi",
+          "vi": "Subi Mendi",
+          "th": "ซูบี เมนดิ"
+        },
+        "ST": {
+          "ko": "카이 하베르츠",
+          "en": "Kai Havertz",
+          "vi": "Kai Havertz",
+          "th": "ไค ฮาแวร์ตซ์"
+        }
       },
       "recommended_rankers": [
         "T1Seon9min",
@@ -98,10 +178,30 @@
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
-        "CB": "테오 에르난데스",
-        "CDM": "산드로 토날리",
-        "MID": "하칸 찰하놀루",
-        "ST": "호나우두"
+        "CB": {
+          "ko": "테오 에르난데스",
+          "en": "Theo Hernández",
+          "vi": "Theo Hernández",
+          "th": "ธีโอ เฮอร์นันเดซ"
+        },
+        "CDM": {
+          "ko": "산드로 토날리",
+          "en": "Sandro Tonali",
+          "vi": "Sandro Tonali",
+          "th": "ซานโดร โตนาลี"
+        },
+        "MID": {
+          "ko": "하칸 찰하놀루",
+          "en": "Hakan Çalhanoğlu",
+          "vi": "Hakan Çalhanoğlu",
+          "th": "ฮาคาน ชาลฮาโนกลู"
+        },
+        "ST": {
+          "ko": "호나우두",
+          "en": "Ronaldo",
+          "vi": "Ronaldo",
+          "th": "โรนัลโด้"
+        }
       },
       "recommended_rankers": [
         "인바디",
