@@ -46,6 +46,39 @@ def get_spid_metadata():
     except Exception:
         pass
 
+# 주요 인기 랭커 선수 영문/현지명 즉시 매핑 사전
+KNOWN_PLAYER_NAMES = {
+    "주앙 네베스": {"en": "João Neves", "vi": "João Neves", "th": "โชเอา เนเวส"},
+    "우스만 뎀벨레": {"en": "O. Dembélé", "vi": "O. Dembélé", "th": "อุสมาน เดมเบเล่"},
+    "크바라츠헬리아": {"en": "Kvaratskhelia", "vi": "Kvaratskhelia", "th": "ควารัตสเคเลีย"},
+    "누누 멘데스": {"en": "Nuno Mendes", "vi": "Nuno Mendes", "th": "นูโน เมนเดส"},
+    "사뮈엘 에토": {"en": "Samuel Eto'o", "vi": "Samuel Eto'o", "th": "ซามูเอล เอโต้"},
+    "마르틴 카세레스": {"en": "Martín Cáceres", "vi": "Martín Cáceres", "th": "มาร์ติน กาเซเรส"},
+    "호나우두": {"en": "Ronaldo", "vi": "Ronaldo", "th": "โรนัลโด้"},
+    "굴리트": {"en": "R. Gullit", "vi": "R. Gullit", "th": "รุด กุลลิท"},
+    "호나우지뉴": {"en": "Ronaldinho", "vi": "Ronaldinho", "th": "โรนัลดินโญ่"},
+    "로드리": {"en": "Rodri", "vi": "Rodri", "th": "โรดรี้"},
+    "반데이크": {"en": "V. van Dijk", "vi": "V. van Dijk", "th": "เฟอร์จิล ฟาน ไดจ์ค"},
+    "손흥민": {"en": "Son Heung-min", "vi": "Son Heung-min", "th": "ซน ฮึง-มิน"}
+}
+
+def translate_player_server_side(kor_name):
+    """서버 사이드에서 4개국어 선수명 객체 생성"""
+    if kor_name in KNOWN_PLAYER_NAMES:
+        item = KNOWN_PLAYER_NAMES[kor_name]
+        return {"ko": kor_name, "en": item["en"], "vi": item["vi"], "th": item["th"]}
+
+    res_dict = {"ko": kor_name, "en": kor_name, "vi": kor_name, "th": kor_name}
+    for lang in ["en", "vi", "th"]:
+        try:
+            url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl={lang}&dt=t&q={kor_name}"
+            r = requests.get(url, timeout=3)
+            if r.status_code == 200:
+                res_dict[lang] = r.json()[0][0][0]
+        except Exception:
+            res_dict[lang] = kor_name
+    return res_dict
+
 def fetch_real_squad_players(nickname):
     if not API_KEY:
         return {}
@@ -84,22 +117,21 @@ def fetch_real_squad_players(nickname):
             sp_id = p.get("spId")
             p_name = SPID_META.get(sp_id, f"ID:{sp_id}")
 
-            # 넥슨 공식 포지션 기준
             if pos_id in [20, 21, 24, 25] and "ST" not in extracted:
-                extracted["ST"] = p_name
+                extracted["ST"] = translate_player_server_side(p_name)
             elif pos_id in [12, 13, 14, 15, 16, 17, 18, 19] and "MID" not in extracted:
-                extracted["MID"] = p_name
+                extracted["MID"] = translate_player_server_side(p_name)
             elif pos_id in [9, 10, 11] and "CDM" not in extracted:
-                extracted["CDM"] = p_name
+                extracted["CDM"] = translate_player_server_side(p_name)
             elif pos_id in [4, 5, 6, 7] and "CB" not in extracted:
-                extracted["CB"] = p_name
+                extracted["CB"] = translate_player_server_side(p_name)
 
         return extracted
     except Exception:
         return {}
 
 def collect_real_top100_playwright():
-    print("[1/3] 넥슨 데이터센터 순위표 실시간 1~100위 전수 수집 중...")
+    print("[1/3] 넥슨 데이터센터 순위표 실시간 1~100위 수집 중...")
     ranker_data = []
 
     with sync_playwright() as p:
@@ -139,12 +171,10 @@ def collect_real_top100_playwright():
                 const rows = document.querySelectorAll('tbody tr, .rank_list .tr, .tbody .tr, tr');
                 rows.forEach(row => {
                     const text = row.innerText || '';
-                    // 4-2-2-1-1까지 완벽히 매칭하는 정규식
                     const formMatch = text.match(/\\b(\\d(?:-\\d){2,4})\\b/);
                     if (!formMatch) return;
                     
                     let formStr = formMatch[1];
-                    // 혹시라도 4-2-2-1로 잡혔다면 4-2-2-1-1로 보정
                     if (formStr === '4-2-2-1') formStr = '4-2-2-1-1';
 
                     let nickname = '';
@@ -175,7 +205,7 @@ def collect_real_top100_playwright():
 
         browser.close()
 
-    print(f"  => 실시간 슈챔 랭커 100명 전수 수집 완료: 총 {len(ranker_data)}명")
+    print(f"  => 랭커 100명 전수 수집 완료: 총 {len(ranker_data)}명")
     return ranker_data
 
 def process_and_save():
@@ -192,13 +222,11 @@ def process_and_save():
     for r in rankers:
         formation_rankers.setdefault(r["formation"], []).append(r["nickname"])
 
-    print("[2/3] 포메이션별 최상위 랭커 실제 인게임 라인업 추출 중...")
+    print("[2/3] 포메이션별 최상위 랭커 실제 라인업 및 다국어 이름 파싱 중...")
 
     meta_list = []
     for form, count in formation_counter.most_common(5):
         share = round((count / total_valid) * 100, 1)
-        
-        # 4-2-2-1-1 키 완벽 매칭
         routes = TACTICAL_BLUEPRINTS.get(form, TACTICAL_BLUEPRINTS.get(form.replace('4-2-2-1', '4-2-2-1-1'), []))
 
         actual_rankers = formation_rankers.get(form, [])
@@ -213,7 +241,10 @@ def process_and_save():
 
         if not real_squad_players:
             real_squad_players = {
-                "ST": "호나우두", "MID": "굴리트", "CDM": "로드리", "CB": "반데이크"
+                "ST": translate_player_server_side("호나우두"),
+                "MID": translate_player_server_side("굴리트"),
+                "CDM": translate_player_server_side("로드리"),
+                "CB": translate_player_server_side("반데이크")
             }
 
         meta_list.append({
@@ -235,7 +266,7 @@ def process_and_save():
     with open("data/meta_today.json", "w", encoding="utf-8") as f:
         json.dump(result_data, f, ensure_ascii=False, indent=2)
 
-    print(f"[3/3] data/meta_today.json 업데이트 완료! (표본: {total_valid}명)")
+    print(f"[3/3] data/meta_today.json 4개국어 선수 데이터 매핑 완료!")
 
 if __name__ == "__main__":
     process_and_save()
