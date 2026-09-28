@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About WISEPLAY - 서비스 소개 및 문의</title>
+  <style>
+    :root {
+      --bg-dark: #0f1115;
+      --card-bg: #1a1d24;
+      --card-border: #2a2e39;
+      --accent-color: #00ff88;
+      --accent-blue: #00b4d8;
+      --text-main: #f0f2f5;
+      --text-muted: #8b949e;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.7;
+      padding: 40px 20px 80px;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 36px 30px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+    .back-link:hover { text-decoration: underline; }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    p {
+      color: #c9d1d9;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+    ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      color: #d1d5db;
+      font-size: 0.95rem;
+    }
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+    .contact-box {
+      background: #14171f;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .contact-item:last-child { margin-bottom: 0; }
+    .contact-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .contact-val {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .contact-val:hover { text-decoration: underline; }
+    .yt-links-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .yt-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #f0f2f5;
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+    .yt-link-btn:hover { color: var(--accent-color); }
+    .yt-badge {
+      background: #ff0000;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="/" class="back-link">&larr; 메인으로 돌아가기</a>
+    
+    <h1>WISEPLAY 소개 및 운영 안내 (About & Contact)</h1>
+    
+    <p>
+      <strong>WISEPLAY</strong>는 대한민국 FC 온라인 전문 e스포츠 크리에이터 <strong>즐인권(FIFA CAMPER)</strong>과 
+      게이밍 하드웨어 실측 분석가 <strong>LJ Lee</strong>가 공동 기획·운영하는 독립 e스포츠 전술 데이터베이스 및 정밀 벤치마크 플랫폼입니다.
+    </p>
+
+    <h2>🎯 서비스 목표</h2>
+    <p>
+      단순 수치 나열이나 무분별한 복제 정보가 아닌, 프로 리그 실전 경기 분석과 전문 하드웨어 측정 장비 데이터를 결합하여 
+      유저들에게 정확하고 실전성 높은 인게임 가이드를 제공하는 것을 목표로 합니다.
+    </p>
+
+    <h2>📊 데이터 수집 및 검증 기준 (Data Policy)</h2>
+    <ul>
+      <li>
+        <strong>인게임 전술 DB (Tactics):</strong> 국내외 공식 e스포츠 대회 및 랭커들의 공식 경기 데이터를 기반으로 포메이션, 개인 전술, 팀 전술, 실전 빌드업 전개 방식을 직접 분석하여 작성합니다.
+      </li>
+      <li>
+        <strong>컨트롤러 정밀 벤치마크 (Hardware):</strong> 전문 레이턴시 측정 장비를 활용하여 유선(Wired), 무선 동글(Dongle), 블루투스(BT) 등 연결 모드별 실제 폴링레이트와 버튼/스틱 인풋렉을 실측하여 투명하게 공개합니다.
+      </li>
+      <li>
+        <strong>슈퍼챔피언스 데일리 메타 (Daily Meta):</strong> 넥슨 공식 데이터센터 API 연동을 통해 매일 상위 랭커 표본을 자동 집계하여 최신 메타 트렌드를 반영합니다.
+      </li>
+      <li>
+        <strong>유저 리뷰 및 평점 (User Feedback):</strong> 실제 유저들의 플레이 체감 후기를 공유받으며, 건전하고 신뢰도 높은 정보 공유를 위해 모니터링 정책을 유지합니다.
+      </li>
+    </ul>
+
+    <h2>📩 제휴 및 문의 (Contact Us)</h2>
+    <p>
+      데이터 수정 요청, 신규 전술/패드 분석 제안, 콘텐츠 제휴 및 비즈니스 관련 문의는 아래 공식 연락처를 통해 접수해 주시면 확인 후 신속히 답변드리겠습니다.
+    </p>
+
+    <div class="contact-box">
+      <div class="contact-item">
+        <span class="contact-label">공식 비즈니스 및 데이터 문의</span>
+        <a href="mailto:kjsytb01@gmail.com" class="contact-val">kjsytb01@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">크리에이터 공식 유튜브 채널</span>
+        <div class="yt-links-wrap">
+          <a href="https://www.youtube.com/@fifacamper" target="_blank" rel="noopener" class="yt-link-btn">
+            <span class="yt-badge">YouTube</span> 즐인권 FIFA CAMPER (@fifacamper)
+          </a>
+          <a href="https://www.youtube.com/@LJLeeTV" target="_blank" rel="noopener" class="yt-link-btn">
+            <span class="yt-badge">YouTube</span> LJ Lee (@LJLeeTV)
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
