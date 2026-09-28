@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27 23:02:28",
+  "updated_at": "2026-09-28 04:52:05",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -13,21 +13,21 @@
       "key_players": {
         "MID": {
           "ko": "요한 크루이프",
-          "en": "Johan Cruyff",
-          "vi": "Johan Cruyff",
-          "th": "โยฮัน ครัฟฟ์"
+          "en": "요한 크루이프",
+          "vi": "요한 크루이프",
+          "th": "요한 크루이프"
         },
         "CB": {
           "ko": "클레망 랑글레",
-          "en": "Clement Lenglet",
-          "vi": "Lenglet Clement",
-          "th": "เคลเมนท์ ลองเกลต์"
+          "en": "클레망 랑글레",
+          "vi": "클레망 랑글레",
+          "th": "클레망 랑글레"
         },
         "CDM": {
           "ko": "잔루카 잠브로타",
-          "en": "Gianluca Zambrotta",
-          "vi": "Gianluca Zambrotta",
-          "th": "จานลูก้า ซัมบรอตต้า"
+          "en": "잔루카 잠브로타",
+          "vi": "잔루카 잠브로타",
+          "th": "잔루카 잠브로타"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -46,8 +46,8 @@
     },
     {
       "formation": "4-2-2-1-1",
-      "count": 33,
-      "share": 33.0,
+      "count": 32,
+      "share": 32.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -55,27 +55,27 @@
       "key_players": {
         "CB": {
           "ko": "브레메르",
-          "en": "Bremer",
-          "vi": "Bremer",
-          "th": "เบรเมอร์"
+          "en": "브레메르",
+          "vi": "브레메르",
+          "th": "브레메르"
         },
         "ST": {
           "ko": "티에리 앙리",
-          "en": "Thierry Henry",
-          "vi": "Thierry Henry",
-          "th": "เธียร์รี อองรี"
+          "en": "티에리 앙리",
+          "vi": "티에리 앙리",
+          "th": "티에리 앙리"
         },
         "MID": {
           "ko": "킹슬레 코망",
-          "en": "Kingsley Coman",
-          "vi": "Kingsley Coman",
-          "th": "คิงสลีย์ โกมาน"
+          "en": "킹슬레 코망",
+          "vi": "킹슬레 코망",
+          "th": "킹슬레 코망"
         },
         "CDM": {
           "ko": "마누엘 로카텔리",
-          "en": "Manuel Locatelli",
-          "vi": "Manuel Locatelli",
-          "th": "มานูเอล โลกาเตลลี่"
+          "en": "마누엘 로카텔리",
+          "vi": "마누엘 로카텔리",
+          "th": "마누엘 로카텔리"
         }
       },
       "recommended_rankers": [
@@ -88,8 +88,8 @@
     },
     {
       "formation": "4-2-2-2",
-      "count": 22,
-      "share": 22.0,
+      "count": 23,
+      "share": 23.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -97,15 +97,15 @@
       "key_players": {
         "CB": {
           "ko": "페를랑 멘디",
-          "en": "Ferland Mendy",
-          "vi": "Ferland Mendy",
-          "th": "เฟอร์ลันด์ เมนดี้"
+          "en": "페를랑 멘디",
+          "vi": "페를랑 멘디",
+          "th": "페를랑 멘디"
         },
         "MID": {
           "ko": "에덴 아자르",
-          "en": "Eden Hazard",
-          "vi": "Eden Hazard",
-          "th": "เอเดน อาซาร์"
+          "en": "에덴 아자르",
+          "vi": "에덴 아자르",
+          "th": "에덴 아자르"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -115,17 +115,17 @@
         },
         "CDM": {
           "ko": "주드 벨링엄",
-          "en": "Jude Bellingham",
-          "vi": "Jude Bellingham",
-          "th": "จู๊ด เบลลิงแฮม"
+          "en": "주드 벨링엄",
+          "vi": "주드 벨링엄",
+          "th": "주드 벨링엄"
         }
       },
       "recommended_rankers": [
         "크몽신경섭",
         "방학잘놀다갑니다",
+        "BenzJCW",
         "GCTwonder08",
-        "피구",
-        "불협화음"
+        "피구"
       ]
     },
     {
@@ -139,27 +139,27 @@
       "key_players": {
         "CB": {
           "ko": "윌리암 살리바",
-          "en": "William Saliba",
-          "vi": "William Saliba",
-          "th": "วิลเลียม ซาลิบา"
+          "en": "윌리암 살리바",
+          "vi": "윌리암 살리바",
+          "th": "윌리암 살리바"
         },
         "MID": {
           "ko": "데클런 라이스",
-          "en": "Declan Rice",
-          "vi": "Gạo Declan",
-          "th": "เดแคลน ไรซ์"
+          "en": "데클런 라이스",
+          "vi": "데클런 라이스",
+          "th": "데클런 라이스"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "en": "수비멘디",
+          "vi": "수비멘디",
+          "th": "수비멘디"
         },
         "ST": {
           "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
+          "en": "카이 하베르츠",
+          "vi": "카이 하베르츠",
+          "th": "카이 하베르츠"
         }
       },
       "recommended_rankers": [
@@ -178,15 +178,15 @@
       "key_players": {
         "CB": {
           "ko": "마르크 쿠쿠레야",
-          "en": "Marc Cucurella",
-          "vi": "Marc Cucurella",
-          "th": "มาร์ค คูคูเรลลา"
+          "en": "마르크 쿠쿠레야",
+          "vi": "마르크 쿠쿠레야",
+          "th": "마르크 쿠쿠레야"
         },
         "MID": {
           "ko": "주드 벨링엄",
-          "en": "Jude Bellingham",
-          "vi": "Jude Bellingham",
-          "th": "จู๊ด เบลลิงแฮม"
+          "en": "주드 벨링엄",
+          "vi": "주드 벨링엄",
+          "th": "주드 벨링엄"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -196,9 +196,9 @@
         },
         "CDM": {
           "ko": "오마르 마스카렐",
-          "en": "Omar Mascarel",
-          "vi": "Omar Mascara",
-          "th": "โอมาร์ มาสคาเรล"
+          "en": "오마르 마스카렐",
+          "vi": "오마르 마스카렐",
+          "th": "오마르 마스카렐"
         }
       },
       "recommended_rankers": [
