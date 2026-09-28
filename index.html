@@ -188,7 +188,6 @@
       gap: 20px;
     }
 
-    /* 카드 링크 스타일: a 태그 기본 장식 제거 */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -1225,6 +1224,9 @@
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'flex';
 
+      // 탭 전환 시 기본 타이틀로 복원
+      document.title = "WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee";
+
       const tabNavTactics = document.getElementById('tabNavTactics');
       const tabNavPads = document.getElementById('tabNavPads');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
@@ -1319,7 +1321,6 @@
       }
     }
 
-    // 하이브리드 카드 렌더링: <a href="/tactics/{slug}/"> 형태로 봇은 탐색하고, 유저는 SPA 전환
     function renderTactics(list) {
       const container = document.getElementById('tactics-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
@@ -1379,7 +1380,6 @@
       }
     }
 
-    // 하이브리드 컨트롤러 카드 렌더링: <a href="/controllers/{slug}/">
     function renderPads(list) {
       const container = document.getElementById('pads-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
@@ -1464,7 +1464,6 @@
       }
     }
 
-    // SPA 클릭 이벤트 가로채기 (페이지 새로고침 없이 뷰 전환 + History 갱신)
     function openTacticsDetailEvent(event, index, targetUrl) {
       if (event && !event.ctrlKey && !event.metaKey) {
         event.preventDefault();
@@ -1480,6 +1479,9 @@
       document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
       document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
       document.getElementById('viewSubInfo').innerText = `${t.country || 'GLOBAL'} | ${t.versionName || '-'}`;
+
+      // 브라우저 탭 상단 타이틀 동기화
+      document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 | FC온라인 프로 전술 - WISEPLAY`;
 
       updateTacticsDetailLang();
 
@@ -1539,6 +1541,9 @@
       document.getElementById('viewPadSub').innerText = `${p.stickMech || '-'} | KeyMap: ${p.keyMap || '-'} | Macro: ${p.macro || '-'}`;
       document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
       document.getElementById('viewPadImg').src = p.imgUrl || 'logo.png';
+
+      // 브라우저 탭 상단 타이틀 동기화
+      document.title = `${p.padName || 'Gamepad'} 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY`;
 
       const currentPadName = (p.padName || '').toLowerCase().trim();
       const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
@@ -1786,7 +1791,6 @@
       }
     });
 
-    // 브라우저 뒤로 가기 / 앞으로 가기(popstate) 이벤트 핸들러
     window.addEventListener('popstate', (e) => {
       if (e.state && e.state.detail) {
         if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
