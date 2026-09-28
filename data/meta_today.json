@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-09-28 05:10:00",
+  "updated_at": "2026-09-28 05:42:02",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-3-1",
-      "count": 33,
-      "share": 33.0,
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -46,8 +46,8 @@
     },
     {
       "formation": "4-2-2-1-1",
-      "count": 32,
-      "share": 32.0,
+      "count": 30,
+      "share": 30.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -88,8 +88,8 @@
     },
     {
       "formation": "4-2-2-2",
-      "count": 23,
-      "share": 23.0,
+      "count": 24,
+      "share": 24.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -123,9 +123,9 @@
       "recommended_rankers": [
         "크몽신경섭",
         "방학잘놀다갑니다",
+        "방배우",
         "BenzJCW",
-        "GCTwonder08",
-        "피구"
+        "GCTwonder08"
       ]
     },
     {
