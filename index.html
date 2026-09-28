@@ -38,6 +38,31 @@
       position: relative;
     }
 
+    /* 상단 좌측 비즈니스 문의 링크 */
+    .contact-top-btn {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #14171f;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .contact-top-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+    }
+
+    /* 상단 우측 다국어 선택기 */
     .lang-selector-wrap {
       position: absolute;
       top: 16px;
@@ -64,6 +89,19 @@
     .lang-btn.active {
       background: var(--card-border);
       color: var(--accent-color);
+    }
+
+    @media (max-width: 600px) {
+      .contact-top-btn {
+        top: 12px;
+        left: 12px;
+        padding: 4px 8px;
+        font-size: 0.72rem;
+      }
+      .lang-selector-wrap {
+        top: 12px;
+        right: 12px;
+      }
     }
 
     .brand-link {
@@ -644,12 +682,13 @@
       transition: background 0.2s;
     }
     .review-submit-btn:hover { background: #00dd77; }
+    .review-submit-btn:disabled { background: #555; cursor: not-allowed; }
 
     .comment-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: 220px;
+      max-height: 260px;
       overflow-y: auto;
     }
     .comment-item {
@@ -694,6 +733,12 @@
 <body>
 
   <header>
+    <!-- 상단 좌측 비즈니스 문의 링크 -->
+    <a href="/about.html" class="contact-top-btn" id="topContactBtn" title="Business Inquiry">
+      ✉️ <span class="t-contact-text">비즈니스 문의</span>
+    </a>
+
+    <!-- 상단 우측 언어 선택기 -->
     <div class="lang-selector-wrap">
       <button class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
       <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
@@ -795,7 +840,7 @@
               </select>
             </div>
             <div style="display:flex; gap:8px;">
-              <input type="text" id="tReviewText" class="review-text-input" placeholder="한줄평 후기를 남겨주세요...">
+              <input type="text" id="tReviewText" class="review-text-input" placeholder="실전 체감 한줄평 후기를 남겨주세요...">
               <button class="review-submit-btn" onclick="submitReview('tactics')" id="t-review-submit-btn1">등록</button>
             </div>
           </div>
@@ -923,7 +968,6 @@
     </section>
   </main>
 
-  <!-- 애드센스 심사용 하단 푸터 (About & Contact + Privacy Policy) -->
   <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
     <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
     <p style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
@@ -940,8 +984,13 @@
   <script>
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
+    // Supabase 공용 데이터베이스 연동 설정
+    const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
+
     const I18N_INDEX = {
       ko: {
+        contactText: "비즈니스 문의",
         navTactics: "Tactics (전술 DB)",
         navController: "Controller (패드 벤치마크)",
         navMeta: "🔥 Daily Meta",
@@ -985,6 +1034,7 @@
         prosCardLabel: "장점: "
       },
       en: {
+        contactText: "Contact & Partnership",
         navTactics: "Tactics DB",
         navController: "Controller Benchmarks",
         navMeta: "🔥 Daily Meta",
@@ -1028,6 +1078,7 @@
         prosCardLabel: "Pros: "
       },
       vi: {
+        contactText: "Liên hệ hợp tác",
         navTactics: "Chiến thuật (DB)",
         navController: "Tay cầm (Benchmark)",
         navMeta: "🔥 Daily Meta",
@@ -1071,6 +1122,7 @@
         prosCardLabel: "Ưu điểm: "
       },
       th: {
+        contactText: "ติดต่อธุรกิจ",
         navTactics: "แผนการเล่น (DB)",
         navController: "จอยคอนโทรลเลอร์ (Benchmark)",
         navMeta: "🔥 Daily Meta",
@@ -1123,6 +1175,7 @@
     let currentSelectedTactics = null;
     let currentSelectedPad = null;
     const translationCache = {};
+    const globalPadStats = {};
 
     function cleanSlug(val, fallback) {
       if (val && val.trim()) {
@@ -1167,6 +1220,10 @@
 
     function applyI18n() {
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+
+      const ct = document.querySelector('.t-contact-text');
+      if (ct) ct.innerText = t.contactText;
+
       document.getElementById('tabNavTactics').innerText = t.navTactics;
       document.getElementById('tabNavPads').innerText = t.navController;
       document.getElementById('tabNavMeta').innerText = t.navMeta;
@@ -1224,7 +1281,6 @@
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'flex';
 
-      // 탭 전환 시 기본 타이틀로 복원
       document.title = "WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee";
 
       const tabNavTactics = document.getElementById('tabNavTactics');
@@ -1314,10 +1370,42 @@
         const res = await fetch(url);
         const text = await res.text();
         allPads = parseCSV(text);
+        await loadAllPadReviewStats();
         renderPads(allPads);
         checkInitialUrl();
       } catch (err) {
         console.error(err);
+      }
+    }
+
+    async function loadAllPadReviewStats() {
+      try {
+        const url = `${SUPABASE_URL}/rest/v1/reviews?select=item_id,score&category=eq.pad`;
+        const res = await fetch(url, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
+        const rows = await res.json();
+        if (Array.isArray(rows)) {
+          const groups = {};
+          rows.forEach(r => {
+            const key = (r.item_id || '').toLowerCase().trim();
+            if (!groups[key]) groups[key] = [];
+            groups[key].push(Number(r.score));
+          });
+          Object.keys(groups).forEach(k => {
+            const scores = groups[k];
+            const sum = scores.reduce((a, b) => a + b, 0);
+            globalPadStats[k] = {
+              avg: (sum / scores.length).toFixed(1),
+              count: scores.length
+            };
+          });
+        }
+      } catch (e) {
+        console.error("Failed to load pad stats:", e);
       }
     }
 
@@ -1368,18 +1456,6 @@
       }
     }
 
-    function getUserAvgScore(type, id) {
-      const key = `GNT_REVIEWS_${type}_${encodeURIComponent(id)}`;
-      try {
-        const list = JSON.parse(localStorage.getItem(key)) || [];
-        if (list.length === 0) return { avg: '-', count: 0 };
-        const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
-        return { avg: (total / list.length).toFixed(1), count: list.length };
-      } catch (e) {
-        return { avg: '-', count: 0 };
-      }
-    }
-
     function renderPads(list) {
       const container = document.getElementById('pads-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
@@ -1387,7 +1463,8 @@
 
       container.innerHTML = list.map((pad, idx) => {
         const ljScore = pad.metaScore || '-';
-        const userStats = getUserAvgScore('pad', pad.padName || 'default_pad');
+        const padKey = (pad.padName || '').toLowerCase().trim();
+        const userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
         const slug = cleanSlug(pad.slug, pad.padName);
         const pageUrl = `/controllers/${slug}/`;
 
@@ -1480,7 +1557,6 @@
       document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
       document.getElementById('viewSubInfo').innerText = `${t.country || 'GLOBAL'} | ${t.versionName || '-'}`;
 
-      // 브라우저 탭 상단 타이틀 동기화
       document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 | FC온라인 프로 전술 - WISEPLAY`;
 
       updateTacticsDetailLang();
@@ -1505,7 +1581,7 @@
       ytBtn.innerText = i18nTexts.ytBtnTactics;
 
       showTacticsTabImg('formation');
-      renderReviews('tactics', t.playerName || 'default_tactic');
+      fetchSupabaseReviews('tactics', t.playerName || 'default_tactic');
 
       document.getElementById('section-tactics').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
@@ -1542,7 +1618,6 @@
       document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
       document.getElementById('viewPadImg').src = p.imgUrl || 'logo.png';
 
-      // 브라우저 탭 상단 타이틀 동기화
       document.title = `${p.padName || 'Gamepad'} 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY`;
 
       const currentPadName = (p.padName || '').toLowerCase().trim();
@@ -1589,7 +1664,7 @@
       const i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       ytBtn.innerText = i18nTexts.ytBtnPads;
 
-      renderReviews('pad', p.padName || 'default_pad');
+      fetchSupabaseReviews('pad', p.padName || 'default_pad');
 
       document.getElementById('section-pads').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
@@ -1654,28 +1729,43 @@
       }
     }
 
-    function getStorageKey(type, id) {
-      return `GNT_REVIEWS_${type}_${encodeURIComponent(id)}`;
+    /* Supabase 공용 데이터베이스 실시간 연동 로직 */
+    async function fetchSupabaseReviews(category, itemId) {
+      const cleanId = (itemId || '').trim();
+      const targetList = category === 'tactics' 
+        ? document.getElementById('tacticsCommentList') 
+        : document.getElementById('padCommentList');
+      
+      targetList.innerHTML = '<div style="color:#777; font-size:0.8rem; text-align:center; padding:12px;">실시간 리뷰를 불러오는 중...</div>';
+
+      try {
+        const url = `${SUPABASE_URL}/rest/v1/reviews?category=eq.${encodeURIComponent(category)}&item_id=eq.${encodeURIComponent(cleanId)}&order=created_at.desc`;
+        const res = await fetch(url, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
+        const list = await res.json();
+        renderReviewsUI(category, cleanId, list);
+      } catch (err) {
+        console.error("Supabase load error:", err);
+        targetList.innerHTML = '<div style="color:#ff6b6b; font-size:0.8rem; text-align:center; padding:12px;">리뷰를 불러오지 못했습니다.</div>';
+      }
     }
 
-    function renderReviews(type, itemId) {
-      const key = getStorageKey(type, itemId);
-      let list = [];
-      try {
-        list = JSON.parse(localStorage.getItem(key)) || [];
-      } catch (e) { list = []; }
-
-      if (type === 'tactics') {
+    function renderReviewsUI(category, itemId, list) {
+      if (category === 'tactics') {
         const avgScoreEl = document.getElementById('tacticsAvgScore');
         const avgStarsEl = document.getElementById('tacticsAvgStars');
         const countEl = document.getElementById('tacticsReviewCount');
         const commentListEl = document.getElementById('tacticsCommentList');
 
-        if (list.length === 0) {
+        if (!list || list.length === 0) {
           avgScoreEl.innerText = '0.0';
           avgStarsEl.innerText = '☆☆☆☆☆';
           countEl.innerText = '(0)';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">-</div>';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 후기가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>';
         } else {
           const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
           const avg = (total / list.length).toFixed(1);
@@ -1692,22 +1782,24 @@
               </div>
               <div class="comment-body">${item.text}</div>
             </div>
-          `).reverse().join('');
+          `).join('');
         }
       } else {
         const padUserScoreEl = document.getElementById('viewPadUserScoreVal');
         const padUserCountEl = document.getElementById('viewPadUserCountText');
         const commentListEl = document.getElementById('padCommentList');
 
-        if (list.length === 0) {
+        if (!list || list.length === 0) {
           padUserScoreEl.innerText = '-';
           padUserCountEl.innerText = '0 reviews';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">-</div>';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 리뷰가 없습니다. 첫 번째 실사용 후기를 남겨보세요!</div>';
         } else {
           const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
           const avg = (total / list.length).toFixed(1);
           padUserScoreEl.innerText = avg;
           padUserCountEl.innerText = `${list.length} reviews`;
+
+          globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
@@ -1717,16 +1809,17 @@
               </div>
               <div class="comment-body">${item.text}</div>
             </div>
-          `).reverse().join('');
+          `).join('');
         }
       }
     }
 
-    function submitReview(type) {
+    async function submitReview(type) {
       let itemId = '';
       let nick = '';
       let score = 5;
       let text = '';
+      let submitBtn = null;
 
       if (type === 'tactics') {
         if (!currentSelectedTactics) return;
@@ -1734,39 +1827,61 @@
         nick = document.getElementById('tReviewNick').value.trim();
         score = Number(document.getElementById('tReviewScore').value);
         text = document.getElementById('tReviewText').value.trim();
+        submitBtn = document.getElementById('t-review-submit-btn1');
       } else {
         if (!currentSelectedPad) return;
         itemId = currentSelectedPad.padName || 'default_pad';
         nick = document.getElementById('pReviewNick').value.trim();
         score = Number(document.getElementById('pReviewScore').value);
         text = document.getElementById('pReviewText').value.trim();
+        submitBtn = document.getElementById('t-review-submit-btn2');
       }
 
-      if (!text) return;
+      if (!text) {
+        alert('내용을 입력해 주세요.');
+        return;
+      }
       if (!nick) nick = 'User';
 
-      const key = getStorageKey(type, itemId);
-      let list = [];
+      submitBtn.disabled = true;
+      submitBtn.innerText = '등록 중...';
+
       try {
-        list = JSON.parse(localStorage.getItem(key)) || [];
-      } catch (e) { list = []; }
+        const url = `${SUPABASE_URL}/rest/v1/reviews`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            category: type,
+            item_id: itemId,
+            nick: nick,
+            score: score,
+            text: text
+          })
+        });
 
-      list.push({
-        nick: nick,
-        score: score,
-        text: text,
-        date: new Date().toISOString()
-      });
+        if (!res.ok) throw new Error("Insert failed");
 
-      localStorage.setItem(key, JSON.stringify(list));
+        if (type === 'tactics') {
+          document.getElementById('tReviewText').value = '';
+        } else {
+          document.getElementById('pReviewText').value = '';
+        }
 
-      if (type === 'tactics') {
-        document.getElementById('tReviewText').value = '';
-      } else {
-        document.getElementById('pReviewText').value = '';
-        renderPads(allPads);
+        await fetchSupabaseReviews(type, itemId);
+      } catch (e) {
+        console.error("Review submit error:", e);
+        alert('리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      } finally {
+        submitBtn.disabled = false;
+        const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+        submitBtn.innerText = t.submitBtn;
       }
-      renderReviews(type, itemId);
     }
 
     function openLightbox(src) {
