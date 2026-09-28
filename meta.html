@@ -342,7 +342,6 @@
   </header>
 
   <main>
-
     <div class="meta-top-banner">
       <div class="meta-title-area">
         <h2 id="t-banner-title">🔥 슈퍼챔피언스 메타 통계</h2>
@@ -358,13 +357,16 @@
       <div class="loading-box" id="t-loading">메타 데이터를 불러오는 중입니다...</div>
     </div>
   </main>
-  <!-- 애드센스 심사용 하단 푸터 -->
-<footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
-  <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
-  <p>
-    <a href="/privacy.html" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">개인정보처리방침 (Privacy Policy)</a>
-  </p>
-</footer>
+
+  <!-- 애드센스 심사용 하단 푸터 (About & Contact + Privacy Policy) -->
+  <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+    <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
+    <p style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+      <a href="/about.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">서비스 소개 및 문의 (About & Contact)</a>
+      <span style="color: var(--card-border);">|</span>
+      <a href="/privacy.html" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">개인정보처리방침 (Privacy Policy)</a>
+    </p>
+  </footer>
 
   <div id="toast">구단주명이 복사되었습니다!</div>
 
@@ -588,7 +590,6 @@
 
         const formKey = normalizeFormKey(item.formation);
 
-        // 선수명이 다국어 객체로 들어왔으므로 즉시 선택한 언어의 이름으로 렌더링
         const playersHtml = Object.entries(item.key_players || {})
           .map(([pos, pData]) => {
             const nameToDisplay = getPlayerDisplayName(pData, currentLang);
