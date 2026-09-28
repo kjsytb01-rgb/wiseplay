@@ -188,6 +188,7 @@
       gap: 20px;
     }
 
+    /* 카드 링크 스타일: a 태그 기본 장식 제거 */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -195,6 +196,8 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
       cursor: pointer;
       transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
@@ -699,7 +702,7 @@
       <button class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
     </div>
 
-    <a href="/" class="brand-link" title="Home">
+    <a href="/" class="brand-link" title="Home" onclick="handleBrandClick(event)">
       <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-sub">즐인권(FIFA CAMPER) X LJ Lee</div>
     </a>
@@ -848,7 +851,7 @@
         <div id="viewPadUserList" class="player-tag-list"></div>
       </div>
 
-      <!-- 정밀 벤치마크 테이블 (실전 권장 및 조언 열 완전 제거) -->
+      <!-- 정밀 벤치마크 테이블 -->
       <div class="detail-section">
         <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
         <table class="bench-table">
@@ -925,7 +928,7 @@
   <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
     <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
     <p style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-      <a href="/about.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">서비스 소개 및 광고 제휴 문의 (About & Contact)</a>
+      <a href="/about.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">서비스 소개 및 문의 (About & Contact)</a>
       <span style="color: var(--card-border);">|</span>
       <a href="/privacy.html" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">개인정보처리방침 (Privacy Policy)</a>
     </p>
@@ -1122,6 +1125,14 @@
     let currentSelectedPad = null;
     const translationCache = {};
 
+    function cleanSlug(val, fallback) {
+      if (val && val.trim()) {
+        const s = val.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+        if (s) return s;
+      }
+      return (fallback || 'item').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+    }
+
     async function translateDynamicText(text, targetLang) {
       if (!text || targetLang === 'ko') return text;
       const cacheKey = `${targetLang}_${text}`;
@@ -1207,7 +1218,7 @@
       }
     }
 
-    function switchTab(tab) {
+    function switchTab(tab, pushState = true) {
       currentTab = tab;
       isDetailView = false;
       document.getElementById('detail-view-tactics').style.display = 'none';
@@ -1224,21 +1235,26 @@
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
-        history.replaceState(null, null, '#tactics');
+        if (pushState) history.pushState({ tab: 'tactics', detail: null }, '', '/#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
         tabNavTactics.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
-        history.replaceState(null, null, '#controller');
+        if (pushState) history.pushState({ tab: 'pads', detail: null }, '', '/#controller');
       }
       handleSearch();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function backToList() {
-      switchTab(currentTab);
+      switchTab(currentTab, true);
+    }
+
+    function handleBrandClick(e) {
+      e.preventDefault();
+      switchTab('tactics', true);
     }
 
     function parseCSV(text) {
@@ -1284,6 +1300,7 @@
         const text = await res.text();
         allTactics = parseCSV(text);
         renderTactics(allTactics);
+        checkInitialUrl();
       } catch (err) {
         console.error(err);
       }
@@ -1296,40 +1313,47 @@
         const text = await res.text();
         allPads = parseCSV(text);
         renderPads(allPads);
+        checkInitialUrl();
       } catch (err) {
         console.error(err);
       }
     }
 
+    // 하이브리드 카드 렌더링: <a href="/tactics/{slug}/"> 형태로 봇은 탐색하고, 유저는 SPA 전환
     function renderTactics(list) {
       const container = document.getElementById('tactics-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       if (!list || list.length === 0) return;
 
-      container.innerHTML = list.map((item, idx) => `
-        <div class="card" onclick="openTacticsDetail(${idx})">
-          <div class="card-img-wrapper">
-            <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='logo.png'">
-            <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
-          </div>
-          <div class="card-body">
-            <span class="card-badge">${item.formation || 'FORMATION'}</span>
-            <h3 class="card-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
-            <p class="card-desc" id="card-desc-tactics-${idx}">${item.reviewText || '-'}</p>
-            
-            ${item.padName ? `
-              <div style="font-size:0.8rem; color:var(--accent-color); margin-top:4px;">
-                🎮 ${t.usedPadPrefix}<b>${item.padName}</b>
-              </div>
-            ` : ''}
+      container.innerHTML = list.map((item, idx) => {
+        const slug = cleanSlug(item.slug, item.playerName);
+        const pageUrl = `/tactics/${slug}/`;
 
-            <div class="card-meta">
-              <span>${item.versionName || '-'}</span>
-              <span style="color:var(--accent-color); font-weight:700;">${t.detailLinkTactics}</span>
+        return `
+          <a href="${pageUrl}" class="card" onclick="openTacticsDetailEvent(event, ${idx}, '${pageUrl}')">
+            <div class="card-img-wrapper">
+              <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='logo.png'">
+              <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
             </div>
-          </div>
-        </div>
-      `).join('');
+            <div class="card-body">
+              <span class="card-badge">${item.formation || 'FORMATION'}</span>
+              <h3 class="card-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
+              <p class="card-desc" id="card-desc-tactics-${idx}">${item.reviewText || '-'}</p>
+              
+              ${item.padName ? `
+                <div style="font-size:0.8rem; color:var(--accent-color); margin-top:4px;">
+                  🎮 ${t.usedPadPrefix}<b>${item.padName}</b>
+                </div>
+              ` : ''}
+
+              <div class="card-meta">
+                <span>${item.versionName || '-'}</span>
+                <span style="color:var(--accent-color); font-weight:700;">${t.detailLinkTactics}</span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
 
       if (currentLang !== 'ko') {
         list.forEach((item, idx) => {
@@ -1355,6 +1379,7 @@
       }
     }
 
+    // 하이브리드 컨트롤러 카드 렌더링: <a href="/controllers/{slug}/">
     function renderPads(list) {
       const container = document.getElementById('pads-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
@@ -1363,9 +1388,11 @@
       container.innerHTML = list.map((pad, idx) => {
         const ljScore = pad.metaScore || '-';
         const userStats = getUserAvgScore('pad', pad.padName || 'default_pad');
+        const slug = cleanSlug(pad.slug, pad.padName);
+        const pageUrl = `/controllers/${slug}/`;
 
         return `
-          <div class="card" onclick="openPadDetail(${idx})">
+          <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${idx}, '${pageUrl}')">
             <div class="card-img-wrapper">
               <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || 'Pad'}" onerror="this.src='logo.png'">
               <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
@@ -1395,7 +1422,7 @@
                 <span style="color:var(--accent-blue); font-weight:700;">${t.detailLinkPads}</span>
               </div>
             </div>
-          </div>
+          </a>
         `;
       }).join('');
 
@@ -1437,7 +1464,15 @@
       }
     }
 
-    function openTacticsDetail(index) {
+    // SPA 클릭 이벤트 가로채기 (페이지 새로고침 없이 뷰 전환 + History 갱신)
+    function openTacticsDetailEvent(event, index, targetUrl) {
+      if (event && !event.ctrlKey && !event.metaKey) {
+        event.preventDefault();
+        openTacticsDetail(index, targetUrl, true);
+      }
+    }
+
+    function openTacticsDetail(index, targetUrl = null, pushState = true) {
       currentSelectedTactics = allTactics[index];
       if (!currentSelectedTactics) return;
 
@@ -1474,6 +1509,11 @@
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'block';
       isDetailView = true;
+
+      const slug = cleanSlug(t.slug, t.playerName);
+      const finalUrl = targetUrl || `/tactics/${slug}/`;
+      if (pushState) history.pushState({ tab: 'tactics', detail: 'tactic', index: index, url: finalUrl }, '', finalUrl);
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1483,7 +1523,14 @@
       document.getElementById('viewReviewText').innerText = await translateDynamicText(rawText, currentLang);
     }
 
-    function openPadDetail(index) {
+    function openPadDetailEvent(event, index, targetUrl) {
+      if (event && !event.ctrlKey && !event.metaKey) {
+        event.preventDefault();
+        openPadDetail(index, targetUrl, true);
+      }
+    }
+
+    function openPadDetail(index, targetUrl = null, pushState = true) {
       currentSelectedPad = allPads[index];
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
@@ -1543,6 +1590,11 @@
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'block';
       isDetailView = true;
+
+      const slug = cleanSlug(p.slug, p.padName);
+      const finalUrl = targetUrl || `/controllers/${slug}/`;
+      if (pushState) history.pushState({ tab: 'pads', detail: 'pad', index: index, url: finalUrl }, '', finalUrl);
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1734,12 +1786,30 @@
       }
     });
 
-    function checkHashAndSwitch() {
+    // 브라우저 뒤로 가기 / 앞으로 가기(popstate) 이벤트 핸들러
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.detail) {
+        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
+          openTacticsDetail(e.state.index, e.state.url, false);
+        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
+          openPadDetail(e.state.index, e.state.url, false);
+        }
+      } else {
+        const hash = window.location.hash;
+        if (hash === '#controller' || hash === '#pads') {
+          switchTab('pads', false);
+        } else {
+          switchTab('tactics', false);
+        }
+      }
+    });
+
+    function checkInitialUrl() {
       const hash = window.location.hash;
       if (hash === '#controller' || hash === '#pads') {
-        switchTab('pads');
+        switchTab('pads', false);
       } else if (hash === '#tactics') {
-        switchTab('tactics');
+        switchTab('tactics', false);
       }
     }
 
@@ -1747,10 +1817,7 @@
       setLang(currentLang);
       loadTactics();
       loadPads();
-      checkHashAndSwitch();
     });
-
-    window.addEventListener('hashchange', checkHashAndSwitch);
   </script>
 </body>
 </html>
