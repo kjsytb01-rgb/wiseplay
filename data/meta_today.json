@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-09-28 23:02:24",
+  "updated_at": "2026-09-29 23:02:31",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-3-1",
-      "count": 36,
-      "share": 36.0,
+      "count": 37,
+      "share": 37.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -38,16 +38,16 @@
       },
       "recommended_rankers": [
         "T1Pierce",
+        "BFXKaiser",
+        "GCTCrong",
         "9KK1",
-        "BFXLight",
-        "DKNova",
-        "Prime림광철"
+        "BFXLight"
       ]
     },
     {
       "formation": "4-2-2-1-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 31,
+      "share": 31.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -81,15 +81,15 @@
       "recommended_rankers": [
         "DRXSavior",
         "KRXTak",
-        "태연",
+        "KRXONE",
         "삼켜",
-        "Benz성언"
+        "태연"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 19,
-      "share": 19.0,
+      "count": 22,
+      "share": 22.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -123,15 +123,15 @@
       "recommended_rankers": [
         "크몽신경섭",
         "youngsookim",
-        "방학잘놀다갑니다",
         "DKKWAK",
+        "KRXMINION",
         "피구"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 5,
-      "share": 5.0,
+      "count": 4,
+      "share": 4.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -166,14 +166,13 @@
         "T1Seon9min",
         "선재스님의갈비찜",
         "에넬",
-        "카제미루",
-        "BFXTaeGod"
+        "카제미루"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 2,
-      "share": 2.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -206,6 +205,7 @@
       },
       "recommended_rankers": [
         "SoopNox",
+        "GCTSolid",
         "여수밤바다"
       ]
     }
