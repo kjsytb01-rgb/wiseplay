@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-04 02:59:09",
+  "updated_at": "2026-10-04 23:02:36",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 38,
+      "share": 38.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -39,9 +39,9 @@
       "recommended_rankers": [
         "지헌",
         "Volition홍준형",
+        "알파고",
         "경시기",
-        "태연",
-        "BFXNoiZ"
+        "태연"
       ]
     },
     {
@@ -53,43 +53,43 @@
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "CDM": {
-          "ko": "후벵 네베스",
-          "en": "Ruben Neves",
-          "vi": "Ruben Neves",
-          "th": "รูเบน เนเวส"
+        "MID": {
+          "ko": "뤼도비크 지울리",
+          "en": "Ludovic Giulli",
+          "vi": "Ludovic Giulli",
+          "th": "ลูโดวิช จูลลี่"
         },
         "CB": {
-          "ko": "프란시스쿠 모라",
-          "en": "Francisco Mora",
-          "vi": "Francisco Mora",
-          "th": "ฟรานซิสโก โมรา"
+          "ko": "발데",
+          "en": "balde",
+          "vi": "đầu trọc",
+          "th": "หัวล้าน"
         },
-        "MID": {
-          "ko": "콰레스마",
-          "en": "Quaresma",
-          "vi": "Quaresma",
-          "th": "ควอเรสมา"
+        "CDM": {
+          "ko": "잔루카 잠브로타",
+          "en": "Gianluca Zambrotta",
+          "vi": "Gianluca Zambrotta",
+          "th": "จานลูก้า ซัมบรอตต้า"
         },
         "ST": {
-          "ko": "에바니우송",
-          "en": "Evany Woosong",
-          "vi": "Evany Woosong",
-          "th": "อีวานี่ วูซอง"
+          "ko": "사뮈엘 에토",
+          "en": "Samuel Eto'o",
+          "vi": "Samuel Eto'o",
+          "th": "ซามูเอล เอโต้"
         }
       },
       "recommended_rankers": [
-        "수침",
+        "T1Pierce",
         "빨거라",
         "Edith이구치리",
-        "T1Pierce",
-        "ZEROJ"
+        "Prime림광철",
+        "와팜"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 24,
-      "share": 24.0,
+      "count": 18,
+      "share": 18.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -101,17 +101,17 @@
           "vi": "Hwang Hee-chan",
           "th": "ฮวาง ฮีชาน"
         },
-        "CDM": {
-          "ko": "기성용",
-          "en": "Ki Sung-yong",
-          "vi": "Ki Sung Yong",
-          "th": "กี ซองยอง"
-        },
         "CB": {
           "ko": "김동진",
           "en": "Dongjin Kim",
           "vi": "Dongjin Kim",
           "th": "ดงจิน คิม"
+        },
+        "CDM": {
+          "ko": "기성용",
+          "en": "Ki Sung-yong",
+          "vi": "Ki Sung Yong",
+          "th": "กี ซองยอง"
         },
         "ST": {
           "ko": "차범근",
@@ -122,40 +122,34 @@
       },
       "recommended_rankers": [
         "DKKWAK",
-        "바이썸머",
+        "리바이브제리",
+        "불협화음",
         "크몽신경섭",
-        "크포아크로충",
-        "매너게임한수부탁"
+        "GCTwonder08"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 4,
-      "share": 4.0,
+      "count": 6,
+      "share": 6.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
-        "ST": {
-          "ko": "사뮈엘 에토",
-          "en": "Samuel Eto'o",
-          "vi": "Samuel Eto'o",
-          "th": "ซามูเอล เอโต้"
-        },
         "CB": {
           "ko": "마누엘 아칸지",
           "en": "Manuel Akanji",
           "vi": "Manuel Akanji",
           "th": "มานูเอล อคันจิ"
         },
-        "MID": {
-          "ko": "M. 브로조비치",
-          "en": "M. Brozovich",
-          "vi": "M. Brozovich",
-          "th": "เอ็ม. โบรโซวิช"
+        "ST": {
+          "ko": "사뮈엘 에토",
+          "en": "Samuel Eto'o",
+          "vi": "Samuel Eto'o",
+          "th": "ซามูเอล เอโต้"
         },
-        "CDM": {
+        "MID": {
           "ko": "하칸 찰하놀루",
           "en": "Hakan Çalhanoğlu",
           "vi": "Hakan Çalhanoğlu",
@@ -165,8 +159,9 @@
       "recommended_rankers": [
         "GENSolid",
         "LetMeDoItAgain",
-        "Exit0",
-        "선재스님의갈비찜"
+        "ATM고딘",
+        "여수밤바다",
+        "욕졸"
       ]
     },
     {
@@ -189,9 +184,9 @@
         },
         "MID": {
           "ko": "에스테반 캄비아소",
-          "en": "Esteban Cambiaso",
-          "vi": "Esteban Cambiaso",
-          "th": "เอสเตบัน กัมเบียโซ"
+          "en": "Esteban Cambiasso",
+          "vi": "Esteban Cambiasso",
+          "th": "เอสเตบัน กัมเบียสโซ"
         },
         "CDM": {
           "ko": "하비에르 사네티",
@@ -202,9 +197,9 @@
       },
       "recommended_rankers": [
         "안씀ggfgg",
-        "야생형",
         "핫걸이예빈",
-        "타워"
+        "타워",
+        "야생형"
       ]
     }
   ]
