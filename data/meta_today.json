@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-04 23:02:36",
+  "updated_at": "2026-10-05 23:02:56",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 38,
-      "share": 38.0,
+      "count": 33,
+      "share": 33.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -13,27 +13,27 @@
       "key_players": {
         "CB": {
           "ko": "크리스티안 로메로",
-          "en": "Christian Romero",
-          "vi": "Christian Romero",
-          "th": "คริสเตียน โรเมโร"
+          "en": "크리스티안 로메로",
+          "vi": "크리스티안 로메로",
+          "th": "크리스티안 로메로"
         },
         "CDM": {
           "ko": "코케",
-          "en": "Koke",
-          "vi": "koke",
-          "th": "โค้ก"
+          "en": "코케",
+          "vi": "코케",
+          "th": "코케"
         },
         "MID": {
           "ko": "이강인",
-          "en": "Lee Kang-in",
-          "vi": "Lee Kang In",
-          "th": "ลี คังอิน"
+          "en": "이강인",
+          "vi": "이강인",
+          "th": "이강인"
         },
         "ST": {
           "ko": "페르난도 토레스",
-          "en": "Fernando Torres",
-          "vi": "Fernando Torres",
-          "th": "เฟร์นานโด ตอร์เรส"
+          "en": "페르난도 토레스",
+          "vi": "페르난도 토레스",
+          "th": "페르난도 토레스"
         }
       },
       "recommended_rankers": [
@@ -46,86 +46,80 @@
     },
     {
       "formation": "4-2-3-1",
-      "count": 26,
-      "share": 26.0,
+      "count": 28,
+      "share": 28.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "MID": {
-          "ko": "뤼도비크 지울리",
-          "en": "Ludovic Giulli",
-          "vi": "Ludovic Giulli",
-          "th": "ลูโดวิช จูลลี่"
-        },
         "CB": {
-          "ko": "발데",
-          "en": "balde",
-          "vi": "đầu trọc",
-          "th": "หัวล้าน"
+          "ko": "칼리두 쿨리발리",
+          "en": "칼리두 쿨리발리",
+          "vi": "칼리두 쿨리발리",
+          "th": "칼리두 쿨리발리"
         },
-        "CDM": {
-          "ko": "잔루카 잠브로타",
-          "en": "Gianluca Zambrotta",
-          "vi": "Gianluca Zambrotta",
-          "th": "จานลูก้า ซัมบรอตต้า"
+        "MID": {
+          "ko": "리스 제임스",
+          "en": "리스 제임스",
+          "vi": "리스 제임스",
+          "th": "리스 제임스"
         },
         "ST": {
-          "ko": "사뮈엘 에토",
-          "en": "Samuel Eto'o",
-          "vi": "Samuel Eto'o",
-          "th": "ซามูเอล เอโต้"
+          "ko": "디디에 드로그바",
+          "en": "디디에 드로그바",
+          "vi": "디디에 드로그바",
+          "th": "디디에 드로그바"
         }
       },
       "recommended_rankers": [
-        "T1Pierce",
-        "빨거라",
         "Edith이구치리",
+        "T1Pierce",
         "Prime림광철",
-        "와팜"
+        "인동송동인",
+        "GCTCrong"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 18,
-      "share": 18.0,
+      "count": 23,
+      "share": 23.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
         "MID": {
-          "ko": "황희찬",
-          "en": "Hwang Hee-chan",
-          "vi": "Hwang Hee-chan",
-          "th": "ฮวาง ฮีชาน"
+          "ko": "설기현",
+          "en": "설기현",
+          "vi": "설기현",
+          "th": "설기현"
         },
         "CB": {
           "ko": "김동진",
-          "en": "Dongjin Kim",
-          "vi": "Dongjin Kim",
-          "th": "ดงจิน คิม"
+          "en": "김동진",
+          "vi": "김동진",
+          "th": "김동진"
         },
         "CDM": {
-          "ko": "기성용",
-          "en": "Ki Sung-yong",
-          "vi": "Ki Sung Yong",
-          "th": "กี ซองยอง"
+          "ko": "김정우",
+          "en": "김정우",
+          "vi": "김정우",
+          "th": "김정우"
         },
         "ST": {
           "ko": "차범근",
-          "en": "Cha Bum Geun",
-          "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "en": "차범근",
+          "vi": "차범근",
+          "th": "차범근"
         }
       },
       "recommended_rankers": [
         "DKKWAK",
         "리바이브제리",
-        "불협화음",
+        "GCTwonder08",
         "크몽신경섭",
-        "GCTwonder08"
+        "매너게임한수부탁"
       ]
     },
     {
@@ -137,11 +131,17 @@
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
+        "MID": {
+          "ko": "M. 브로조비치",
+          "en": "M. 브로조비치",
+          "vi": "M. 브로조비치",
+          "th": "M. 브로조비치"
+        },
         "CB": {
-          "ko": "마누엘 아칸지",
-          "en": "Manuel Akanji",
-          "vi": "Manuel Akanji",
-          "th": "มานูเอล อคันจิ"
+          "ko": "호베르투 카를루스",
+          "en": "호베르투 카를루스",
+          "vi": "호베르투 카를루스",
+          "th": "호베르투 카를루스"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -149,57 +149,60 @@
           "vi": "Samuel Eto'o",
           "th": "ซามูเอล เอโต้"
         },
-        "MID": {
+        "CDM": {
           "ko": "하칸 찰하놀루",
-          "en": "Hakan Çalhanoğlu",
-          "vi": "Hakan Çalhanoğlu",
-          "th": "ฮาคาน ชาลฮาโนกลู"
+          "en": "하칸 찰하놀루",
+          "vi": "하칸 찰하놀루",
+          "th": "하칸 찰하놀루"
         }
       },
       "recommended_rankers": [
         "GENSolid",
         "LetMeDoItAgain",
-        "ATM고딘",
         "여수밤바다",
+        "ATM고딘",
         "욕졸"
       ]
     },
     {
-      "formation": "4-1-2-1-2",
+      "formation": "4-1-4-1",
       "count": 4,
       "share": 4.0,
-      "tactical_routes": [],
+      "tactical_routes": [
+        "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
+        "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
+      ],
       "key_players": {
-        "ST": {
-          "ko": "라우타로",
-          "en": "Lautaro",
-          "vi": "lautaro",
-          "th": "เลาตาโร"
+        "MID": {
+          "ko": "페데리코 발베르데",
+          "en": "페데리코 발베르데",
+          "vi": "페데리코 발베르데",
+          "th": "페데리코 발베르데"
         },
         "CB": {
-          "ko": "크리스티안 로메로",
-          "en": "Christian Romero",
-          "vi": "Christian Romero",
-          "th": "คริสเตียน โรเมโร"
-        },
-        "MID": {
-          "ko": "에스테반 캄비아소",
-          "en": "Esteban Cambiasso",
-          "vi": "Esteban Cambiasso",
-          "th": "เอสเตบัน กัมเบียสโซ"
+          "ko": "A. 추아메니",
+          "en": "A. 추아메니",
+          "vi": "A. 추아메니",
+          "th": "A. 추아메니"
         },
         "CDM": {
-          "ko": "하비에르 사네티",
-          "en": "Javier Zanetti",
-          "vi": "Javier Zanetti",
-          "th": "ฮาเวียร์ ซาเน็ตติ"
+          "ko": "마이클 에시앙",
+          "en": "마이클 에시앙",
+          "vi": "마이클 에시앙",
+          "th": "마이클 에시앙"
+        },
+        "ST": {
+          "ko": "카림 벤제마",
+          "en": "카림 벤제마",
+          "vi": "카림 벤제마",
+          "th": "카림 벤제마"
         }
       },
       "recommended_rankers": [
-        "안씀ggfgg",
-        "핫걸이예빈",
-        "타워",
-        "야생형"
+        "에넬",
+        "카제미루",
+        "SNBAE",
+        "희재"
       ]
     }
   ]
