@@ -1,33 +1,75 @@
 {
-  "updated_at": "2026-10-07 23:03:42",
+  "updated_at": "2026-10-08 23:04:44",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 35,
-      "share": 35.0,
+      "count": 32,
+      "share": 32.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "CDM": {
-          "ko": "파트리크 비에이라",
-          "en": "Patrick Vieira",
-          "vi": "Patrick Vieira",
-          "th": "ปาทริค วิเอร่า"
-        },
         "MID": {
-          "ko": "마이클 올리세",
-          "en": "Michael Olise",
-          "vi": "Michael Olise",
-          "th": "ไมเคิล โอลิเซ่"
+          "ko": "카카",
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
+        },
+        "CDM": {
+          "ko": "로타어 마테우스",
+          "en": "Lothar Mateus",
+          "vi": "Lothar Mateus",
+          "th": "โลธาร์ มาเตอุส"
         },
         "CB": {
-          "ko": "모하메드 시마칸",
-          "en": "Mohammed Simakan",
-          "vi": "Mohammed Simakan",
-          "th": "โมฮัมเหม็ด ซิมาคาน"
+          "ko": "F. 디마르코",
+          "en": "F. Dimarco",
+          "vi": "F. Dimarco",
+          "th": "เอฟ. ดิมาร์โก"
+        },
+        "ST": {
+          "ko": "에우제비우",
+          "en": "Eusebio",
+          "vi": "Eusebio",
+          "th": "ยูเซบิโอ"
+        }
+      },
+      "recommended_rankers": [
+        "카리나",
+        "BFXLight",
+        "알파고",
+        "리바이브엘니뇨",
+        "리바이브말맨"
+      ]
+    },
+    {
+      "formation": "4-2-3-1",
+      "count": 31,
+      "share": 31.0,
+      "tactical_routes": [
+        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
+        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
+      ],
+      "key_players": {
+        "CDM": {
+          "ko": "로드리",
+          "en": "Rodri",
+          "vi": "Rodri",
+          "th": "โรดรี้"
+        },
+        "CB": {
+          "ko": "마르크 쿠쿠레야",
+          "en": "Marc Cucurella",
+          "vi": "Marc Cucurella",
+          "th": "มาร์ค คูคูเรลลา"
+        },
+        "MID": {
+          "ko": "라민 야말",
+          "en": "Ramin Yamal",
+          "vi": "Ramin Yamal",
+          "th": "รามิน ยามาล"
         },
         "ST": {
           "ko": "티에리 앙리",
@@ -37,101 +79,59 @@
         }
       },
       "recommended_rankers": [
-        "알파고",
-        "Volition홍준형",
-        "태연",
-        "서브마리너",
-        "1226"
-      ]
-    },
-    {
-      "formation": "4-2-3-1",
-      "count": 33,
-      "share": 33.0,
-      "tactical_routes": [
-        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
-        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
-      ],
-      "key_players": {
-        "MID": {
-          "ko": "제이든 산초",
-          "en": "jadon sancho",
-          "vi": "jadon sancho",
-          "th": "จาดอน ซานโช่"
-        },
-        "CB": {
-          "ko": "칼리두 쿨리발리",
-          "en": "Kalidou Koulibaly",
-          "vi": "Kalidou Koulibaly",
-          "th": "คาลิดู คูลิบาลี่"
-        },
-        "CDM": {
-          "ko": "마이클 에시앙",
-          "en": "Michael Essien",
-          "vi": "Michael Essien",
-          "th": "มิเชล เอสเซียง"
-        },
-        "ST": {
-          "ko": "디디에 드로그바",
-          "en": "Didier Drogba",
-          "vi": "Didier Drogba",
-          "th": "ดิดิเยร์ ดร็อกบา"
-        }
-      },
-      "recommended_rankers": [
-        "Edith이구치리",
         "GCTCrong",
+        "Edith이구치리",
+        "T1Pierce",
         "카이절",
-        "KTDike",
-        "T1Pierce"
+        "파리우승5"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 23,
-      "share": 23.0,
+      "count": 24,
+      "share": 24.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
-        "CB": {
-          "ko": "최진철",
-          "en": "Choi Jin-cheol",
-          "vi": "Choi Jin Cheol",
-          "th": "ชอย จินชอล"
-        },
-        "MID": {
-          "ko": "황희찬",
-          "en": "Hwang Hee-chan",
-          "vi": "Hwang Hee-chan",
-          "th": "ฮวาง ฮีชาน"
-        },
         "CDM": {
-          "ko": "기성용",
-          "en": "Ki Sung-yong",
-          "vi": "Ki Sung Yong",
-          "th": "กี ซองยอง"
+          "ko": "김정우",
+          "en": "Kim Jeong-woo",
+          "vi": "Kim Jeong Woo",
+          "th": "คิมจองอู"
         },
         "ST": {
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
           "th": "ชาบุมกึน"
+        },
+        "MID": {
+          "ko": "설기현",
+          "en": "Seol Kihyun",
+          "vi": "Seol Kihyun",
+          "th": "ซอล กีฮยอน"
+        },
+        "CB": {
+          "ko": "김동진",
+          "en": "Dongjin Kim",
+          "vi": "Dongjin Kim",
+          "th": "ดงจิน คิม"
         }
       },
       "recommended_rankers": [
         "DKKWAK",
         "GCTwonder08",
         "크몽신경섭",
-        "Prime림광철",
-        "매너게임한수부탁"
+        "DK곽",
+        "Prime림광철"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 3,
-      "share": 3.0,
+      "count": 5,
+      "share": 5.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -139,9 +139,9 @@
       "key_players": {
         "MID": {
           "ko": "M. 브로조비치",
-          "en": "M. Brozovich",
-          "vi": "M. Brozovich",
-          "th": "M. 브로조비치"
+          "en": "M. Brozovic",
+          "vi": "M. Brozovic",
+          "th": "เอ็ม. โบรโซวิช"
         },
         "CB": {
           "ko": "호베르투 카를루스",
@@ -165,13 +165,15 @@
       "recommended_rankers": [
         "GENSolid",
         "선재스님의갈비찜",
-        "키얀"
+        "쏠리드",
+        "인바디",
+        "T1YooSimin"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 3,
-      "share": 3.0,
+      "count": 4,
+      "share": 4.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -181,7 +183,7 @@
           "ko": "카이 하베르츠",
           "en": "Kai Havertz",
           "vi": "Kai Havertz",
-          "th": "카이 하베르츠"
+          "th": "ไค ฮาเวิร์ตซ์"
         },
         "CB": {
           "ko": "가브리엘 마갈량이스",
@@ -193,7 +195,7 @@
           "ko": "가브리엘 마르티넬리",
           "en": "Gabriel Martinelli",
           "vi": "Gabriel Martinelli",
-          "th": "กาเบรียล มาร์ติเนลลี"
+          "th": "กาเบรียล มาร์ติเนลลี่"
         },
         "CDM": {
           "ko": "수비멘디",
@@ -205,7 +207,8 @@
       "recommended_rankers": [
         "T1Seon9min",
         "에넬",
-        "바지속흑기둥"
+        "희재",
+        "SoopNox"
       ]
     }
   ]
