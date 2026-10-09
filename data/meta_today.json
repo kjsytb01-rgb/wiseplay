@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08 23:04:44",
+  "updated_at": "2026-10-09 23:03:54",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -11,23 +11,23 @@
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "MID": {
-          "ko": "카카",
-          "en": "kaka",
-          "vi": "kaka",
-          "th": "กาก้า"
-        },
-        "CDM": {
-          "ko": "로타어 마테우스",
-          "en": "Lothar Mateus",
-          "vi": "Lothar Mateus",
-          "th": "โลธาร์ มาเตอุส"
-        },
         "CB": {
           "ko": "F. 디마르코",
           "en": "F. Dimarco",
           "vi": "F. Dimarco",
           "th": "เอฟ. ดิมาร์โก"
+        },
+        "CDM": {
+          "ko": "마이콘",
+          "en": "Mycon",
+          "vi": "Mycon",
+          "th": "ไมคอน"
+        },
+        "MID": {
+          "ko": "디에고 포를란",
+          "en": "Diego Forlan",
+          "vi": "Diego Forlan",
+          "th": "ดิเอโก ฟอร์ลัน"
         },
         "ST": {
           "ko": "에우제비우",
@@ -38,100 +38,100 @@
       },
       "recommended_rankers": [
         "카리나",
-        "BFXLight",
+        "ryuK",
+        "태연",
         "알파고",
-        "리바이브엘니뇨",
-        "리바이브말맨"
+        "리바이브엘니뇨"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 31,
-      "share": 31.0,
+      "count": 27,
+      "share": 27.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "CDM": {
-          "ko": "로드리",
-          "en": "Rodri",
-          "vi": "Rodri",
-          "th": "โรดรี้"
-        },
         "CB": {
-          "ko": "마르크 쿠쿠레야",
-          "en": "Marc Cucurella",
-          "vi": "Marc Cucurella",
-          "th": "มาร์ค คูคูเรลลา"
+          "ko": "애슐리 콜",
+          "en": "Ashley Cole",
+          "vi": "Ashley Cole",
+          "th": "แอชลีย์ โคล"
+        },
+        "CDM": {
+          "ko": "마이클 에시앙",
+          "en": "Michael Essien",
+          "vi": "Michael Essien",
+          "th": "มิเชล เอสเซียง"
         },
         "MID": {
-          "ko": "라민 야말",
-          "en": "Ramin Yamal",
-          "vi": "Ramin Yamal",
-          "th": "รามิน ยามาล"
+          "ko": "모건 로저스",
+          "en": "morgan rogers",
+          "vi": "Morgan Rogers",
+          "th": "มอร์แกน โรเจอร์ส"
         },
         "ST": {
-          "ko": "티에리 앙리",
-          "en": "Thierry Henry",
-          "vi": "Thierry Henry",
-          "th": "เธียร์รี อองรี"
+          "ko": "디디에 드로그바",
+          "en": "Didier Drogba",
+          "vi": "Didier Drogba",
+          "th": "ดิดิเยร์ ดร็อกบา"
         }
       },
       "recommended_rankers": [
-        "GCTCrong",
         "Edith이구치리",
+        "GCTCrong",
         "T1Pierce",
-        "카이절",
-        "파리우승5"
+        "DKNova",
+        "zI존파워란도슛12"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 24,
-      "share": 24.0,
+      "count": 25,
+      "share": 25.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
-        "CDM": {
-          "ko": "김정우",
-          "en": "Kim Jeong-woo",
-          "vi": "Kim Jeong Woo",
-          "th": "คิมจองอู"
-        },
         "ST": {
-          "ko": "차범근",
-          "en": "Cha Bum Geun",
-          "vi": "Cha Bum Geun",
-          "th": "ชาบุมกึน"
-        },
-        "MID": {
-          "ko": "설기현",
-          "en": "Seol Kihyun",
-          "vi": "Seol Kihyun",
-          "th": "ซอล กีฮยอน"
+          "ko": "이스코",
+          "en": "isco",
+          "vi": "isco",
+          "th": "อิสโก้"
         },
         "CB": {
-          "ko": "김동진",
-          "en": "Dongjin Kim",
-          "vi": "Dongjin Kim",
-          "th": "ดงจิน คิม"
+          "ko": "마리오 힐라",
+          "en": "mario gilla",
+          "vi": "Mario Gilla",
+          "th": "มาริโอ กิลล่า"
+        },
+        "MID": {
+          "ko": "카카",
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
+        },
+        "CDM": {
+          "ko": "마르코스 요렌테",
+          "en": "Marcos Llorente",
+          "vi": "Marcos Llorente",
+          "th": "มาร์กอส ยอเรนเต้"
         }
       },
       "recommended_rankers": [
-        "DKKWAK",
+        "방배우",
         "GCTwonder08",
+        "DKKWAK",
         "크몽신경섭",
-        "DK곽",
-        "Prime림광철"
+        "DK곽"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 5,
-      "share": 5.0,
+      "count": 7,
+      "share": 7.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -164,10 +164,10 @@
       },
       "recommended_rankers": [
         "GENSolid",
-        "선재스님의갈비찜",
         "쏠리드",
-        "인바디",
-        "T1YooSimin"
+        "선재스님의갈비찜",
+        "보거스히딩크",
+        "과학자"
       ]
     },
     {
@@ -185,17 +185,17 @@
           "vi": "Kai Havertz",
           "th": "ไค ฮาเวิร์ตซ์"
         },
-        "CB": {
-          "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
-        },
         "MID": {
-          "ko": "가브리엘 마르티넬리",
-          "en": "Gabriel Martinelli",
-          "vi": "Gabriel Martinelli",
-          "th": "กาเบรียล มาร์ติเนลลี่"
+          "ko": "데클런 라이스",
+          "en": "Declan Rice",
+          "vi": "Gạo Declan",
+          "th": "เดแคลน ไรซ์"
+        },
+        "CB": {
+          "ko": "윌리암 살리바",
+          "en": "William Saliba",
+          "vi": "William Saliba",
+          "th": "วิลเลียม ซาลิบา"
         },
         "CDM": {
           "ko": "수비멘디",
@@ -208,7 +208,7 @@
         "T1Seon9min",
         "에넬",
         "희재",
-        "SoopNox"
+        "카제미루"
       ]
     }
   ]
