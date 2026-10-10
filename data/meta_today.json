@@ -1,75 +1,33 @@
 {
-  "updated_at": "2026-10-09 23:03:54",
+  "updated_at": "2026-10-10 23:03:13",
   "total_rankers": 100,
   "meta_list": [
     {
-      "formation": "4-2-2-1-1",
-      "count": 32,
-      "share": 32.0,
-      "tactical_routes": [
-        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
-        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
-      ],
-      "key_players": {
-        "CB": {
-          "ko": "F. 디마르코",
-          "en": "F. Dimarco",
-          "vi": "F. Dimarco",
-          "th": "เอฟ. ดิมาร์โก"
-        },
-        "CDM": {
-          "ko": "마이콘",
-          "en": "Mycon",
-          "vi": "Mycon",
-          "th": "ไมคอน"
-        },
-        "MID": {
-          "ko": "디에고 포를란",
-          "en": "Diego Forlan",
-          "vi": "Diego Forlan",
-          "th": "ดิเอโก ฟอร์ลัน"
-        },
-        "ST": {
-          "ko": "에우제비우",
-          "en": "Eusebio",
-          "vi": "Eusebio",
-          "th": "ยูเซบิโอ"
-        }
-      },
-      "recommended_rankers": [
-        "카리나",
-        "ryuK",
-        "태연",
-        "알파고",
-        "리바이브엘니뇨"
-      ]
-    },
-    {
       "formation": "4-2-3-1",
-      "count": 27,
-      "share": 27.0,
+      "count": 30,
+      "share": 30.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
-        "CB": {
-          "ko": "애슐리 콜",
-          "en": "Ashley Cole",
-          "vi": "Ashley Cole",
-          "th": "แอชลีย์ โคล"
+        "MID": {
+          "ko": "제이든 산초",
+          "en": "jadon sancho",
+          "vi": "jadon sancho",
+          "th": "จาดอน ซานโช่"
         },
         "CDM": {
-          "ko": "마이클 에시앙",
-          "en": "Michael Essien",
-          "vi": "Michael Essien",
-          "th": "มิเชล เอสเซียง"
+          "ko": "리스 제임스",
+          "en": "Reece James",
+          "vi": "Reece James",
+          "th": "รีซ เจมส์"
         },
-        "MID": {
-          "ko": "모건 로저스",
-          "en": "morgan rogers",
-          "vi": "Morgan Rogers",
-          "th": "มอร์แกน โรเจอร์ส"
+        "CB": {
+          "ko": "칼리두 쿨리발리",
+          "en": "Kalidou Koulibaly",
+          "vi": "Kalidou Koulibaly",
+          "th": "คาลิดู คูลิบาลี่"
         },
         "ST": {
           "ko": "디디에 드로그바",
@@ -83,55 +41,97 @@
         "GCTCrong",
         "T1Pierce",
         "DKNova",
-        "zI존파워란도슛12"
+        "Volition배준형"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 25,
-      "share": 25.0,
+      "count": 27,
+      "share": 27.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
         "ST": {
-          "ko": "이스코",
-          "en": "isco",
-          "vi": "isco",
-          "th": "อิสโก้"
-        },
-        "CB": {
-          "ko": "마리오 힐라",
-          "en": "mario gilla",
-          "vi": "Mario Gilla",
-          "th": "มาริโอ กิลล่า"
+          "ko": "차범근",
+          "en": "Cha Bum Geun",
+          "vi": "Cha Bum Geun",
+          "th": "ชาบุมกึน"
         },
         "MID": {
-          "ko": "카카",
-          "en": "kaka",
-          "vi": "kaka",
-          "th": "กาก้า"
+          "ko": "황희찬",
+          "en": "Hwang Hee-chan",
+          "vi": "Hwang Hee-chan",
+          "th": "ฮวาง ฮีชาน"
         },
         "CDM": {
-          "ko": "마르코스 요렌테",
-          "en": "Marcos Llorente",
-          "vi": "Marcos Llorente",
-          "th": "มาร์กอส ยอเรนเต้"
+          "ko": "김정우",
+          "en": "Kim Jeong-woo",
+          "vi": "Kim Jeong Woo",
+          "th": "คิมจองอู"
+        },
+        "CB": {
+          "ko": "최진철",
+          "en": "Choi Jin-cheol",
+          "vi": "Choi Jin Cheol",
+          "th": "ชอย จินชอล"
         }
       },
       "recommended_rankers": [
+        "DKKWAK",
         "방배우",
         "GCTwonder08",
-        "DKKWAK",
-        "크몽신경섭",
-        "DK곽"
+        "리바이브제리",
+        "Prime림광철"
+      ]
+    },
+    {
+      "formation": "4-2-2-1-1",
+      "count": 26,
+      "share": 26.0,
+      "tactical_routes": [
+        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
+        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
+      ],
+      "key_players": {
+        "MID": {
+          "ko": "디에고 포를란",
+          "en": "Diego Forlan",
+          "vi": "Diego Forlan",
+          "th": "ดิเอโก ฟอร์ลัน"
+        },
+        "CB": {
+          "ko": "로랑 블랑",
+          "en": "Laurent Blanc",
+          "vi": "Laurent Blanc",
+          "th": "โลรองต์ บลังค์"
+        },
+        "CDM": {
+          "ko": "마이콘",
+          "en": "Mycon",
+          "vi": "Mycon",
+          "th": "ไมคอน"
+        },
+        "ST": {
+          "ko": "에우제비우",
+          "en": "Eusebio",
+          "vi": "Eusebio",
+          "th": "ยูเซบิโอ"
+        }
+      },
+      "recommended_rankers": [
+        "카리나",
+        "DRXSavior",
+        "태연",
+        "Edith참만",
+        "Benz성언"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 7,
-      "share": 7.0,
+      "count": 6,
+      "share": 6.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -139,8 +139,8 @@
       "key_players": {
         "MID": {
           "ko": "M. 브로조비치",
-          "en": "M. Brozovic",
-          "vi": "M. Brozovic",
+          "en": "M. Brozovich",
+          "vi": "M. Brozovich",
           "th": "เอ็ม. โบรโซวิช"
         },
         "CB": {
@@ -166,14 +166,14 @@
         "GENSolid",
         "쏠리드",
         "선재스님의갈비찜",
-        "보거스히딩크",
-        "과학자"
+        "여수밤바다",
+        "보거스히딩크"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 4,
-      "share": 4.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -207,8 +207,7 @@
       "recommended_rankers": [
         "T1Seon9min",
         "에넬",
-        "희재",
-        "카제미루"
+        "실점"
       ]
     }
   ]
