@@ -1,47 +1,47 @@
 {
-  "updated_at": "2026-10-10 23:03:13",
+  "updated_at": "2026-10-11 23:03:41",
   "total_rankers": 100,
   "meta_list": [
     {
-      "formation": "4-2-3-1",
-      "count": 30,
-      "share": 30.0,
+      "formation": "4-2-2-1-1",
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
-        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
-        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
+        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
+        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "MID": {
-          "ko": "제이든 산초",
-          "en": "jadon sancho",
-          "vi": "jadon sancho",
-          "th": "จาดอน ซานโช่"
-        },
         "CDM": {
-          "ko": "리스 제임스",
-          "en": "Reece James",
-          "vi": "Reece James",
-          "th": "รีซ เจมส์"
+          "ko": "로타어 마테우스",
+          "en": "로타어 마테우스",
+          "vi": "로타어 마테우스",
+          "th": "로타어 마테우스"
         },
         "CB": {
-          "ko": "칼리두 쿨리발리",
-          "en": "Kalidou Koulibaly",
-          "vi": "Kalidou Koulibaly",
-          "th": "คาลิดู คูลิบาลี่"
+          "ko": "로랑 블랑",
+          "en": "로랑 블랑",
+          "vi": "로랑 블랑",
+          "th": "로랑 블랑"
         },
         "ST": {
-          "ko": "디디에 드로그바",
-          "en": "Didier Drogba",
-          "vi": "Didier Drogba",
-          "th": "ดิดิเยร์ ดร็อกบา"
+          "ko": "에우제비우",
+          "en": "에우제비우",
+          "vi": "에우제비우",
+          "th": "에우제비우"
+        },
+        "MID": {
+          "ko": "카카",
+          "en": "카카",
+          "vi": "카카",
+          "th": "카카"
         }
       },
       "recommended_rankers": [
-        "Edith이구치리",
-        "GCTCrong",
-        "T1Pierce",
-        "DKNova",
-        "Volition배준형"
+        "카리나",
+        "DRXSavior",
+        "태연",
+        "이터니티준서",
+        "Prime정권교체남"
       ]
     },
     {
@@ -55,77 +55,77 @@
       "key_players": {
         "ST": {
           "ko": "차범근",
-          "en": "Cha Bum Geun",
-          "vi": "Cha Bum Geun",
-          "th": "ชาบุมกึน"
+          "en": "차범근",
+          "vi": "차범근",
+          "th": "차범근"
         },
         "MID": {
           "ko": "황희찬",
-          "en": "Hwang Hee-chan",
-          "vi": "Hwang Hee-chan",
-          "th": "ฮวาง ฮีชาน"
+          "en": "황희찬",
+          "vi": "황희찬",
+          "th": "황희찬"
         },
         "CDM": {
           "ko": "김정우",
-          "en": "Kim Jeong-woo",
-          "vi": "Kim Jeong Woo",
-          "th": "คิมจองอู"
+          "en": "김정우",
+          "vi": "김정우",
+          "th": "김정우"
         },
         "CB": {
           "ko": "최진철",
-          "en": "Choi Jin-cheol",
-          "vi": "Choi Jin Cheol",
-          "th": "ชอย จินชอล"
+          "en": "최진철",
+          "vi": "최진철",
+          "th": "최진철"
         }
       },
       "recommended_rankers": [
         "DKKWAK",
+        "크몽신경섭",
         "방배우",
-        "GCTwonder08",
-        "리바이브제리",
-        "Prime림광철"
+        "Prime림광철",
+        "유이령"
       ]
     },
     {
-      "formation": "4-2-2-1-1",
-      "count": 26,
-      "share": 26.0,
+      "formation": "4-2-3-1",
+      "count": 27,
+      "share": 27.0,
       "tactical_routes": [
-        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
-        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
+        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
+        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
         "MID": {
-          "ko": "디에고 포를란",
-          "en": "Diego Forlan",
-          "vi": "Diego Forlan",
-          "th": "ดิเอโก ฟอร์ลัน"
-        },
-        "CB": {
-          "ko": "로랑 블랑",
-          "en": "Laurent Blanc",
-          "vi": "Laurent Blanc",
-          "th": "โลรองต์ บลังค์"
+          "ko": "제이든 산초",
+          "en": "제이든 산초",
+          "vi": "제이든 산초",
+          "th": "제이든 산초"
         },
         "CDM": {
-          "ko": "마이콘",
-          "en": "Mycon",
-          "vi": "Mycon",
-          "th": "ไมคอน"
+          "ko": "리스 제임스",
+          "en": "리스 제임스",
+          "vi": "리스 제임스",
+          "th": "리스 제임스"
+        },
+        "CB": {
+          "ko": "칼리두 쿨리발리",
+          "en": "칼리두 쿨리발리",
+          "vi": "칼리두 쿨리발리",
+          "th": "칼리두 쿨리발리"
         },
         "ST": {
-          "ko": "에우제비우",
-          "en": "Eusebio",
-          "vi": "Eusebio",
-          "th": "ยูเซบิโอ"
+          "ko": "디디에 드로그바",
+          "en": "디디에 드로그바",
+          "vi": "디디에 드로그바",
+          "th": "디디에 드로그바"
         }
       },
       "recommended_rankers": [
-        "카리나",
-        "DRXSavior",
-        "태연",
-        "Edith참만",
-        "Benz성언"
+        "Edith이구치리",
+        "GCTCrong",
+        "T1Pierce",
+        "DKNova",
+        "BFXLight"
       ]
     },
     {
@@ -139,21 +139,21 @@
       "key_players": {
         "MID": {
           "ko": "M. 브로조비치",
-          "en": "M. Brozovich",
-          "vi": "M. Brozovich",
-          "th": "เอ็ม. โบรโซวิช"
+          "en": "M. 브로조비치",
+          "vi": "M. 브로조비치",
+          "th": "M. 브로조비치"
         },
         "CB": {
           "ko": "호베르투 카를루스",
-          "en": "Roberto Carlos",
-          "vi": "Roberto Carlos",
-          "th": "โรแบร์โต คาร์ลอส"
+          "en": "호베르투 카를루스",
+          "vi": "호베르투 카를루스",
+          "th": "호베르투 카를루스"
         },
         "CDM": {
           "ko": "하칸 찰하놀루",
-          "en": "Hakan Çalhanoğlu",
-          "vi": "Hakan Çalhanoğlu",
-          "th": "ฮาคาน ชาลฮาโนกลู"
+          "en": "하칸 찰하놀루",
+          "vi": "하칸 찰하놀루",
+          "th": "하칸 찰하놀루"
         },
         "ST": {
           "ko": "사뮈엘 에토",
@@ -166,48 +166,47 @@
         "GENSolid",
         "쏠리드",
         "선재스님의갈비찜",
-        "여수밤바다",
-        "보거스히딩크"
+        "신림동밀탱크",
+        "여수밤바다"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 3,
-      "share": 3.0,
+      "count": 2,
+      "share": 2.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
-        "ST": {
-          "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
-        },
         "MID": {
-          "ko": "데클런 라이스",
-          "en": "Declan Rice",
-          "vi": "Gạo Declan",
-          "th": "เดแคลน ไรซ์"
+          "ko": "부카요 사카",
+          "en": "부카요 사카",
+          "vi": "부카요 사카",
+          "th": "부카요 사카"
         },
         "CB": {
-          "ko": "윌리암 살리바",
-          "en": "William Saliba",
-          "vi": "William Saliba",
-          "th": "วิลเลียม ซาลิบา"
+          "ko": "가브리엘 마갈량이스",
+          "en": "가브리엘 마갈량이스",
+          "vi": "가브리엘 마갈량이스",
+          "th": "가브리엘 마갈량이스"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "en": "수비멘디",
+          "vi": "수비멘디",
+          "th": "수비멘디"
+        },
+        "ST": {
+          "ko": "카이 하베르츠",
+          "en": "카이 하베르츠",
+          "vi": "카이 하베르츠",
+          "th": "카이 하베르츠"
         }
       },
       "recommended_rankers": [
         "T1Seon9min",
-        "에넬",
-        "실점"
+        "SoopNox"
       ]
     }
   ]
