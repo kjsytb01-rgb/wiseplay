@@ -602,6 +602,15 @@
       margin-bottom: 20px;
     }
     .back-btn:hover { background: var(--accent-color); color: #0b0d11; }
+    .card-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--accent-color);
+    }
     .detail-view-header { border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 20px; }
     .detail-view-header h2 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 6px; }
     .detail-view-header p { color: var(--text-muted); font-size: 0.9rem; }
@@ -1131,6 +1140,178 @@
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
 
+    /* 필수 다국어 사전 (누락 없이 완벽 포함) */
+    const I18N_INDEX = {
+      ko: {
+        contactText: "문의",
+        navTactics: "Tactics (전술 DB) ▾",
+        navController: "Controller (패드) ▾",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "선수명, 포메이션, 사용 패드 검색...",
+        searchPlaceholderPads: "패드명, 스틱 방식, 장단점 검색...",
+        secTitleTactics: "⚽ 선수 & 인게임 전술 DB",
+        secTitlePads: "🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측)",
+        videoSecTitleTactics: "🎬 최신 전술 해설 영상",
+        videoSecTitlePads: "🎬 최신 패드 벤치마크 영상",
+        backBtn: "목록으로 돌아가기",
+        imgTab1: "포메이션 배치도",
+        imgTab2: "개인 전술 세팅",
+        imgTab3: "팀 전술 세팅",
+        zoomHint: "🔍 클릭하면 원본 크기로 확대됩니다",
+        descTitle: "📋 전술 분석 및 실전 코멘트",
+        playerPadTitle: "🎮 선수가 사용하는 패드",
+        viewSpecHint: "(벤치마크 스펙 보기 →)",
+        reviewSecTitle: "⭐ 유저 실전 체감 평점 & 코멘트",
+        submitBtn: "등록",
+        ytBtnTactics: "▶ 즐인권의 실전 전술 해설 유튜브 영상 보기",
+        dashSub1: "폴링/레이턴시 실측 종합 벤치",
+        padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
+        benchTitle: "📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)",
+        thMode: "연결 방식",
+        thPoll: "폴링레이트 (Hz)",
+        thSlat: "스틱 레이턴시 (ms)",
+        thBlat: "버튼 레이턴시 (ms)",
+        tbWired: "유선 (Wired)",
+        tbDongle: "동글 (Dongle)",
+        tbBt: "블루투스 (BT)",
+        prosConsTitle: "⚖️ 장점 및 아쉬운 점 (Pros & Cons)",
+        prosLabel: "[장점]",
+        consLabel: "[단점]",
+        verdictHigh: "보편적 찬사",
+        verdictMid: "전반적으로 긍정적",
+        verdictLow: "혼합 또는 평균",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "상세 분석 보기 →"
+      },
+      en: {
+        contactText: "Contact",
+        navTactics: "Tactics DB ▾",
+        navController: "Controllers ▾",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "Search player, formation, controller...",
+        searchPlaceholderPads: "Search controller name, stick type, pros...",
+        secTitleTactics: "⚽ Pro Players & In-Game Tactics DB",
+        secTitlePads: "🎮 Controller Precision Benchmarks (LJ Lee)",
+        videoSecTitleTactics: "🎬 Latest Tactical Analysis Videos",
+        videoSecTitlePads: "🎬 Latest Controller Benchmark Videos",
+        backBtn: "Back to List",
+        imgTab1: "Formation Map",
+        imgTab2: "Player Tactics",
+        imgTab3: "Team Tactics",
+        zoomHint: "🔍 Click to zoom full image",
+        descTitle: "📋 Tactical Analysis & In-Game Notes",
+        playerPadTitle: "🎮 Controller Used by Player",
+        viewSpecHint: "(View Benchmark Specs →)",
+        reviewSecTitle: "⭐ User Ratings & Practical Feedback",
+        submitBtn: "Post",
+        ytBtnTactics: "▶ Watch Tactical Analysis on YouTube (FIFA CAMPER)",
+        dashSub1: "Measured Polling & Latency Composite Bench",
+        padUsersTitle: "🏆 Pro Players Using This Pad",
+        benchTitle: "📊 3-Mode Latency Benchmark (LJ Lee Measured)",
+        thMode: "Connection",
+        thPoll: "Polling (Hz)",
+        thSlat: "Stick Latency (ms)",
+        thBlat: "Button Latency (ms)",
+        tbWired: "Wired",
+        tbDongle: "Dongle 2.4G",
+        tbBt: "Bluetooth",
+        prosConsTitle: "⚖️ Pros & Cons",
+        prosLabel: "[Pros]",
+        consLabel: "[Cons]",
+        verdictHigh: "Universal Acclaim",
+        verdictMid: "Generally Favorable",
+        verdictLow: "Mixed or Average",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "View Analysis →"
+      },
+      vi: {
+        contactText: "Liên hệ",
+        navTactics: "Chiến thuật ▾",
+        navController: "Tay cầm ▾",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "Tìm tuyển thủ, sơ đồ, tay cầm...",
+        searchPlaceholderPads: "Tìm tên tay cầm, cần analog, ưu điểm...",
+        secTitleTactics: "⚽ DB Tuyển Thủ & Chiến Thuật In-Game",
+        secTitlePads: "🎮 Benchmark Tay Cầm Chi Tiết (LJ Lee Đo Thực Tế)",
+        videoSecTitleTactics: "🎬 Video Phân Tích Chiến Thuật Mới Nhất",
+        videoSecTitlePads: "🎬 Video Benchmark Tay Cầm Mới Nhất",
+        backBtn: "Quay lại danh sách",
+        imgTab1: "Sơ đồ bố trí",
+        imgTab2: "Chiến thuật đơn",
+        imgTab3: "Chiến thuật đội",
+        zoomHint: "🔍 Nhấp để phóng to ảnh gốc",
+        descTitle: "📋 Phân Tích Chiến Thuật & Lưu Ý",
+        playerPadTitle: "🎮 Tay Cầm Tuyển Thủ Sử Dụng",
+        viewSpecHint: "(Xem thông số Benchmark →)",
+        reviewSecTitle: "⭐ Đánh Giá Thực Tế Từ Người Dùng",
+        submitBtn: "Gửi",
+        ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (FIFA CAMPER)",
+        dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
+        padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
+        benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối (LJ Lee Thực Đo)",
+        thMode: "Kết nối",
+        thPoll: "Polling (Hz)",
+        thSlat: "Độ trễ cần (ms)",
+        thBlat: "Độ trễ nút (ms)",
+        tbWired: "Dây (Wired)",
+        tbDongle: "Đầu thu (Dongle)",
+        tbBt: "Bluetooth",
+        prosConsTitle: "⚖️ Ưu Điểm & Nhược Điểm (Pros & Cons)",
+        prosLabel: "[Ưu điểm]",
+        consLabel: "[Nhược điểm]",
+        verdictHigh: "Đánh Giá Tuyệt Vời",
+        verdictMid: "Đánh Giá Tích Cực",
+        verdictLow: "Trung Bình / Hỗn Hợp",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "Xem chi tiết →"
+      },
+      th: {
+        contactText: "ติดต่อ",
+        navTactics: "แผนการเล่น ▾",
+        navController: "จอยเกม ▾",
+        navMeta: "🔥 Daily Meta",
+        searchPlaceholderTactics: "ค้นหานักแข่ง, แผนการเล่น, จอยที่ใช้...",
+        searchPlaceholderPads: "ค้นหาชื่อจอย, อนาล็อก, จุดเด่น...",
+        secTitleTactics: "⚽ ฐานข้อมูลแผนการเล่น & นักแข่ง",
+        secTitlePads: "🎮 ผลทดสอบจอยเกมอย่างละเอียด (LJ Lee วัดค่าจริง)",
+        videoSecTitleTactics: "🎬 วิดีโอวิเคราะห์แผนการเล่นล่าสุด",
+        videoSecTitlePads: "🎬 วิดีโอผลทดสอบจอยล่าสุด",
+        backBtn: "กลับสู่หน้ารายการ",
+        imgTab1: "ผังตำแหน่ง",
+        imgTab2: "แทคติกส่วนตัว",
+        imgTab3: "แทคติกทีม",
+        zoomHint: "🔍 คลิกเพื่อขยายภาพขนาดเต็ม",
+        descTitle: "📋 วิเคราะห์แทคติกและข้อแนะนำการเล่น",
+        playerPadTitle: "🎮 จอยที่นักแข่งคนนี้เลือกใช้",
+        viewSpecHint: "(ดูสเปกผลทดสอบ →)",
+        reviewSecTitle: "⭐ ความคิดเห็นและรีวิวจากผู้ใช้จริง",
+        submitBtn: "ส่งความคิดเห็น",
+        ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (FIFA CAMPER)",
+        dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
+        padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
+        benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ (LJ Lee)",
+        thMode: "การเชื่อมต่อ",
+        thPoll: "Polling (Hz)",
+        thSlat: "ดีเลย์แกนอนาล็อก (ms)",
+        thBlat: "ดีเลย์ปุ่มกด (ms)",
+        tbWired: "ต่อสาย (Wired)",
+        tbDongle: "ดองเกิล (Dongle)",
+        tbBt: "บลูทูธ (Bluetooth)",
+        prosConsTitle: "⚖️ จุดเด่น & ข้อพิจารณา (Pros & Cons)",
+        prosLabel: "[จุดเด่น]",
+        consLabel: "[ข้อเสีย]",
+        verdictHigh: "คำชมเชยระดับสูงสุด",
+        verdictMid: "เชิงบวกโดยรวม",
+        verdictLow: "ปานกลาง",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "ดูผลทดสอบ →"
+      }
+    };
+
     const INITIAL_TACTICS = [
       { playerName: "NAVY", slug: "navy", country: "KR", versionName: "2026 INVITATIONAL CUP", formation: "4-2-2-2", padName: "THRUSTMASTER GP XID PRO", imgFormation: "https://i.imgur.com/UuSt3ye.png", imgPersonal: "https://i.imgur.com/JHlr6T6.png", imgTeam: "https://i.imgur.com/EsF7UCo.png", ytUrl: "https://www.youtube.com/watch?v=9-7Agql338U&t=119s", reviewText: "4-2-2-2 포메이션을 잘 사용하지 못하는 유저분들도 쉽게 사용할 수 있는 전술입니다.", wiseScore: "90" },
       { playerName: "LHAT", slug: "lhat", country: "VN", versionName: "2026 INVITATIONAL CUP", formation: "4-4-2", padName: "-", imgFormation: "https://i.imgur.com/xmi2pwp.png", imgPersonal: "https://i.imgur.com/oHdagbX.png", imgTeam: "https://i.imgur.com/9eyWyly.png", ytUrl: "https://www.youtube.com/watch?v=ihTgYNirDpY", reviewText: "수비, 공격 전술을 따로 사용하는 LHAT 선수입니다. 유튜브 링크를 꼭 확인 부탁드립니다.", wiseScore: "75" },
@@ -1334,10 +1515,11 @@
       switchTab('tactics');
     }
 
+    /* 올려주신 작동 원본 parseCSV 100% 동일 */
     function parseCSV(text) {
-      const lines = text.trim().split(/\r?\n/);
+      const lines = text.trim().split('\n');
       if (lines.length <= 1) return [];
-      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
+      const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
       const data = [];
 
       for (let i = 1; i < lines.length; i++) {
@@ -1350,12 +1532,7 @@
         for (let j = 0; j < line.length; j++) {
           const char = line[j];
           if (char === '"') {
-            if (inQuotes && line[j + 1] === '"') {
-              field += '"';
-              j++;
-            } else {
-              inQuotes = !inQuotes;
-            }
+            inQuotes = !inQuotes;
           } else if (char === ',' && !inQuotes) {
             row.push(field.trim());
             field = '';
@@ -1368,19 +1545,17 @@
         const obj = {};
         headers.forEach((h, idx) => {
           let val = row[idx] || '';
-          obj[h] = val.replace(/^"|"$/g, '').trim();
+          obj[h] = val.replace(/^["']|["']$/g, '').trim();
         });
-        if (Object.values(obj).some(v => v !== '')) {
-          data.push(obj);
-        }
+        data.push(obj);
       }
       return data;
     }
 
     async function loadTactics() {
       const urls = [
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`
       ];
       for (const url of urls) {
         try {
@@ -1390,7 +1565,7 @@
             const parsed = parseCSV(text);
             if (parsed && parsed.length > 0 && parsed[0].playerName) {
               allTactics = parsed;
-              renderTactics(allTactics);
+              handleSearch();
               updateVideoShowcase();
               break;
             }
@@ -1401,8 +1576,8 @@
 
     async function loadPads() {
       const urls = [
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`
       ];
       for (const url of urls) {
         try {
@@ -1412,7 +1587,7 @@
             const parsed = parseCSV(text);
             if (parsed && parsed.length > 0 && parsed[0].padName) {
               allPads = parsed;
-              renderPads(allPads);
+              handleSearch();
               updateVideoShowcase();
               break;
             }
@@ -1421,7 +1596,6 @@
       }
     }
 
-    /* Supabase 리뷰 데이터 집계 함수 */
     async function loadAllPadReviewStats() {
       try {
         const url = `${SUPABASE_URL}/rest/v1/reviews?select=category,item_id,score`;
@@ -1459,7 +1633,6 @@
             globalTacticStats[k] = { avg: (sum / scores.length).toFixed(1), count: scores.length };
           });
 
-          // 통계 집계 완료 후 화면 즉시 갱신
           handleSearch();
         }
       } catch (e) {
@@ -1467,7 +1640,6 @@
       }
     }
 
-    /* 전술 정렬 렌더링 (와이즈 픽 / 유저 픽 / 인기 전술) */
     function renderTactics(list) {
       const container = document.getElementById('tactics-list');
       if (!list || list.length === 0) return;
@@ -1476,10 +1648,8 @@
       let sorted = [...list];
 
       if (currentTacticsSort === 'wise') {
-        // 와이즈 픽: 시트 wiseScore 높은 순
         sorted.sort((a, b) => (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0));
       } else if (currentTacticsSort === 'user') {
-        // 유저 픽: 유저 실시간 평점(avg) 높은 순
         sorted.sort((a, b) => {
           const ka = (a.playerName || '').toLowerCase().trim();
           const kb = (b.playerName || '').toLowerCase().trim();
@@ -1488,7 +1658,6 @@
           return avgB - avgA;
         });
       } else if (currentTacticsSort === 'hot') {
-        // 인기 전술: 댓글(후기) 개수 많은 순
         sorted.sort((a, b) => {
           const ka = (a.playerName || '').toLowerCase().trim();
           const kb = (b.playerName || '').toLowerCase().trim();
@@ -1501,7 +1670,7 @@
       container.innerHTML = sorted.map((item, idx) => {
         const origIdx = allTactics.indexOf(item);
         const key = (item.playerName || '').toLowerCase().trim();
-        const uStat = globalTacticStats[key] || { avg: '4.8', count: 0 };
+        const uStat = globalTacticStats[key] || { avg: '0.0', count: 0 };
         const scoreNum = item.wiseScore ? Number(item.wiseScore) : 85;
         const st = getScoreStyle(scoreNum);
 
@@ -1521,7 +1690,7 @@
                 <div class="mc-score-info">
                   <span class="mc-score-label">${t.scoreLabelWise}</span>
                   <span class="mc-score-verdict" id="t-card-verdict-${idx}">${st.text}</span>
-                  <span class="mc-score-sub">${uStat.count > 0 ? `유저 후기 ${uStat.count}개 (★${uStat.avg})` : (item.versionName || 'Verified Meta')}</span>
+                  <span class="mc-score-sub">${uStat.count > 0 ? `💬 후기 ${uStat.count}개 (★${uStat.avg})` : (item.versionName || 'Verified Meta')}</span>
                 </div>
                 <div class="mc-score-badge ${st.cls}">${scoreNum}</div>
               </div>
@@ -1547,7 +1716,6 @@
       }
     }
 
-    /* 패드 정렬 렌더링 (와이즈 픽 / 유저 픽 / 인기 패드) */
     function renderPads(list) {
       const container = document.getElementById('pads-list');
       if (!list || list.length === 0) return;
@@ -1556,10 +1724,8 @@
       let sorted = [...list];
 
       if (currentPadsSort === 'wise') {
-        // 와이즈 픽: 실측 점수(metaScore) 높은 순
         sorted.sort((a, b) => (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0));
       } else if (currentPadsSort === 'user') {
-        // 유저 픽: 유저 실시간 평점(avg) 높은 순
         sorted.sort((a, b) => {
           const ka = (a.padName || '').toLowerCase().trim();
           const kb = (b.padName || '').toLowerCase().trim();
@@ -1568,7 +1734,6 @@
           return avgB - avgA;
         });
       } else if (currentPadsSort === 'hot') {
-        // 인기 패드: 댓글(리뷰) 개수 많은 순
         sorted.sort((a, b) => {
           const ka = (a.padName || '').toLowerCase().trim();
           const kb = (b.padName || '').toLowerCase().trim();
@@ -1603,7 +1768,7 @@
                 <div class="mc-score-info">
                   <span class="mc-score-label">${t.scoreLabelPad}</span>
                   <span class="mc-score-verdict" id="p-card-verdict-${idx}">${st.text}</span>
-                  <span class="mc-score-sub">${userStats.count > 0 ? `실사용자 리뷰 ${userStats.count}개 (★${userStats.avg})` : `동글 ${pad.dPoll \vert{}\vert{} '-'}Hz / ${pad.dStickLat || '-'}ms`}</span>
+                  <span class="mc-score-sub">${userStats.count > 0 ? `💬 리뷰 ${userStats.count}개 (★${userStats.avg})` : `동글 ${pad.dPoll \vert{}\vert{} '-'}Hz / ${pad.dStickLat || '-'}ms`}</span>
                 </div>
                 <div class="mc-score-badge ${st.cls}">${pad.metaScore || '-'}</div>
               </div>
@@ -1854,9 +2019,7 @@
       setElText('pB_bLat', p.bBtnLat ? `${p.bBtnLat} ms` : '-');
       setElText('pB_adv', p.bAdvice || '-');
 
-      setElText('viewPadPros', p.pros || '-');
-      setElText('viewPadCons', p.cons || '-');
-
+      updatePadDetailLang();
       fetchSupabaseReviews('pad', p.padName || 'default_pad');
 
       document.getElementById('section-tactics').style.display = 'none';
@@ -1866,6 +2029,13 @@
       isDetailView = true;
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function updatePadDetailLang() {
+      if (!currentSelectedPad) return;
+      const p = currentSelectedPad;
+      setElText('viewPadPros', await translateDynamicText(p.pros || '-', currentLang));
+      setElText('viewPadCons', await translateDynamicText(p.cons || '-', currentLang));
     }
 
     function openPadVideo() {
@@ -1940,7 +2110,6 @@
           const starCount = Math.round(Number(avg));
           avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
 
-          // 캐시 갱신
           globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
           commentListEl.innerHTML = list.map(item => `
@@ -1968,7 +2137,6 @@
           padUserScoreEl.innerText = avg;
           padUserCountEl.innerText = `실사용자 ${list.length}명 평가`;
 
-          // 캐시 갱신
           globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
           commentListEl.innerHTML = list.map(item => `
@@ -2005,7 +2173,7 @@
         });
         document.getElementById(type === 'tactics' ? 'tReviewText' : 'pReviewText').value = '';
         await fetchSupabaseReviews(type, itemId);
-        await loadAllPadReviewStats(); // 전체 통계 갱신
+        await loadAllPadReviewStats();
       } catch (e) {
         alert('리뷰 등록 실패');
       }
@@ -2022,17 +2190,13 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
-    window.addEventListener('DOMContentLoaded', async () => {
-      // 1. 초기 렌더링
+    window.addEventListener('DOMContentLoaded', () => {
       renderTactics(allTactics);
       renderPads(allPads);
       updateVideoShowcase();
       applyI18n();
 
-      // 2. Supabase 실시간 리뷰 통계를 즉시 로드하여 정렬에 반영
-      await loadAllPadReviewStats();
-
-      // 3. 백그라운드 구글 시트 실시간 동기화
+      loadAllPadReviewStats();
       loadTactics();
       loadPads();
     });
