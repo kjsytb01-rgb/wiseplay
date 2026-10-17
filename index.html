@@ -31,14 +31,14 @@
       padding-bottom: 60px;
     }
 
-    /* 메타크리틱 스타일 가로 1단 고정 상단바 (로고만 배치) */
+    /* 메타크리틱 스타일 가로 1단 고정 상단바 */
     header {
       background: #141720;
       border-bottom: 1px solid var(--card-border);
       padding: 0 20px;
       position: sticky;
       top: 0;
-      z-index: 9999;
+      z-index: 1000;
     }
     .header-inner {
       max-width: 1260px;
@@ -53,7 +53,7 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       z-index: 10;
     }
     .brand-link {
@@ -69,10 +69,10 @@
       filter: drop-shadow(0 4px 12px rgba(0, 255, 136, 0.25));
     }
 
-    /* 상단 탭 & 마우스 오버 시 드롭다운 */
+    /* 상단 탭 & 드롭다운 */
     .nav-tabs {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
     .nav-item {
       position: relative;
@@ -81,10 +81,10 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer !important;
-      padding: 22px 14px;
+      padding: 22px 10px;
       position: relative;
       text-decoration: none;
       display: inline-flex;
@@ -92,7 +92,6 @@
       gap: 4px;
       transition: color 0.2s;
       pointer-events: auto !important;
-      z-index: 10;
     }
     .tab-btn:hover { color: #fff; }
     .tab-btn.active {
@@ -102,8 +101,8 @@
       content: "";
       position: absolute;
       bottom: 0;
-      left: 14px;
-      right: 14px;
+      left: 10px;
+      right: 10px;
       height: 3px;
       background: var(--accent-color);
       border-radius: 2px 2px 0 0;
@@ -151,63 +150,72 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
-      z-index: 10;
+      gap: 12px;
+      z-index: 20;
     }
     .search-box {
       position: relative;
-      width: 260px;
+      width: 220px;
     }
     .search-box input {
       width: 100%;
-      padding: 9px 14px 9px 36px;
+      padding: 8px 12px 8px 34px;
       background: #1b202c;
       border: 1px solid var(--card-border);
       border-radius: 8px;
       color: #fff;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       outline: none;
     }
     .search-icon {
       position: absolute;
-      left: 12px;
+      left: 10px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       pointer-events: none;
     }
 
+    /* 언어 선택기 (클릭 영역 보장) */
     .lang-selector-wrap {
-      display: flex;
-      gap: 2px;
-      background: #1a1e28;
-      padding: 3px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-    }
-    .lang-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 6px 8px;
-      border-radius: 5px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer !important;
+      display: flex !important;
+      gap: 3px !important;
+      background: #1a1e28 !important;
+      padding: 4px !important;
+      border-radius: 8px !important;
+      border: 1px solid var(--card-border) !important;
+      position: relative !important;
+      z-index: 99999 !important;
       pointer-events: auto !important;
     }
+    .lang-btn {
+      background: transparent !important;
+      border: none !important;
+      color: var(--text-muted) !important;
+      padding: 5px 8px !important;
+      border-radius: 5px !important;
+      font-size: 0.74rem !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      transition: all 0.15s ease !important;
+    }
+    .lang-btn:hover {
+      color: #fff !important;
+      background: rgba(255,255,255,0.08) !important;
+    }
     .lang-btn.active {
-      background: var(--card-border);
-      color: var(--accent-color);
+      background: var(--card-border) !important;
+      color: var(--accent-color) !important;
     }
 
     .contact-top-btn {
       background: var(--accent-gold);
       color: #0b0d11;
-      padding: 8px 14px;
+      padding: 8px 12px;
       border-radius: 8px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 900;
       text-decoration: none;
       display: inline-flex;
@@ -218,9 +226,9 @@
     }
 
     @media (max-width: 900px) {
-      .search-box { width: 160px; }
+      .search-box { width: 140px; }
     }
-    @media (max-width: 680px) {
+    @media (max-width: 720px) {
       .header-inner { height: auto; padding: 10px 0; flex-wrap: wrap; }
       .header-right { width: 100%; justify-content: space-between; }
       .search-box { width: 100%; }
@@ -494,7 +502,7 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 상세 페이지 뷰 공통 */
+    /* 상세 페이지 뷰 */
     .detail-view-container {
       display: none;
       background: #161920;
@@ -645,7 +653,7 @@
 </head>
 <body>
 
-  <!-- 메타크리틱형 가로 1단 고정 상단바 (로고만 배치) -->
+  <!-- 헤더 -->
   <header>
     <div class="header-inner">
       <div class="header-left">
@@ -653,25 +661,24 @@
           <img src="/logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
         </a>
 
-        <!-- 상단 탭 + 드롭다운 메뉴 -->
         <nav class="nav-tabs">
           <div class="nav-item">
-            <button class="tab-btn active" id="tabNavTactics" onclick="switchTab('tactics')">Tactics (전술 DB) ▾</button>
+            <button type="button" class="tab-btn active" id="tabNavTactics" onclick="switchTab('tactics')">Tactics (전술 DB) ▾</button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" onclick="changeSort('tactics', 'all')">🔄 전체 / 최신순</a>
-              <a class="dropdown-item" onclick="changeSort('tactics', 'wise')">👑 와이즈 픽 (추천순)</a>
-              <a class="dropdown-item" onclick="changeSort('tactics', 'user')">⭐ 유저 픽 (평점순)</a>
-              <a class="dropdown-item" onclick="changeSort('tactics', 'hot')">🔥 인기 전술 (댓글순)</a>
+              <a class="dropdown-item" onclick="changeSort('tactics', 'all')" id="sort-t-all">🔄 전체 / 최신순</a>
+              <a class="dropdown-item" onclick="changeSort('tactics', 'wise')" id="sort-t-wise">👑 와이즈 픽 (추천순)</a>
+              <a class="dropdown-item" onclick="changeSort('tactics', 'user')" id="sort-t-user">⭐ 유저 픽 (평점순)</a>
+              <a class="dropdown-item" onclick="changeSort('tactics', 'hot')" id="sort-t-hot">🔥 인기 전술 (댓글순)</a>
             </div>
           </div>
 
           <div class="nav-item">
-            <button class="tab-btn" id="tabNavPads" onclick="switchTab('pads')">Controller (패드 벤치마크) ▾</button>
+            <button type="button" class="tab-btn" id="tabNavPads" onclick="switchTab('pads')">Controller (패드 벤치마크) ▾</button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" onclick="changeSort('pads', 'all')">🔄 전체 / 최신순</a>
-              <a class="dropdown-item" onclick="changeSort('pads', 'wise')">👑 와이즈 픽 (점수순)</a>
-              <a class="dropdown-item" onclick="changeSort('pads', 'user')">⭐ 유저 픽 (평점순)</a>
-              <a class="dropdown-item" onclick="changeSort('pads', 'hot')">🔥 인기 패드 (댓글순)</a>
+              <a class="dropdown-item" onclick="changeSort('pads', 'all')" id="sort-p-all">🔄 전체 / 최신순</a>
+              <a class="dropdown-item" onclick="changeSort('pads', 'wise')" id="sort-p-wise">👑 와이즈 픽 (점수순)</a>
+              <a class="dropdown-item" onclick="changeSort('pads', 'user')" id="sort-p-user">⭐ 유저 픽 (평점순)</a>
+              <a class="dropdown-item" onclick="changeSort('pads', 'hot')" id="sort-p-hot">🔥 인기 패드 (댓글순)</a>
             </div>
           </div>
 
@@ -688,10 +695,10 @@
         </div>
 
         <div class="lang-selector-wrap">
-          <button class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
-          <button class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
-          <button class="lang-btn" id="btn-lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
-          <button class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
+          <button type="button" class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
+          <button type="button" class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
+          <button type="button" class="lang-btn" id="btn-lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+          <button type="button" class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
         </div>
 
         <a href="/about.html" class="contact-top-btn" id="topContactBtn">
@@ -702,13 +709,13 @@
   </header>
 
   <main>
-    <!-- 전술 섹션 (가로 슬라이더) -->
+    <!-- 전술 섹션 -->
     <section id="section-tactics">
       <div class="section-header-row">
         <div class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="tacticsSortBadge">전체 / 최신순</span></div>
         <div class="carousel-arrows">
-          <button class="arrow-btn" onclick="scrollCarousel('tactics-list', -1)">&larr;</button>
-          <button class="arrow-btn" onclick="scrollCarousel('tactics-list', 1)">&rarr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', -1)">&larr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', 1)">&rarr;</button>
         </div>
       </div>
       <div id="tactics-list" class="cards-grid">
@@ -716,13 +723,13 @@
       </div>
     </section>
 
-    <!-- 패드 섹션 (가로 슬라이더) -->
+    <!-- 패드 섹션 -->
     <section id="section-pads" style="display: none;">
       <div class="section-header-row">
         <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
         <div class="carousel-arrows">
-          <button class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
-          <button class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
         </div>
       </div>
       <div id="pads-list" class="cards-grid">
@@ -730,7 +737,7 @@
       </div>
     </section>
 
-    <!-- 하단 최신 영상 섹션 -->
+    <!-- 최신 영상 섹션 -->
     <section id="section-latest-videos" class="latest-videos-section">
       <div class="section-header-row">
         <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 해설 영상</h2>
@@ -759,7 +766,7 @@
 
     <!-- 전술 상세 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
-      <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
+      <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
       <div class="detail-view-header">
         <span class="card-badge" id="viewFormation">포메이션</span>
@@ -768,9 +775,9 @@
       </div>
 
       <div class="tactics-img-tabs">
-        <button class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. <span class="t-img-tab1">포메이션 배치도</span></button>
-        <button class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. <span class="t-img-tab2">개인 전술 세팅</span></button>
-        <button class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. <span class="t-img-tab3">팀 전술 세팅</span></button>
+        <button type="button" class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. <span class="t-img-tab1">포메이션 배치도</span></button>
+        <button type="button" class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. <span class="t-img-tab2">개인 전술 세팅</span></button>
+        <button type="button" class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. <span class="t-img-tab3">팀 전술 세팅</span></button>
       </div>
 
       <div style="position:relative;">
@@ -816,7 +823,7 @@
             </div>
             <div style="display:flex; gap:8px;">
               <input type="text" id="tReviewText" class="review-text-input" placeholder="실전 체감 한줄평 후기를 남겨주세요...">
-              <button class="review-submit-btn" onclick="submitReview('tactics')" id="t-review-submit-btn1">등록</button>
+              <button type="button" class="review-submit-btn" onclick="submitReview('tactics')" id="t-review-submit-btn1">등록</button>
             </div>
           </div>
 
@@ -831,9 +838,9 @@
       </div>
     </section>
 
-    <!-- 5. 컨트롤러 세부 화면 -->
+    <!-- 컨트롤러 상세 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
-      <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
+      <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
       <div class="detail-view-header">
         <span class="card-badge" style="background:rgba(0,180,216,0.2); color:var(--accent-blue);">BENCHMARK &amp; USER REVIEW</span>
@@ -992,7 +999,7 @@
             </div>
             <div style="display:flex; gap:8px;">
               <input type="text" id="pReviewText" class="review-text-input" placeholder="그립감, 십자키, 스틱 텐션 실사용 후기...">
-              <button class="review-submit-btn" onclick="submitReview('pad')" id="t-review-submit-btn2">등록</button>
+              <button type="button" class="review-submit-btn" onclick="submitReview('pad')" id="t-review-submit-btn2">등록</button>
             </div>
           </div>
 
@@ -1066,7 +1073,12 @@
         prosCardLabel: "장점: ",
         verdictHigh: "보편적 찬사",
         verdictMid: "전반적으로 긍정적",
-        verdictLow: "혼합 또는 평균"
+        verdictLow: "혼합 또는 평균",
+        sortAll: "🔄 전체 / 최신순",
+        sortWise: "👑 와이즈 픽 (추천순)",
+        sortUser: "⭐ 유저 픽 (평점순)",
+        sortHot: "🔥 인기 전술 (댓글순)",
+        sortPadHot: "🔥 인기 패드 (댓글순)"
       },
       en: {
         contactText: "Contact & Partnership",
@@ -1112,7 +1124,12 @@
         prosCardLabel: "Pros: ",
         verdictHigh: "Universal Acclaim",
         verdictMid: "Generally Favorable",
-        verdictLow: "Mixed or Average"
+        verdictLow: "Mixed or Average",
+        sortAll: "🔄 All / Latest",
+        sortWise: "👑 Wise Pick (Recommended)",
+        sortUser: "⭐ User Pick (Rating)",
+        sortHot: "🔥 Hot Tactics (Comments)",
+        sortPadHot: "🔥 Hot Controller (Comments)"
       },
       vi: {
         contactText: "Liên hệ hợp tác",
@@ -1158,7 +1175,12 @@
         prosCardLabel: "Ưu điểm: ",
         verdictHigh: "Đánh Giá Tuyệt Vời",
         verdictMid: "Đánh Giá Tích Cực",
-        verdictLow: "Trung Bình / Hỗn Hợp"
+        verdictLow: "Trung Bình / Hỗn Hợp",
+        sortAll: "🔄 Tất cả / Mới nhất",
+        sortWise: "👑 Wise Pick (Đề xuất)",
+        sortUser: "⭐ User Pick (Đánh giá)",
+        sortHot: "🔥 Chiến thuật Hot (Bình luận)",
+        sortPadHot: "🔥 Tay cầm Hot (Bình luận)"
       },
       th: {
         contactText: "ติดต่อธุรกิจ",
@@ -1204,7 +1226,12 @@
         prosCardLabel: "จุดเด่น: ",
         verdictHigh: "คำชมเชยระดับสูงสุด",
         verdictMid: "เชิงบวกโดยรวม",
-        verdictLow: "ปานกลาง"
+        verdictLow: "ปานกลาง",
+        sortAll: "🔄 ทั้งหมด / ล่าสุด",
+        sortWise: "👑 Wise Pick (แนะนำ)",
+        sortUser: "⭐ User Pick (คะแนนรีวิว)",
+        sortHot: "🔥 แทคติกยอดฮิต (ความคิดเห็น)",
+        sortPadHot: "🔥 จอยยอดฮิต (ความคิดเห็น)"
       }
     };
 
@@ -1224,12 +1251,18 @@
     let videoItems = [];
     let currentVideoIdx = 0;
 
+    /* 점수 티어 계산 함수 */
     function getScoreTier(scoreVal) {
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       const n = Number(scoreVal) || 85;
       if (n >= 80) return { cls: 'tier-green', verdict: t.verdictHigh, g: 88, y: 10, r: 2 };
       if (n >= 55) return { cls: 'tier-yellow', verdict: t.verdictMid, g: 55, y: 35, r: 10 };
       return { cls: 'tier-red', verdict: t.verdictLow, g: 25, y: 45, r: 30 };
+    }
+
+    function scrollCarousel(id, dir) {
+      const el = document.getElementById(id);
+      if (el) el.scrollBy({ left: dir * 610, behavior: 'smooth' });
     }
 
     function cleanSlug(val, fallback) {
@@ -1293,6 +1326,16 @@
       document.getElementById('t-sec-title-pads').childNodes[0].nodeValue = t.secTitlePads + " ";
       document.getElementById('t-sec-sub-pads').innerText = t.secSubPads;
 
+      document.getElementById('sort-t-all').innerText = t.sortAll;
+      document.getElementById('sort-t-wise').innerText = t.sortWise;
+      document.getElementById('sort-t-user').innerText = t.sortUser;
+      document.getElementById('sort-t-hot').innerText = t.sortHot;
+
+      document.getElementById('sort-p-all').innerText = t.sortAll;
+      document.getElementById('sort-p-wise').innerText = t.sortWise;
+      document.getElementById('sort-p-user').innerText = t.sortUser;
+      document.getElementById('sort-p-hot').innerText = t.sortPadHot;
+
       document.querySelectorAll('.t-back-btn').forEach(el => el.innerText = t.backBtn);
       const tab1 = document.querySelector('.t-img-tab1'); if(tab1) tab1.innerText = t.imgTab1;
       const tab2 = document.querySelector('.t-img-tab2'); if(tab2) tab2.innerText = t.imgTab2;
@@ -1333,11 +1376,12 @@
     }
 
     function changeSort(tabName, mode) {
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       const labels = {
-        all: '전체 / 최신순',
-        wise: '👑 와이즈 픽',
-        user: '⭐ 유저 픽 (평점순)',
-        hot: '🔥 인기순 (댓글순)'
+        all: t.sortAll,
+        wise: t.sortWise,
+        user: t.sortUser,
+        hot: tabName === 'tactics' ? t.sortHot : t.sortPadHot
       };
       if (tabName === 'tactics') {
         currentTacticsSort = mode;
@@ -1430,33 +1474,55 @@
     }
 
     async function loadTactics() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
-        allTactics = parseCSV(text);
-        await loadAllReviewStats();
-        renderTactics(allTactics);
-        updateVideoShowcase();
-        checkInitialUrl();
-      } catch (err) {
-        console.error(err);
+      const urls = [
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
+      ];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
+              allTactics = parseCSV(text);
+              await loadAllReviewStats();
+              renderTactics(allTactics);
+              updateVideoShowcase();
+              checkInitialUrl();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Tactics fetch error:", err);
+        }
       }
+      document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 권한(링크가 있는 모든 사용자 뷰어)을 확인해주세요.</div>`;
     }
 
     async function loadPads() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
-        allPads = parseCSV(text);
-        await loadAllReviewStats();
-        renderPads(allPads);
-        updateVideoShowcase();
-        checkInitialUrl();
-      } catch (err) {
-        console.error(err);
+      const urls = [
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
+      ];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
+              allPads = parseCSV(text);
+              await loadAllReviewStats();
+              renderPads(allPads);
+              updateVideoShowcase();
+              checkInitialUrl();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Pads fetch error:", err);
+        }
       }
+      document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 권한(링크가 있는 모든 사용자 뷰어)을 확인해주세요.</div>`;
     }
 
     async function loadAllReviewStats() {
