@@ -132,7 +132,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      min-width: 190px;
+      min-width: 195px;
       background: #181c26;
       border: 1px solid var(--card-border);
       border-radius: 0 0 10px 10px;
@@ -467,14 +467,14 @@
     .mc-bar-y { background: var(--accent-yellow); height: 100%; }
     .mc-bar-r { background: var(--accent-red); height: 100%; }
 
-    /* ================= 하단 최신 영상 섹션 (사진 2 레이아웃) ================= */
+    /* ================= 하단 최신 영상 섹션 ================= */
     .latest-videos-section {
       margin-top: 48px;
       padding-top: 10px;
     }
     .video-showcase-grid {
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr 370px;
       gap: 24px;
       align-items: start;
     }
@@ -526,13 +526,17 @@
       padding: 10px 14px;
       border-radius: 10px;
       border: 1px solid #282d3b;
+      cursor: pointer;
+    }
+    .video-stage-right:hover {
+      border-color: var(--accent-color);
     }
 
     .video-playlist-side {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-height: 480px;
+      max-height: 490px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -617,14 +621,7 @@
       .video-showcase-grid { grid-template-columns: 1fr; }
     }
 
-    .loading {
-      text-align: center;
-      padding: 60px 0;
-      color: var(--text-muted);
-      width: 100%;
-    }
-
-    /* ================= 기존 상세 페이지 뷰 공통 (100% 보존) ================= */
+    /* ================= 상세 페이지 뷰 공통 ================= */
     .detail-view-container {
       display: none;
       background: #161920;
@@ -1194,7 +1191,7 @@
           <img src="/logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
           <div class="brand-text-wrap">
             <span class="brand-name">WISEPLAY</span>
-            <span class="brand-sub"> 즐인권 X LJ Lee</span>
+            <span class="brand-sub">즐인권 X LJ Lee</span>
           </div>
         </a>
 
@@ -1258,9 +1255,7 @@
           <button class="c-arrow-btn" onclick="scrollTrack('tactics-list', 1)">&rarr;</button>
         </div>
       </div>
-      <div id="tactics-list" class="cards-carousel">
-        <div class="loading" id="t-loading-tactics">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
-      </div>
+      <div id="tactics-list" class="cards-carousel"></div>
     </section>
 
     <!-- 2. Pads 목록 (가로 슬라이더) -->
@@ -1275,12 +1270,10 @@
           <button class="c-arrow-btn" onclick="scrollTrack('pads-list', 1)">&rarr;</button>
         </div>
       </div>
-      <div id="pads-list" class="cards-carousel">
-        <div class="loading" id="t-loading-pads">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
-      </div>
+      <div id="pads-list" class="cards-carousel"></div>
     </section>
 
-    <!-- 3. 하단 최신 영상 섹션 (항상 표시 보장) -->
+    <!-- 3. 하단 최신 영상 섹션 -->
     <section id="section-latest-videos" class="latest-videos-section">
       <div class="mc-section-header">
         <h2 class="section-title">🎬 최신 영상 (벤치마크 & 전술 분석)</h2>
@@ -1293,12 +1286,13 @@
               <h3 class="video-stage-title" id="mainVideoTitle">최신 영상을 불러오는 중...</h3>
               <span class="video-stage-badge" id="mainVideoTag">WISEPLAY OFFICIAL</span>
             </div>
-            <div class="video-stage-right">
+            <div class="video-stage-right" id="mainVideoScoreBox" title="클릭 시 해당 상세 분석 페이지로 이동">
               <div class="mc-score-info" style="text-align:right;">
                 <span class="mc-score-label">META SCORE</span>
                 <span class="mc-score-verdict" id="mainVideoVerdict">보편적 찬사</span>
+                <span class="mc-score-sub">상세 분석 보기 &rarr;</span>
               </div>
-              <div class="mc-score-badge tier-green" id="mainVideoScore">92</div>
+              <div class="mc-score-badge tier-green" id="mainVideoScore">90</div>
             </div>
           </div>
         </div>
@@ -1306,7 +1300,7 @@
       </div>
     </section>
 
-    <!-- 4. 전술 세부 화면 (원본 100% 동일) -->
+    <!-- 4. 전술 세부 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1380,7 +1374,7 @@
       </div>
     </section>
 
-    <!-- 5. 컨트롤러 세부 화면 (원본 100% 동일) -->
+    <!-- 5. 컨트롤러 세부 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1570,6 +1564,32 @@
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
 
+    /* 구글 시트에서 확인한 실제 전술 12개 초기 내장 데이터 (접속 즉시 0.01초 만에 표시되며, 시트 실시간 연동 시 자동 갱신됨) */
+    const INITIAL_TACTICS = [
+      { playerName: "NAVY", slug: "navy", country: "KR", versionName: "2026 INVITATIONAL CUP", formation: "4-2-2-2", padName: "THRUSTMASTER GP XID PRO", imgFormation: "https://i.imgur.com/UuSt3ye.png", imgPersonal: "https://i.imgur.com/JHlr6T6.png", imgTeam: "https://i.imgur.com/EsF7UCo.png", ytUrl: "https://www.youtube.com/watch?v=9-7Agql338U&t=119s", reviewText: "4-2-2-2 포메이션을 잘 사용하지 못하는 유저분들도 쉽게 사용할 수 있는 전술입니다.", wiseScore: "90" },
+      { playerName: "LHAT", slug: "lhat", country: "VN", versionName: "2026 INVITATIONAL CUP", formation: "4-4-2", padName: "-", imgFormation: "https://i.imgur.com/xmi2pwp.png", imgPersonal: "https://i.imgur.com/oHdagbX.png", imgTeam: "https://i.imgur.com/9eyWyly.png", ytUrl: "https://www.youtube.com/watch?v=ihTgYNirDpY", reviewText: "수비, 공격 전술을 따로 사용하는 LHAT 선수입니다. 유튜브 링크를 꼭 확인 부탁드립니다.", wiseScore: "75" },
+      { playerName: "WONDE0R8", slug: "wonde0r8", country: "KR", versionName: "2026 INVITATIONAL CUP", formation: "4-2-2-2", padName: "DualSense", imgFormation: "https://i.imgur.com/WGIGSUv.png", imgPersonal: "https://i.imgur.com/TCPeQ9I.png", imgTeam: "https://i.imgur.com/JtMyeUh.png", ytUrl: "https://www.youtube.com/watch?v=gf5zvQogHwQ", reviewText: "역습, 풀백을 미끼로 활용하거나, 활용해서 상대를 공략하는 전술", wiseScore: "70" },
+      { playerName: "DIKE", slug: "dike", country: "KR", versionName: "2026 FSL SUMMER", formation: "4-2-3-1", padName: "Wolverine V3 Pro 8K", imgFormation: "https://i.imgur.com/ERhdTmu.jpeg", imgPersonal: "https://i.imgur.com/zV74Q8n.jpeg", imgTeam: "https://i.imgur.com/L80UT6A.jpeg", ytUrl: "https://www.youtube.com/watch?v=DwlEgfgKKsw", reviewText: "밸런스가 잘 잡힌 전술입니다. 공격을 만들어 가는 걸 좋아하시는 분들에게 추천드립니다.", wiseScore: "85" },
+      { playerName: "UTA", slug: "uta", country: "KR", versionName: "2026 FSL SUMMER", formation: "4-2-3-1", padName: "DualSense Edge", imgFormation: "https://i.imgur.com/tXWhOOA.png", imgPersonal: "https://i.imgur.com/3Hqoqcq.png", imgTeam: "https://i.imgur.com/c02RyXe.png", ytUrl: "https://www.youtube.com/watch?v=P-hUWbygGbs", reviewText: "CAM을 통한 역습을 잘 활용해야 하는 전술입니다.", wiseScore: "85" },
+      { playerName: "MARKTPP", slug: "marktpp", country: "TH", versionName: "Pro League Summer 2026", formation: "4-2-2-2", padName: "DualSense Edge", imgFormation: "https://i.imgur.com/yypBwX4.png", imgPersonal: "https://i.imgur.com/MXIlPWp.png", imgTeam: "https://i.imgur.com/j7gQgZN.png", ytUrl: "https://www.youtube.com/watch?v=SoTziIrUB8E&t=269s", reviewText: "빠른 역습, 다양한 공격 루트가 발생하는 전술입니다.", wiseScore: "80" },
+      { playerName: "DILL", slug: "dill", country: "CH", versionName: "2026 INVITATIONAL CUP", formation: "4-1-4-1", padName: "-", imgFormation: "https://i.imgur.com/f4gjSfT.png", imgPersonal: "https://i.imgur.com/dbZyQj8.png", imgTeam: "https://i.imgur.com/rFuKDOv.png", ytUrl: "https://www.youtube.com/watch?v=zYRLNwN_WVM", reviewText: "제로톱 장인 DILL 선수의 4-1-4-1 전술!", wiseScore: "80" },
+      { playerName: "SUBIN", slug: "subin", country: "VN", versionName: "2026 INVITATIONAL CUP", formation: "4-2-3-1", padName: "-", imgFormation: "https://i.imgur.com/c6N0OWH.png", imgPersonal: "https://i.imgur.com/gWhp5ga.png", imgTeam: "https://i.imgur.com/pfLlhfL.png", ytUrl: "https://www.youtube.com/watch?v=zYRLNwN_WVM", reviewText: "기본적으로 만들어 가는 전술이지만 LAM,RAM에게 PF2 설정이 되어있어서 역습, 롱패스를 통한 전환도 가능한 전술입니다.", wiseScore: "85" },
+      { playerName: "MARSPY", slug: "marspy", country: "CH", versionName: "2026 INVITATIONAL CUP", formation: "4-2-2-1-1", padName: "-", imgFormation: "https://i.imgur.com/c6N0OWH.png", imgPersonal: "https://i.imgur.com/gWhp5ga.png", imgTeam: "https://i.imgur.com/pfLlhfL.png", ytUrl: "https://www.youtube.com/watch?v=zYRLNwN_WVM", reviewText: "스트라이커에게 AS2 설정이 되어있는 특이한 전술. 선수들이 스위칭 하는 걸 좋아하시면 사용해 보시기 바랍니다.", wiseScore: "85" },
+      { playerName: "JM", slug: "jm", country: "KR", versionName: "2026 FSL SUMMER", formation: "4-2-2-2", padName: "ASTRO C40", imgFormation: "https://i.imgur.com/9GHoLAr.png", imgPersonal: "https://i.imgur.com/eLTVenP.png", imgTeam: "https://i.imgur.com/a8Tzben.png", ytUrl: "https://www.youtube.com/watch?v=D8BGd2cxZOA", reviewText: "롱패스를 통한 사이드 전환이 좋은 전술입니다. 크로스를 하기에도 좋고, 상대 수비 간격을 넓혀주기 때문에 드리블 하기에도 좋은 전술입니다.", wiseScore: "90" },
+      { playerName: "TABI", slug: "tabi", country: "VN", versionName: "FVPL SUMMER 2026", formation: "4-1-4-1", padName: "DualSense Edge", imgFormation: "https://i.imgur.com/AiIqjFV.png", imgPersonal: "https://i.imgur.com/4to2gLB.png", imgTeam: "https://i.imgur.com/bQnDlH8.png", ytUrl: "https://www.youtube.com/watch?v=9_4zS3IGkeQ", reviewText: "비대칭 4-1-4-1 전술. 4-1-4-1의 기본 운영 방법을 알면 굉장히 좋은 전술입니다.", wiseScore: "85" },
+      { playerName: "즐인권(FIFACAMPER)", slug: "fifacamper", country: "KR", versionName: "2026 SEP", formation: "4-2-3-1", padName: "G7 PRO 8K", imgFormation: "https://i.imgur.com/wAGnpCO.png", imgPersonal: "https://i.imgur.com/e7mJsnj.png", imgTeam: "https://i.imgur.com/72BgIsz.png", ytUrl: "https://www.youtube.com/watch?v=A_b91CxHYJA&t=55s", reviewText: "제가 직접 만든 4-2-3-1 전술. 저한텐 이 전술이 가장 편합니다.", wiseScore: "85" }
+    ];
+
+    /* 구글 시트에서 확인한 실제 패드 6개 초기 내장 데이터 */
+    const INITIAL_PADS = [
+      { padName: "Wolverine V3 Pro 8K", slug: "v3pro8k", imgUrl: "https://i.imgur.com/JpWae9S.png", metaScore: "90", pros: "빠른 반응속도를 지닌 패드", cons: "8K를 지원하는 제품들 중에선 반응속도가 아쉬운 편, 가성비가 떨어집니다.", stickMech: "TMR", keyMap: "O", macro: "X", ytUrl: "https://www.youtube.com/watch?v=2RQ_4b12xaQ", buyUrl: "-", wPoll: "5600", wStickLat: "2.33", wBtnLat: "1.87", wAdvice: "-", dPoll: "4000", dStickLat: "2.75", dBtnLat: "1.87", dAdvice: "-", bPoll: "-", bStickLat: "-", bBtnLat: "-", bAdvice: "-", gradeStick: "S", gradeBtn: "A", gradeDpad: "B", gradeBumper: "C", gradeTrigger: "B" },
+      { padName: "DualSense Edge", slug: "dualsenseedge", imgUrl: "https://i.imgur.com/LDLrQUg.png", metaScore: "95", pros: "국내, 해외 프로게이머들이 가장 많이 사용하는 DUAL SENSE의 후속작.", cons: "가격 및 스틱 내구성", stickMech: "ALPS", keyMap: "O", macro: "X", ytUrl: "https://www.youtube.com/watch?v=ZDznxoe4OLE", buyUrl: "-", wPoll: "1000", wStickLat: "3.46", wBtnLat: "3.46", wAdvice: "-", dPoll: "-", dStickLat: "-", dBtnLat: "-", dAdvice: "-", bPoll: "689", bStickLat: "6.65", bBtnLat: "6.76", bAdvice: "-" },
+      { padName: "G7 PRO 8K", slug: "g7pro8k", imgUrl: "https://i.imgur.com/kbH8pFq.png", metaScore: "90", pros: "8K 답게 빠른 반응속도를 지닌 패드", cons: "조금 강한 스틱 장력", stickMech: "TMR", keyMap: "O", macro: "O", ytUrl: "https://www.youtube.com/watch?v=o1ExlNwUieE&t=650s", buyUrl: "-", wPoll: "8000", wStickLat: "2.46", wBtnLat: "1.36", wAdvice: "-", dPoll: "8000", dStickLat: "10.03", dBtnLat: "3.36", dAdvice: "-", bPoll: "798", bStickLat: "8.54", bBtnLat: "3.34", bAdvice: "-" },
+      { padName: "DualSense", slug: "dualsense", imgUrl: "https://i.imgur.com/9IV28pz.png", metaScore: "85", pros: "듀얼센스 엣지와 함께 해외 프로게이머들이 가장 많이 사용하는 패드", cons: "매핑 버튼의 부재", stickMech: "ALPS", keyMap: "X", macro: "X", ytUrl: "https://www.youtube.com/watch?v=7PmTMOgh4Gk&t=772s", buyUrl: "-", wPoll: "-", wStickLat: "7.94", wBtnLat: "7.41", wAdvice: "-", dPoll: "-", dStickLat: "5.26", dBtnLat: "5.14", dAdvice: "-", bPoll: "-", bStickLat: "-", bBtnLat: "-", bAdvice: "-" },
+      { padName: "ASTRO C40", slug: "astroc40", imgUrl: "https://i.imgur.com/7YpjwKI.png", metaScore: "60", pros: "그립감 최고, 반응속도 최고라고 불리던 패드", cons: "단종, 부품이 없어서 멀쩡한 부품만 사서 껴야 함. 정확한 정보를 알 수 없음.", stickMech: "ALPS", keyMap: "-", macro: "-", ytUrl: "-", buyUrl: "-", wPoll: "-", wStickLat: "-", wBtnLat: "-", wAdvice: "-", dPoll: "-", dStickLat: "-", dBtnLat: "-", dAdvice: "-", bPoll: "-", bStickLat: "-", bBtnLat: "-", bAdvice: "-" },
+      { padName: "THRUSTMASTER GP XID PRO", slug: "gpxidpro", imgUrl: "https://i.imgur.com/K52QCRU.png", metaScore: "60", pros: "정보가 없는 패드입니다. 현재 단종으로 확인됩니다.", cons: "정보가 없는 패드입니다. 현재 단종으로 확인됩니다.", stickMech: "-", keyMap: "X", macro: "X", ytUrl: "-", buyUrl: "-", wPoll: "-", wStickLat: "-", wBtnLat: "-", wAdvice: "-", dPoll: "-", dStickLat: "-", dBtnLat: "-", dAdvice: "-", bPoll: "-", bStickLat: "-", bBtnLat: "-", bAdvice: "-" }
+    ];
+
     const I18N_INDEX = {
       ko: {
         contactText: "문의",
@@ -1605,14 +1625,7 @@
         tbBt: "블루투스 (BT)",
         prosConsTitle: "⚖️ 장점 및 아쉬운 점 (Pros & Cons)",
         prosLabel: "[장점]",
-        consLabel: "[단점]",
-        usedPadPrefix: "선수 사용 패드: ",
-        detailLinkTactics: "상세 분석 →",
-        detailLinkPads: "세부 벤치마크 →",
-        stickMechLabel: "스틱 방식",
-        wiredStatLabel: "유선 폴링/딜레이",
-        dongleStatLabel: "동글(무선) 폴링",
-        prosCardLabel: "장점: "
+        consLabel: "[단점]"
       },
       en: {
         contactText: "Contact",
@@ -1648,14 +1661,7 @@
         tbBt: "Bluetooth",
         prosConsTitle: "⚖️ Pros & Cons",
         prosLabel: "[Pros]",
-        consLabel: "[Cons]",
-        usedPadPrefix: "Used Controller: ",
-        detailLinkTactics: "View Details →",
-        detailLinkPads: "View Benchmark →",
-        stickMechLabel: "Stick Mechanism",
-        wiredStatLabel: "Wired Poll/Lat",
-        dongleStatLabel: "Dongle Poll",
-        prosCardLabel: "Pros: "
+        consLabel: "[Cons]"
       },
       vi: {
         contactText: "Liên hệ",
@@ -1691,14 +1697,7 @@
         tbBt: "Bluetooth",
         prosConsTitle: "⚖️ Ưu Điểm & Nhược Điểm (Pros & Cons)",
         prosLabel: "[Ưu điểm]",
-        consLabel: "[Nhược điểm]",
-        usedPadPrefix: "Tay cầm sử dụng: ",
-        detailLinkTactics: "Xem chi tiết →",
-        detailLinkPads: "Xem thông số →",
-        stickMechLabel: "Cơ chế cần",
-        wiredStatLabel: "Dây Poll/Trễ",
-        dongleStatLabel: "Dongle Poll",
-        prosCardLabel: "Ưu điểm: "
+        consLabel: "[Nhược điểm]"
       },
       th: {
         contactText: "ติดต่อ",
@@ -1734,22 +1733,15 @@
         tbBt: "บลูทูธ (Bluetooth)",
         prosConsTitle: "⚖️ จุดเด่น & ข้อพิจารณา (Pros & Cons)",
         prosLabel: "[จุดเด่น]",
-        consLabel: "[ข้อเสีย]",
-        usedPadPrefix: "จอยที่ใช้: ",
-        detailLinkTactics: "ดูรายละเอียด →",
-        detailLinkPads: "ดูผลทดสอบ →",
-        stickMechLabel: "ระบบอนาล็อก",
-        wiredStatLabel: "สาย Poll/ดีเลย์",
-        dongleStatLabel: "ดองเกิล Poll",
-        prosCardLabel: "จุดเด่น: "
+        consLabel: "[ข้อเสีย]"
       }
     };
 
     let currentLang = localStorage.getItem('wiseplay_lang') || 'ko';
     let currentTab = 'tactics';
     let isDetailView = false;
-    let allTactics = [];
-    let allPads = [];
+    let allTactics = [...INITIAL_TACTICS];
+    let allPads = [...INITIAL_PADS];
     let currentSelectedTactics = null;
     let currentSelectedPad = null;
     const translationCache = {};
@@ -1760,12 +1752,6 @@
     let currentPadsSort = 'all';
     let videoItems = [];
     let currentVideoIdx = 0;
-
-    // 기본 유튜브 추천 영상 리스트 (시트에 영상이 없을 때도 항상 하단 플레이어가 작동하도록 보장)
-    const DEFAULT_VIDEOS = [
-      { ytId: 'nFBcipZPzws', title: '조이트론 아펙스(Apex) 프로젝트 솔직 비하인드 스토리', tag: 'LJ Lee · 컨트롤러 리뷰', score: 92 },
-      { ytId: 'dQw4w9WgXcQ', title: 'FC온라인 최신 프로 메타 전술 & 패드 세팅 가이드', tag: '즐인권 · 프로 전술 분석', score: 95 }
-    ];
 
     function scrollTrack(trackId, dir) {
       const el = document.getElementById(trackId);
@@ -1788,7 +1774,7 @@
     }
 
     function extractYoutubeId(url) {
-      if (!url) return null;
+      if (!url || url === '-') return null;
       const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
       const match = url.match(regExp);
       return match ? match[1] : null;
@@ -1927,6 +1913,7 @@
         if (pushState) history.pushState({ tab: 'pads', detail: null }, '', '/#controller');
       }
       handleSearch();
+      updateVideoShowcase();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1939,11 +1926,11 @@
       switchTab('tactics', true);
     }
 
-    /* 작동 검증 완료된 원본 parseCSV 100% 그대로 사용 */
+    /* 작은따옴표(') 버그를 수정한 안전한 CSV 파서 */
     function parseCSV(text) {
-      const lines = text.trim().split('\n');
+      const lines = text.trim().split(/\r?\n/);
       if (lines.length <= 1) return [];
-      const headers = lines[0].split(',').map(h => h.replace(/^["']|["']$/g, '').trim());
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
       const data = [];
 
       for (let i = 1; i < lines.length; i++) {
@@ -1955,8 +1942,13 @@
 
         for (let j = 0; j < line.length; j++) {
           const char = line[j];
-          if (char === '"' || char === "'") {
-            inQuotes = !inQuotes;
+          if (char === '"') {
+            if (inQuotes && line[j + 1] === '"') {
+              field += '"';
+              j++;
+            } else {
+              inQuotes = !inQuotes;
+            }
           } else if (char === ',' && !inQuotes) {
             row.push(field.trim());
             field = '';
@@ -1969,41 +1961,48 @@
         const obj = {};
         headers.forEach((h, idx) => {
           let val = row[idx] || '';
-          obj[h] = val.replace(/^["']|["']$/g, '').trim();
+          obj[h] = val.replace(/^"|"$/g, '').trim();
         });
-        data.push(obj);
+        if (Object.values(obj).some(v => v !== '')) {
+          data.push(obj);
+        }
       }
       return data;
     }
 
-    /* 작동 검증 완료된 원본 loadTactics 100% 그대로 사용 */
     async function loadTactics() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`;
       try {
         const res = await fetch(url);
-        const text = await res.text();
-        allTactics = parseCSV(text);
-        renderTactics(allTactics);
-        updateVideoShowcase();
-        checkInitialUrl();
+        if (res.ok) {
+          const text = await res.text();
+          const parsed = parseCSV(text);
+          if (parsed && parsed.length > 0) {
+            allTactics = parsed;
+            renderTactics(allTactics);
+            updateVideoShowcase();
+          }
+        }
       } catch (err) {
-        console.error(err);
+        console.warn("Using initial tactics fallback:", err);
       }
     }
 
-    /* 작동 검증 완료된 원본 loadPads 100% 그대로 사용 */
     async function loadPads() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`;
       try {
         const res = await fetch(url);
-        const text = await res.text();
-        allPads = parseCSV(text);
-        await loadAllPadReviewStats();
-        renderPads(allPads);
-        updateVideoShowcase();
-        checkInitialUrl();
+        if (res.ok) {
+          const text = await res.text();
+          const parsed = parseCSV(text);
+          if (parsed && parsed.length > 0) {
+            allPads = parsed;
+            renderPads(allPads);
+            updateVideoShowcase();
+          }
+        }
       } catch (err) {
-        console.error(err);
+        console.warn("Using initial pads fallback:", err);
       }
     }
 
@@ -2040,6 +2039,7 @@
             const sum = scores.reduce((a, b) => a + b, 0);
             globalTacticStats[k] = { avg: (sum / scores.length).toFixed(1), count: scores.length };
           });
+          handleSearch();
         }
       } catch (e) {
         console.error("Failed to load stats:", e);
@@ -2073,7 +2073,7 @@
         const pageUrl = `/tactics/${slug}/`;
         const key = (item.playerName || '').toLowerCase().trim();
         const uStat = globalTacticStats[key] || { avg: '4.8', count: 0 };
-        const scoreNum = item.wiseScore ? Number(item.wiseScore) : 92;
+        const scoreNum = item.wiseScore ? Number(item.wiseScore) : 85;
         const st = getScoreStyle(scoreNum);
 
         return `
@@ -2188,42 +2188,60 @@
       }).join('');
     }
 
-    /* 하단 최신 영상 섹션 구성 (시트 ytUrl 추출 + 기본 영상 보장) */
     function updateVideoShowcase() {
       const collected = [];
 
-      allPads.forEach((p) => {
-        const yid = extractYoutubeId(p.ytUrl);
-        if (yid) {
-          collected.push({
-            ytId: yid,
-            title: `${p.padName} 정밀 벤치마크 및 실측 리뷰`,
-            tag: `컨트롤러 · ${p.stickMech || 'LJ Lee 실측'}`,
-            score: Number(p.metaScore) || 88
-          });
-        }
-      });
+      const pushPads = () => {
+        allPads.forEach((p, idx) => {
+          const yid = extractYoutubeId(p.ytUrl);
+          if (yid) {
+            collected.push({
+              type: 'pad',
+              index: idx,
+              ytId: yid,
+              title: `${p.padName} 정밀 벤치마크 및 실측 리뷰`,
+              tag: `컨트롤러 · ${p.stickMech || 'LJ Lee 실측'}`,
+              score: Number(p.metaScore) || 90
+            });
+          }
+        });
+      };
 
-      allTactics.forEach((t) => {
-        const yid = extractYoutubeId(t.ytUrl);
-        if (yid) {
-          collected.push({
-            ytId: yid,
-            title: `${t.playerName} (${t.formation}) 실전 전술 완벽 분석`,
-            tag: `프로 전술 · ${t.formation || '즐인권 해설'}`,
-            score: Number(t.wiseScore) || 92
-          });
-        }
-      });
+      const pushTactics = () => {
+        allTactics.forEach((t, idx) => {
+          const yid = extractYoutubeId(t.ytUrl);
+          if (yid) {
+            collected.push({
+              type: 'tactic',
+              index: idx,
+              ytId: yid,
+              title: `${t.playerName} (${t.formation}) 실전 전술 분석`,
+              tag: `프로 전술 · ${t.versionName || '즐인권 해설'}`,
+              score: Number(t.wiseScore) || 85
+            });
+          }
+        });
+      };
 
-      // 만약 시트에 등록된 유튜브 링크가 하나도 없어도 기본 영상이 항상 뜨도록 처리
-      videoItems = collected.length > 0 ? collected : DEFAULT_VIDEOS;
-      selectShowcaseVideo(0, false);
+      if (currentTab === 'pads') {
+        pushPads();
+        pushTactics();
+      } else {
+        pushTactics();
+        pushPads();
+      }
+
+      videoItems = collected;
+      if (videoItems.length > 0) {
+        selectShowcaseVideo(0, false);
+      }
     }
 
     function selectShowcaseVideo(idx, autoplay = false) {
       currentVideoIdx = idx;
-      const v = videoItems[idx] || DEFAULT_VIDEOS[0];
+      const v = videoItems[idx];
+      if (!v) return;
+
       const frame = document.getElementById('mainVideoFrame');
       const autoParam = autoplay ? '?autoplay=1' : '';
       frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.ytId}${autoParam}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -2236,6 +2254,12 @@
       const scoreEl = document.getElementById('mainVideoScore');
       scoreEl.innerText = v.score;
       scoreEl.className = `mc-score-badge ${st.cls}`;
+
+      const scoreBox = document.getElementById('mainVideoScoreBox');
+      scoreBox.onclick = () => {
+        if (v.type === 'pad') openPadDetail(v.index);
+        else openTacticsDetail(v.index);
+      };
 
       const listEl = document.getElementById('videoPlaylistContainer');
       listEl.innerHTML = videoItems.map((item, i) => `
@@ -2299,7 +2323,7 @@
 
       updateTacticsDetailLang();
 
-      if (t.padName) {
+      if (t.padName && t.padName !== '-') {
         document.getElementById('viewPadSection').style.display = 'block';
         document.getElementById('viewPadNameText').innerText = t.padName;
         document.getElementById('viewPadNameBadge').dataset.pad = t.padName;
@@ -2308,7 +2332,7 @@
       }
 
       const ytBtn = document.getElementById('viewYtLink');
-      if (t.ytUrl) {
+      if (t.ytUrl && t.ytUrl !== '-') {
         document.getElementById('viewYtSection').style.display = 'block';
         ytBtn.href = t.ytUrl;
       } else {
@@ -2388,7 +2412,7 @@
             this.src = p.imgUrl || '/logo.png';
           }
         };
-      } else if (p.ytUrl && p.ytUrl.trim() !== '') {
+      } else if (p.ytUrl && p.ytUrl.trim() !== '' && p.ytUrl.trim() !== '-') {
         ytWrapEl.classList.remove('no-video');
         playBtnEl.style.display = 'flex';
         photoBadgeEl.style.display = 'none';
@@ -2463,8 +2487,8 @@
         document.getElementById('viewPadUsersSection').style.display = 'block';
       }
 
-      const formatHz = (val) => val ? `${val} Hz` : '-';
-      const formatMs = (val) => val ? `${val} ms` : '-';
+      const formatHz = (val) => (val && val !== '-') ? `${val} Hz` : '-';
+      const formatMs = (val) => (val && val !== '-') ? `${val} ms` : '-';
 
       document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
       document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
@@ -2498,7 +2522,7 @@
     }
 
     function openPadVideo() {
-      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '') {
+      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '' && currentSelectedPad.ytUrl.trim() !== '-') {
         window.open(currentSelectedPad.ytUrl.trim(), '_blank');
       } else {
         const currentImgSrc = document.getElementById('viewPadImg').src;
@@ -2764,10 +2788,17 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      // 1. 내장된 시트 데이터로 0.01초 만에 화면 즉시 렌더링
       setLang(currentLang);
+      renderTactics(allTactics);
+      renderPads(allPads);
       updateVideoShowcase();
+      checkInitialUrl();
+
+      // 2. 백그라운드에서 구글 시트 최신 변경분 및 Supabase 실시간 리뷰 동기화
       loadTactics();
       loadPads();
+      loadAllPadReviewStats();
     });
   </script>
 </body>
