@@ -1269,7 +1269,6 @@
   </header>
 
   <main>
-    <!-- 1. Tactics 메인 섹션 -->
     <section id="section-tactics">
       <div class="mc-section-header">
         <div class="mc-title-group">
@@ -1287,7 +1286,6 @@
       </div>
     </section>
 
-    <!-- 2. Pads 메인 섹션 -->
     <section id="section-pads" style="display: none;">
       <div class="mc-section-header">
         <div class="mc-title-group">
@@ -1305,7 +1303,6 @@
       </div>
     </section>
 
-    <!-- 3. 하단 최신 영상 섹션 -->
     <section id="section-latest-videos" class="latest-videos-section" style="display: none;">
       <div class="mc-section-header">
         <h2 class="mc-section-title" id="t-latest-videos-title">최신 영상 (벤치마크 & 전술 분석)</h2>
@@ -1334,7 +1331,6 @@
       </div>
     </section>
 
-    <!-- 4. 전술 세부 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1408,7 +1404,6 @@
       </div>
     </section>
 
-    <!-- 5. 컨트롤러 세부 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1941,86 +1936,52 @@
       switchTab('tactics', true);
     }
 
-    function parseCSV(text) {
-      const rows = [];
-      let row = [];
-      let field = '';
-      let inQuotes = false;
+    /* 구글 시트 gviz JSON 응답 파서 (가장 안전하고 확실한 파싱) */
+    function parseGvizResponse(rawText) {
+      try {
+        const start = rawText.indexOf('{');
+        const end = rawText.lastIndexOf('}');
+        if (start === -1 || end === -1) return [];
+        const jsonStr = rawText.substring(start, end + 1);
+        const data = JSON.parse(jsonStr);
+        const cols = data.table.cols.map(c => (c.label || c.id || '').trim());
+        const rows = [];
 
-      for (let i = 0; i < text.length; i++) {
-        const c = text[i];
-        const next = text[i + 1];
-
-        if (inQuotes) {
-          if (c === '"' && next === '"') {
-            field += '"';
-            i++;
-          } else if (c === '"') {
-            inQuotes = false;
-          } else {
-            field += c;
-          }
-        } else {
-          if (c === '"') {
-            inQuotes = true;
-          } else if (c === ',') {
-            row.push(field.trim());
-            field = '';
-          } else if (c === '\r' && next === '\n') {
-            row.push(field.trim());
-            rows.push(row);
-            row = [];
-            field = '';
-            i++;
-          } else if (c === '\n' || c === '\r') {
-            row.push(field.trim());
-            rows.push(row);
-            row = [];
-            field = '';
-          } else {
-            field += c;
-          }
-        }
-      }
-      if (field || row.length > 0) {
-        row.push(field.trim());
-        rows.push(row);
-      }
-
-      if (rows.length <= 1) return [];
-      const headers = rows[0].map(h => h.replace(/^["']|["']$/g, '').trim());
-      const data = [];
-
-      for (let i = 1; i < rows.length; i++) {
-        const r = rows[i];
-        if (r.length === 0 || r.every(val => val === '')) continue;
-        const obj = {};
-        headers.forEach((h, idx) => {
-          if (h) obj[h] = (r[idx] || '').replace(/^["']|["']$/g, '').trim();
+        data.table.rows.forEach(r => {
+          const rowObj = {};
+          let hasVal = false;
+          r.c.forEach((cell, idx) => {
+            const colName = cols[idx];
+            if (colName) {
+              const val = cell && cell.v !== null && cell.v !== undefined ? String(cell.v).trim() : '';
+              rowObj[colName] = val;
+              if (val) hasVal = true;
+            }
+          });
+          if (hasVal) rows.push(rowObj);
         });
-        data.push(obj);
+        return rows;
+      } catch (e) {
+        console.error("Gviz parse error:", e);
+        return [];
       }
-      return data;
     }
 
     async function fetchSheetDataSafe(sheetName) {
-      // 1순위: 대문자 시트명 시도, 실패 시 2순위: 소문자 시트명 시도
-      const urls = [
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`,
-        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName.toLowerCase()}`
-      ];
-
-      for (const url of urls) {
+      const candidates = [sheetName, sheetName.toLowerCase(), sheetName.toUpperCase()];
+      for (const name of candidates) {
         try {
+          const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(name)}`;
           const res = await fetch(url);
           if (res.ok) {
             const text = await res.text();
-            if (text && !text.includes('html') && text.trim().length > 10) {
-              return parseCSV(text);
+            if (text.includes('google.visualization.Query.setResponse')) {
+              const rows = parseGvizResponse(text);
+              if (rows.length > 0) return rows;
             }
           }
         } catch (e) {
-          console.warn(`시도 실패: ${url}`, e);
+          console.warn(`Fetch retry failed for ${name}:`, e);
         }
       }
       return [];
@@ -2033,8 +1994,7 @@
         buildLatestVideosSection();
         checkInitialUrl();
       } catch (err) {
-        console.error("전술 시트 로드 실패:", err);
-        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 전술 데이터를 불러오지 못했습니다.</div>`;
+        console.error("Tactics load failed:", err);
       }
     }
 
@@ -2045,8 +2005,7 @@
         buildLatestVideosSection();
         checkInitialUrl();
       } catch (err) {
-        console.error("패드 시트 로드 실패:", err);
-        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 패드 데이터를 불러오지 못했습니다.</div>`;
+        console.error("Pads load failed:", err);
       }
     }
 
@@ -2562,353 +2521,4 @@
       setTextSafe('sBtn', p.specBtn || '-');
       setTextSafe('sTrigger', p.specTrigger || '-');
       setTextSafe('sDpad', p.specDpad || '-');
-      setTextSafe('sBumper', p.specBumper || '-');
-      setTextSafe('sBack', p.specBack || '-');
-
-      setTextSafe('sGripVibe', p.specGripVibe || '-');
-      setTextSafe('sTriggerVibe', p.specTriggerVibe || '-');
-      setTextSafe('sExtraBumper', p.specExtraBumper || '-');
-      setTextSafe('sBackCount', p.specBackCount || '-');
-      setTextSafe('sAudio', p.specAudio || '-');
-      setTextSafe('sTension', p.specTension || '-');
-
-      setTextSafe('sApp', p.specApp || '-');
-      setTextSafe('sDock', p.specDock || '-');
-      setTextSafe('sMacro', p.specMacro || p.macro || '-');
-      setTextSafe('sHotSwap', p.specHotSwap || '-');
-
-      const img1 = p.imgBench1 || '';
-      const img2 = p.imgBench2 || '';
-      const benchSec = document.getElementById('viewBenchImgSection');
-      if (img1 || img2) {
-        benchSec.style.display = 'block';
-        document.getElementById('benchImg1').src = img1 || '/logo.png';
-        document.getElementById('benchImg2').src = img2 || '/logo.png';
-      } else {
-        benchSec.style.display = 'none';
-      }
-
-      const currentPadName = (p.padName || '').toLowerCase().trim();
-      const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
-      const userListContainer = document.getElementById('viewPadUserList');
-      if (matchedPlayers.length > 0) {
-        userListContainer.innerHTML = matchedPlayers.map(t => `
-          <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')">
-            ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
-          </div>
-        `).join('');
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      } else {
-        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      }
-
-      const formatHz = (val) => val ? `${val} Hz` : '-';
-      const formatMs = (val) => val ? `${val} ms` : '-';
-
-      setTextSafe('pW_poll', formatHz(p.wPoll));
-      setTextSafe('pW_sLat', formatMs(p.wStickLat));
-      setTextSafe('pW_bLat', formatMs(p.wBtnLat));
-      setTextSafe('pW_adv', p.wAdvice || '-');
-
-      setTextSafe('pD_poll', formatHz(p.dPoll));
-      setTextSafe('pD_sLat', formatMs(p.dStickLat));
-      setTextSafe('pD_bLat', formatMs(p.dBtnLat));
-      setTextSafe('pD_adv', p.dAdvice || '-');
-
-      setTextSafe('pB_poll', formatHz(p.bPoll));
-      setTextSafe('pB_sLat', formatMs(p.bStickLat));
-      setTextSafe('pB_bLat', formatMs(p.bBtnLat));
-      setTextSafe('pB_adv', p.bAdvice || '-');
-
-      updatePadDetailLang();
-      fetchSupabaseReviews('pad', p.padName || 'default_pad');
-
-      document.getElementById('section-tactics').style.display = 'none';
-      document.getElementById('section-pads').style.display = 'none';
-      document.getElementById('section-latest-videos').style.display = 'none';
-      document.getElementById('detail-view-pads').style.display = 'block';
-      isDetailView = true;
-
-      const slug = cleanSlug(p.slug, p.padName);
-      const finalUrl = targetUrl || `/controllers/${slug}/`;
-      if (pushState) history.pushState({ tab: 'pads', detail: 'pad', index: index, url: finalUrl }, '', finalUrl);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function openPadVideo() {
-      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '') {
-        window.open(currentSelectedPad.ytUrl.trim(), '_blank');
-      } else {
-        const currentImgSrc = document.getElementById('viewPadImg').src;
-        if (currentImgSrc && !currentImgSrc.endsWith('/logo.png')) {
-          openLightbox(currentImgSrc);
-        }
-      }
-    }
-
-    async function updatePadDetailLang() {
-      if (!currentSelectedPad) return;
-      const p = currentSelectedPad;
-      setTextSafe('viewPadPros', await translateDynamicText(p.pros || '-', currentLang));
-      setTextSafe('viewPadCons', await translateDynamicText(p.cons || '-', currentLang));
-    }
-
-    function navigateToPad(padName) {
-      if (!padName) return;
-      const targetName = padName.toLowerCase().trim();
-      const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
-      if (padIndex !== -1) {
-        document.getElementById('detail-view-tactics').style.display = 'none';
-        currentTab = 'pads';
-        document.getElementById('tabNavPads').classList.add('active');
-        document.getElementById('tabNavTactics').classList.remove('active');
-        openPadDetail(padIndex);
-      }
-    }
-
-    function navigateToPlayer(playerName) {
-      if (!playerName) return;
-      const targetName = playerName.toLowerCase().trim();
-      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
-      if (tacticIndex !== -1) {
-        document.getElementById('detail-view-pads').style.display = 'none';
-        currentTab = 'tactics';
-        document.getElementById('tabNavTactics').classList.add('active');
-        document.getElementById('tabNavPads').classList.remove('active');
-        openTacticsDetail(tacticIndex);
-      }
-    }
-
-    function showTacticsTabImg(tabType) {
-      if (!currentSelectedTactics) return;
-      const t = currentSelectedTactics;
-      const imgDisplay = document.getElementById('viewImgDisplay');
-      document.querySelectorAll('.tactics-img-tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      if (tabType === 'formation') {
-        document.getElementById('tabBtnFormation').classList.add('active');
-        imgDisplay.src = t.imgFormation || '/logo.png';
-      } else if (tabType === 'personal') {
-        document.getElementById('tabBtnPersonal').classList.add('active');
-        imgDisplay.src = t.imgPersonal || t.imgFormation || '/logo.png';
-      } else if (tabType === 'team') {
-        document.getElementById('tabBtnTeam').classList.add('active');
-        imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
-      }
-    }
-
-    async function fetchSupabaseReviews(category, itemId) {
-      const cleanId = (itemId || '').trim();
-      const targetList = category === 'tactics' 
-        ? document.getElementById('tacticsCommentList') 
-        : document.getElementById('padCommentList');
-      
-      targetList.innerHTML = '<div style="color:#777; font-size:0.8rem; text-align:center; padding:12px;">실시간 리뷰를 불러오는 중...</div>';
-
-      try {
-        const url = `${SUPABASE_URL}/rest/v1/reviews?category=eq.${encodeURIComponent(category)}&item_id=eq.${encodeURIComponent(cleanId)}&order=created_at.desc`;
-        const res = await fetch(url, {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`
-          }
-        });
-        const list = await res.json();
-        renderReviewsUI(category, cleanId, list);
-      } catch (err) {
-        console.error("Supabase load error:", err);
-        targetList.innerHTML = '<div style="color:#ff6b6b; font-size:0.8rem; text-align:center; padding:12px;">리뷰를 불러오지 못했습니다.</div>';
-      }
-    }
-
-    function renderReviewsUI(category, itemId, list) {
-      if (category === 'tactics') {
-        const avgScoreEl = document.getElementById('tacticsAvgScore');
-        const avgStarsEl = document.getElementById('tacticsAvgStars');
-        const countEl = document.getElementById('tacticsReviewCount');
-        const commentListEl = document.getElementById('tacticsCommentList');
-
-        if (!list || list.length === 0) {
-          avgScoreEl.innerText = '0.0';
-          avgStarsEl.innerText = '☆☆☆☆☆';
-          countEl.innerText = '(0)';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 후기가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>';
-        } else {
-          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
-          const avg = (total / list.length).toFixed(1);
-          avgScoreEl.innerText = avg;
-          countEl.innerText = `(${list.length})`;
-          const starCount = Math.round(Number(avg));
-          avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
-
-          globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
-
-          commentListEl.innerHTML = list.map(item => `
-            <div class="comment-item">
-              <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)}</span>
-              </div>
-              <div class="comment-body">${item.text}</div>
-            </div>
-          `).join('');
-        }
-      } else {
-        const padUserScoreEl = document.getElementById('viewPadUserScoreVal');
-        const padUserCountEl = document.getElementById('viewPadUserCountText');
-        const commentListEl = document.getElementById('padCommentList');
-
-        if (!list || list.length === 0) {
-          padUserScoreEl.innerText = '-';
-          padUserCountEl.innerText = '실사용자 0명 평가';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 리뷰가 없습니다. 첫 번째 실사용 후기를 남겨보세요!</div>';
-        } else {
-          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
-          const avg = (total / list.length).toFixed(1);
-          padUserScoreEl.innerText = avg;
-          padUserCountEl.innerText = `실사용자 ${list.length}명 평가`;
-
-          globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
-
-          commentListEl.innerHTML = list.map(item => `
-            <div class="comment-item">
-              <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)}</span>
-              </div>
-              <div class="comment-body">${item.text}</div>
-            </div>
-          `).join('');
-        }
-      }
-    }
-
-    async function submitReview(type) {
-      let itemId = '';
-      let nick = '';
-      let score = 5;
-      let text = '';
-      let submitBtn = null;
-
-      if (type === 'tactics') {
-        if (!currentSelectedTactics) return;
-        itemId = currentSelectedTactics.playerName || 'default_tactic';
-        nick = document.getElementById('tReviewNick').value.trim();
-        score = Number(document.getElementById('tReviewScore').value);
-        text = document.getElementById('tReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn1');
-      } else {
-        if (!currentSelectedPad) return;
-        itemId = currentSelectedPad.padName || 'default_pad';
-        nick = document.getElementById('pReviewNick').value.trim();
-        score = Number(document.getElementById('pReviewScore').value);
-        text = document.getElementById('pReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn2');
-      }
-
-      if (!text) {
-        alert('내용을 입력해 주세요.');
-        return;
-      }
-      if (!nick) nick = 'User';
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = '등록 중...';
-
-      try {
-        const url = `${SUPABASE_URL}/rest/v1/reviews`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
-            category: type,
-            item_id: itemId,
-            nick: nick,
-            score: score,
-            text: text
-          })
-        });
-
-        if (!res.ok) throw new Error("Insert failed");
-
-        if (type === 'tactics') {
-          document.getElementById('tReviewText').value = '';
-        } else {
-          document.getElementById('pReviewText').value = '';
-        }
-
-        await fetchSupabaseReviews(type, itemId);
-      } catch (e) {
-        console.error("Review submit error:", e);
-        alert('리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-      } finally {
-        submitBtn.disabled = false;
-        const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-        submitBtn.innerText = t.submitBtn;
-      }
-    }
-
-    function openLightbox(src) {
-      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
-      const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImg');
-      modalImg.src = src;
-      modal.style.display = 'flex';
-    }
-
-    function closeLightbox(e) {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (document.getElementById('imageModal').style.display === 'flex') {
-          closeLightbox();
-        } else if (isDetailView) {
-          backToList();
-        }
-      }
-    });
-
-    window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.detail) {
-        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
-          openTacticsDetail(e.state.index, e.state.url, false);
-        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
-          openPadDetail(e.state.index, e.state.url, false);
-        }
-      } else {
-        const hash = window.location.hash;
-        if (hash === '#controller' || hash === '#pads') {
-          switchTab('pads', false);
-        } else {
-          switchTab('tactics', false);
-        }
-      }
-    });
-
-    function checkInitialUrl() {
-      const hash = window.location.hash;
-      if (hash === '#controller' || hash === '#pads') {
-        switchTab('pads', false);
-      } else if (hash === '#tactics') {
-        switchTab('tactics', false);
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      setLang(currentLang);
-      loadTactics();
-      loadPads();
-      loadAllReviewStats();
-    });
-  </script>
-</body>
-</html>
+      setTextSafe
