@@ -31,7 +31,6 @@
       padding-bottom: 60px;
     }
 
-    /* 메타크리틱 스타일 가로 1단 상단 헤더 */
     header {
       background: #141720;
       border-bottom: 1px solid var(--card-border);
@@ -53,7 +52,7 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
     }
     .brand-link {
       display: inline-flex;
@@ -61,6 +60,7 @@
       gap: 10px;
       text-decoration: none;
       color: #fff;
+      cursor: pointer;
     }
     .brand-logo {
       height: 38px;
@@ -85,7 +85,6 @@
       text-transform: uppercase;
     }
 
-    /* 상단 메뉴 & 드롭다운 */
     .nav-tabs {
       display: flex;
       gap: 8px;
@@ -165,7 +164,6 @@
       color: var(--accent-color);
     }
 
-    /* 상단 우측 */
     .header-right {
       display: flex;
       align-items: center;
@@ -257,7 +255,6 @@
       padding: 0 20px;
     }
 
-    /* ================= 1. 메타크리틱 스타일 가로 캐러셀 ================= */
     .mc-section-header {
       display: flex;
       justify-content: space-between;
@@ -317,7 +314,8 @@
       gap: 20px;
       overflow-x: auto;
       scroll-behavior: smooth;
-      padding-bottom: 12px;
+      padding-bottom: 14px;
+      min-height: 280px;
       scrollbar-width: none;
     }
     .mc-carousel-track::-webkit-scrollbar {
@@ -469,7 +467,6 @@
     .mc-bar-y { background: var(--accent-yellow); height: 100%; }
     .mc-bar-r { background: var(--accent-red); height: 100%; }
 
-    /* ================= 2. 최신 영상 섹션 ================= */
     .latest-videos-section {
       margin-top: 52px;
     }
@@ -643,7 +640,6 @@
       }
     }
 
-    /* ================= 3. 상세 화면 공통 스타일 ================= */
     .detail-view-container {
       display: none;
       background: #161920;
@@ -1210,7 +1206,6 @@
 </head>
 <body>
 
-  <!-- 메타크리틱형 일체형 상단 내비게이션 바 -->
   <header>
     <div class="header-inner">
       <div class="header-left">
@@ -1274,7 +1269,7 @@
   </header>
 
   <main>
-    <!-- 1. Tactics 메인 섹션 (가로 캐러셀) -->
+    <!-- 1. Tactics 메인 섹션 -->
     <section id="section-tactics">
       <div class="mc-section-header">
         <div class="mc-title-group">
@@ -1292,7 +1287,7 @@
       </div>
     </section>
 
-    <!-- 2. Pads 메인 섹션 (가로 캐러셀) -->
+    <!-- 2. Pads 메인 섹션 -->
     <section id="section-pads" style="display: none;">
       <div class="mc-section-header">
         <div class="mc-title-group">
@@ -1825,6 +1820,11 @@
       }
     }
 
+    function setTextSafe(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.innerText = text;
+    }
+
     function setLang(lang) {
       currentLang = lang;
       localStorage.setItem('wiseplay_lang', lang);
@@ -1840,11 +1840,6 @@
         if (currentSelectedTactics) updateTacticsDetailLang();
         if (currentSelectedPad) updatePadDetailLang();
       }
-    }
-
-    function setTextSafe(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.innerText = text;
     }
 
     function applyI18n() {
@@ -1947,7 +1942,6 @@
       selectTacticsFilter('all');
     }
 
-    /* 셀 내부 줄바꿈(엔터), 쉼표, 따옴표를 100% 완벽하게 처리하는 고급 CSV 파서 */
     function parseCSV(text) {
       const rows = [];
       let row = [];
@@ -2000,7 +1994,6 @@
 
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i];
-        // 모든 칸이 비어있는 빈 행은 건너뛰기
         if (r.length === 0 || r.every(val => val === '')) continue;
         const obj = {};
         headers.forEach((h, idx) => {
@@ -2011,8 +2004,9 @@
       return data;
     }
 
+    /* 탭 이름 대문자 Tactics 로 요청 */
     async function loadTactics() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`;
       try {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2023,12 +2017,13 @@
         checkInitialUrl();
       } catch (err) {
         console.error("전술 시트 로드 실패:", err);
-        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(tactics 탭)를 불러오지 못했습니다. 시트 공유 설정(링크가 있는 모든 사용자 보기 가능)과 탭 이름을 확인해 주세요.</div>`;
+        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 공유 설정과 탭 이름을 확인해 주세요.</div>`;
       }
     }
 
+    /* 탭 이름 대문자 Pads 로 요청 */
     async function loadPads() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`;
       try {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2039,7 +2034,7 @@
         checkInitialUrl();
       } catch (err) {
         console.error("패드 시트 로드 실패:", err);
-        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(pads 탭)를 불러오지 못했습니다. 시트 공유 설정과 탭 이름을 확인해 주세요.</div>`;
+        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 공유 설정과 탭 이름을 확인해 주세요.</div>`;
       }
     }
 
@@ -2089,7 +2084,6 @@
             };
           });
 
-          // 통계 로드 완료 후 화면 갱신
           if (allTactics.length > 0) renderTacticsWithSort();
           if (allPads.length > 0) renderPadsWithSort();
         }
@@ -2328,6 +2322,7 @@
 
       videoList = items;
       const sectionEl = document.getElementById('section-latest-videos');
+      if (!sectionEl) return;
 
       if (videoList.length === 0) {
         sectionEl.style.display = 'none';
@@ -2348,13 +2343,15 @@
       if (!v) return;
 
       const frameEl = document.getElementById('mainVideoFrame');
-      const autoParam = autoPlay ? '?autoplay=1' : '';
-      frameEl.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${v.ytId}${autoParam}" 
-                title="${v.title}" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen></iframe>
-      `;
+      if (frameEl) {
+        const autoParam = autoPlay ? '?autoplay=1' : '';
+        frameEl.innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${v.ytId}${autoParam}" 
+                  title="${v.title}" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen></iframe>
+        `;
+      }
 
       setTextSafe('mainVideoTitle', v.title);
       setTextSafe('mainVideoCategory', v.tag);
@@ -2678,229 +2675,4 @@
       const imgDisplay = document.getElementById('viewImgDisplay');
       document.querySelectorAll('.tactics-img-tab-btn').forEach(btn => btn.classList.remove('active'));
 
-      if (tabType === 'formation') {
-        document.getElementById('tabBtnFormation').classList.add('active');
-        imgDisplay.src = t.imgFormation || '/logo.png';
-      } else if (tabType === 'personal') {
-        document.getElementById('tabBtnPersonal').classList.add('active');
-        imgDisplay.src = t.imgPersonal || t.imgFormation || '/logo.png';
-      } else if (tabType === 'team') {
-        document.getElementById('tabBtnTeam').classList.add('active');
-        imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
-      }
-    }
-
-    async function fetchSupabaseReviews(category, itemId) {
-      const cleanId = (itemId || '').trim();
-      const targetList = category === 'tactics' 
-        ? document.getElementById('tacticsCommentList') 
-        : document.getElementById('padCommentList');
-      
-      targetList.innerHTML = '<div style="color:#777; font-size:0.8rem; text-align:center; padding:12px;">실시간 리뷰를 불러오는 중...</div>';
-
-      try {
-        const url = `${SUPABASE_URL}/rest/v1/reviews?category=eq.${encodeURIComponent(category)}&item_id=eq.${encodeURIComponent(cleanId)}&order=created_at.desc`;
-        const res = await fetch(url, {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`
-          }
-        });
-        const list = await res.json();
-        renderReviewsUI(category, cleanId, list);
-      } catch (err) {
-        console.error("Supabase load error:", err);
-        targetList.innerHTML = '<div style="color:#ff6b6b; font-size:0.8rem; text-align:center; padding:12px;">리뷰를 불러오지 못했습니다.</div>';
-      }
-    }
-
-    function renderReviewsUI(category, itemId, list) {
-      if (category === 'tactics') {
-        const avgScoreEl = document.getElementById('tacticsAvgScore');
-        const avgStarsEl = document.getElementById('tacticsAvgStars');
-        const countEl = document.getElementById('tacticsReviewCount');
-        const commentListEl = document.getElementById('tacticsCommentList');
-
-        if (!list || list.length === 0) {
-          avgScoreEl.innerText = '0.0';
-          avgStarsEl.innerText = '☆☆☆☆☆';
-          countEl.innerText = '(0)';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 후기가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>';
-        } else {
-          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
-          const avg = (total / list.length).toFixed(1);
-          avgScoreEl.innerText = avg;
-          countEl.innerText = `(${list.length})`;
-          const starCount = Math.round(Number(avg));
-          avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
-
-          globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
-
-          commentListEl.innerHTML = list.map(item => `
-            <div class="comment-item">
-              <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)}</span>
-              </div>
-              <div class="comment-body">${item.text}</div>
-            </div>
-          `).join('');
-        }
-      } else {
-        const padUserScoreEl = document.getElementById('viewPadUserScoreVal');
-        const padUserCountEl = document.getElementById('viewPadUserCountText');
-        const commentListEl = document.getElementById('padCommentList');
-
-        if (!list || list.length === 0) {
-          padUserScoreEl.innerText = '-';
-          padUserCountEl.innerText = '실사용자 0명 평가';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 리뷰가 없습니다. 첫 번째 실사용 후기를 남겨보세요!</div>';
-        } else {
-          const total = list.reduce((sum, item) => sum + Number(item.score || 0), 0);
-          const avg = (total / list.length).toFixed(1);
-          padUserScoreEl.innerText = avg;
-          padUserCountEl.innerText = `실사용자 ${list.length}명 평가`;
-
-          globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
-
-          commentListEl.innerHTML = list.map(item => `
-            <div class="comment-item">
-              <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
-                <span class="comment-score">${'★'.repeat(item.score)}</span>
-              </div>
-              <div class="comment-body">${item.text}</div>
-            </div>
-          `).join('');
-        }
-      }
-    }
-
-    async function submitReview(type) {
-      let itemId = '';
-      let nick = '';
-      let score = 5;
-      let text = '';
-      let submitBtn = null;
-
-      if (type === 'tactics') {
-        if (!currentSelectedTactics) return;
-        itemId = currentSelectedTactics.playerName || 'default_tactic';
-        nick = document.getElementById('tReviewNick').value.trim();
-        score = Number(document.getElementById('tReviewScore').value);
-        text = document.getElementById('tReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn1');
-      } else {
-        if (!currentSelectedPad) return;
-        itemId = currentSelectedPad.padName || 'default_pad';
-        nick = document.getElementById('pReviewNick').value.trim();
-        score = Number(document.getElementById('pReviewScore').value);
-        text = document.getElementById('pReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn2');
-      }
-
-      if (!text) {
-        alert('내용을 입력해 주세요.');
-        return;
-      }
-      if (!nick) nick = 'User';
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = '등록 중...';
-
-      try {
-        const url = `${SUPABASE_URL}/rest/v1/reviews`;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
-            category: type,
-            item_id: itemId,
-            nick: nick,
-            score: score,
-            text: text
-          })
-        });
-
-        if (!res.ok) throw new Error("Insert failed");
-
-        if (type === 'tactics') {
-          document.getElementById('tReviewText').value = '';
-        } else {
-          document.getElementById('pReviewText').value = '';
-        }
-
-        await fetchSupabaseReviews(type, itemId);
-      } catch (e) {
-        console.error("Review submit error:", e);
-        alert('리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-      } finally {
-        submitBtn.disabled = false;
-        const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-        submitBtn.innerText = t.submitBtn;
-      }
-    }
-
-    function openLightbox(src) {
-      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
-      const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImg');
-      modalImg.src = src;
-      modal.style.display = 'flex';
-    }
-
-    function closeLightbox(e) {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (document.getElementById('imageModal').style.display === 'flex') {
-          closeLightbox();
-        } else if (isDetailView) {
-          backToList();
-        }
-      }
-    });
-
-    window.addEventListener('popstate', (e) => {
-      if (e.state && e.state.detail) {
-        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
-          openTacticsDetail(e.state.index, e.state.url, false);
-        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
-          openPadDetail(e.state.index, e.state.url, false);
-        }
-      } else {
-        const hash = window.location.hash;
-        if (hash === '#controller' || hash === '#pads') {
-          switchTab('pads', false);
-        } else {
-          switchTab('tactics', false);
-        }
-      }
-    });
-
-    function checkInitialUrl() {
-      const hash = window.location.hash;
-      if (hash === '#controller' || hash === '#pads') {
-        switchTab('pads', false);
-      } else if (hash === '#tactics') {
-        switchTab('tactics', false);
-      }
-    }
-
-    /* 초기 실행: 구글 시트 로딩을 대기 없이 즉시 병렬 실행 */
-    window.addEventListener('DOMContentLoaded', () => {
-      setLang(currentLang);
-      loadTactics();
-      loadPads();
-      loadAllReviewStats();
-    });
-  </script>
-</body>
-</html>
+      if (tabType === '
