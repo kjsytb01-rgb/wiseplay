@@ -31,7 +31,7 @@
       padding-bottom: 60px;
     }
 
-    /* 메타크리틱 스타일 가로 1단 고정 상단바 */
+    /* 메타크리틱 스타일 가로 1단 고정 상단바 (로고만 배치) */
     header {
       background: #141720;
       border-bottom: 1px solid var(--card-border);
@@ -772,7 +772,7 @@
 </head>
 <body>
 
-  <!-- 메타크리틱형 가로 1단 고정 상단바 (로고만 배치, 클릭 시 메인 이동) -->
+  <!-- 메타크리틱 스타일 가로 1단 고정 상단바 (로고만 배치) -->
   <header>
     <div class="header-inner">
       <div class="header-left">
@@ -780,6 +780,7 @@
           <img src="/logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
         </a>
 
+        <!-- 상단 탭 + 드롭다운 메뉴 -->
         <nav class="nav-tabs">
           <div class="nav-item">
             <button type="button" class="tab-btn active" id="tabNavTactics" onclick="switchTab('tactics')">Tactics (전술 DB) ▾</button>
@@ -828,7 +829,7 @@
   </header>
 
   <main>
-    <!-- 전술 섹션 -->
+    <!-- 전술 섹션 (가로 슬라이더) -->
     <section id="section-tactics">
       <div class="section-header-row">
         <div class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="tacticsSortBadge">전체 / 최신순</span></div>
@@ -842,7 +843,7 @@
       </div>
     </section>
 
-    <!-- 패드 섹션 -->
+    <!-- 패드 섹션 (가로 슬라이더) -->
     <section id="section-pads" style="display: none;">
       <div class="section-header-row">
         <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
@@ -856,10 +857,10 @@
       </div>
     </section>
 
-    <!-- 최신 영상 섹션 -->
+    <!-- 하단 최신 영상 섹션 (전술 탭엔 전술 영상만, 패드 탭엔 패드 영상만 분리 표시) -->
     <section id="section-latest-videos" class="latest-videos-section">
       <div class="section-header-row">
-        <h2 class="section-title" id="t-video-sec-title">🎬 최신 영상</h2>
+        <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 해설 영상</h2>
       </div>
       <div class="video-showcase-grid">
         <div class="video-main-stage">
@@ -883,7 +884,7 @@
       </div>
     </section>
 
-    <!-- 전술 상세 화면 -->
+    <!-- 전술 상세 화면 (원본 100% 동일) -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -957,7 +958,7 @@
       </div>
     </section>
 
-    <!-- 5. 컨트롤러 세부 화면 -->
+    <!-- 5. 컨트롤러 세부 화면 (원본 100% 동일) -->
     <section id="detail-view-pads" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1145,7 +1146,7 @@
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6InFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
 
     const I18N_INDEX = {
       ko: {
@@ -1192,7 +1193,10 @@
         prosCardLabel: "장점: ",
         verdictHigh: "보편적 찬사",
         verdictMid: "전반적으로 긍정적",
-        verdictLow: "혼합 또는 평균"
+        verdictLow: "혼합 또는 평균",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "상세 분석 보기 →"
       },
       en: {
         contactText: "Contact & Partnership",
@@ -1238,7 +1242,10 @@
         prosCardLabel: "Pros: ",
         verdictHigh: "Universal Acclaim",
         verdictMid: "Generally Favorable",
-        verdictLow: "Mixed or Average"
+        verdictLow: "Mixed or Average",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "View Analysis →"
       },
       vi: {
         contactText: "Liên hệ hợp tác",
@@ -1284,7 +1291,10 @@
         prosCardLabel: "Ưu điểm: ",
         verdictHigh: "Đánh Giá Tuyệt Vời",
         verdictMid: "Đánh Giá Tích Cực",
-        verdictLow: "Trung Bình / Hỗn Hợp"
+        verdictLow: "Trung Bình / Hỗn Hợp",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "Xem chi tiết →"
       },
       th: {
         contactText: "ติดต่อธุรกิจ",
@@ -1330,7 +1340,10 @@
         prosCardLabel: "จุดเด่น: ",
         verdictHigh: "คำชมเชยระดับสูงสุด",
         verdictMid: "เชิงบวกโดยรวม",
-        verdictLow: "ปานกลาง"
+        verdictLow: "ปานกลาง",
+        scoreLabelWise: "WISE SCORE",
+        scoreLabelPad: "LJ META SCORE",
+        subHint: "ดูผลทดสอบ →"
       }
     };
 
@@ -1349,6 +1362,19 @@
     let currentPadsSort = 'all';
     let videoItems = [];
     let currentVideoIdx = 0;
+
+    function scrollCarousel(id, dir) {
+      const el = document.getElementById(id);
+      if (el) el.scrollBy({ left: dir * 610, behavior: 'smooth' });
+    }
+
+    function getScoreTier(scoreVal) {
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      const n = Number(scoreVal) || 85;
+      if (n >= 80) return { cls: 'tier-green', verdict: t.verdictHigh, g: 88, y: 10, r: 2 };
+      if (n >= 55) return { cls: 'tier-yellow', verdict: t.verdictMid, g: 55, y: 35, r: 10 };
+      return { cls: 'tier-red', verdict: t.verdictLow, g: 25, y: 45, r: 30 };
+    }
 
     function cleanSlug(val, fallback) {
       if (val && val.trim()) {
@@ -1390,7 +1416,6 @@
       });
       applyI18n();
       handleSearch();
-      updateVideoShowcase();
 
       if (isDetailView) {
         if (currentSelectedTactics) updateTacticsDetailLang();
@@ -1444,8 +1469,10 @@
       document.getElementById('t-cons-label').innerText = t.consLabel;
 
       const searchInput = document.getElementById('searchInput');
-      if (searchInput) {
-        searchInput.placeholder = currentTab === 'tactics' ? t.searchPlaceholderTactics : t.searchPlaceholderPads;
+      if (currentTab === 'tactics') {
+        searchInput.placeholder = t.searchPlaceholderTactics;
+      } else {
+        searchInput.placeholder = t.searchPlaceholderPads;
       }
     }
 
@@ -2397,7 +2424,6 @@
 
     window.addEventListener('DOMContentLoaded', async () => {
       setLang(currentLang);
-      await loadAllReviewStats();
       loadTactics();
       loadPads();
     });
