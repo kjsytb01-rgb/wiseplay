@@ -726,7 +726,7 @@
     <!-- 패드 섹션 -->
     <section id="section-pads" style="display: none;">
       <div class="section-header-row">
-        <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
+        <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크  <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
         <div class="carousel-arrows">
           <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
           <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
@@ -933,7 +933,7 @@
       </div>
 
       <div class="detail-section">
-        <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
+        <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 </h4>
         <div style="overflow-x:auto;">
           <table class="bench-table">
             <thead>
@@ -1038,7 +1038,7 @@
         searchPlaceholderPads: "패드명, 스틱 방식, 장단점 검색...",
         secTitleTactics: "⚽ 선수 & 인게임 전술 DB",
         secSubTactics: "(카드를 클릭하면 상세 세부 페이지로 전환됩니다)",
-        secTitlePads: "🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측)",
+        secTitlePads: "🎮 컨트롤러 정밀 벤치마크 ",
         secSubPads: "(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)",
         backBtn: "목록으로 돌아가기",
         imgTab1: "포메이션 배치도",
@@ -1053,7 +1053,7 @@
         ytBtnTactics: "▶ 즐인권의 실전 전술 해설 유튜브 영상 보기",
         dashSub1: "폴링/레이턴시 실측 종합 벤치",
         padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
-        benchTitle: "📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)",
+        benchTitle: "📊 3대 연결 모드 정밀 벤치마크 ",
         thMode: "연결 방식",
         thPoll: "폴링레이트 (Hz)",
         thSlat: "스틱 레이턴시 (ms)",
@@ -1717,7 +1717,7 @@
 
               <div class="mc-score-row">
                 <div class="mc-score-text">
-                  <span class="mc-score-label">LJ META SCORE</span>
+                  <span class="mc-score-label">WISE META SCORE</span>
                   <span class="mc-score-verdict">${tier.verdict}</span>
                   <span class="mc-score-sub">유저 ★ ${userStats.avg} (${userStats.count}개 리뷰)</span>
                 </div>
@@ -1760,7 +1760,7 @@
               index: idx,
               ytId: yid,
               title: `${p.padName} 정밀 벤치마크 및 실측 리뷰`,
-              tag: `CONTROLLER · ${p.stickMech || 'LJ Lee 실측'}`,
+              tag: `CONTROLLER · ${p.stickMech || ''}`,
               score: p.metaScore || '90'
             });
           }
