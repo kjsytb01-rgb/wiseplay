@@ -1224,6 +1224,14 @@
     let videoItems = [];
     let currentVideoIdx = 0;
 
+    function getScoreTier(scoreVal) {
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      const n = Number(scoreVal) || 85;
+      if (n >= 80) return { cls: 'tier-green', verdict: t.verdictHigh, g: 88, y: 10, r: 2 };
+      if (n >= 55) return { cls: 'tier-yellow', verdict: t.verdictMid, g: 55, y: 35, r: 10 };
+      return { cls: 'tier-red', verdict: t.verdictLow, g: 25, y: 45, r: 30 };
+    }
+
     function cleanSlug(val, fallback) {
       if (val && val.trim()) {
         const s = val.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
@@ -1422,42 +1430,32 @@
     }
 
     async function loadTactics() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
       try {
         const res = await fetch(url);
         const text = await res.text();
-        if (text.includes('<!DOCTYPE html>') || text.includes('<html>')) {
-          console.error("Tactics sheet returned HTML instead of CSV. Check sharing permissions.");
-          document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭) 접근 권한이 없거나 비공개 상태입니다. 시트 공유 설정을 '링크가 있는 모든 사용자 - 뷰어'로 변경해주세요.</div>`;
-          return;
-        }
         allTactics = parseCSV(text);
         await loadAllReviewStats();
         renderTactics(allTactics);
         updateVideoShowcase();
         checkInitialUrl();
       } catch (err) {
-        console.error("Tactics fetch error:", err);
+        console.error(err);
       }
     }
 
     async function loadPads() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`;
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
       try {
         const res = await fetch(url);
         const text = await res.text();
-        if (text.includes('<!DOCTYPE html>') || text.includes('<html>')) {
-          console.error("Pads sheet returned HTML instead of CSV. Check sharing permissions.");
-          document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭) 접근 권한이 없거나 비공개 상태입니다. 시트 공유 설정을 '링크가 있는 모든 사용자 - 뷰어'로 변경해주세요.</div>`;
-          return;
-        }
         allPads = parseCSV(text);
         await loadAllReviewStats();
         renderPads(allPads);
         updateVideoShowcase();
         checkInitialUrl();
       } catch (err) {
-        console.error("Pads fetch error:", err);
+        console.error(err);
       }
     }
 
@@ -2229,6 +2227,54 @@
         submitBtn.disabled = false;
         const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
         submitBtn.innerText = t.submitBtn;
+      }
+    }
+
+    function openLightbox(src) {
+      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function closeLightbox(e) {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (document.getElementById('imageModal').style.display === 'flex') {
+          closeLightbox();
+        } else if (isDetailView) {
+          backToList();
+        }
+      }
+    });
+
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.detail) {
+        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
+          openTacticsDetail(e.state.index, e.state.url, false);
+        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
+          openPadDetail(e.state.index, e.state.url, false);
+        }
+      } else {
+        const hash = window.location.hash;
+        if (hash === '#controller' || hash === '#pads') {
+          switchTab('pads', false);
+        } else {
+          switchTab('tactics', false);
+        }
+      }
+    });
+
+    function checkInitialUrl() {
+      const hash = window.location.hash;
+      if (hash === '#controller' || hash === '#pads') {
+        switchTab('pads', false);
+      } else if (hash === '#tactics') {
+        switchTab('tactics', false);
       }
     }
 
