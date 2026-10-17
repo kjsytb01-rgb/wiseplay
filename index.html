@@ -1422,33 +1422,55 @@
     }
 
     async function loadTactics() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`;
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
-        allTactics = parseCSV(text);
-        await loadAllReviewStats();
-        renderTactics(allTactics);
-        updateVideoShowcase();
-        checkInitialUrl();
-      } catch (err) {
-        console.error(err);
+      const urls = [
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
+      ];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && !text.includes('<!DOCTYPE html>')) {
+              allTactics = parseCSV(text);
+              await loadAllReviewStats();
+              renderTactics(allTactics);
+              updateVideoShowcase();
+              checkInitialUrl();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Tactics load attempt failed:", err);
+        }
       }
+      document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 공개 권한(링크가 있는 모든 사용자 뷰어)과 탭 이름을 확인해주세요.</div>`;
     }
 
     async function loadPads() {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`;
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
-        allPads = parseCSV(text);
-        await loadAllReviewStats();
-        renderPads(allPads);
-        updateVideoShowcase();
-        checkInitialUrl();
-      } catch (err) {
-        console.error(err);
+      const urls = [
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
+        `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
+      ];
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && !text.includes('<!DOCTYPE html>')) {
+              allPads = parseCSV(text);
+              await loadAllReviewStats();
+              renderPads(allPads);
+              updateVideoShowcase();
+              checkInitialUrl();
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Pads load attempt failed:", err);
+        }
       }
+      document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 공개 권한과 탭 이름을 확인해주세요.</div>`;
     }
 
     async function loadAllReviewStats() {
@@ -2270,7 +2292,7 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', () => {
       setLang(currentLang);
       loadTactics();
       loadPads();
