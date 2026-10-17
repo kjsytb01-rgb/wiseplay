@@ -549,11 +549,12 @@
       margin-top: 6px;
     }
 
-    /* ---------------- 패드 전용 신규 스타일 (시안 100% 반영) ---------------- */
-    /* 1. 유튜브 썸네일 + 재생 버튼 오버레이 */
+    /* ---------------- 패드 전용 신규 스타일 ---------------- */
+    /* 1. 유튜브 16:9 썸네일 + 재생 버튼 오버레이 */
     .yt-thumb-wrap {
       position: relative;
       width: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -563,7 +564,7 @@
     }
     .yt-thumb-img {
       width: 100%;
-      max-height: 480px;
+      height: 100%;
       object-fit: cover;
       display: block;
       transition: transform 0.3s, opacity 0.2s;
@@ -602,19 +603,6 @@
     .yt-thumb-wrap:hover .yt-play-btn {
       transform: translate(-50%, -50%) scale(1.12);
       background: #ff0000;
-    }
-    .yt-play-caption {
-      position: absolute;
-      bottom: 12px;
-      right: 14px;
-      background: rgba(0, 0, 0, 0.82);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.2);
-      pointer-events: none;
     }
 
     /* 2. 12개 부위별 등급(Tier) 그리드 */
@@ -965,7 +953,7 @@
       </div>
     </div>
 
-    <!-- 1. Tactics 목록 (그대로 보존) -->
+    <!-- 1. Tactics 목록 -->
     <section id="section-tactics">
       <h2 class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span></h2>
       <div id="tactics-list" class="cards-grid">
@@ -973,7 +961,7 @@
       </div>
     </section>
 
-    <!-- 2. Pads 목록 (그대로 보존) -->
+    <!-- 2. Pads 목록 -->
     <section id="section-pads" style="display: none;">
       <h2 class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 (LJ Lee 실측) <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span></h2>
       <div id="pads-list" class="cards-grid">
@@ -981,7 +969,7 @@
       </div>
     </section>
 
-    <!-- 3. 전술 세부 화면 (포메이션/개인전술/팀전술 탭 100% 보존) -->
+    <!-- 3. 전술 세부 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1055,7 +1043,7 @@
       </div>
     </section>
 
-    <!-- 4. 새 컨트롤러 세부 화면 (시안 100% 반영: 12개 부위 등급, 3열 스펙, 2분할 벤치 그래프, 5열 테이블) -->
+    <!-- 4. 컨트롤러 세부 화면 (16:9 유튜브 썸네일 자동 연동 + 캡션/하단 중복 버튼 제거) -->
     <section id="detail-view-pads" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1086,11 +1074,10 @@
         </div>
       </div>
 
-      <!-- 유튜브 썸네일 + 재생 버튼 오버레이 -->
+      <!-- 16:9 유튜브 원본 썸네일 + 중앙 재생 버튼 오버레이 (문구 제거됨) -->
       <div class="yt-thumb-wrap" id="viewPadYtWrap" onclick="openPadVideo()">
-        <img id="viewPadImg" class="yt-thumb-img" src="" alt="Pad Thumbnail">
-        <div class="yt-play-btn"></div>
-        <div class="yt-play-caption">유튜브 썸네일 사용. 이미지 누르면 바로 영상 재생</div>
+        <img id="viewPadImg" class="yt-thumb-img" src="" alt="Pad YouTube Thumbnail">
+        <div class="yt-play-btn" id="viewPadPlayBtn"></div>
       </div>
 
       <!-- 12개 부위별 등급(Tier) 그리드 -->
@@ -1157,7 +1144,7 @@
         </div>
       </div>
 
-      <!-- 3대 연결 모드 정밀 벤치마크 테이블 (5열: 실전 권장 및 조언 포함) -->
+      <!-- 3대 연결 모드 정밀 벤치마크 테이블 (5열) -->
       <div class="detail-section">
         <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)</h4>
         <div style="overflow-x:auto;">
@@ -1211,8 +1198,8 @@
         <p style="margin-top:6px;"><b style="color:#ff6b6b;" id="t-cons-label">[단점]</b> <span id="viewPadCons">-</span></p>
       </div>
 
-      <!-- 유저 실사용 평점 & 리뷰 -->
-      <div class="detail-section">
+      <!-- 유저 실사용 평점 & 리뷰 (최하단 유튜브 중복 버튼 제거됨) -->
+      <div class="detail-section" style="margin-bottom:0;">
         <h4 id="t-review-sec-title2">🎮 유저 실사용 평점 &amp; 리뷰 작성</h4>
         <div class="user-review-box">
           <div class="review-form">
@@ -1234,12 +1221,6 @@
 
           <div class="comment-list" id="padCommentList"></div>
         </div>
-      </div>
-
-      <div>
-        <a id="viewPadYtBtn" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
-          ▶ LJ Lee 정밀 벤치마크 유튜브 영상 보기
-        </a>
       </div>
     </section>
   </main>
@@ -1287,7 +1268,6 @@
         reviewSecTitle: "⭐ 유저 실전 체감 평점 & 코멘트",
         submitBtn: "등록",
         ytBtnTactics: "▶ 즐인권의 실전 전술 해설 유튜브 영상 보기",
-        ytBtnPads: "▶ LJ Lee 정밀 벤치마크 영상 보기",
         dashSub1: "폴링/레이턴시 실측 종합 벤치",
         padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
         benchTitle: "📊 3대 연결 모드 정밀 벤치마크 (LJ Lee 실측)",
@@ -1331,7 +1311,6 @@
         reviewSecTitle: "⭐ User Ratings & Practical Feedback",
         submitBtn: "Post",
         ytBtnTactics: "▶ Watch Tactical Analysis on YouTube (즐인권 FIFA CAMPER)",
-        ytBtnPads: "▶ Watch Benchmark Video on YouTube (LJ Lee)",
         dashSub1: "Measured Polling & Latency Composite Bench",
         padUsersTitle: "🏆 Pro Players Using This Pad",
         benchTitle: "📊 3-Mode Latency Benchmark (LJ Lee Measured)",
@@ -1375,7 +1354,6 @@
         reviewSecTitle: "⭐ Đánh Giá Thực Tế Từ Người Dùng",
         submitBtn: "Gửi",
         ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (즐인권 FIFA CAMPER)",
-        ytBtnPads: "▶ Xem Video Đo Đạc Benchmark (LJ Lee)",
         dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
         padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
         benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối (LJ Lee Thực Đo)",
@@ -1419,7 +1397,6 @@
         reviewSecTitle: "⭐ ความคิดเห็นและรีวิวจากผู้ใช้จริง",
         submitBtn: "ส่งความคิดเห็น",
         ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (즐인권 FIFA CAMPER)",
-        ytBtnPads: "▶ รับชมคลิปผลทดสอบบน YouTube (LJ Lee)",
         dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
         padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
         benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ (LJ Lee)",
@@ -1459,6 +1436,14 @@
         if (s) return s;
       }
       return (fallback || 'item').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+    }
+
+    // 유튜브 URL에서 영상 ID(11자리) 자동 추출 함수
+    function extractYoutubeId(url) {
+      if (!url) return null;
+      const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
     }
 
     async function translateDynamicText(text, targetLang) {
@@ -1523,9 +1508,6 @@
 
       const ytt = document.getElementById('viewYtLink');
       if (ytt) ytt.innerText = t.ytBtnTactics;
-
-      const ytp = document.getElementById('viewPadYtBtn');
-      if (ytp) ytp.innerText = t.ytBtnPads;
 
       const ds1 = document.getElementById('t-dash-sub1'); if(ds1) ds1.innerText = t.dashSub1;
       const put = document.getElementById('t-pad-users-title'); if(put) put.innerText = t.padUsersTitle;
@@ -1744,10 +1726,14 @@
         const slug = cleanSlug(pad.slug, pad.padName);
         const pageUrl = `/controllers/${slug}/`;
 
+        // 카드 썸네일도 imgUrl이 비어있으면 유튜브 썸네일 자동 사용
+        const ytId = extractYoutubeId(pad.ytUrl);
+        const cardThumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : 'logo.png');
+
         return `
           <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${idx}, '${pageUrl}')">
             <div class="card-img-wrapper">
-              <img src="${pad.imgUrl || 'logo.png'}" alt="${pad.padName || 'Pad'}" onerror="this.src='logo.png'">
+              <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='logo.png'">
               <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
             </div>
             <div class="card-body">
@@ -1906,7 +1892,28 @@
       document.getElementById('viewPadName').innerText = p.padName || 'Gamepad';
       document.getElementById('viewPadSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
       document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
-      document.getElementById('viewPadImg').src = p.imgUrl || 'logo.png';
+
+      // 유튜브 16:9 원본 썸네일 자동 추출 및 표시 로직
+      const padImgEl = document.getElementById('viewPadImg');
+      const playBtnEl = document.getElementById('viewPadPlayBtn');
+      const ytId = extractYoutubeId(p.ytUrl);
+
+      if (ytId) {
+        playBtnEl.style.display = 'flex';
+        padImgEl.src = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
+        // 만약 maxresdefault가 없는 영상이면 hqdefault로 자동 폴백
+        padImgEl.onerror = function() {
+          if (this.src.includes('maxresdefault.jpg')) {
+            this.src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+          } else {
+            this.src = p.imgUrl || 'logo.png';
+          }
+        };
+      } else {
+        playBtnEl.style.display = p.ytUrl ? 'flex' : 'none';
+        padImgEl.src = p.imgUrl || 'logo.png';
+        padImgEl.onerror = function() { this.src = 'logo.png'; };
+      }
 
       document.title = `${p.padName || 'Gamepad'} 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY`;
 
@@ -1973,7 +1980,7 @@
         document.getElementById('viewPadUsersSection').style.display = 'block';
       }
 
-      // 5. 5열 벤치마크 테이블 매핑 (실전 권장 및 조언 컬럼 포함)
+      // 5. 5열 벤치마크 테이블 매핑
       const formatHz = (val) => val ? `${val} Hz` : '-';
       const formatMs = (val) => val ? `${val} ms` : '-';
 
@@ -1993,18 +2000,6 @@
       document.getElementById('pB_adv').innerText = p.bAdvice || '-';
 
       updatePadDetailLang();
-
-      const ytBtn = document.getElementById('viewPadYtBtn');
-      if (p.ytUrl) {
-        ytBtn.href = p.ytUrl;
-        ytBtn.style.display = 'inline-flex';
-      } else {
-        ytBtn.style.display = 'none';
-      }
-
-      const i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      ytBtn.innerText = i18nTexts.ytBtnPads;
-
       fetchSupabaseReviews('pad', p.padName || 'default_pad');
 
       document.getElementById('section-pads').style.display = 'none';
@@ -2022,8 +2017,8 @@
     function openPadVideo() {
       if (currentSelectedPad && currentSelectedPad.ytUrl) {
         window.open(currentSelectedPad.ytUrl, '_blank');
-      } else if (currentSelectedPad && currentSelectedPad.imgUrl) {
-        openLightbox(currentSelectedPad.imgUrl);
+      } else if (currentSelectedPad) {
+        openLightbox(document.getElementById('viewPadImg').src);
       }
     }
 
