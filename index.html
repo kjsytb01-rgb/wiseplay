@@ -14,6 +14,7 @@
       --accent-gold: #ffbb00;
       --accent-red: #ff4757;
       --accent-orange: #ffa502;
+      --accent-purple: #b388ff;
       --text-main: #f0f2f5;
       --text-muted: #8b949e;
       --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -550,7 +551,7 @@
     }
 
     /* ---------------- 패드 전용 신규 스타일 ---------------- */
-    /* 1. 유튜브 16:9 썸네일 + 재생 버튼 오버레이 */
+    /* 1. 유튜브 16:9 썸네일 / 일반 제품 사진 자동 대응 래퍼 */
     .yt-thumb-wrap {
       position: relative;
       width: 100%;
@@ -558,9 +559,12 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
-      background: #000;
+      background: #0d0f14;
       cursor: pointer;
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .yt-thumb-img {
       width: 100%;
@@ -569,9 +573,14 @@
       display: block;
       transition: transform 0.3s, opacity 0.2s;
     }
+    /* 유튜브 영상이 없고 제품 사진만 있을 때는 잘리지 않게 contain 처리 */
+    .yt-thumb-wrap.no-video .yt-thumb-img {
+      object-fit: contain;
+      padding: 16px;
+    }
     .yt-thumb-wrap:hover .yt-thumb-img {
       transform: scale(1.02);
-      opacity: 0.9;
+      opacity: 0.92;
     }
     .yt-play-btn {
       position: absolute;
@@ -603,6 +612,19 @@
     .yt-thumb-wrap:hover .yt-play-btn {
       transform: translate(-50%, -50%) scale(1.12);
       background: #ff0000;
+    }
+    .pad-photo-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #cbd5e1;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      pointer-events: none;
+      display: none;
     }
 
     /* 2. 12개 부위별 등급(Tier) 그리드 */
@@ -637,7 +659,9 @@
       font-weight: 900;
       line-height: 1;
     }
-    .tier-s, .tier-a { color: var(--accent-color); text-shadow: 0 0 10px rgba(0, 255, 136, 0.4); }
+    /* S와 A 색상 완벽 분리 */
+    .tier-s { color: var(--accent-purple); text-shadow: 0 0 12px rgba(179, 136, 255, 0.6); }
+    .tier-a { color: var(--accent-color); text-shadow: 0 0 10px rgba(0, 255, 136, 0.4); }
     .tier-b { color: var(--accent-gold); text-shadow: 0 0 10px rgba(255, 187, 0, 0.4); }
     .tier-c { color: var(--accent-orange); }
     .tier-f { color: var(--accent-red); text-shadow: 0 0 10px rgba(255, 71, 87, 0.4); }
@@ -933,8 +957,9 @@
       <button class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
     </div>
 
+    <!-- 절대 경로 /logo.png 사용으로 상세페이지 주소 변경 시에도 로고 유지 -->
     <a href="/" class="brand-link" title="Home" onclick="handleBrandClick(event)">
-      <img src="logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
+      <img src="/logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
       <div class="brand-sub">즐인권(FIFA CAMPER) X LJ Lee</div>
     </a>
 
@@ -1043,7 +1068,7 @@
       </div>
     </section>
 
-    <!-- 4. 컨트롤러 세부 화면 (16:9 유튜브 썸네일 자동 연동 + 캡션/하단 중복 버튼 제거) -->
+    <!-- 4. 컨트롤러 세부 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
       <button class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1074,10 +1099,11 @@
         </div>
       </div>
 
-      <!-- 16:9 유튜브 원본 썸네일 + 중앙 재생 버튼 오버레이 (문구 제거됨) -->
+      <!-- 16:9 유튜브 썸네일 / 제품 사진 자동 대응 영역 -->
       <div class="yt-thumb-wrap" id="viewPadYtWrap" onclick="openPadVideo()">
-        <img id="viewPadImg" class="yt-thumb-img" src="" alt="Pad YouTube Thumbnail">
+        <img id="viewPadImg" class="yt-thumb-img" src="" alt="Pad Thumbnail">
         <div class="yt-play-btn" id="viewPadPlayBtn"></div>
+        <div class="pad-photo-badge" id="viewPadPhotoBadge">🔍 클릭하면 제품 이미지를 확대합니다</div>
       </div>
 
       <!-- 12개 부위별 등급(Tier) 그리드 -->
@@ -1135,11 +1161,11 @@
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
             <span class="bench-img-label">스틱 서큘러티 에러율 실측</span>
-            <img id="benchImg1" src="logo.png" alt="Stick Circularity">
+            <img id="benchImg1" src="/logo.png" alt="Stick Circularity">
           </div>
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg2').src)">
             <span class="bench-img-label">스틱 해상도 / 리니어리티 그래프</span>
-            <img id="benchImg2" src="logo.png" alt="Stick Linearity">
+            <img id="benchImg2" src="/logo.png" alt="Stick Linearity">
           </div>
         </div>
       </div>
@@ -1198,7 +1224,7 @@
         <p style="margin-top:6px;"><b style="color:#ff6b6b;" id="t-cons-label">[단점]</b> <span id="viewPadCons">-</span></p>
       </div>
 
-      <!-- 유저 실사용 평점 & 리뷰 (최하단 유튜브 중복 버튼 제거됨) -->
+      <!-- 유저 실사용 평점 & 리뷰 -->
       <div class="detail-section" style="margin-bottom:0;">
         <h4 id="t-review-sec-title2">🎮 유저 실사용 평점 &amp; 리뷰 작성</h4>
         <div class="user-review-box">
@@ -1679,7 +1705,7 @@
         return `
           <a href="${pageUrl}" class="card" onclick="openTacticsDetailEvent(event, ${idx}, '${pageUrl}')">
             <div class="card-img-wrapper">
-              <img src="${item.imgFormation || 'logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='logo.png'">
+              <img src="${item.imgFormation || '/logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='/logo.png'">
               <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
             </div>
             <div class="card-body">
@@ -1726,14 +1752,13 @@
         const slug = cleanSlug(pad.slug, pad.padName);
         const pageUrl = `/controllers/${slug}/`;
 
-        // 카드 썸네일도 imgUrl이 비어있으면 유튜브 썸네일 자동 사용
         const ytId = extractYoutubeId(pad.ytUrl);
-        const cardThumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : 'logo.png');
+        const cardThumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '/logo.png');
 
         return `
           <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${idx}, '${pageUrl}')">
             <div class="card-img-wrapper">
-              <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='logo.png'">
+              <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='/logo.png'">
               <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
             </div>
             <div class="card-body">
@@ -1893,26 +1918,40 @@
       document.getElementById('viewPadSub').innerText = `스틱 방식: ${p.stickMech || '-'} | 키매핑: ${p.keyMap || '-'} | 매크로: ${p.macro || '-'}`;
       document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
 
-      // 유튜브 16:9 원본 썸네일 자동 추출 및 표시 로직
+      // 유튜브 영상 유무에 따른 썸네일 / 제품 사진 자동 분기
+      const ytWrapEl = document.getElementById('viewPadYtWrap');
       const padImgEl = document.getElementById('viewPadImg');
       const playBtnEl = document.getElementById('viewPadPlayBtn');
+      const photoBadgeEl = document.getElementById('viewPadPhotoBadge');
       const ytId = extractYoutubeId(p.ytUrl);
 
       if (ytId) {
+        // 1. 유튜브 영상이 있는 패드
+        ytWrapEl.classList.remove('no-video');
         playBtnEl.style.display = 'flex';
+        photoBadgeEl.style.display = 'none';
         padImgEl.src = `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
-        // 만약 maxresdefault가 없는 영상이면 hqdefault로 자동 폴백
         padImgEl.onerror = function() {
           if (this.src.includes('maxresdefault.jpg')) {
             this.src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
           } else {
-            this.src = p.imgUrl || 'logo.png';
+            this.src = p.imgUrl || '/logo.png';
           }
         };
+      } else if (p.ytUrl && p.ytUrl.trim() !== '') {
+        // 2. 기타 외부 영상 링크가 있는 경우
+        ytWrapEl.classList.remove('no-video');
+        playBtnEl.style.display = 'flex';
+        photoBadgeEl.style.display = 'none';
+        padImgEl.src = p.imgUrl || '/logo.png';
+        padImgEl.onerror = function() { this.src = '/logo.png'; };
       } else {
-        playBtnEl.style.display = p.ytUrl ? 'flex' : 'none';
-        padImgEl.src = p.imgUrl || 'logo.png';
-        padImgEl.onerror = function() { this.src = 'logo.png'; };
+        // 3. 영상이 없는 패드 -> 재생 버튼 숨기고 제품 사진 갤러리 모드로 표시
+        ytWrapEl.classList.add('no-video');
+        playBtnEl.style.display = 'none';
+        photoBadgeEl.style.display = p.imgUrl ? 'block' : 'none';
+        padImgEl.src = p.imgUrl || '/logo.png';
+        padImgEl.onerror = function() { this.src = '/logo.png'; };
       }
 
       document.title = `${p.padName || 'Gamepad'} 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY`;
@@ -1958,8 +1997,8 @@
       const benchSec = document.getElementById('viewBenchImgSection');
       if (img1 || img2) {
         benchSec.style.display = 'block';
-        document.getElementById('benchImg1').src = img1 || 'logo.png';
-        document.getElementById('benchImg2').src = img2 || 'logo.png';
+        document.getElementById('benchImg1').src = img1 || '/logo.png';
+        document.getElementById('benchImg2').src = img2 || '/logo.png';
       } else {
         benchSec.style.display = 'none';
       }
@@ -2014,11 +2053,15 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // 썸네일 클릭 시: 영상이 있으면 새 창 재생, 없으면 제품 이미지 라이트박스 확대 (첫 화면 튕김 방지)
     function openPadVideo() {
-      if (currentSelectedPad && currentSelectedPad.ytUrl) {
-        window.open(currentSelectedPad.ytUrl, '_blank');
-      } else if (currentSelectedPad) {
-        openLightbox(document.getElementById('viewPadImg').src);
+      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '') {
+        window.open(currentSelectedPad.ytUrl.trim(), '_blank');
+      } else {
+        const currentImgSrc = document.getElementById('viewPadImg').src;
+        if (currentImgSrc && !currentImgSrc.endsWith('/logo.png')) {
+          openLightbox(currentImgSrc);
+        }
       }
     }
 
@@ -2063,13 +2106,13 @@
 
       if (tabType === 'formation') {
         document.getElementById('tabBtnFormation').classList.add('active');
-        imgDisplay.src = t.imgFormation || 'logo.png';
+        imgDisplay.src = t.imgFormation || '/logo.png';
       } else if (tabType === 'personal') {
         document.getElementById('tabBtnPersonal').classList.add('active');
-        imgDisplay.src = t.imgPersonal || t.imgFormation || 'logo.png';
+        imgDisplay.src = t.imgPersonal || t.imgFormation || '/logo.png';
       } else if (tabType === 'team') {
         document.getElementById('tabBtnTeam').classList.add('active');
-        imgDisplay.src = t.imgTeam || t.imgFormation || 'logo.png';
+        imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
       }
     }
 
@@ -2229,7 +2272,7 @@
     }
 
     function openLightbox(src) {
-      if (!src || src.endsWith('logo.png')) return;
+      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImg');
       modalImg.src = src;
