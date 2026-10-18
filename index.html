@@ -31,32 +31,30 @@
       padding-bottom: 60px;
     }
 
-    /* 상단 헤더 고정바 (클릭 최우선순위 보장) */
+    /* 메타크리틱 스타일 가로 1단 고정 상단바 */
     header {
       background: #141720;
       border-bottom: 1px solid var(--card-border);
       padding: 0 20px;
       position: sticky;
       top: 0;
-      z-index: 99990;
+      z-index: 1000;
     }
     .header-inner {
       max-width: 1260px;
       margin: 0 auto;
-      min-height: 70px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 16px;
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 16px;
-      position: relative;
-      z-index: 99995;
+      gap: 20px;
+      z-index: 10;
     }
     .brand-link {
       display: inline-flex;
@@ -74,8 +72,7 @@
     /* 상단 탭 & 드롭다운 */
     .nav-tabs {
       display: flex;
-      gap: 4px;
-      align-items: center;
+      gap: 6px;
     }
     .nav-item {
       position: relative;
@@ -84,7 +81,7 @@
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer !important;
       padding: 22px 10px;
@@ -95,8 +92,6 @@
       gap: 4px;
       transition: color 0.2s;
       pointer-events: auto !important;
-      white-space: nowrap;
-      user-select: none;
     }
     .tab-btn:hover { color: #fff; }
     .tab-btn.active {
@@ -128,7 +123,7 @@
       border-radius: 0 0 10px 10px;
       padding: 6px;
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
-      z-index: 99999;
+      z-index: 10000;
     }
     .nav-item:hover .dropdown-menu {
       display: block;
@@ -155,22 +150,21 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
-      position: relative;
-      z-index: 99995;
+      gap: 12px;
+      z-index: 20;
     }
     .search-box {
       position: relative;
-      width: 190px;
+      width: 200px;
     }
     .search-box input {
       width: 100%;
-      padding: 8px 12px 8px 32px;
+      padding: 8px 12px 8px 34px;
       background: #1b202c;
       border: 1px solid var(--card-border);
       border-radius: 8px;
       color: #fff;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       outline: none;
     }
     .search-icon {
@@ -179,11 +173,11 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       pointer-events: none;
     }
 
-    /* 언어 선택기 */
+    /* 언어 선택기 (클릭 영역 보장) */
     .lang-selector-wrap {
       display: flex !important;
       gap: 3px !important;
@@ -206,7 +200,6 @@
       cursor: pointer !important;
       pointer-events: auto !important;
       transition: all 0.15s ease !important;
-      user-select: none;
     }
     .lang-btn:hover {
       color: #fff !important;
@@ -232,13 +225,13 @@
       cursor: pointer !important;
     }
 
-    @media (max-width: 960px) {
-      .header-inner { padding: 8px 0; }
-      .search-box { width: 150px; }
+    @media (max-width: 900px) {
+      .search-box { width: 140px; }
     }
     @media (max-width: 720px) {
-      .header-right { width: 100%; justify-content: space-between; padding-bottom: 6px; }
-      .search-box { flex: 1; }
+      .header-inner { height: auto; padding: 10px 0; flex-wrap: wrap; }
+      .header-right { width: 100%; justify-content: space-between; }
+      .search-box { width: 100%; }
     }
 
     main {
@@ -327,7 +320,7 @@
       box-shadow: 0 8px 24px rgba(0, 255, 136, 0.12);
     }
 
-    /* 90점 이상 보라색(tier-purple) 포함한 상단 캡 */
+    /* 90점 이상 보라색(tier-purple) 포함한 캡 배경 */
     .mc-top-cap { padding: 12px 12px 0 12px; }
     .mc-top-cap.tier-purple { background: linear-gradient(180deg, var(--accent-purple) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-green { background: linear-gradient(180deg, var(--accent-green) 65%, var(--card-bg) 65%); }
@@ -394,8 +387,17 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .card-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
-    /* 전술 및 패드 카드 공통 클릭 유도 박스 */
+    /* 클릭 유도 박스 */
     .tactic-cta-box {
       background: #14171f;
       border: 1px solid #252936;
@@ -440,7 +442,7 @@
       color: #0b0d11;
       flex-shrink: 0;
     }
-    .mc-score-box.tier-purple { background: var(--accent-purple); color: #fff; box-shadow: 0 0 14px rgba(139, 92, 246, 0.4); }
+    .mc-score-box.tier-purple { background: var(--accent-purple); color: #fff; box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); }
     .mc-score-box.tier-green { background: var(--accent-green); }
     .mc-score-box.tier-yellow { background: var(--accent-yellow); }
     .mc-score-box.tier-red { background: var(--accent-red); color: #fff; }
@@ -517,7 +519,7 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 패드 하단 컨트롤러 성능 순위 (세로 리더보드) */
+    /* 패드 탭 하단: 컨트롤러 성능 순위 (세로 리스트) */
     .pad-ranking-section { margin-top: 48px; }
     .ranking-list { display: flex; flex-direction: column; gap: 10px; }
     .ranking-item {
@@ -551,7 +553,7 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    .rank-num.rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); }
+    .rank-num.rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
     .rank-num.rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #000; }
     .rank-num.rank-3 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
     .rank-thumb {
@@ -716,7 +718,7 @@
     .comment-body { color: #c9d1d9; }
 
     #imageModal {
-      display: none; position: fixed; z-index: 999999; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(5, 7, 10, 0.92); justify-content: center; align-items: center; cursor: zoom-out;
+      display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(5, 7, 10, 0.92); justify-content: center; align-items: center; cursor: zoom-out;
     }
     #modalImg { max-width: 94vw; max-height: 90vh; border-radius: 8px; object-fit: contain; }
   </style>
@@ -727,7 +729,7 @@
   <header>
     <div class="header-inner">
       <div class="header-left">
-        <a href="#tactics" class="brand-link" id="brandHomeLink" title="Home" onclick="handleBrandClick(event)">
+        <a href="/" class="brand-link" title="Home" onclick="handleBrandClick(event)">
           <img src="/logo.png" alt="WISEPLAY" class="brand-logo" onerror="this.style.display='none'">
         </a>
 
@@ -765,10 +767,10 @@
         </div>
 
         <div class="lang-selector-wrap">
-          <button type="button" class="lang-btn active" id="btn-lang-ko" data-lang="ko" onclick="setLang('ko')">🇰🇷 KO</button>
-          <button type="button" class="lang-btn" id="btn-lang-en" data-lang="en" onclick="setLang('en')">🇺🇸 EN</button>
-          <button type="button" class="lang-btn" id="btn-lang-vi" data-lang="vi" onclick="setLang('vi')">🇻🇳 VI</button>
-          <button type="button" class="lang-btn" id="btn-lang-th" data-lang="th" onclick="setLang('th')">🇹🇭 TH</button>
+          <button type="button" class="lang-btn active" id="btn-lang-ko" onclick="setLang('ko')">🇰🇷 KO</button>
+          <button type="button" class="lang-btn" id="btn-lang-en" onclick="setLang('en')">🇺🇸 EN</button>
+          <button type="button" class="lang-btn" id="btn-lang-vi" onclick="setLang('vi')">🇻🇳 VI</button>
+          <button type="button" class="lang-btn" id="btn-lang-th" onclick="setLang('th')">🇹🇭 TH</button>
         </div>
 
         <a href="/about.html" class="contact-top-btn" id="topContactBtn">
@@ -779,14 +781,10 @@
   </header>
 
   <main>
-    <!-- 전술 섹션 -->
+    <!-- 전술 섹션 (원본 태그 구조 100% 유지) -->
     <section id="section-tactics">
       <div class="section-header-row">
-        <div class="section-title" id="t-sec-title-tactics">
-          <span id="t-sec-main-tactics">⚽ 선수 & 인게임 전술 DB</span>
-          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span>
-          <span class="sort-status-badge" id="tacticsSortBadge">🔄 전체 / 최신순</span>
-        </div>
+        <div class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="tacticsSortBadge">전체 / 최신순</span></div>
         <div class="carousel-arrows">
           <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', -1)">&larr;</button>
           <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', 1)">&rarr;</button>
@@ -797,14 +795,10 @@
       </div>
     </section>
 
-    <!-- 패드 섹션 -->
+    <!-- 패드 섹션 (원본 태그 구조 100% 유지) -->
     <section id="section-pads" style="display: none;">
       <div class="section-header-row">
-        <div class="section-title" id="t-sec-title-pads">
-          <span id="t-sec-main-pads">🎮 컨트롤러 정밀 벤치마크</span>
-          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span>
-          <span class="sort-status-badge" id="padsSortBadge">🔄 전체 / 최신순</span>
-        </div>
+        <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
         <div class="carousel-arrows">
           <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
           <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
@@ -818,7 +812,7 @@
     <!-- 최신 영상 섹션 -->
     <section id="section-latest-videos" class="latest-videos-section">
       <div class="section-header-row">
-        <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 분석 영상</h2>
+        <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 해설 영상</h2>
       </div>
       <div class="video-showcase-grid">
         <div class="video-main-stage">
@@ -832,7 +826,7 @@
               <div class="mc-score-text" style="text-align:right;">
                 <span class="mc-score-label">SCORE</span>
                 <span class="mc-score-verdict" id="mainVideoVerdict">강력 추천</span>
-                <span class="mc-score-sub" id="mainVideoSubLink">상세 분석 보기 &rarr;</span>
+                <span class="mc-score-sub">상세 분석 보기 &rarr;</span>
               </div>
               <div class="mc-score-box tier-purple" id="mainVideoScore">90</div>
             </div>
@@ -842,7 +836,7 @@
       </div>
     </section>
 
-    <!-- 패드 탭 전용: 하단 컨트롤러 성능 순위 (세로 리스트) -->
+    <!-- 패드 탭 하단 컨트롤러 성능 순위 섹션 -->
     <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
       <div class="section-header-row">
         <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
@@ -1004,7 +998,7 @@
         </div>
       </div>
 
-      <!-- 특성 / 스펙 과 3대 연결 모드 정밀 벤치마크 사이에 추가된 패드 소개글 칸 -->
+      <!-- 패드 소개글 칸 -->
       <div class="detail-section" id="viewPadIntroSection">
         <h4 id="t-pad-intro-title">📝 패드 소개글</h4>
         <p id="viewPadIntroText">-</p>
@@ -1114,12 +1108,13 @@
     <img id="modalImg" alt="Enlarged">
   </div>
 
-  <script data-cfasync="false">
-    const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
-    const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
+  <script>
+    var SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
-    const I18N_INDEX = {
+    var SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
+    var SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
+
+    var I18N_INDEX = {
       ko: {
         contactText: "비즈니스 문의",
         navTactics: "Tactics (전술 DB) ▾",
@@ -1129,7 +1124,7 @@
         searchPlaceholderPads: "패드명, 스틱 방식, 장단점 검색...",
         secTitleTactics: "⚽ 선수 & 인게임 전술 DB",
         secSubTactics: "(카드를 클릭하면 상세 세부 페이지로 전환됩니다)",
-        secTitlePads: "🎮 컨트롤러 정밀 벤치마크",
+        secTitlePads: "🎮 컨트롤러 정밀 벤치마크 ",
         secSubPads: "(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)",
         backBtn: "목록으로 돌아가기",
         imgTab1: "포메이션 배치도",
@@ -1145,7 +1140,7 @@
         dashSub1: "폴링/레이턴시 실측 종합 벤치",
         padIntroTitle: "📝 패드 소개글",
         padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
-        benchTitle: "📊 3대 연결 모드 정밀 벤치마크",
+        benchTitle: "📊 3대 연결 모드 정밀 벤치마크 ",
         thMode: "연결 방식",
         thPoll: "폴링레이트 (Hz)",
         thSlat: "스틱 레이턴시 (ms)",
@@ -1159,7 +1154,7 @@
         tacticCardPrompt: "📋 개인·팀 전술 세팅 및 분석 보기 →",
         padCardPrompt: "📊 정밀 벤치마크 및 상세 스펙 보기 →",
         usedPadPrefix: "선수 사용 패드: ",
-        detailLinkTactics: "상세 분석 보기 →",
+        detailLinkTactics: "상세 분석 →",
         detailLinkPads: "세부 벤치마크 →",
         stickMechLabel: "스틱 방식",
         wiredStatLabel: "유선 폴링/딜레이",
@@ -1174,11 +1169,6 @@
         sortUser: "⭐ 유저 픽 (평점순)",
         sortHot: "🔥 인기 전술 (댓글순)",
         sortPadHot: "🔥 인기 패드 (댓글순)",
-        videoTitleTactics: "🎬 최신 전술 분석 영상",
-        videoTitlePads: "🎬 최신 패드 벤치마크 영상",
-        nowPlaying: "현재 재생 중",
-        userReviewUnit: "유저 ★",
-        reviewCountUnit: "개 리뷰",
         padRankingTitle: "🏆 컨트롤러 성능 순위 (WISE META SCORE)"
       },
       en: {
@@ -1206,7 +1196,7 @@
         dashSub1: "Measured Polling & Latency Composite Bench",
         padIntroTitle: "📝 Controller Overview",
         padUsersTitle: "🏆 Pro Players Using This Pad",
-        benchTitle: "📊 3-Mode Latency Benchmark",
+        benchTitle: "📊 3-Mode Latency Benchmark (LJ Lee Measured)",
         thMode: "Connection",
         thPoll: "Polling (Hz)",
         thSlat: "Stick Latency (ms)",
@@ -1220,7 +1210,7 @@
         tacticCardPrompt: "📋 View Full Tactics & Analysis →",
         padCardPrompt: "📊 View Full Benchmark & Specs →",
         usedPadPrefix: "Used Controller: ",
-        detailLinkTactics: "View Analysis →",
+        detailLinkTactics: "View Details →",
         detailLinkPads: "View Benchmark →",
         stickMechLabel: "Stick Mechanism",
         wiredStatLabel: "Wired Poll/Lat",
@@ -1235,11 +1225,6 @@
         sortUser: "⭐ User Pick (Rating)",
         sortHot: "🔥 Hot Tactics (Comments)",
         sortPadHot: "🔥 Hot Controller (Comments)",
-        videoTitleTactics: "🎬 Latest Tactical Breakdown Videos",
-        videoTitlePads: "🎬 Latest Controller Benchmark Videos",
-        nowPlaying: "NOW PLAYING",
-        userReviewUnit: "User ★",
-        reviewCountUnit: "reviews",
         padRankingTitle: "🏆 Controller Performance Ranking (WISE META SCORE)"
       },
       vi: {
@@ -1267,7 +1252,7 @@
         dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
         padIntroTitle: "📝 Giới Thiệu Tay Cầm",
         padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
-        benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối",
+        benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối (LJ Lee Thực Đo)",
         thMode: "Kết nối",
         thPoll: "Polling (Hz)",
         thSlat: "Độ trễ cần (ms)",
@@ -1281,7 +1266,7 @@
         tacticCardPrompt: "📋 Xem chi tiết chiến thuật & phân tích →",
         padCardPrompt: "📊 Xem chi tiết Benchmark & thông số →",
         usedPadPrefix: "Tay cầm sử dụng: ",
-        detailLinkTactics: "Xem phân tích →",
+        detailLinkTactics: "Xem chi tiết →",
         detailLinkPads: "Xem thông số →",
         stickMechLabel: "Cơ chế cần",
         wiredStatLabel: "Dây Poll/Trễ",
@@ -1296,11 +1281,6 @@
         sortUser: "⭐ User Pick (Đánh giá)",
         sortHot: "🔥 Chiến thuật Hot (Bình luận)",
         sortPadHot: "🔥 Tay cầm Hot (Bình luận)",
-        videoTitleTactics: "🎬 Video Phân Tích Chiến Thuật Mới Nhất",
-        videoTitlePads: "🎬 Video Benchmark Tay Cầm Mới Nhất",
-        nowPlaying: "ĐANG PHÁT",
-        userReviewUnit: "User ★",
-        reviewCountUnit: "đánh giá",
         padRankingTitle: "🏆 Bảng Xếp Hạng Hiệu Năng Tay Cầm (WISE META SCORE)"
       },
       th: {
@@ -1312,7 +1292,7 @@
         searchPlaceholderPads: "ค้นหาชื่อจอย, อนาล็อก, จุดเด่น...",
         secTitleTactics: "⚽ ฐานข้อมูลแผนการเล่น & นักแข่ง",
         secSubTactics: "(คลิกการ์ดเพื่อดูรายละเอียด)",
-        secTitlePads: "🎮 ผลทดสอบจอยเกมอย่างละเอียด",
+        secTitlePads: "🎮 ผลทดสอบจอยเกมอย่างละเอียด ",
         secSubPads: "(คลิกการ์ดเพื่อดูผลทดสอบ)",
         backBtn: "กลับสู่หน้ารายการ",
         imgTab1: "ผังตำแหน่ง",
@@ -1328,7 +1308,7 @@
         dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
         padIntroTitle: "📝 แนะนำจอยคอนโทรลเลอร์",
         padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
-        benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ",
+        benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ (LJ Lee)",
         thMode: "การเชื่อมต่อ",
         thPoll: "Polling (Hz)",
         thSlat: "ดีเลย์แกนอนาล็อก (ms)",
@@ -1342,7 +1322,7 @@
         tacticCardPrompt: "📋 ดูการตั้งค่าแทคติกและบทวิเคราะห์ →",
         padCardPrompt: "📊 ดูผลทดสอบ Benchmark และสเปก →",
         usedPadPrefix: "จอยที่ใช้: ",
-        detailLinkTactics: "ดูบทวิเคราะห์ →",
+        detailLinkTactics: "ดูรายละเอียด →",
         detailLinkPads: "ดูผลทดสอบ →",
         stickMechLabel: "ระบบอนาล็อก",
         wiredStatLabel: "สาย Poll/ดีเลย์",
@@ -1357,105 +1337,76 @@
         sortUser: "⭐ User Pick (คะแนนรีวิว)",
         sortHot: "🔥 แทคติกยอดฮิต (ความคิดเห็น)",
         sortPadHot: "🔥 จอยยอดฮิต (ความคิดเห็น)",
-        videoTitleTactics: "🎬 วิดีโอวิเคราะห์แผนการเล่นล่าสุด",
-        videoTitlePads: "🎬 วิดีโอทดสอบจอยคอนโทรลเลอร์ล่าสุด",
-        nowPlaying: "กำลังเล่น",
-        userReviewUnit: "รีวิว ★",
-        reviewCountUnit: "รายการ",
         padRankingTitle: "🏆 อันดับประสิทธิภาพจอยคอนโทรลเลอร์ (WISE META SCORE)"
       }
     };
 
-    function safeGetLang() {
-      try {
-        return localStorage.getItem('wiseplay_lang') || 'ko';
-      } catch (e) {
-        return 'ko';
-      }
-    }
+    var currentLang = 'ko';
+    try { currentLang = localStorage.getItem('wiseplay_lang') || 'ko'; } catch (e) {}
 
-    function safeSetLangStorage(lang) {
-      try {
-        localStorage.setItem('wiseplay_lang', lang);
-      } catch (e) {}
-    }
+    var currentTab = 'tactics';
+    var isDetailView = false;
+    var allTactics = [];
+    var allPads = [];
+    var currentSelectedTactics = null;
+    var currentSelectedPad = null;
+    var translationCache = {};
+    var globalPadStats = {};
+    var globalTacticStats = {};
 
-    function safePushState(stateObj, hashStr) {
+    var currentTacticsSort = 'all';
+    var currentPadsSort = 'all';
+    var videoItems = [];
+    var currentVideoIdx = 0;
+
+    function safePushState(stateObj, urlStr) {
       try {
         if (window.location.protocol !== 'file:') {
-          history.pushState(stateObj, '', hashStr);
+          history.pushState(stateObj, '', urlStr);
         }
       } catch (e) {}
     }
 
-    let currentLang = safeGetLang();
-    let currentTab = 'tactics';
-    let isDetailView = false;
-    let allTactics = [];
-    let allPads = [];
-    let currentSelectedTactics = null;
-    let currentSelectedPad = null;
-    const translationCache = {};
-    const globalPadStats = {};
-    const globalTacticStats = {};
-
-    let currentTacticsSort = 'all';
-    let currentPadsSort = 'all';
-    let videoItems = [];
-    let currentVideoIdx = 0;
-
+    /* 점수 티어 계산 함수: 90점 이상 보라색(강력 추천), 80점 이상 초록색(보편적 찬사) */
     function getScoreTier(scoreVal) {
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      const n = Number(scoreVal) || 85;
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var n = Number(scoreVal) || 85;
       if (n >= 90) return { cls: 'tier-purple', barCls: 'mc-bar-p', verdict: t.verdictMust, g: 94, y: 5, r: 1 };
-      if (n >= 80) return { cls: 'tier-green', barCls: 'mc-bar-g', verdict: t.verdictHigh, g: 85, y: 12, r: 3 };
+      if (n >= 80) return { cls: 'tier-green', barCls: 'mc-bar-g', verdict: t.verdictHigh, g: 88, y: 10, r: 2 };
       if (n >= 55) return { cls: 'tier-yellow', barCls: 'mc-bar-g', verdict: t.verdictMid, g: 55, y: 35, r: 10 };
       return { cls: 'tier-red', barCls: 'mc-bar-g', verdict: t.verdictLow, g: 25, y: 45, r: 30 };
     }
 
     function scrollCarousel(id, dir) {
-      const el = document.getElementById(id);
+      var el = document.getElementById(id);
       if (el) el.scrollBy({ left: dir * 610, behavior: 'smooth' });
     }
 
     function cleanSlug(val, fallback) {
-      const raw = (val && val.trim()) ? val.trim() : (fallback || 'item').trim();
-      return raw.toLowerCase().replace(/[^a-z0-9-_]/g, '-') || 'item';
+      if (val && val.trim()) {
+        var s = val.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+        if (s) return s;
+      }
+      return (fallback || 'item').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
     }
 
-    /* 정규식 슬래시 오류 방지를 위한 안전한 유튜브 ID 추출 함수 */
     function extractYoutubeId(url) {
       if (!url || url === '-') return null;
-      const s = String(url).trim();
-      if (s.includes('youtu.be/')) {
-        const parts = s.split('youtu.be/')[1];
-        return parts ? parts.substring(0, 11) : null;
-      }
-      if (s.includes('v=')) {
-        const parts = s.split('v=')[1];
-        return parts ? parts.substring(0, 11) : null;
-      }
-      if (s.includes('/shorts/')) {
-        const parts = s.split('/shorts/')[1];
-        return parts ? parts.substring(0, 11) : null;
-      }
-      if (s.includes('/embed/')) {
-        const parts = s.split('/embed/')[1];
-        return parts ? parts.substring(0, 11) : null;
-      }
-      return null;
+      var regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+      var match = url.match(regExp);
+      return match ? match[1] : null;
     }
 
     async function translateDynamicText(text, targetLang) {
       if (!text || targetLang === 'ko') return text;
-      const cacheKey = targetLang + '_' + text;
+      var cacheKey = targetLang + "_" + text;
       if (translationCache[cacheKey]) return translationCache[cacheKey];
 
       try {
-        const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=' + targetLang + '&dt=t&q=' + encodeURIComponent(text);
-        const res = await fetch(url);
-        const data = await res.json();
-        const translated = data[0].map(function(item) { return item[0]; }).join('');
+        var url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=" + targetLang + "&dt=t&q=" + encodeURIComponent(text);
+        var res = await fetch(url);
+        var data = await res.json();
+        var translated = data[0].map(function(item) { return item[0]; }).join('');
         translationCache[cacheKey] = translated;
         return translated;
       } catch (e) {
@@ -1463,20 +1414,14 @@
       }
     }
 
-    function setElText(id, text) {
-      const el = document.getElementById(id);
-      if (el) el.innerText = text;
-    }
-
     function setLang(lang) {
       currentLang = lang;
-      safeSetLangStorage(lang);
+      try { localStorage.setItem('wiseplay_lang', lang); } catch (e) {}
       document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.id === ('btn-lang-' + lang));
+        btn.classList.toggle('active', btn.id === 'btn-lang-' + lang);
       });
       applyI18n();
       handleSearch();
-      updateVideoShowcase();
       renderPadRanking();
 
       if (isDetailView) {
@@ -1486,76 +1431,79 @@
     }
 
     function applyI18n() {
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      try {
+        var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      const ct = document.querySelector('.t-contact-text');
-      if (ct) ct.innerText = t.contactText;
+        var ct = document.querySelector('.t-contact-text');
+        if (ct) ct.innerText = t.contactText;
 
-      setElText('tabNavTactics', t.navTactics);
-      setElText('tabNavPads', t.navController);
-      setElText('tabNavMeta', t.navMeta);
-      setElText('t-sec-main-tactics', t.secTitleTactics);
-      setElText('t-sec-sub-tactics', t.secSubTactics);
-      setElText('t-sec-main-pads', t.secTitlePads);
-      setElText('t-sec-sub-pads', t.secSubPads);
+        document.getElementById('tabNavTactics').innerText = t.navTactics;
+        document.getElementById('tabNavPads').innerText = t.navController;
+        document.getElementById('tabNavMeta').innerText = t.navMeta;
+        document.getElementById('t-sec-title-tactics').childNodes[0].nodeValue = t.secTitleTactics + " ";
+        document.getElementById('t-sec-sub-tactics').innerText = t.secSubTactics;
+        document.getElementById('t-sec-title-pads').childNodes[0].nodeValue = t.secTitlePads + " ";
+        document.getElementById('t-sec-sub-pads').innerText = t.secSubPads;
 
-      setElText('sort-t-all', t.sortAll);
-      setElText('sort-t-wise', t.sortWise);
-      setElText('sort-t-user', t.sortUser);
-      setElText('sort-t-hot', t.sortHot);
+        document.getElementById('sort-t-all').innerText = t.sortAll;
+        document.getElementById('sort-t-wise').innerText = t.sortWise;
+        document.getElementById('sort-t-user').innerText = t.sortUser;
+        document.getElementById('sort-t-hot').innerText = t.sortHot;
 
-      setElText('sort-p-all', t.sortAll);
-      setElText('sort-p-wise', t.sortWise);
-      setElText('sort-p-user', t.sortUser);
-      setElText('sort-p-hot', t.sortPadHot);
+        document.getElementById('sort-p-all').innerText = t.sortAll;
+        document.getElementById('sort-p-wise').innerText = t.sortWise;
+        document.getElementById('sort-p-user').innerText = t.sortUser;
+        document.getElementById('sort-p-hot').innerText = t.sortPadHot;
 
-      const tSortLabels = { all: t.sortAll, wise: t.sortWise, user: t.sortUser, hot: t.sortHot };
-      const pSortLabels = { all: t.sortAll, wise: t.sortWise, user: t.sortUser, hot: t.sortPadHot };
-      setElText('tacticsSortBadge', tSortLabels[currentTacticsSort] || t.sortAll);
-      setElText('padsSortBadge', pSortLabels[currentPadsSort] || t.sortAll);
+        var prt = document.getElementById('t-pad-ranking-title');
+        if (prt) prt.innerText = t.padRankingTitle;
 
-      setElText('t-pad-ranking-title', t.padRankingTitle);
-      setElText('mainVideoSubLink', t.detailLinkTactics);
+        document.querySelectorAll('.t-back-btn').forEach(function(el) { el.innerText = t.backBtn; });
+        var tab1 = document.querySelector('.t-img-tab1'); if (tab1) tab1.innerText = t.imgTab1;
+        var tab2 = document.querySelector('.t-img-tab2'); if (tab2) tab2.innerText = t.imgTab2;
+        var tab3 = document.querySelector('.t-img-tab3'); if (tab3) tab3.innerText = t.imgTab3;
+        var zh = document.getElementById('t-zoom-hint'); if (zh) zh.innerText = t.zoomHint;
+        var dt = document.getElementById('t-desc-title'); if (dt) dt.innerText = t.descTitle;
+        var ppt = document.getElementById('t-player-pad-title'); if (ppt) ppt.innerText = t.playerPadTitle;
+        var vsh = document.getElementById('t-view-spec-hint'); if (vsh) vsh.innerText = t.viewSpecHint;
+        var rst = document.getElementById('t-review-sec-title'); if (rst) rst.innerText = t.reviewSecTitle;
+        var rst2 = document.getElementById('t-review-sec-title2'); if (rst2) rst2.innerText = t.reviewSecTitle;
+        var sb1 = document.getElementById('t-review-submit-btn1'); if (sb1) sb1.innerText = t.submitBtn;
+        var sb2 = document.getElementById('t-review-submit-btn2'); if (sb2) sb2.innerText = t.submitBtn;
 
-      document.querySelectorAll('.t-back-btn').forEach(function(el) { el.innerText = t.backBtn; });
-      const tab1 = document.querySelector('.t-img-tab1'); if (tab1) tab1.innerText = t.imgTab1;
-      const tab2 = document.querySelector('.t-img-tab2'); if (tab2) tab2.innerText = t.imgTab2;
-      const tab3 = document.querySelector('.t-img-tab3'); if (tab3) tab3.innerText = t.imgTab3;
+        var ytt = document.getElementById('viewYtLink');
+        if (ytt) ytt.innerText = t.ytBtnTactics;
 
-      setElText('t-zoom-hint', t.zoomHint);
-      setElText('t-desc-title', t.descTitle);
-      setElText('t-player-pad-title', t.playerPadTitle);
-      setElText('t-view-spec-hint', t.viewSpecHint);
-      setElText('t-review-sec-title', t.reviewSecTitle);
-      setElText('t-review-sec-title2', t.reviewSecTitle);
-      setElText('t-review-submit-btn1', t.submitBtn);
-      setElText('t-review-submit-btn2', t.submitBtn);
-      setElText('viewYtLink', t.ytBtnTactics);
-      setElText('t-dash-sub1', t.dashSub1);
-      setElText('t-pad-intro-title', t.padIntroTitle);
-      setElText('t-pad-users-title', t.padUsersTitle);
-      setElText('t-bench-table-title', t.benchTitle);
+        var ds1 = document.getElementById('t-dash-sub1'); if (ds1) ds1.innerText = t.dashSub1;
+        var pit = document.getElementById('t-pad-intro-title'); if (pit) pit.innerText = t.padIntroTitle;
+        var put = document.getElementById('t-pad-users-title'); if (put) put.innerText = t.padUsersTitle;
+        var bt = document.getElementById('t-bench-table-title'); if (bt) bt.innerText = t.benchTitle;
 
-      setElText('th-mode', t.thMode);
-      setElText('th-poll', t.thPoll);
-      setElText('th-slat', t.thSlat);
-      setElText('th-blat', t.thBlat);
-      setElText('tb-wired', t.tbWired);
-      setElText('tb-dongle', t.tbDongle);
-      setElText('tb-bt', t.tbBt);
-      setElText('t-pros-cons-title', t.prosConsTitle);
-      setElText('t-pros-label', t.prosLabel);
-      setElText('t-cons-label', t.consLabel);
+        document.getElementById('th-mode').innerText = t.thMode;
+        document.getElementById('th-poll').innerText = t.thPoll;
+        document.getElementById('th-slat').innerText = t.thSlat;
+        document.getElementById('th-blat').innerText = t.thBlat;
+        document.getElementById('tb-wired').innerText = t.tbWired;
+        document.getElementById('tb-dongle').innerText = t.tbDongle;
+        document.getElementById('tb-bt').innerText = t.tbBt;
+        document.getElementById('t-pros-cons-title').innerText = t.prosConsTitle;
+        document.getElementById('t-pros-label').innerText = t.prosLabel;
+        document.getElementById('t-cons-label').innerText = t.consLabel;
 
-      const searchInput = document.getElementById('searchInput');
-      if (searchInput) {
-        searchInput.placeholder = currentTab === 'tactics' ? t.searchPlaceholderTactics : t.searchPlaceholderPads;
+        var searchInput = document.getElementById('searchInput');
+        if (currentTab === 'tactics') {
+          searchInput.placeholder = t.searchPlaceholderTactics;
+        } else {
+          searchInput.placeholder = t.searchPlaceholderPads;
+        }
+      } catch (err) {
+        console.warn("applyI18n warning:", err);
       }
     }
 
     function changeSort(tabName, mode) {
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      const labels = {
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var labels = {
         all: t.sortAll,
         wise: t.sortWise,
         user: t.sortUser,
@@ -1563,11 +1511,11 @@
       };
       if (tabName === 'tactics') {
         currentTacticsSort = mode;
-        setElText('tacticsSortBadge', labels[mode]);
+        document.getElementById('tacticsSortBadge').innerText = labels[mode];
         switchTab('tactics', true);
       } else {
         currentPadsSort = mode;
-        setElText('padsSortBadge', labels[mode]);
+        document.getElementById('padsSortBadge').innerText = labels[mode];
         switchTab('pads', true);
       }
     }
@@ -1583,10 +1531,10 @@
 
       document.title = "WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee";
 
-      const tabNavTactics = document.getElementById('tabNavTactics');
-      const tabNavPads = document.getElementById('tabNavPads');
-      const rankSec = document.getElementById('section-pad-ranking');
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var tabNavTactics = document.getElementById('tabNavTactics');
+      var tabNavPads = document.getElementById('tabNavPads');
+      var rankSec = document.getElementById('section-pad-ranking');
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
       if (tab === 'tactics') {
         tabNavTactics.classList.add('active');
@@ -1595,9 +1543,7 @@
         document.getElementById('section-pads').style.display = 'none';
         if (rankSec) rankSec.style.display = 'none';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
-        handleSearch();
-        updateVideoShowcase();
-        if (pushState) safePushState({ tab: 'tactics', detail: null }, '#tactics');
+        if (pushState) safePushState({ tab: 'tactics', detail: null }, '/#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
         tabNavTactics.classList.remove('active');
@@ -1605,11 +1551,11 @@
         document.getElementById('section-pads').style.display = 'block';
         if (rankSec) rankSec.style.display = 'block';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
-        handleSearch();
-        updateVideoShowcase();
         renderPadRanking();
-        if (pushState) safePushState({ tab: 'pads', detail: null }, '#controller');
+        if (pushState) safePushState({ tab: 'pads', detail: null }, '/#controller');
       }
+      handleSearch();
+      updateVideoShowcase();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1618,21 +1564,21 @@
     }
 
     function handleBrandClick(e) {
-      if (e) e.preventDefault();
+      e.preventDefault();
       switchTab('tactics', true);
     }
 
-    /* 구글 시트 셀 내부 줄바꿈(Alt+Enter)을 완벽하게 지원하는 파서 */
+    /* 셀 내부 줄바꿈(Alt+Enter) 완벽 지원 CSV 파서 */
     function parseCSV(text) {
       if (!text || !text.trim()) return [];
-      const rows = [];
-      let currentRow = [];
-      let currentField = '';
-      let inQuotes = false;
+      var rows = [];
+      var currentRow = [];
+      var currentField = '';
+      var inQuotes = false;
 
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        const nextChar = text[i + 1];
+      for (var i = 0; i < text.length; i++) {
+        var char = text[i];
+        var nextChar = text[i + 1];
 
         if (char === '"') {
           if (inQuotes && nextChar === '"') {
@@ -1667,16 +1613,16 @@
       }
 
       if (rows.length <= 1) return [];
-      const headers = rows[0].map(function(h) {
-        return h.replace(/^["']|["']$/g, '').trim();
+      var headers = rows[0].map(function(h) {
+        return h.replace(/^\uFEFF/, '').replace(/^["']|["']$/g, '').trim();
       });
-      const data = [];
+      var data = [];
 
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        const obj = {};
+      for (var r = 1; r < rows.length; r++) {
+        var row = rows[r];
+        var obj = {};
         headers.forEach(function(h, idx) {
-          let val = row[idx] || '';
+          var val = row[idx] || '';
           obj[h] = val.replace(/^["']|["']$/g, '').trim();
         });
         if (obj.playerName || obj.padName) {
@@ -1686,22 +1632,23 @@
       return data;
     }
 
-    /* 구글 시트 데이터를 받는 즉시 화면부터 바로 그리고, 리뷰 평점은 비동기로 갱신 */
     async function loadTactics() {
-      const urls = [
-        'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Tactics',
-        'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=tactics'
+      var urls = [
+        "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Tactics",
+        "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=tactics"
       ];
-      for (let i = 0; i < urls.length; i++) {
+      for (var i = 0; i < urls.length; i++) {
         try {
-          const res = await fetch(urls[i]);
+          var res = await fetch(urls[i]);
           if (res.ok) {
-            const text = await res.text();
+            var text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allTactics = parseCSV(text);
+              /* 시트 데이터를 받자마자 즉시 먼저 화면에 렌더링 */
               renderTactics(allTactics);
               updateVideoShowcase();
               checkInitialUrl();
+              /* 리뷰 통계는 비동기로 가져와 업데이트 */
               loadAllReviewStats().then(function() {
                 renderTactics(allTactics);
               });
@@ -1716,21 +1663,23 @@
     }
 
     async function loadPads() {
-      const urls = [
-        'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Pads',
-        'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=pads'
+      var urls = [
+        "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=Pads",
+        "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=out:csv&sheet=pads"
       ];
-      for (let i = 0; i < urls.length; i++) {
+      for (var i = 0; i < urls.length; i++) {
         try {
-          const res = await fetch(urls[i]);
+          var res = await fetch(urls[i]);
           if (res.ok) {
-            const text = await res.text();
+            var text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allPads = parseCSV(text);
+              /* 시트 데이터를 받자마자 즉시 먼저 화면에 렌더링 */
               renderPads(allPads);
               renderPadRanking();
               updateVideoShowcase();
               checkInitialUrl();
+              /* 리뷰 통계는 비동기로 가져와 업데이트 */
               loadAllReviewStats().then(function() {
                 renderPads(allPads);
                 renderPadRanking();
@@ -1747,20 +1696,20 @@
 
     async function loadAllReviewStats() {
       try {
-        const url = SUPABASE_URL + '/rest/v1/reviews?select=category,item_id,score';
-        const res = await fetch(url, {
+        var url = SUPABASE_URL + "/rest/v1/reviews?select=category,item_id,score";
+        var res = await fetch(url, {
           headers: {
             'apikey': SUPABASE_KEY,
             'Authorization': 'Bearer ' + SUPABASE_KEY
           }
         });
-        const rows = await res.json();
+        var rows = await res.json();
         if (Array.isArray(rows)) {
-          const pGroups = {};
-          const tGroups = {};
+          var pGroups = {};
+          var tGroups = {};
           rows.forEach(function(r) {
-            const key = (r.item_id || '').toLowerCase().trim();
-            const cat = (r.category || '').toLowerCase().trim();
+            var key = (r.item_id || '').toLowerCase().trim();
+            var cat = (r.category || '').toLowerCase().trim();
             if (cat === 'pad') {
               if (!pGroups[key]) pGroups[key] = [];
               pGroups[key].push(Number(r.score));
@@ -1770,16 +1719,16 @@
             }
           });
           Object.keys(pGroups).forEach(function(k) {
-            const scores = pGroups[k];
-            const sum = scores.reduce(function(a, b) { return a + b; }, 0);
+            var scores = pGroups[k];
+            var sum = scores.reduce(function(a, b) { return a + b; }, 0);
             globalPadStats[k] = {
               avg: (sum / scores.length).toFixed(1),
               count: scores.length
             };
           });
           Object.keys(tGroups).forEach(function(k) {
-            const scores = tGroups[k];
-            const sum = scores.reduce(function(a, b) { return a + b; }, 0);
+            var scores = tGroups[k];
+            var sum = scores.reduce(function(a, b) { return a + b; }, 0);
             globalTacticStats[k] = {
               avg: (sum / scores.length).toFixed(1),
               count: scores.length
@@ -1787,52 +1736,51 @@
           });
         }
       } catch (e) {
-        console.warn("Review stats fetch skipped:", e);
+        console.warn("Failed to load review stats:", e);
       }
     }
 
     function renderTactics(list) {
-      const container = document.getElementById('tactics-list');
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var container = document.getElementById('tactics-list');
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       if (!list || list.length === 0) return;
 
-      let sorted = list.slice();
+      var sorted = list.slice();
       if (currentTacticsSort === 'wise') {
         sorted.sort(function(a, b) { return (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0); });
       } else if (currentTacticsSort === 'user') {
         sorted.sort(function(a, b) {
-          const ka = (a.playerName || '').toLowerCase().trim();
-          const kb = (b.playerName || '').toLowerCase().trim();
-          const avgA = globalTacticStats[ka] ? Number(globalTacticStats[ka].avg) : 0;
-          const avgB = globalTacticStats[kb] ? Number(globalTacticStats[kb].avg) : 0;
+          var ka = (a.playerName || '').toLowerCase().trim();
+          var kb = (b.playerName || '').toLowerCase().trim();
+          var avgA = globalTacticStats[ka] ? Number(globalTacticStats[ka].avg) : 0;
+          var avgB = globalTacticStats[kb] ? Number(globalTacticStats[kb].avg) : 0;
           return avgB - avgA;
         });
       } else if (currentTacticsSort === 'hot') {
         sorted.sort(function(a, b) {
-          const ka = (a.playerName || '').toLowerCase().trim();
-          const kb = (b.playerName || '').toLowerCase().trim();
-          const cntA = globalTacticStats[ka] ? globalTacticStats[ka].count : 0;
-          const cntB = globalTacticStats[kb] ? globalTacticStats[kb].count : 0;
+          var ka = (a.playerName || '').toLowerCase().trim();
+          var kb = (b.playerName || '').toLowerCase().trim();
+          var cntA = globalTacticStats[ka] ? globalTacticStats[ka].count : 0;
+          var cntB = globalTacticStats[kb] ? globalTacticStats[kb].count : 0;
           return cntB - cntA;
         });
       }
 
       container.innerHTML = sorted.map(function(item) {
-        const origIdx = allTactics.indexOf(item);
-        const slug = cleanSlug(item.slug, item.playerName);
-        const pageUrl = '#tactic-' + slug;
-        const key = (item.playerName || '').toLowerCase().trim();
-        const uStats = globalTacticStats[key] || { avg: '-', count: 0 };
-        const wScore = item.wiseScore || '85';
-        const tier = getScoreTier(wScore);
-        const hintText = t.secSubTactics.replace('(', '').replace(')', '');
+        var origIdx = allTactics.indexOf(item);
+        var slug = cleanSlug(item.slug, item.playerName);
+        var pageUrl = '/tactics/' + slug + '/';
+        var key = (item.playerName || '').toLowerCase().trim();
+        var uStats = globalTacticStats[key] || { avg: '-', count: 0 };
+        var wScore = item.wiseScore || '85';
+        var tier = getScoreTier(wScore);
 
         return `
           <a href="${pageUrl}" class="card" onclick="openTacticsDetailEvent(event, ${origIdx}, '${pageUrl}')">
             <div class="mc-top-cap ${tier.cls}">
               <div class="card-img-wrapper">
                 <img src="${item.imgFormation || '/logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='/logo.png'">
-                <div class="card-hover-hint">${hintText}</div>
+                <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
               </div>
             </div>
             <div class="card-body">
@@ -1847,7 +1795,7 @@
                 <div class="mc-score-text">
                   <span class="mc-score-label">WISE SCORE</span>
                   <span class="mc-score-verdict">${tier.verdict}</span>
-                  <span class="mc-score-sub">${uStats.count > 0 ? `${t.userReviewUnit}${uStats.avg} (${uStats.count}${t.reviewCountUnit})` : (item.versionName || '-')}</span>
+                  <span class="mc-score-sub">${uStats.count > 0 ? '★ ' + uStats.avg + ' (' + uStats.count + '개 후기)' : (item.versionName || '-')}</span>
                 </div>
                 <div class="mc-score-box ${tier.cls}">${wScore}</div>
               </div>
@@ -1864,50 +1812,49 @@
     }
 
     function renderPads(list) {
-      const container = document.getElementById('pads-list');
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var container = document.getElementById('pads-list');
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       if (!list || list.length === 0) return;
 
-      let sorted = list.slice();
+      var sorted = list.slice();
       if (currentPadsSort === 'wise') {
         sorted.sort(function(a, b) { return (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0); });
       } else if (currentPadsSort === 'user') {
         sorted.sort(function(a, b) {
-          const ka = (a.padName || '').toLowerCase().trim();
-          const kb = (b.padName || '').toLowerCase().trim();
-          const avgA = globalPadStats[ka] ? Number(globalPadStats[ka].avg) : 0;
-          const avgB = globalPadStats[kb] ? Number(globalPadStats[kb].avg) : 0;
+          var ka = (a.padName || '').toLowerCase().trim();
+          var kb = (b.padName || '').toLowerCase().trim();
+          var avgA = globalPadStats[ka] ? Number(globalPadStats[ka].avg) : 0;
+          var avgB = globalPadStats[kb] ? Number(globalPadStats[kb].avg) : 0;
           return avgB - avgA;
         });
       } else if (currentPadsSort === 'hot') {
         sorted.sort(function(a, b) {
-          const ka = (a.padName || '').toLowerCase().trim();
-          const kb = (b.padName || '').toLowerCase().trim();
-          const cntA = globalPadStats[ka] ? globalPadStats[ka].count : 0;
-          const cntB = globalPadStats[kb] ? globalPadStats[kb].count : 0;
+          var ka = (a.padName || '').toLowerCase().trim();
+          var kb = (b.padName || '').toLowerCase().trim();
+          var cntA = globalPadStats[ka] ? globalPadStats[ka].count : 0;
+          var cntB = globalPadStats[kb] ? globalPadStats[kb].count : 0;
           return cntB - cntA;
         });
       }
 
       container.innerHTML = sorted.map(function(pad) {
-        const origIdx = allPads.indexOf(pad);
-        const ljScore = pad.metaScore || '80';
-        const tier = getScoreTier(ljScore);
-        const padKey = (pad.padName || '').toLowerCase().trim();
-        const userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
-        const slug = cleanSlug(pad.slug, pad.padName);
-        const pageUrl = '#pad-' + slug;
-        const hintText = t.secSubPads.replace('(', '').replace(')', '');
+        var origIdx = allPads.indexOf(pad);
+        var ljScore = pad.metaScore || '80';
+        var tier = getScoreTier(ljScore);
+        var padKey = (pad.padName || '').toLowerCase().trim();
+        var userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
+        var slug = cleanSlug(pad.slug, pad.padName);
+        var pageUrl = '/controllers/' + slug + '/';
 
-        const ytId = extractYoutubeId(pad.ytUrl);
-        const cardThumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
+        var ytId = extractYoutubeId(pad.ytUrl);
+        var cardThumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
 
         return `
           <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${origIdx}, '${pageUrl}')">
             <div class="mc-top-cap ${tier.cls}">
               <div class="card-img-wrapper">
                 <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='/logo.png'">
-                <div class="card-hover-hint">${hintText}</div>
+                <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
               </div>
             </div>
             <div class="card-body">
@@ -1921,7 +1868,7 @@
                 <div class="mc-score-text">
                   <span class="mc-score-label">WISE META SCORE</span>
                   <span class="mc-score-verdict">${tier.verdict}</span>
-                  <span class="mc-score-sub">${t.userReviewUnit} ${userStats.avg} (${userStats.count} ${t.reviewCountUnit})</span>
+                  <span class="mc-score-sub">유저 ★ ${userStats.avg} (${userStats.count}개 리뷰)</span>
                 </div>
                 <div class="mc-score-box ${tier.cls}">${ljScore}</div>
               </div>
@@ -1938,24 +1885,25 @@
     }
 
     function renderPadRanking() {
-      const container = document.getElementById('pad-ranking-list');
+      var container = document.getElementById('pad-ranking-list');
       if (!container || !allPads || allPads.length === 0) return;
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      const ranked = allPads.slice().sort(function(a, b) {
+      var ranked = allPads.slice().sort(function(a, b) {
         return (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0);
       });
 
       container.innerHTML = ranked.map(function(pad, idx) {
-        const origIdx = allPads.indexOf(pad);
-        const rank = idx + 1;
-        const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
-        const score = pad.metaScore || '80';
-        const tier = getScoreTier(score);
-        const padKey = (pad.padName || '').toLowerCase().trim();
-        const userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
-        const ytId = extractYoutubeId(pad.ytUrl);
-        const thumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
+        var origIdx = allPads.indexOf(pad);
+        var rank = idx + 1;
+        var rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+        var score = pad.metaScore || '80';
+        var tier = getScoreTier(score);
+        var padKey = (pad.padName || '').toLowerCase().trim();
+        var userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
+        var ytId = extractYoutubeId(pad.ytUrl);
+        var thumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
+        var wiredInfo = pad.wPoll ? '<span>⚡ Wired: ' + pad.wPoll + 'Hz (' + (pad.wStickLat || '-') + 'ms)</span>' : '';
 
         return `
           <div class="ranking-item" onclick="openPadDetail(${origIdx})">
@@ -1968,8 +1916,8 @@
                 <div class="rank-title">${pad.padName || '-'}</div>
                 <div class="rank-specs">
                   <span>🎮 ${t.stickMechLabel}: <b style="color:#fff;">${pad.stickMech || '-'}</b></span>
-                  ${pad.wPoll ? `<span>⚡ Wired: ${pad.wPoll}Hz (${pad.wStickLat || '-'}ms)</span>` : ''}
-                  <span>${t.userReviewUnit} ${userStats.avg} (${userStats.count})</span>
+                  ${wiredInfo}
+                  <span>★ ${userStats.avg} (${userStats.count})</span>
                 </div>
               </div>
             </div>
@@ -1986,44 +1934,43 @@
     }
 
     function updateVideoShowcase() {
-      const collected = [];
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      const titleEl = document.getElementById('t-video-sec-title');
+      var collected = [];
+      var titleEl = document.getElementById('t-video-sec-title');
 
       if (currentTab === 'pads') {
-        if (titleEl) titleEl.innerText = t.videoTitlePads;
+        if (titleEl) titleEl.innerText = '🎬 최신 패드 벤치마크 영상';
         allPads.forEach(function(p, idx) {
-          const yid = extractYoutubeId(p.ytUrl);
+          var yid = extractYoutubeId(p.ytUrl);
           if (yid) {
             collected.push({
               type: 'pad',
               index: idx,
               ytId: yid,
-              title: p.padName || 'Controller',
-              tag: 'CONTROLLER · ' + (p.stickMech || 'BENCHMARK'),
+              title: p.padName + ' 정밀 벤치마크 및 실측 리뷰',
+              tag: 'CONTROLLER · ' + (p.stickMech || ''),
               score: p.metaScore || '90'
             });
           }
         });
       } else {
-        if (titleEl) titleEl.innerText = t.videoTitleTactics;
-        allTactics.forEach(function(item, idx) {
-          const yid = extractYoutubeId(item.ytUrl);
+        if (titleEl) titleEl.innerText = '🎬 최신 전술 분석 영상';
+        allTactics.forEach(function(t, idx) {
+          var yid = extractYoutubeId(t.ytUrl);
           if (yid) {
             collected.push({
               type: 'tactic',
               index: idx,
               ytId: yid,
-              title: (item.playerName || 'Player') + ' (' + (item.formation || '') + ')',
-              tag: 'TACTICS · ' + (item.versionName || 'WISEPLAY'),
-              score: item.wiseScore || '85'
+              title: t.playerName + ' (' + t.formation + ') 실전 전술 분석',
+              tag: 'TACTICS · ' + (t.versionName || '즐인권 해설'),
+              score: t.wiseScore || '85'
             });
           }
         });
       }
 
       videoItems = collected;
-      const secEl = document.getElementById('section-latest-videos');
+      var secEl = document.getElementById('section-latest-videos');
       if (videoItems.length === 0) {
         secEl.style.display = 'none';
         return;
@@ -2035,20 +1982,19 @@
     function selectShowcaseVideo(idx, autoplay) {
       if (autoplay === undefined) autoplay = false;
       currentVideoIdx = idx;
-      const v = videoItems[idx];
+      var v = videoItems[idx];
       if (!v) return;
-      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      const frame = document.getElementById('mainVideoFrame');
-      const autoParam = autoplay ? '?autoplay=1' : '';
+      var frame = document.getElementById('mainVideoFrame');
+      var autoParam = autoplay ? '?autoplay=1' : '';
       frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + v.ytId + autoParam + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 
       document.getElementById('mainVideoTitle').innerText = v.title;
       document.getElementById('mainVideoTag').innerText = v.tag;
 
-      const tier = getScoreTier(v.score);
+      var tier = getScoreTier(v.score);
       document.getElementById('mainVideoVerdict').innerText = tier.verdict;
-      const scoreEl = document.getElementById('mainVideoScore');
+      var scoreEl = document.getElementById('mainVideoScore');
       scoreEl.innerText = v.score;
       scoreEl.className = 'mc-score-box ' + tier.cls;
 
@@ -2057,7 +2003,7 @@
         else openTacticsDetail(v.index);
       };
 
-      const listEl = document.getElementById('videoPlaylistContainer');
+      var listEl = document.getElementById('videoPlaylistContainer');
       listEl.innerHTML = videoItems.map(function(item, i) {
         return `
           <div class="v-playlist-item ${i === idx ? 'active' : ''}" onclick="selectShowcaseVideo(${i}, true)">
@@ -2066,7 +2012,7 @@
               <div class="v-play-mini-icon">▶</div>
             </div>
             <div class="v-playlist-info">
-              <span class="v-now-playing-tag">${t.nowPlaying}</span>
+              <span class="v-now-playing-tag">현재 재생 중</span>
               <div class="v-playlist-title">${item.title}</div>
               <div class="v-playlist-sub">${item.tag}</div>
             </div>
@@ -2076,10 +2022,9 @@
     }
 
     function handleSearch() {
-      const searchEl = document.getElementById('searchInput');
-      const query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+      var query = document.getElementById('searchInput').value.toLowerCase().trim();
       if (currentTab === 'tactics') {
-        const filtered = allTactics.filter(function(item) {
+        var filtered = allTactics.filter(function(item) {
           return (
             (item.playerName && item.playerName.toLowerCase().includes(query)) ||
             (item.formation && item.formation.toLowerCase().includes(query)) ||
@@ -2090,8 +2035,8 @@
         });
         renderTactics(filtered);
       } else {
-        const filtered = allPads.filter(function(pad) {
-          const introText = pad.padIntro || pad.intro || pad['패드소개'] || pad['소개글'] || '';
+        var filteredPads = allPads.filter(function(pad) {
+          var introText = pad.padIntro || pad.intro || pad['패드소개'] || pad['소개글'] || '';
           return (
             (pad.padName && pad.padName.toLowerCase().includes(query)) ||
             (pad.stickMech && pad.stickMech.toLowerCase().includes(query)) ||
@@ -2100,7 +2045,7 @@
             (pad.cons && pad.cons.toLowerCase().includes(query))
           );
         });
-        renderPads(filtered);
+        renderPads(filteredPads);
       }
     }
 
@@ -2113,4 +2058,504 @@
 
     function openTacticsDetail(index, targetUrl, pushState) {
       if (pushState === undefined) pushState = true;
-      currentSelectedTactics = allT
+      currentSelectedTactics = allTactics[index];
+      if (!currentSelectedTactics) return;
+
+      var t = currentSelectedTactics;
+      document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
+      document.getElementById('viewPlayerName').innerText = t.playerName || 'Player';
+      document.getElementById('viewSubInfo').innerText = (t.country || 'GLOBAL') + ' | ' + (t.versionName || '-');
+
+      document.title = (t.playerName || 'Player') + ' ' + (t.formation || '') + ' 전술 분석 | FC온라인 프로 전술 - WISEPLAY';
+
+      updateTacticsDetailLang();
+
+      if (t.padName && t.padName !== '-') {
+        document.getElementById('viewPadSection').style.display = 'block';
+        document.getElementById('viewPadNameText').innerText = t.padName;
+        document.getElementById('viewPadNameBadge').dataset.pad = t.padName;
+      } else {
+        document.getElementById('viewPadSection').style.display = 'none';
+      }
+
+      var ytBtn = document.getElementById('viewYtLink');
+      if (t.ytUrl && t.ytUrl !== '-') {
+        document.getElementById('viewYtSection').style.display = 'block';
+        ytBtn.href = t.ytUrl;
+      } else {
+        document.getElementById('viewYtSection').style.display = 'none';
+      }
+
+      var i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+      ytBtn.innerText = i18nTexts.ytBtnTactics;
+
+      showTacticsTabImg('formation');
+      fetchSupabaseReviews('tactics', t.playerName || 'default_tactic');
+
+      document.getElementById('section-tactics').style.display = 'none';
+      document.getElementById('section-pads').style.display = 'none';
+      document.getElementById('section-latest-videos').style.display = 'none';
+      document.getElementById('section-pad-ranking').style.display = 'none';
+      document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-tactics').style.display = 'block';
+      isDetailView = true;
+
+      var slug = cleanSlug(t.slug, t.playerName);
+      var finalUrl = targetUrl || ('/tactics/' + slug + '/');
+      if (pushState) safePushState({ tab: 'tactics', detail: 'tactic', index: index, url: finalUrl }, finalUrl);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function updateTacticsDetailLang() {
+      if (!currentSelectedTactics) return;
+      var rawText = currentSelectedTactics.reviewText || '-';
+      document.getElementById('viewReviewText').innerText = await translateDynamicText(rawText, currentLang);
+    }
+
+    function openPadDetailEvent(event, index, targetUrl) {
+      if (event && !event.ctrlKey && !event.metaKey) {
+        event.preventDefault();
+        openPadDetail(index, targetUrl, true);
+      }
+    }
+
+    function setTierValue(elementId, val) {
+      var el = document.getElementById(elementId);
+      if (!el) return;
+      var v = (val || '-').trim().toUpperCase();
+      el.innerText = v;
+      el.className = 'tier-value';
+      if (v === 'S') el.classList.add('tier-s');
+      else if (v === 'A') el.classList.add('tier-a');
+      else if (v === 'B') el.classList.add('tier-b');
+      else if (v === 'C') el.classList.add('tier-c');
+      else if (v === 'F') el.classList.add('tier-f');
+      else el.classList.add('tier-none');
+    }
+
+    function openPadDetail(index, targetUrl, pushState) {
+      if (pushState === undefined) pushState = true;
+      currentSelectedPad = allPads[index];
+      if (!currentSelectedPad) return;
+      var p = currentSelectedPad;
+
+      document.getElementById('viewPadName').innerText = p.padName || 'Gamepad';
+      document.getElementById('viewPadSub').innerText = '스틱 방식: ' + (p.stickMech || '-') + ' | 키매핑: ' + (p.keyMap || '-') + ' | 매크로: ' + (p.macro || '-');
+      document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
+
+      var ytWrapEl = document.getElementById('viewPadYtWrap');
+      var padImgEl = document.getElementById('viewPadImg');
+      var playBtnEl = document.getElementById('viewPadPlayBtn');
+      var photoBadgeEl = document.getElementById('viewPadPhotoBadge');
+      var ytId = extractYoutubeId(p.ytUrl);
+
+      if (ytId) {
+        ytWrapEl.classList.remove('no-video');
+        playBtnEl.style.display = 'flex';
+        photoBadgeEl.style.display = 'none';
+        padImgEl.src = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+        padImgEl.onerror = function() {
+          if (this.src.includes('maxresdefault.jpg')) {
+            this.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
+          } else {
+            this.src = p.imgUrl || '/logo.png';
+          }
+        };
+      } else if (p.ytUrl && p.ytUrl.trim() !== '' && p.ytUrl.trim() !== '-') {
+        ytWrapEl.classList.remove('no-video');
+        playBtnEl.style.display = 'flex';
+        photoBadgeEl.style.display = 'none';
+        padImgEl.src = p.imgUrl || '/logo.png';
+        padImgEl.onerror = function() { this.src = '/logo.png'; };
+      } else {
+        ytWrapEl.classList.add('no-video');
+        playBtnEl.style.display = 'none';
+        photoBadgeEl.style.display = p.imgUrl ? 'block' : 'none';
+        padImgEl.src = p.imgUrl || '/logo.png';
+        padImgEl.onerror = function() { this.src = '/logo.png'; };
+      }
+
+      document.title = (p.padName || 'Gamepad') + ' 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY';
+
+      setTierValue('tStick', p.gradeStick);
+      setTierValue('tBtn', p.gradeBtn);
+      setTierValue('tDpad', p.gradeDpad);
+      setTierValue('tBumper', p.gradeBumper);
+      setTierValue('tTrigger', p.gradeTrigger);
+      setTierValue('tBack', p.gradeBack);
+
+      setTierValue('tDurable', p.gradeDurable);
+      setTierValue('tGrip', p.gradeGrip);
+      setTierValue('tGyro', p.gradeGyro);
+      setTierValue('tVibe', p.gradeVibe);
+      setTierValue('tInputlag', p.gradeInputlag);
+      setTierValue('tPrice', p.gradePrice);
+
+      document.getElementById('sStick').innerText = p.specStick || p.stickMech || '-';
+      document.getElementById('sBtn').innerText = p.specBtn || '-';
+      document.getElementById('sTrigger').innerText = p.specTrigger || '-';
+      document.getElementById('sDpad').innerText = p.specDpad || '-';
+      document.getElementById('sBumper').innerText = p.specBumper || '-';
+      document.getElementById('sBack').innerText = p.specBack || '-';
+
+      document.getElementById('sGripVibe').innerText = p.specGripVibe || '-';
+      document.getElementById('sTriggerVibe').innerText = p.specTriggerVibe || '-';
+      document.getElementById('sExtraBumper').innerText = p.specExtraBumper || '-';
+      document.getElementById('sBackCount').innerText = p.specBackCount || '-';
+      document.getElementById('sAudio').innerText = p.specAudio || '-';
+      document.getElementById('sTension').innerText = p.specTension || '-';
+
+      document.getElementById('sApp').innerText = p.specApp || '-';
+      document.getElementById('sDock').innerText = p.specDock || '-';
+      document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
+      document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
+
+      var img1 = p.imgBench1 || '';
+      var img2 = p.imgBench2 || '';
+      var benchSec = document.getElementById('viewBenchImgSection');
+      if (img1 || img2) {
+        benchSec.style.display = 'block';
+        document.getElementById('benchImg1').src = img1 || '/logo.png';
+        document.getElementById('benchImg2').src = img2 || '/logo.png';
+      } else {
+        benchSec.style.display = 'none';
+      }
+
+      var currentPadName = (p.padName || '').toLowerCase().trim();
+      var matchedPlayers = allTactics.filter(function(t) { return t.padName && t.padName.toLowerCase().trim() === currentPadName; });
+      var userListContainer = document.getElementById('viewPadUserList');
+      if (matchedPlayers.length > 0) {
+        userListContainer.innerHTML = matchedPlayers.map(function(t) {
+          return '<div class="player-tag" onclick="navigateToPlayer(\'' + t.playerName + '\')">⚽ <b>' + t.playerName + '</b> (' + (t.formation || 'Tactics') + ')</div>';
+        }).join('');
+        document.getElementById('viewPadUsersSection').style.display = 'block';
+      } else {
+        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
+        document.getElementById('viewPadUsersSection').style.display = 'block';
+      }
+
+      var formatHz = function(val) { return val ? val + ' Hz' : '-'; };
+      var formatMs = function(val) { return val ? val + ' ms' : '-'; };
+
+      document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
+      document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
+      document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
+      document.getElementById('pW_adv').innerText = p.wAdvice || '-';
+
+      document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
+      document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
+      document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
+      document.getElementById('pD_adv').innerText = p.dAdvice || '-';
+
+      document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
+      document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
+      document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
+      document.getElementById('pB_adv').innerText = p.bAdvice || '-';
+
+      updatePadDetailLang();
+      fetchSupabaseReviews('pad', p.padName || 'default_pad');
+
+      document.getElementById('section-tactics').style.display = 'none';
+      document.getElementById('section-pads').style.display = 'none';
+      document.getElementById('section-latest-videos').style.display = 'none';
+      document.getElementById('section-pad-ranking').style.display = 'none';
+      document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-pads').style.display = 'block';
+      isDetailView = true;
+
+      var slug = cleanSlug(p.slug, p.padName);
+      var finalUrl = targetUrl || ('/controllers/' + slug + '/');
+      if (pushState) safePushState({ tab: 'pads', detail: 'pad', index: index, url: finalUrl }, finalUrl);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openPadVideo() {
+      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '' && currentSelectedPad.ytUrl.trim() !== '-') {
+        window.open(currentSelectedPad.ytUrl.trim(), '_blank');
+      } else {
+        var currentImgSrc = document.getElementById('viewPadImg').src;
+        if (currentImgSrc && !currentImgSrc.endsWith('/logo.png')) {
+          openLightbox(currentImgSrc);
+        }
+      }
+    }
+
+    async function updatePadDetailLang() {
+      if (!currentSelectedPad) return;
+      var p = currentSelectedPad;
+      var rawIntro = p.padIntro || p.intro || p['패드소개'] || p['소개글'] || '-';
+      document.getElementById('viewPadIntroText').innerText = await translateDynamicText(rawIntro, currentLang);
+      document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
+      document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
+    }
+
+    function navigateToPad(padName) {
+      if (!padName) return;
+      var targetName = padName.toLowerCase().trim();
+      var padIndex = allPads.findIndex(function(p) { return p.padName && p.padName.toLowerCase().trim() === targetName; });
+      if (padIndex !== -1) {
+        document.getElementById('detail-view-tactics').style.display = 'none';
+        currentTab = 'pads';
+        document.getElementById('tabNavPads').classList.add('active');
+        document.getElementById('tabNavTactics').classList.remove('active');
+        openPadDetail(padIndex);
+      }
+    }
+
+    function navigateToPlayer(playerName) {
+      if (!playerName) return;
+      var targetName = playerName.toLowerCase().trim();
+      var tacticIndex = allTactics.findIndex(function(t) { return t.playerName && t.playerName.toLowerCase().trim() === targetName; });
+      if (tacticIndex !== -1) {
+        document.getElementById('detail-view-pads').style.display = 'none';
+        currentTab = 'tactics';
+        document.getElementById('tabNavTactics').classList.add('active');
+        document.getElementById('tabNavPads').classList.remove('active');
+        openTacticsDetail(tacticIndex);
+      }
+    }
+
+    function showTacticsTabImg(tabType) {
+      if (!currentSelectedTactics) return;
+      var t = currentSelectedTactics;
+      var imgDisplay = document.getElementById('viewImgDisplay');
+      document.querySelectorAll('.tactics-img-tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
+
+      if (tabType === 'formation') {
+        document.getElementById('tabBtnFormation').classList.add('active');
+        imgDisplay.src = t.imgFormation || '/logo.png';
+      } else if (tabType === 'personal') {
+        document.getElementById('tabBtnPersonal').classList.add('active');
+        imgDisplay.src = t.imgPersonal || t.imgFormation || '/logo.png';
+      } else if (tabType === 'team') {
+        document.getElementById('tabBtnTeam').classList.add('active');
+        imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
+      }
+    }
+
+    async function fetchSupabaseReviews(category, itemId) {
+      var cleanId = (itemId || '').trim();
+      var targetList = category === 'tactics' 
+        ? document.getElementById('tacticsCommentList') 
+        : document.getElementById('padCommentList');
+      
+      targetList.innerHTML = '<div style="color:#777; font-size:0.8rem; text-align:center; padding:12px;">실시간 리뷰를 불러오는 중...</div>';
+
+      try {
+        var url = SUPABASE_URL + "/rest/v1/reviews?category=eq." + encodeURIComponent(category) + "&item_id=eq." + encodeURIComponent(cleanId) + "&order=created_at.desc";
+        var res = await fetch(url, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          }
+        });
+        var list = await res.json();
+        renderReviewsUI(category, cleanId, list);
+      } catch (err) {
+        console.error("Supabase load error:", err);
+        targetList.innerHTML = '<div style="color:#ff6b6b; font-size:0.8rem; text-align:center; padding:12px;">리뷰를 불러오지 못했습니다.</div>';
+      }
+    }
+
+    function renderReviewsUI(category, itemId, list) {
+      if (category === 'tactics') {
+        var avgScoreEl = document.getElementById('tacticsAvgScore');
+        var avgStarsEl = document.getElementById('tacticsAvgStars');
+        var countEl = document.getElementById('tacticsReviewCount');
+        var commentListEl = document.getElementById('tacticsCommentList');
+
+        if (!list || list.length === 0) {
+          avgScoreEl.innerText = '0.0';
+          avgStarsEl.innerText = '☆☆☆☆☆';
+          countEl.innerText = '(0)';
+          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 후기가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>';
+        } else {
+          var total = list.reduce(function(sum, item) { return sum + Number(item.score || 0); }, 0);
+          var avg = (total / list.length).toFixed(1);
+          avgScoreEl.innerText = avg;
+          countEl.innerText = '(' + list.length + ')';
+          var starCount = Math.round(Number(avg));
+          avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
+
+          globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg: avg, count: list.length };
+
+          commentListEl.innerHTML = list.map(function(item) {
+            return `
+              <div class="comment-item">
+                <div class="comment-top">
+                  <span class="comment-author">${item.nick || 'User'}</span>
+                  <span class="comment-score">${'★'.repeat(item.score)}</span>
+                </div>
+                <div class="comment-body">${item.text}</div>
+              </div>
+            `;
+          }).join('');
+        }
+      } else {
+        var padUserScoreEl = document.getElementById('viewPadUserScoreVal');
+        var padUserCountEl = document.getElementById('viewPadUserCountText');
+        var commentListEl2 = document.getElementById('padCommentList');
+
+        if (!list || list.length === 0) {
+          padUserScoreEl.innerText = '-';
+          padUserCountEl.innerText = '실사용자 0명 평가';
+          commentListEl2.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 리뷰가 없습니다. 첫 번째 실사용 후기를 남겨보세요!</div>';
+        } else {
+          var total2 = list.reduce(function(sum, item) { return sum + Number(item.score || 0); }, 0);
+          var avg2 = (total2 / list.length).toFixed(1);
+          padUserScoreEl.innerText = avg2;
+          padUserCountEl.innerText = '실사용자 ' + list.length + '명 평가';
+
+          globalPadStats[(itemId || '').toLowerCase().trim()] = { avg: avg2, count: list.length };
+
+          commentListEl2.innerHTML = list.map(function(item) {
+            return `
+              <div class="comment-item">
+                <div class="comment-top">
+                  <span class="comment-author">${item.nick || 'User'}</span>
+                  <span class="comment-score">${'★'.repeat(item.score)}</span>
+                </div>
+                <div class="comment-body">${item.text}</div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    }
+
+    async function submitReview(type) {
+      var itemId = '';
+      var nick = '';
+      var score = 5;
+      var text = '';
+      var submitBtn = null;
+
+      if (type === 'tactics') {
+        if (!currentSelectedTactics) return;
+        itemId = currentSelectedTactics.playerName || 'default_tactic';
+        nick = document.getElementById('tReviewNick').value.trim();
+        score = Number(document.getElementById('tReviewScore').value);
+        text = document.getElementById('tReviewText').value.trim();
+        submitBtn = document.getElementById('t-review-submit-btn1');
+      } else {
+        if (!currentSelectedPad) return;
+        itemId = currentSelectedPad.padName || 'default_pad';
+        nick = document.getElementById('pReviewNick').value.trim();
+        score = Number(document.getElementById('pReviewScore').value);
+        text = document.getElementById('pReviewText').value.trim();
+        submitBtn = document.getElementById('t-review-submit-btn2');
+      }
+
+      if (!text) {
+        alert('내용을 입력해 주세요.');
+        return;
+      }
+      if (!nick) nick = 'User';
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = '등록 중...';
+
+      try {
+        var url = SUPABASE_URL + "/rest/v1/reviews";
+        var res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            category: type,
+            item_id: itemId,
+            nick: nick,
+            score: score,
+            text: text
+          })
+        });
+
+        if (!res.ok) throw new Error("Insert failed");
+
+        if (type === 'tactics') {
+          document.getElementById('tReviewText').value = '';
+        } else {
+          document.getElementById('pReviewText').value = '';
+        }
+
+        await fetchSupabaseReviews(type, itemId);
+        await loadAllReviewStats();
+      } catch (e) {
+        console.error("Review submit error:", e);
+        alert('리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      } finally {
+        submitBtn.disabled = false;
+        var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+        submitBtn.innerText = t.submitBtn;
+      }
+    }
+
+    function openLightbox(src) {
+      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
+      var modal = document.getElementById('imageModal');
+      var modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.style.display = 'flex';
+    }
+
+    function closeLightbox(e) {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        if (document.getElementById('imageModal').style.display === 'flex') {
+          closeLightbox();
+        } else if (isDetailView) {
+          backToList();
+        }
+      }
+    });
+
+    window.addEventListener('popstate', function(e) {
+      if (e.state && e.state.detail) {
+        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
+          openTacticsDetail(e.state.index, e.state.url, false);
+        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
+          openPadDetail(e.state.index, e.state.url, false);
+        }
+      } else {
+        var hash = window.location.hash;
+        if (hash === '#controller' || hash === '#pads') {
+          switchTab('pads', false);
+        } else {
+          switchTab('tactics', false);
+        }
+      }
+    });
+
+    function checkInitialUrl() {
+      var hash = window.location.hash;
+      if (hash === '#controller' || hash === '#pads') {
+        switchTab('pads', false);
+      } else if (hash === '#tactics') {
+        switchTab('tactics', false);
+      }
+    }
+
+    /* 전역 바인딩 및 최우선 시트 로드 */
+    window.switchTab = switchTab;
+    window.setLang = setLang;
+    window.changeSort = changeSort;
+    window.handleSearch = handleSearch;
+    window.scrollCarousel = scrollCarousel;
+
+    window.addEventListener('DOMContentLoaded', function() {
+      loadTactics();
+      loadPads();
+      setLang(currentLang);
+    });
+  </script>
+</body>
+</html>
