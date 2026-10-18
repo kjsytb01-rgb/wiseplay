@@ -510,60 +510,119 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 패드 탭 하단: 세로형 컨트롤러 성능 순위 리스트 */
+    /* 전술 & 패드 탭 하단: 세로형 성능/전술 순위 리스트 (소개글 연동 카드형) */
     .pad-ranking-section { margin-top: 48px; }
-    .ranking-list { display: flex; flex-direction: column; gap: 10px; }
+    .ranking-list { display: flex; flex-direction: column; gap: 14px; }
     .ranking-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px 18px;
+      border-radius: 14px;
+      padding: 16px 22px;
       cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s, background 0.15s;
-      gap: 14px;
+      transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s, background 0.18s;
+      gap: 20px;
     }
     .ranking-item:hover {
-      transform: translateX(4px);
+      transform: translateY(-2px);
       border-color: var(--accent-color);
       background: #20242f;
+      box-shadow: 0 6px 20px rgba(0, 255, 136, 0.1);
     }
-    .ranking-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
+    .ranking-left { display: flex; align-items: center; gap: 18px; min-width: 0; flex: 1; }
     .rank-num {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       background: #252a36;
       color: #94a3b8;
       font-weight: 900;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    .rank-num.rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
+    .rank-num.rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; box-shadow: 0 0 12px rgba(255, 215, 0, 0.35); }
     .rank-num.rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #000; }
     .rank-num.rank-3 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
-    .rank-thumb {
-      width: 64px;
-      height: 46px;
-      background: #11141a;
-      border-radius: 6px;
-      padding: 4px;
+
+    .rank-thumb-wrap {
+      width: 115px;
+      height: 78px;
+      border-radius: 10px;
+      padding: 4px 4px 0 4px;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      border: 1px solid #262b38;
     }
-    .rank-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .rank-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .rank-title { font-size: 1.02rem; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rank-specs { font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
-    .rank-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .rank-thumb-wrap.tier-purple { background: linear-gradient(180deg, var(--accent-purple) 60%, #11141a 60%); }
+    .rank-thumb-wrap.tier-green { background: linear-gradient(180deg, var(--accent-green) 60%, #11141a 60%); }
+    .rank-thumb-wrap.tier-yellow { background: linear-gradient(180deg, var(--accent-yellow) 60%, #11141a 60%); }
+    .rank-thumb-wrap.tier-red { background: linear-gradient(180deg, var(--accent-red) 60%, #11141a 60%); }
+
+    .rank-thumb {
+      width: 100%;
+      height: 100%;
+      background: #11141a;
+      border-radius: 7px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .rank-thumb img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+    .rank-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+    .rank-top-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .rank-title { font-size: 1.15rem; font-weight: 800; color: #fff; }
+    .rank-intro-box {
+      background: #14171f;
+      border: 1px solid #252936;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: #d1d5db;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      white-space: pre-wrap;
+    }
+    .rank-sub-meta {
+      font-size: 0.78rem;
+      color: var(--accent-color);
+      font-weight: 700;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .rank-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 175px;
+      flex-shrink: 0;
+      border-left: 1px solid var(--card-border);
+      padding-left: 18px;
+    }
+    .rank-score-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (max-width: 760px) {
+      .ranking-item { flex-direction: column; align-items: stretch; }
+      .rank-right { border-left: none; border-top: 1px solid var(--card-border); padding-left: 0; padding-top: 12px; width: 100%; }
+    }
 
     /* 상세 페이지 뷰 */
     .detail-view-container {
@@ -825,6 +884,14 @@
         </div>
         <div class="video-playlist-side" id="videoPlaylistContainer"></div>
       </div>
+    </section>
+
+    <!-- 전술 탭 하단: 실전 프로 전술 순위 리스트 -->
+    <section id="section-tactics-ranking" class="pad-ranking-section">
+      <div class="section-header-row">
+        <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
+      </div>
+      <div id="tactics-ranking-list" class="ranking-list"></div>
     </section>
 
     <!-- 패드 탭 하단: 컨트롤러 성능 순위 리스트 -->
@@ -1160,6 +1227,7 @@
         sortUser: "⭐ 유저 픽 (평점순)",
         sortHot: "🔥 인기 전술 (댓글순)",
         sortPadHot: "🔥 인기 패드 (댓글순)",
+        tacticsRankingTitle: "🏆 실전 프로 전술 순위 (WISE SCORE)",
         padRankingTitle: "🏆 컨트롤러 성능 순위 (WISE META SCORE)"
       },
       en: {
@@ -1216,6 +1284,7 @@
         sortUser: "⭐ User Pick (Rating)",
         sortHot: "🔥 Hot Tactics (Comments)",
         sortPadHot: "🔥 Hot Controller (Comments)",
+        tacticsRankingTitle: "🏆 Pro Tactics Leaderboard (WISE SCORE)",
         padRankingTitle: "🏆 Controller Performance Ranking (WISE META SCORE)"
       },
       vi: {
@@ -1272,6 +1341,7 @@
         sortUser: "⭐ User Pick (Đánh giá)",
         sortHot: "🔥 Chiến thuật Hot (Bình luận)",
         sortPadHot: "🔥 Tay cầm Hot (Bình luận)",
+        tacticsRankingTitle: "🏆 Bảng Xếp Hạng Chiến Thuật Pro (WISE SCORE)",
         padRankingTitle: "🏆 Bảng Xếp Hạng Hiệu Năng Tay Cầm (WISE META SCORE)"
       },
       th: {
@@ -1327,7 +1397,9 @@
         sortWise: "👑 Wise Pick (แนะนำ)",
         sortUser: "⭐ User Pick (คะแนนรีวิว)",
         sortHot: "🔥 แทคติกยอดฮิต (ความคิดเห็น)",
-        sortPadHot: "🔥 จอยยอดฮิต (ความคิดเห็น)"
+        sortPadHot: "🔥 จอยยอดฮิต (ความคิดเห็น)",
+        tacticsRankingTitle: "🏆 อันดับแผนการเล่นโปรเพลเยอร์ (WISE SCORE)",
+        padRankingTitle: "🏆 อันดับประสิทธิภาพจอยคอนโทรลเลอร์ (WISE META SCORE)"
       }
     };
 
@@ -1355,6 +1427,11 @@
           history.pushState(stateObj, '', urlStr);
         }
       } catch (e) {}
+    }
+
+    function getPadIntro(pad) {
+      if (!pad) return '-';
+      return pad.padIntro || pad.PadIntro || pad.intro || pad['패드소개'] || pad['패드 소개글'] || pad['패드소개글'] || pad['소개글'] || pad.pros || '-';
     }
 
     /* 90점 이상 보라색(강력 추천), 80~89점 초록색(보편적 찬사) 티어 계산 */
@@ -1412,6 +1489,7 @@
       });
       applyI18n();
       handleSearch();
+      renderTacticsRanking();
       renderPadRanking();
 
       if (isDetailView) {
@@ -1445,6 +1523,8 @@
         document.getElementById('sort-p-user').innerText = t.sortUser;
         document.getElementById('sort-p-hot').innerText = t.sortPadHot;
 
+        const trt = document.getElementById('t-tactics-ranking-title');
+        if (trt) trt.innerText = t.tacticsRankingTitle;
         const prt = document.getElementById('t-pad-ranking-title');
         if (prt) prt.innerText = t.padRankingTitle;
 
@@ -1522,7 +1602,8 @@
 
       const tabNavTactics = document.getElementById('tabNavTactics');
       const tabNavPads = document.getElementById('tabNavPads');
-      const rankSec = document.getElementById('section-pad-ranking');
+      const tRankSec = document.getElementById('section-tactics-ranking');
+      const pRankSec = document.getElementById('section-pad-ranking');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
       if (tab === 'tactics') {
@@ -1530,15 +1611,18 @@
         tabNavPads.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
-        if (rankSec) rankSec.style.display = 'none';
+        if (tRankSec) tRankSec.style.display = 'block';
+        if (pRankSec) pRankSec.style.display = 'none';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
+        renderTacticsRanking();
         if (pushState) safePushState({ tab: 'tactics', detail: null }, '/#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
         tabNavTactics.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
-        if (rankSec) rankSec.style.display = 'block';
+        if (tRankSec) tRankSec.style.display = 'none';
+        if (pRankSec) pRankSec.style.display = 'block';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
         renderPadRanking();
         if (pushState) safePushState({ tab: 'pads', detail: null }, '/#controller');
@@ -1569,9 +1653,9 @@
         const c = text[i];
         const next = text[i + 1];
 
-        if (c === '"' || c === "'") {
-          if (inQuotes && next === c) {
-            cell += c;
+        if (c === '"') {
+          if (inQuotes && next === '"') {
+            cell += '"';
             i++;
           } else {
             inQuotes = !inQuotes;
@@ -1613,7 +1697,6 @@
           let val = rowData[idx] || '';
           obj[h] = val.replace(/^["']|["']$/g, '').trim();
         });
-        // 무조건 모든 유효 행을 배열에 보존
         data.push(obj);
       }
       return data;
@@ -1632,10 +1715,12 @@
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allTactics = parseCSV(text);
               renderTactics(allTactics);
+              renderTacticsRanking();
               updateVideoShowcase();
               checkInitialUrl();
               loadAllReviewStats().then(() => {
                 renderTactics(allTactics);
+                renderTacticsRanking();
               });
               return;
             }
@@ -1762,7 +1847,7 @@
           <a href="${pageUrl}" class="card" onclick="openTacticsDetailEvent(event, ${origIdx}, '${pageUrl}')">
             <div class="mc-top-cap ${tier.cls}">
               <div class="card-img-wrapper">
-                <img src="${item.imgFormation || '/logo.png'}" alt="${item.playerName || 'Tactics'}" onerror="this.src='/logo.png'">
+                <img src="${item.imgFormation || '/logo.png'}" alt="Tactics" onerror="this.src='/logo.png'">
                 <div class="card-hover-hint">${t.secSubTactics.replace(/[()]/g, '')}</div>
               </div>
             </div>
@@ -1836,7 +1921,7 @@
           <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${origIdx}, '${pageUrl}')">
             <div class="mc-top-cap ${tier.cls}">
               <div class="card-img-wrapper">
-                <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='/logo.png'">
+                <img src="${cardThumb}" alt="Pad" onerror="this.src='/logo.png'">
                 <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
               </div>
             </div>
@@ -1867,6 +1952,78 @@
       }).join('');
     }
 
+    /* 전술 탭 하단: 세로형 실전 프로 전술 순위 (전술 소개글 연동) */
+    function renderTacticsRanking() {
+      const container = document.getElementById('tactics-ranking-list');
+      if (!container || !allTactics || allTactics.length === 0) return;
+      const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
+
+      const ranked = [...allTactics].sort((a, b) => (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0));
+
+      container.innerHTML = ranked.map((item, idx) => {
+        const origIdx = allTactics.indexOf(item);
+        const rank = idx + 1;
+        const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
+        const score = item.wiseScore || '85';
+        const tier = getScoreTier(score);
+        const key = (item.playerName || '').toLowerCase().trim();
+        const uStats = globalTacticStats[key] || { avg: '-', count: 0 };
+        const introText = item.reviewText || '-';
+
+        return `
+          <div class="ranking-item" onclick="openTacticsDetail(${origIdx})">
+            <div class="ranking-left">
+              <div class="rank-num ${rankClass}">${rank}</div>
+              <div class="rank-thumb-wrap ${tier.cls}">
+                <div class="rank-thumb">
+                  <img src="${item.imgFormation || '/logo.png'}" alt="Formation" onerror="this.src='/logo.png'">
+                </div>
+              </div>
+              <div class="rank-info">
+                <div class="rank-top-row">
+                  <span class="card-badge">${item.formation || 'FORMATION'}</span>
+                  <span class="rank-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.82rem;">(${item.country || 'GLOBAL'})</small></span>
+                </div>
+                <div class="rank-intro-box" id="rank-tactic-intro-${idx}">${introText}</div>
+                ${item.padName && item.padName !== '-' ? `
+                  <div class="rank-sub-meta">
+                    <span>🎮 ${t.usedPadPrefix}${item.padName}</span>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+            <div class="rank-right">
+              <div class="rank-score-top">
+                <div class="mc-score-text">
+                  <span class="mc-score-label">WISE SCORE</span>
+                  <span class="mc-score-verdict">${tier.verdict}</span>
+                  <span class="mc-score-sub">${uStats.count > 0 ? `유저 ★ ${uStats.avg} (${uStats.count}개 리뷰)` : (item.versionName || '-')}</span>
+                </div>
+                <div class="mc-score-box ${tier.cls}">${score}</div>
+              </div>
+              <div class="mc-bar-wrap">
+                <div class="${tier.barCls}" style="width:${tier.g}%"></div>
+                <div class="mc-bar-y" style="width:${tier.y}%"></div>
+                <div class="mc-bar-r" style="width:${tier.r}%"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (currentLang !== 'ko') {
+        ranked.forEach((item, idx) => {
+          if (item.reviewText) {
+            translateDynamicText(item.reviewText, currentLang).then(trans => {
+              const el = document.getElementById(`rank-tactic-intro-${idx}`);
+              if (el) el.innerText = trans;
+            });
+          }
+        });
+      }
+    }
+
+    /* 패드 탭 하단: 세로형 컨트롤러 성능 순위 (패드 소개글 연동) */
     function renderPadRanking() {
       const container = document.getElementById('pad-ranking-list');
       if (!container || !allPads || allPads.length === 0) return;
@@ -1884,33 +2041,55 @@
         const userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
         const ytId = extractYoutubeId(pad.ytUrl);
         const thumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '/logo.png');
+        const introText = getPadIntro(pad);
 
         return `
           <div class="ranking-item" onclick="openPadDetail(${origIdx})">
             <div class="ranking-left">
               <div class="rank-num ${rankClass}">${rank}</div>
-              <div class="rank-thumb">
-                <img src="${thumb}" alt="${pad.padName}" onerror="this.src='/logo.png'">
+              <div class="rank-thumb-wrap ${tier.cls}">
+                <div class="rank-thumb">
+                  <img src="${thumb}" alt="Controller" onerror="this.src='/logo.png'">
+                </div>
               </div>
               <div class="rank-info">
-                <div class="rank-title">${pad.padName || '-'}</div>
-                <div class="rank-specs">
-                  <span>🎮 ${t.stickMechLabel}: <b style="color:#fff;">${pad.stickMech || '-'}</b></span>
-                  ${pad.wPoll ? `<span>⚡ Wired: ${pad.wPoll}Hz (${pad.wStickLat || '-'}ms)</span>` : ''}
-                  <span>유저 ★ ${userStats.avg} (${userStats.count}개)</span>
+                <div class="rank-top-row">
+                  ${pad.stickMech ? `<span class="card-badge">${pad.stickMech}</span>` : ''}
+                  <span class="rank-title">${pad.padName || '-'}</span>
                 </div>
+                <div class="rank-intro-box" id="rank-pad-intro-${idx}">${introText}</div>
               </div>
             </div>
             <div class="rank-right">
-              <div class="mc-score-text" style="text-align:right;">
-                <span class="mc-score-label">WISE META SCORE</span>
-                <span class="mc-score-verdict">${tier.verdict}</span>
+              <div class="rank-score-top">
+                <div class="mc-score-text">
+                  <span class="mc-score-label">WISE META SCORE</span>
+                  <span class="mc-score-verdict">${tier.verdict}</span>
+                  <span class="mc-score-sub">유저 ★ ${userStats.avg} (${userStats.count}개 리뷰)</span>
+                </div>
+                <div class="mc-score-box ${tier.cls}">${score}</div>
               </div>
-              <div class="mc-score-box ${tier.cls}">${score}</div>
+              <div class="mc-bar-wrap">
+                <div class="${tier.barCls}" style="width:${tier.g}%"></div>
+                <div class="mc-bar-y" style="width:${tier.y}%"></div>
+                <div class="mc-bar-r" style="width:${tier.r}%"></div>
+              </div>
             </div>
           </div>
         `;
       }).join('');
+
+      if (currentLang !== 'ko') {
+        ranked.forEach((pad, idx) => {
+          const introText = getPadIntro(pad);
+          if (introText && introText !== '-') {
+            translateDynamicText(introText, currentLang).then(trans => {
+              const el = document.getElementById(`rank-pad-intro-${idx}`);
+              if (el) el.innerText = trans;
+            });
+          }
+        });
+      }
     }
 
     function updateVideoShowcase() {
@@ -1986,7 +2165,7 @@
       listEl.innerHTML = videoItems.map((item, i) => `
         <div class="v-playlist-item ${i === idx ? 'active' : ''}" onclick="selectShowcaseVideo(${i}, true)">
           <div class="v-playlist-thumb">
-            <img src="https://img.youtube.com/vi/${item.ytId}/hqdefault.jpg" alt="${item.title}">
+            <img src="https://img.youtube.com/vi/${item.ytId}/hqdefault.jpg" alt="Video">
             <div class="v-play-mini-icon">▶</div>
           </div>
           <div class="v-playlist-info">
@@ -2014,7 +2193,7 @@
         renderTactics(filtered);
       } else {
         const filtered = allPads.filter(pad => {
-          const introText = pad.padIntro || pad.intro || pad['패드소개'] || pad['소개글'] || '';
+          const introText = getPadIntro(pad);
           return (
             (pad.padName && pad.padName.toLowerCase().includes(query)) ||
             (pad.stickMech && pad.stickMech.toLowerCase().includes(query)) ||
@@ -2072,6 +2251,7 @@
       document.getElementById('section-tactics').style.display = 'none';
       document.getElementById('section-pads').style.display = 'none';
       document.getElementById('section-latest-videos').style.display = 'none';
+      document.getElementById('section-tactics-ranking').style.display = 'none';
       document.getElementById('section-pad-ranking').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'block';
@@ -2202,11 +2382,14 @@
       const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
       const userListContainer = document.getElementById('viewPadUserList');
       if (matchedPlayers.length > 0) {
-        userListContainer.innerHTML = matchedPlayers.map(t => `
-          <div class="player-tag" onclick="navigateToPlayer('${t.playerName}')">
-            ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
-          </div>
-        `).join('');
+        userListContainer.innerHTML = matchedPlayers.map(t => {
+          const tIdx = allTactics.indexOf(t);
+          return `
+            <div class="player-tag" onclick="navigateToPlayerByIndex(${tIdx})">
+              ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
+            </div>
+          `;
+        }).join('');
         document.getElementById('viewPadUsersSection').style.display = 'block';
       } else {
         userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
@@ -2237,6 +2420,7 @@
       document.getElementById('section-tactics').style.display = 'none';
       document.getElementById('section-pads').style.display = 'none';
       document.getElementById('section-latest-videos').style.display = 'none';
+      document.getElementById('section-tactics-ranking').style.display = 'none';
       document.getElementById('section-pad-ranking').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'block';
@@ -2263,7 +2447,7 @@
     async function updatePadDetailLang() {
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
-      const rawIntro = p.padIntro || p.intro || p['패드소개'] || p['소개글'] || '-';
+      const rawIntro = getPadIntro(p);
       document.getElementById('viewPadIntroText').innerText = await translateDynamicText(rawIntro, currentLang);
       document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
       document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
@@ -2282,17 +2466,21 @@
       }
     }
 
-    function navigateToPlayer(playerName) {
-      if (!playerName) return;
-      const targetName = playerName.toLowerCase().trim();
-      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
-      if (tacticIndex !== -1) {
+    function navigateToPlayerByIndex(tacticIndex) {
+      if (tacticIndex !== -1 && allTactics[tacticIndex]) {
         document.getElementById('detail-view-pads').style.display = 'none';
         currentTab = 'tactics';
         document.getElementById('tabNavTactics').classList.add('active');
         document.getElementById('tabNavPads').classList.remove('active');
         openTacticsDetail(tacticIndex);
       }
+    }
+
+    function navigateToPlayer(playerName) {
+      if (!playerName) return;
+      const targetName = playerName.toLowerCase().trim();
+      const tacticIndex = allTactics.findIndex(t => t.playerName && t.playerName.toLowerCase().trim() === targetName);
+      navigateToPlayerByIndex(tacticIndex);
     }
 
     function showTacticsTabImg(tabType) {
