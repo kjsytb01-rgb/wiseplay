@@ -519,60 +519,155 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 패드 탭 하단: 컨트롤러 성능 순위 (세로 리스트) */
-    .pad-ranking-section { margin-top: 48px; }
-    .ranking-list { display: flex; flex-direction: column; gap: 10px; }
-    .ranking-item {
+    /* 메타크리틱 명예의 전당 스타일 하단 세로 랭킹 리스트 (전술 & 패드 공통) */
+    .mc-ranking-section { margin-top: 52px; }
+    .mc-ranking-list {
+      display: flex;
+      flex-direction: column;
+      background: #14171f;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .mc-rank-item {
+      display: flex;
+      align-items: stretch;
+      gap: 22px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: background 0.18s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .mc-rank-item:last-child { border-bottom: none; }
+    .mc-rank-item:hover { background: #1c202b; }
+
+    .mc-rank-thumb-wrap {
+      width: 115px;
+      height: 132px;
+      background: #0e1015;
+      border: 1px solid #282d3b;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    }
+    .mc-rank-thumb-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.25s;
+    }
+    .mc-rank-item:hover .mc-rank-thumb-wrap img { transform: scale(1.06); }
+
+    .mc-must-badge {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      background: linear-gradient(135deg, var(--accent-purple), #6d28d9);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 900;
+      padding: 3px 7px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+      letter-spacing: 0.3px;
+    }
+
+    .mc-rank-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+    .mc-rank-title {
+      font-size: 1.22rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      transition: color 0.15s;
+    }
+    .mc-rank-item:hover .mc-rank-title { color: var(--accent-color); }
+
+    .mc-rank-submeta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+      margin-bottom: 8px;
+    }
+    .mc-rank-desc {
+      font-size: 0.9rem;
+      color: #c9d1d9;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .mc-rank-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px 18px;
-      cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s, background 0.15s;
-      gap: 14px;
+      gap: 12px;
+      margin-top: auto;
     }
-    .ranking-item:hover {
-      transform: translateX(4px);
-      border-color: var(--accent-color);
-      background: #20242f;
+    .mc-rank-score-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .ranking-left { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
-    .rank-num {
+    .mc-rank-score-badge {
       width: 34px;
       height: 34px;
-      border-radius: 8px;
-      background: #252a36;
-      color: #94a3b8;
-      font-weight: 900;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .rank-num.rank-1 { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
-    .rank-num.rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #000; }
-    .rank-num.rank-3 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
-    .rank-thumb {
-      width: 64px;
-      height: 46px;
-      background: #11141a;
       border-radius: 6px;
-      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.98rem;
+      font-weight: 900;
+      color: #0b0d11;
       flex-shrink: 0;
-      border: 1px solid #262b38;
     }
-    .rank-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .rank-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .rank-title { font-size: 1.02rem; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rank-specs { font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
-    .rank-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .mc-rank-score-badge.tier-purple { background: var(--accent-purple); color: #fff; }
+    .mc-rank-score-badge.tier-green { background: var(--accent-green); }
+    .mc-rank-score-badge.tier-yellow { background: var(--accent-yellow); }
+    .mc-rank-score-badge.tier-red { background: var(--accent-red); color: #fff; }
+
+    .mc-rank-score-word {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .mc-rank-score-word b { color: #e2e8f0; margin-left: 4px; }
+
+    .mc-rank-right-tag {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      background: #1e2330;
+      border: 1px solid #2e3546;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 640px) {
+      .mc-rank-item { padding: 16px; gap: 14px; }
+      .mc-rank-thumb-wrap { width: 88px; height: 104px; }
+      .mc-rank-title { font-size: 1.05rem; }
+      .mc-rank-desc { font-size: 0.82rem; }
+    }
 
     /* 상세 페이지 뷰 */
     .detail-view-container {
@@ -836,12 +931,20 @@
       </div>
     </section>
 
-    <!-- 패드 탭 하단 컨트롤러 성능 순위 섹션 -->
-    <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
+    <!-- 전술 탭 하단: 메타크리틱 스타일 인게임 전술 순위 섹션 -->
+    <section id="section-tactics-ranking" class="mc-ranking-section">
+      <div class="section-header-row">
+        <h2 class="section-title" id="t-tactics-ranking-title">🏆 인게임 전술 평점 순위 (WISE SCORE)</h2>
+      </div>
+      <div id="tactics-ranking-list" class="mc-ranking-list"></div>
+    </section>
+
+    <!-- 패드 탭 하단: 메타크리틱 스타일 컨트롤러 성능 순위 섹션 -->
+    <section id="section-pad-ranking" class="mc-ranking-section" style="display: none;">
       <div class="section-header-row">
         <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
       </div>
-      <div id="pad-ranking-list" class="ranking-list"></div>
+      <div id="pad-ranking-list" class="mc-ranking-list"></div>
     </section>
 
     <!-- 전술 상세 화면 -->
@@ -1169,6 +1272,7 @@
         sortUser: "⭐ 유저 픽 (평점순)",
         sortHot: "🔥 인기 전술 (댓글순)",
         sortPadHot: "🔥 인기 패드 (댓글순)",
+        tacticsRankingTitle: "🏆 인게임 전술 평점 순위 (WISE SCORE)",
         padRankingTitle: "🏆 컨트롤러 성능 순위 (WISE META SCORE)"
       },
       en: {
@@ -1225,6 +1329,7 @@
         sortUser: "⭐ User Pick (Rating)",
         sortHot: "🔥 Hot Tactics (Comments)",
         sortPadHot: "🔥 Hot Controller (Comments)",
+        tacticsRankingTitle: "🏆 In-Game Tactics Leaderboard (WISE SCORE)",
         padRankingTitle: "🏆 Controller Performance Ranking (WISE META SCORE)"
       },
       vi: {
@@ -1281,6 +1386,7 @@
         sortUser: "⭐ User Pick (Đánh giá)",
         sortHot: "🔥 Chiến thuật Hot (Bình luận)",
         sortPadHot: "🔥 Tay cầm Hot (Bình luận)",
+        tacticsRankingTitle: "🏆 Bảng Xếp Hạng Chiến Thuật (WISE SCORE)",
         padRankingTitle: "🏆 Bảng Xếp Hạng Hiệu Năng Tay Cầm (WISE META SCORE)"
       },
       th: {
@@ -1337,6 +1443,7 @@
         sortUser: "⭐ User Pick (คะแนนรีวิว)",
         sortHot: "🔥 แทคติกยอดฮิต (ความคิดเห็น)",
         sortPadHot: "🔥 จอยยอดฮิต (ความคิดเห็น)",
+        tacticsRankingTitle: "🏆 อันดับแผนการเล่นยอดเยี่ยม (WISE SCORE)",
         padRankingTitle: "🏆 อันดับประสิทธิภาพจอยคอนโทรลเลอร์ (WISE META SCORE)"
       }
     };
@@ -1422,6 +1529,7 @@
       });
       applyI18n();
       handleSearch();
+      renderTacticsRanking();
       renderPadRanking();
 
       if (isDetailView) {
@@ -1455,6 +1563,8 @@
         document.getElementById('sort-p-user').innerText = t.sortUser;
         document.getElementById('sort-p-hot').innerText = t.sortPadHot;
 
+        var trt = document.getElementById('t-tactics-ranking-title');
+        if (trt) trt.innerText = t.tacticsRankingTitle;
         var prt = document.getElementById('t-pad-ranking-title');
         if (prt) prt.innerText = t.padRankingTitle;
 
@@ -1533,7 +1643,8 @@
 
       var tabNavTactics = document.getElementById('tabNavTactics');
       var tabNavPads = document.getElementById('tabNavPads');
-      var rankSec = document.getElementById('section-pad-ranking');
+      var tacticsRankSec = document.getElementById('section-tactics-ranking');
+      var padRankSec = document.getElementById('section-pad-ranking');
       var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
       if (tab === 'tactics') {
@@ -1541,15 +1652,18 @@
         tabNavPads.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'block';
         document.getElementById('section-pads').style.display = 'none';
-        if (rankSec) rankSec.style.display = 'none';
+        if (tacticsRankSec) tacticsRankSec.style.display = 'block';
+        if (padRankSec) padRankSec.style.display = 'none';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
+        renderTacticsRanking();
         if (pushState) safePushState({ tab: 'tactics', detail: null }, '/#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
         tabNavTactics.classList.remove('active');
         document.getElementById('section-tactics').style.display = 'none';
         document.getElementById('section-pads').style.display = 'block';
-        if (rankSec) rankSec.style.display = 'block';
+        if (tacticsRankSec) tacticsRankSec.style.display = 'none';
+        if (padRankSec) padRankSec.style.display = 'block';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
         renderPadRanking();
         if (pushState) safePushState({ tab: 'pads', detail: null }, '/#controller');
@@ -1644,13 +1758,13 @@
             var text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allTactics = parseCSV(text);
-              /* 시트 데이터를 받자마자 즉시 먼저 화면에 렌더링 */
               renderTactics(allTactics);
+              renderTacticsRanking();
               updateVideoShowcase();
               checkInitialUrl();
-              /* 리뷰 통계는 비동기로 가져와 업데이트 */
               loadAllReviewStats().then(function() {
                 renderTactics(allTactics);
+                renderTacticsRanking();
               });
               return;
             }
@@ -1674,12 +1788,10 @@
             var text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allPads = parseCSV(text);
-              /* 시트 데이터를 받자마자 즉시 먼저 화면에 렌더링 */
               renderPads(allPads);
               renderPadRanking();
               updateVideoShowcase();
               checkInitialUrl();
-              /* 리뷰 통계는 비동기로 가져와 업데이트 */
               loadAllReviewStats().then(function() {
                 renderPads(allPads);
                 renderPadRanking();
@@ -1847,715 +1959,4 @@
         var pageUrl = '/controllers/' + slug + '/';
 
         var ytId = extractYoutubeId(pad.ytUrl);
-        var cardThumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
-
-        return `
-          <a href="${pageUrl}" class="card" onclick="openPadDetailEvent(event, ${origIdx}, '${pageUrl}')">
-            <div class="mc-top-cap ${tier.cls}">
-              <div class="card-img-wrapper">
-                <img src="${cardThumb}" alt="${pad.padName || 'Pad'}" onerror="this.src='/logo.png'">
-                <div class="card-hover-hint">${t.secSubPads.replace(/[()]/g, '')}</div>
-              </div>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">${pad.padName || '-'}</h3>
-              
-              <div class="tactic-cta-box">
-                <span>${t.padCardPrompt}</span>
-              </div>
-
-              <div class="mc-score-row">
-                <div class="mc-score-text">
-                  <span class="mc-score-label">WISE META SCORE</span>
-                  <span class="mc-score-verdict">${tier.verdict}</span>
-                  <span class="mc-score-sub">유저 ★ ${userStats.avg} (${userStats.count}개 리뷰)</span>
-                </div>
-                <div class="mc-score-box ${tier.cls}">${ljScore}</div>
-              </div>
-
-              <div class="mc-bar-wrap">
-                <div class="${tier.barCls}" style="width:${tier.g}%"></div>
-                <div class="mc-bar-y" style="width:${tier.y}%"></div>
-                <div class="mc-bar-r" style="width:${tier.r}%"></div>
-              </div>
-            </div>
-          </a>
-        `;
-      }).join('');
-    }
-
-    function renderPadRanking() {
-      var container = document.getElementById('pad-ranking-list');
-      if (!container || !allPads || allPads.length === 0) return;
-      var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-
-      var ranked = allPads.slice().sort(function(a, b) {
-        return (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0);
-      });
-
-      container.innerHTML = ranked.map(function(pad, idx) {
-        var origIdx = allPads.indexOf(pad);
-        var rank = idx + 1;
-        var rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
-        var score = pad.metaScore || '80';
-        var tier = getScoreTier(score);
-        var padKey = (pad.padName || '').toLowerCase().trim();
-        var userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
-        var ytId = extractYoutubeId(pad.ytUrl);
-        var thumb = pad.imgUrl || (ytId ? 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg' : '/logo.png');
-        var wiredInfo = pad.wPoll ? '<span>⚡ Wired: ' + pad.wPoll + 'Hz (' + (pad.wStickLat || '-') + 'ms)</span>' : '';
-
-        return `
-          <div class="ranking-item" onclick="openPadDetail(${origIdx})">
-            <div class="ranking-left">
-              <div class="rank-num ${rankClass}">${rank}</div>
-              <div class="rank-thumb">
-                <img src="${thumb}" alt="${pad.padName}" onerror="this.src='/logo.png'">
-              </div>
-              <div class="rank-info">
-                <div class="rank-title">${pad.padName || '-'}</div>
-                <div class="rank-specs">
-                  <span>🎮 ${t.stickMechLabel}: <b style="color:#fff;">${pad.stickMech || '-'}</b></span>
-                  ${wiredInfo}
-                  <span>★ ${userStats.avg} (${userStats.count})</span>
-                </div>
-              </div>
-            </div>
-            <div class="rank-right">
-              <div class="mc-score-text" style="text-align:right;">
-                <span class="mc-score-label">WISE META SCORE</span>
-                <span class="mc-score-verdict">${tier.verdict}</span>
-              </div>
-              <div class="mc-score-box ${tier.cls}">${score}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function updateVideoShowcase() {
-      var collected = [];
-      var titleEl = document.getElementById('t-video-sec-title');
-
-      if (currentTab === 'pads') {
-        if (titleEl) titleEl.innerText = '🎬 최신 패드 벤치마크 영상';
-        allPads.forEach(function(p, idx) {
-          var yid = extractYoutubeId(p.ytUrl);
-          if (yid) {
-            collected.push({
-              type: 'pad',
-              index: idx,
-              ytId: yid,
-              title: p.padName + ' 정밀 벤치마크 및 실측 리뷰',
-              tag: 'CONTROLLER · ' + (p.stickMech || ''),
-              score: p.metaScore || '90'
-            });
-          }
-        });
-      } else {
-        if (titleEl) titleEl.innerText = '🎬 최신 전술 분석 영상';
-        allTactics.forEach(function(t, idx) {
-          var yid = extractYoutubeId(t.ytUrl);
-          if (yid) {
-            collected.push({
-              type: 'tactic',
-              index: idx,
-              ytId: yid,
-              title: t.playerName + ' (' + t.formation + ') 실전 전술 분석',
-              tag: 'TACTICS · ' + (t.versionName || '즐인권 해설'),
-              score: t.wiseScore || '85'
-            });
-          }
-        });
-      }
-
-      videoItems = collected;
-      var secEl = document.getElementById('section-latest-videos');
-      if (videoItems.length === 0) {
-        secEl.style.display = 'none';
-        return;
-      }
-      if (!isDetailView) secEl.style.display = 'block';
-      selectShowcaseVideo(0, false);
-    }
-
-    function selectShowcaseVideo(idx, autoplay) {
-      if (autoplay === undefined) autoplay = false;
-      currentVideoIdx = idx;
-      var v = videoItems[idx];
-      if (!v) return;
-
-      var frame = document.getElementById('mainVideoFrame');
-      var autoParam = autoplay ? '?autoplay=1' : '';
-      frame.innerHTML = '<iframe src="https://www.youtube.com/embed/' + v.ytId + autoParam + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-
-      document.getElementById('mainVideoTitle').innerText = v.title;
-      document.getElementById('mainVideoTag').innerText = v.tag;
-
-      var tier = getScoreTier(v.score);
-      document.getElementById('mainVideoVerdict').innerText = tier.verdict;
-      var scoreEl = document.getElementById('mainVideoScore');
-      scoreEl.innerText = v.score;
-      scoreEl.className = 'mc-score-box ' + tier.cls;
-
-      document.getElementById('mainVideoScoreBox').onclick = function() {
-        if (v.type === 'pad') openPadDetail(v.index);
-        else openTacticsDetail(v.index);
-      };
-
-      var listEl = document.getElementById('videoPlaylistContainer');
-      listEl.innerHTML = videoItems.map(function(item, i) {
-        return `
-          <div class="v-playlist-item ${i === idx ? 'active' : ''}" onclick="selectShowcaseVideo(${i}, true)">
-            <div class="v-playlist-thumb">
-              <img src="https://img.youtube.com/vi/${item.ytId}/hqdefault.jpg" alt="${item.title}">
-              <div class="v-play-mini-icon">▶</div>
-            </div>
-            <div class="v-playlist-info">
-              <span class="v-now-playing-tag">현재 재생 중</span>
-              <div class="v-playlist-title">${item.title}</div>
-              <div class="v-playlist-sub">${item.tag}</div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function handleSearch() {
-      var query = document.getElementById('searchInput').value.toLowerCase().trim();
-      if (currentTab === 'tactics') {
-        var filtered = allTactics.filter(function(item) {
-          return (
-            (item.playerName && item.playerName.toLowerCase().includes(query)) ||
-            (item.formation && item.formation.toLowerCase().includes(query)) ||
-            (item.country && item.country.toLowerCase().includes(query)) ||
-            (item.padName && item.padName.toLowerCase().includes(query)) ||
-            (item.reviewText && item.reviewText.toLowerCase().includes(query))
-          );
-        });
-        renderTactics(filtered);
-      } else {
-        var filteredPads = allPads.filter(function(pad) {
-          var introText = pad.padIntro || pad.intro || pad['패드소개'] || pad['소개글'] || '';
-          return (
-            (pad.padName && pad.padName.toLowerCase().includes(query)) ||
-            (pad.stickMech && pad.stickMech.toLowerCase().includes(query)) ||
-            (introText && introText.toLowerCase().includes(query)) ||
-            (pad.pros && pad.pros.toLowerCase().includes(query)) ||
-            (pad.cons && pad.cons.toLowerCase().includes(query))
-          );
-        });
-        renderPads(filteredPads);
-      }
-    }
-
-    function openTacticsDetailEvent(event, index, targetUrl) {
-      if (event && !event.ctrlKey && !event.metaKey) {
-        event.preventDefault();
-        openTacticsDetail(index, targetUrl, true);
-      }
-    }
-
-    function openTacticsDetail(index, targetUrl, pushState) {
-      if (pushState === undefined) pushState = true;
-      currentSelectedTactics = allTactics[index];
-      if (!currentSelectedTactics) return;
-
-      var t = currentSelectedTactics;
-      document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
-      document.getElementById('viewPlayerName').innerText = t.playerName || 'Player';
-      document.getElementById('viewSubInfo').innerText = (t.country || 'GLOBAL') + ' | ' + (t.versionName || '-');
-
-      document.title = (t.playerName || 'Player') + ' ' + (t.formation || '') + ' 전술 분석 | FC온라인 프로 전술 - WISEPLAY';
-
-      updateTacticsDetailLang();
-
-      if (t.padName && t.padName !== '-') {
-        document.getElementById('viewPadSection').style.display = 'block';
-        document.getElementById('viewPadNameText').innerText = t.padName;
-        document.getElementById('viewPadNameBadge').dataset.pad = t.padName;
-      } else {
-        document.getElementById('viewPadSection').style.display = 'none';
-      }
-
-      var ytBtn = document.getElementById('viewYtLink');
-      if (t.ytUrl && t.ytUrl !== '-') {
-        document.getElementById('viewYtSection').style.display = 'block';
-        ytBtn.href = t.ytUrl;
-      } else {
-        document.getElementById('viewYtSection').style.display = 'none';
-      }
-
-      var i18nTexts = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      ytBtn.innerText = i18nTexts.ytBtnTactics;
-
-      showTacticsTabImg('formation');
-      fetchSupabaseReviews('tactics', t.playerName || 'default_tactic');
-
-      document.getElementById('section-tactics').style.display = 'none';
-      document.getElementById('section-pads').style.display = 'none';
-      document.getElementById('section-latest-videos').style.display = 'none';
-      document.getElementById('section-pad-ranking').style.display = 'none';
-      document.getElementById('controlsBar').style.display = 'none';
-      document.getElementById('detail-view-tactics').style.display = 'block';
-      isDetailView = true;
-
-      var slug = cleanSlug(t.slug, t.playerName);
-      var finalUrl = targetUrl || ('/tactics/' + slug + '/');
-      if (pushState) safePushState({ tab: 'tactics', detail: 'tactic', index: index, url: finalUrl }, finalUrl);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    async function updateTacticsDetailLang() {
-      if (!currentSelectedTactics) return;
-      var rawText = currentSelectedTactics.reviewText || '-';
-      document.getElementById('viewReviewText').innerText = await translateDynamicText(rawText, currentLang);
-    }
-
-    function openPadDetailEvent(event, index, targetUrl) {
-      if (event && !event.ctrlKey && !event.metaKey) {
-        event.preventDefault();
-        openPadDetail(index, targetUrl, true);
-      }
-    }
-
-    function setTierValue(elementId, val) {
-      var el = document.getElementById(elementId);
-      if (!el) return;
-      var v = (val || '-').trim().toUpperCase();
-      el.innerText = v;
-      el.className = 'tier-value';
-      if (v === 'S') el.classList.add('tier-s');
-      else if (v === 'A') el.classList.add('tier-a');
-      else if (v === 'B') el.classList.add('tier-b');
-      else if (v === 'C') el.classList.add('tier-c');
-      else if (v === 'F') el.classList.add('tier-f');
-      else el.classList.add('tier-none');
-    }
-
-    function openPadDetail(index, targetUrl, pushState) {
-      if (pushState === undefined) pushState = true;
-      currentSelectedPad = allPads[index];
-      if (!currentSelectedPad) return;
-      var p = currentSelectedPad;
-
-      document.getElementById('viewPadName').innerText = p.padName || 'Gamepad';
-      document.getElementById('viewPadSub').innerText = '스틱 방식: ' + (p.stickMech || '-') + ' | 키매핑: ' + (p.keyMap || '-') + ' | 매크로: ' + (p.macro || '-');
-      document.getElementById('viewPadScoreVal').innerText = p.metaScore || '0';
-
-      var ytWrapEl = document.getElementById('viewPadYtWrap');
-      var padImgEl = document.getElementById('viewPadImg');
-      var playBtnEl = document.getElementById('viewPadPlayBtn');
-      var photoBadgeEl = document.getElementById('viewPadPhotoBadge');
-      var ytId = extractYoutubeId(p.ytUrl);
-
-      if (ytId) {
-        ytWrapEl.classList.remove('no-video');
-        playBtnEl.style.display = 'flex';
-        photoBadgeEl.style.display = 'none';
-        padImgEl.src = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
-        padImgEl.onerror = function() {
-          if (this.src.includes('maxresdefault.jpg')) {
-            this.src = 'https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg';
-          } else {
-            this.src = p.imgUrl || '/logo.png';
-          }
-        };
-      } else if (p.ytUrl && p.ytUrl.trim() !== '' && p.ytUrl.trim() !== '-') {
-        ytWrapEl.classList.remove('no-video');
-        playBtnEl.style.display = 'flex';
-        photoBadgeEl.style.display = 'none';
-        padImgEl.src = p.imgUrl || '/logo.png';
-        padImgEl.onerror = function() { this.src = '/logo.png'; };
-      } else {
-        ytWrapEl.classList.add('no-video');
-        playBtnEl.style.display = 'none';
-        photoBadgeEl.style.display = p.imgUrl ? 'block' : 'none';
-        padImgEl.src = p.imgUrl || '/logo.png';
-        padImgEl.onerror = function() { this.src = '/logo.png'; };
-      }
-
-      document.title = (p.padName || 'Gamepad') + ' 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY';
-
-      setTierValue('tStick', p.gradeStick);
-      setTierValue('tBtn', p.gradeBtn);
-      setTierValue('tDpad', p.gradeDpad);
-      setTierValue('tBumper', p.gradeBumper);
-      setTierValue('tTrigger', p.gradeTrigger);
-      setTierValue('tBack', p.gradeBack);
-
-      setTierValue('tDurable', p.gradeDurable);
-      setTierValue('tGrip', p.gradeGrip);
-      setTierValue('tGyro', p.gradeGyro);
-      setTierValue('tVibe', p.gradeVibe);
-      setTierValue('tInputlag', p.gradeInputlag);
-      setTierValue('tPrice', p.gradePrice);
-
-      document.getElementById('sStick').innerText = p.specStick || p.stickMech || '-';
-      document.getElementById('sBtn').innerText = p.specBtn || '-';
-      document.getElementById('sTrigger').innerText = p.specTrigger || '-';
-      document.getElementById('sDpad').innerText = p.specDpad || '-';
-      document.getElementById('sBumper').innerText = p.specBumper || '-';
-      document.getElementById('sBack').innerText = p.specBack || '-';
-
-      document.getElementById('sGripVibe').innerText = p.specGripVibe || '-';
-      document.getElementById('sTriggerVibe').innerText = p.specTriggerVibe || '-';
-      document.getElementById('sExtraBumper').innerText = p.specExtraBumper || '-';
-      document.getElementById('sBackCount').innerText = p.specBackCount || '-';
-      document.getElementById('sAudio').innerText = p.specAudio || '-';
-      document.getElementById('sTension').innerText = p.specTension || '-';
-
-      document.getElementById('sApp').innerText = p.specApp || '-';
-      document.getElementById('sDock').innerText = p.specDock || '-';
-      document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
-      document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
-
-      var img1 = p.imgBench1 || '';
-      var img2 = p.imgBench2 || '';
-      var benchSec = document.getElementById('viewBenchImgSection');
-      if (img1 || img2) {
-        benchSec.style.display = 'block';
-        document.getElementById('benchImg1').src = img1 || '/logo.png';
-        document.getElementById('benchImg2').src = img2 || '/logo.png';
-      } else {
-        benchSec.style.display = 'none';
-      }
-
-      var currentPadName = (p.padName || '').toLowerCase().trim();
-      var matchedPlayers = allTactics.filter(function(t) { return t.padName && t.padName.toLowerCase().trim() === currentPadName; });
-      var userListContainer = document.getElementById('viewPadUserList');
-      if (matchedPlayers.length > 0) {
-        userListContainer.innerHTML = matchedPlayers.map(function(t) {
-          return '<div class="player-tag" onclick="navigateToPlayer(\'' + t.playerName + '\')">⚽ <b>' + t.playerName + '</b> (' + (t.formation || 'Tactics') + ')</div>';
-        }).join('');
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      } else {
-        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      }
-
-      var formatHz = function(val) { return val ? val + ' Hz' : '-'; };
-      var formatMs = function(val) { return val ? val + ' ms' : '-'; };
-
-      document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
-      document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
-      document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
-      document.getElementById('pW_adv').innerText = p.wAdvice || '-';
-
-      document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
-      document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
-      document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
-      document.getElementById('pD_adv').innerText = p.dAdvice || '-';
-
-      document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
-      document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
-      document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
-      document.getElementById('pB_adv').innerText = p.bAdvice || '-';
-
-      updatePadDetailLang();
-      fetchSupabaseReviews('pad', p.padName || 'default_pad');
-
-      document.getElementById('section-tactics').style.display = 'none';
-      document.getElementById('section-pads').style.display = 'none';
-      document.getElementById('section-latest-videos').style.display = 'none';
-      document.getElementById('section-pad-ranking').style.display = 'none';
-      document.getElementById('controlsBar').style.display = 'none';
-      document.getElementById('detail-view-pads').style.display = 'block';
-      isDetailView = true;
-
-      var slug = cleanSlug(p.slug, p.padName);
-      var finalUrl = targetUrl || ('/controllers/' + slug + '/');
-      if (pushState) safePushState({ tab: 'pads', detail: 'pad', index: index, url: finalUrl }, finalUrl);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function openPadVideo() {
-      if (currentSelectedPad && currentSelectedPad.ytUrl && currentSelectedPad.ytUrl.trim() !== '' && currentSelectedPad.ytUrl.trim() !== '-') {
-        window.open(currentSelectedPad.ytUrl.trim(), '_blank');
-      } else {
-        var currentImgSrc = document.getElementById('viewPadImg').src;
-        if (currentImgSrc && !currentImgSrc.endsWith('/logo.png')) {
-          openLightbox(currentImgSrc);
-        }
-      }
-    }
-
-    async function updatePadDetailLang() {
-      if (!currentSelectedPad) return;
-      var p = currentSelectedPad;
-      var rawIntro = p.padIntro || p.intro || p['패드소개'] || p['소개글'] || '-';
-      document.getElementById('viewPadIntroText').innerText = await translateDynamicText(rawIntro, currentLang);
-      document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
-      document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
-    }
-
-    function navigateToPad(padName) {
-      if (!padName) return;
-      var targetName = padName.toLowerCase().trim();
-      var padIndex = allPads.findIndex(function(p) { return p.padName && p.padName.toLowerCase().trim() === targetName; });
-      if (padIndex !== -1) {
-        document.getElementById('detail-view-tactics').style.display = 'none';
-        currentTab = 'pads';
-        document.getElementById('tabNavPads').classList.add('active');
-        document.getElementById('tabNavTactics').classList.remove('active');
-        openPadDetail(padIndex);
-      }
-    }
-
-    function navigateToPlayer(playerName) {
-      if (!playerName) return;
-      var targetName = playerName.toLowerCase().trim();
-      var tacticIndex = allTactics.findIndex(function(t) { return t.playerName && t.playerName.toLowerCase().trim() === targetName; });
-      if (tacticIndex !== -1) {
-        document.getElementById('detail-view-pads').style.display = 'none';
-        currentTab = 'tactics';
-        document.getElementById('tabNavTactics').classList.add('active');
-        document.getElementById('tabNavPads').classList.remove('active');
-        openTacticsDetail(tacticIndex);
-      }
-    }
-
-    function showTacticsTabImg(tabType) {
-      if (!currentSelectedTactics) return;
-      var t = currentSelectedTactics;
-      var imgDisplay = document.getElementById('viewImgDisplay');
-      document.querySelectorAll('.tactics-img-tab-btn').forEach(function(btn) { btn.classList.remove('active'); });
-
-      if (tabType === 'formation') {
-        document.getElementById('tabBtnFormation').classList.add('active');
-        imgDisplay.src = t.imgFormation || '/logo.png';
-      } else if (tabType === 'personal') {
-        document.getElementById('tabBtnPersonal').classList.add('active');
-        imgDisplay.src = t.imgPersonal || t.imgFormation || '/logo.png';
-      } else if (tabType === 'team') {
-        document.getElementById('tabBtnTeam').classList.add('active');
-        imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
-      }
-    }
-
-    async function fetchSupabaseReviews(category, itemId) {
-      var cleanId = (itemId || '').trim();
-      var targetList = category === 'tactics' 
-        ? document.getElementById('tacticsCommentList') 
-        : document.getElementById('padCommentList');
-      
-      targetList.innerHTML = '<div style="color:#777; font-size:0.8rem; text-align:center; padding:12px;">실시간 리뷰를 불러오는 중...</div>';
-
-      try {
-        var url = SUPABASE_URL + "/rest/v1/reviews?category=eq." + encodeURIComponent(category) + "&item_id=eq." + encodeURIComponent(cleanId) + "&order=created_at.desc";
-        var res = await fetch(url, {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY
-          }
-        });
-        var list = await res.json();
-        renderReviewsUI(category, cleanId, list);
-      } catch (err) {
-        console.error("Supabase load error:", err);
-        targetList.innerHTML = '<div style="color:#ff6b6b; font-size:0.8rem; text-align:center; padding:12px;">리뷰를 불러오지 못했습니다.</div>';
-      }
-    }
-
-    function renderReviewsUI(category, itemId, list) {
-      if (category === 'tactics') {
-        var avgScoreEl = document.getElementById('tacticsAvgScore');
-        var avgStarsEl = document.getElementById('tacticsAvgStars');
-        var countEl = document.getElementById('tacticsReviewCount');
-        var commentListEl = document.getElementById('tacticsCommentList');
-
-        if (!list || list.length === 0) {
-          avgScoreEl.innerText = '0.0';
-          avgStarsEl.innerText = '☆☆☆☆☆';
-          countEl.innerText = '(0)';
-          commentListEl.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 후기가 없습니다. 첫 번째 리뷰를 남겨보세요!</div>';
-        } else {
-          var total = list.reduce(function(sum, item) { return sum + Number(item.score || 0); }, 0);
-          var avg = (total / list.length).toFixed(1);
-          avgScoreEl.innerText = avg;
-          countEl.innerText = '(' + list.length + ')';
-          var starCount = Math.round(Number(avg));
-          avgStarsEl.innerText = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
-
-          globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg: avg, count: list.length };
-
-          commentListEl.innerHTML = list.map(function(item) {
-            return `
-              <div class="comment-item">
-                <div class="comment-top">
-                  <span class="comment-author">${item.nick || 'User'}</span>
-                  <span class="comment-score">${'★'.repeat(item.score)}</span>
-                </div>
-                <div class="comment-body">${item.text}</div>
-              </div>
-            `;
-          }).join('');
-        }
-      } else {
-        var padUserScoreEl = document.getElementById('viewPadUserScoreVal');
-        var padUserCountEl = document.getElementById('viewPadUserCountText');
-        var commentListEl2 = document.getElementById('padCommentList');
-
-        if (!list || list.length === 0) {
-          padUserScoreEl.innerText = '-';
-          padUserCountEl.innerText = '실사용자 0명 평가';
-          commentListEl2.innerHTML = '<div style="color:#666; font-size:0.8rem; text-align:center; padding:12px;">아직 등록된 리뷰가 없습니다. 첫 번째 실사용 후기를 남겨보세요!</div>';
-        } else {
-          var total2 = list.reduce(function(sum, item) { return sum + Number(item.score || 0); }, 0);
-          var avg2 = (total2 / list.length).toFixed(1);
-          padUserScoreEl.innerText = avg2;
-          padUserCountEl.innerText = '실사용자 ' + list.length + '명 평가';
-
-          globalPadStats[(itemId || '').toLowerCase().trim()] = { avg: avg2, count: list.length };
-
-          commentListEl2.innerHTML = list.map(function(item) {
-            return `
-              <div class="comment-item">
-                <div class="comment-top">
-                  <span class="comment-author">${item.nick || 'User'}</span>
-                  <span class="comment-score">${'★'.repeat(item.score)}</span>
-                </div>
-                <div class="comment-body">${item.text}</div>
-              </div>
-            `;
-          }).join('');
-        }
-      }
-    }
-
-    async function submitReview(type) {
-      var itemId = '';
-      var nick = '';
-      var score = 5;
-      var text = '';
-      var submitBtn = null;
-
-      if (type === 'tactics') {
-        if (!currentSelectedTactics) return;
-        itemId = currentSelectedTactics.playerName || 'default_tactic';
-        nick = document.getElementById('tReviewNick').value.trim();
-        score = Number(document.getElementById('tReviewScore').value);
-        text = document.getElementById('tReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn1');
-      } else {
-        if (!currentSelectedPad) return;
-        itemId = currentSelectedPad.padName || 'default_pad';
-        nick = document.getElementById('pReviewNick').value.trim();
-        score = Number(document.getElementById('pReviewScore').value);
-        text = document.getElementById('pReviewText').value.trim();
-        submitBtn = document.getElementById('t-review-submit-btn2');
-      }
-
-      if (!text) {
-        alert('내용을 입력해 주세요.');
-        return;
-      }
-      if (!nick) nick = 'User';
-
-      submitBtn.disabled = true;
-      submitBtn.innerText = '등록 중...';
-
-      try {
-        var url = SUPABASE_URL + "/rest/v1/reviews";
-        var res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
-          body: JSON.stringify({
-            category: type,
-            item_id: itemId,
-            nick: nick,
-            score: score,
-            text: text
-          })
-        });
-
-        if (!res.ok) throw new Error("Insert failed");
-
-        if (type === 'tactics') {
-          document.getElementById('tReviewText').value = '';
-        } else {
-          document.getElementById('pReviewText').value = '';
-        }
-
-        await fetchSupabaseReviews(type, itemId);
-        await loadAllReviewStats();
-      } catch (e) {
-        console.error("Review submit error:", e);
-        alert('리뷰 등록에 실패했습니다. 잠시 후 다시 시도해 주세요.');
-      } finally {
-        submitBtn.disabled = false;
-        var t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-        submitBtn.innerText = t.submitBtn;
-      }
-    }
-
-    function openLightbox(src) {
-      if (!src || src.endsWith('/logo.png') || src.endsWith('logo.png')) return;
-      var modal = document.getElementById('imageModal');
-      var modalImg = document.getElementById('modalImg');
-      modalImg.src = src;
-      modal.style.display = 'flex';
-    }
-
-    function closeLightbox(e) {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (document.getElementById('imageModal').style.display === 'flex') {
-          closeLightbox();
-        } else if (isDetailView) {
-          backToList();
-        }
-      }
-    });
-
-    window.addEventListener('popstate', function(e) {
-      if (e.state && e.state.detail) {
-        if (e.state.detail === 'tactic' && allTactics[e.state.index]) {
-          openTacticsDetail(e.state.index, e.state.url, false);
-        } else if (e.state.detail === 'pad' && allPads[e.state.index]) {
-          openPadDetail(e.state.index, e.state.url, false);
-        }
-      } else {
-        var hash = window.location.hash;
-        if (hash === '#controller' || hash === '#pads') {
-          switchTab('pads', false);
-        } else {
-          switchTab('tactics', false);
-        }
-      }
-    });
-
-    function checkInitialUrl() {
-      var hash = window.location.hash;
-      if (hash === '#controller' || hash === '#pads') {
-        switchTab('pads', false);
-      } else if (hash === '#tactics') {
-        switchTab('tactics', false);
-      }
-    }
-
-    /* 전역 바인딩 및 최우선 시트 로드 */
-    window.switchTab = switchTab;
-    window.setLang = setLang;
-    window.changeSort = changeSort;
-    window.handleSearch = handleSearch;
-    window.scrollCarousel = scrollCarousel;
-
-    window.addEventListener('DOMContentLoaded', function() {
-      loadTactics();
-      loadPads();
-      setLang(currentLang);
-    });
-  </script>
-</body>
-</html>
+        var cardThumb = pad.imgUrl || (ytId ? '
