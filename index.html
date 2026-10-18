@@ -931,6 +931,12 @@
         </div>
       </div>
 
+      <!-- 특성 / 스펙 과 3대 연결 모드 정밀 벤치마크 사이에 추가된 패드 소개글 칸 -->
+      <div class="detail-section" id="viewPadIntroSection">
+        <h4 id="t-pad-intro-title">📝 패드 소개글</h4>
+        <p id="viewPadIntroText">-</p>
+      </div>
+
       <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
@@ -1065,6 +1071,7 @@
         submitBtn: "등록",
         ytBtnTactics: "▶ 즐인권의 실전 전술 해설 유튜브 영상 보기",
         dashSub1: "폴링/레이턴시 실측 종합 벤치",
+        padIntroTitle: "📝 패드 소개글",
         padUsersTitle: "🏆 이 패드를 사용하는 선수 / 프로게이머",
         benchTitle: "📊 3대 연결 모드 정밀 벤치마크 ",
         thMode: "연결 방식",
@@ -1118,6 +1125,7 @@
         submitBtn: "Post",
         ytBtnTactics: "▶ Watch Tactical Analysis on YouTube (즐인권 FIFA CAMPER)",
         dashSub1: "Measured Polling & Latency Composite Bench",
+        padIntroTitle: "📝 Controller Overview",
         padUsersTitle: "🏆 Pro Players Using This Pad",
         benchTitle: "📊 3-Mode Latency Benchmark (LJ Lee Measured)",
         thMode: "Connection",
@@ -1171,6 +1179,7 @@
         submitBtn: "Gửi",
         ytBtnTactics: "▶ Xem Video Phân Tích Chiến Thuật (즐인권 FIFA CAMPER)",
         dashSub1: "Điểm chuẩn đo đạc Polling & Độ trễ",
+        padIntroTitle: "📝 Giới Thiệu Tay Cầm",
         padUsersTitle: "🏆 Tuyển Thủ Chuyên Nghiệp Dùng Tay Cầm Này",
         benchTitle: "📊 Đo Đạc 3 Chế Độ Kết Nối (LJ Lee Thực Đo)",
         thMode: "Kết nối",
@@ -1224,6 +1233,7 @@
         submitBtn: "ส่งความคิดเห็น",
         ytBtnTactics: "▶ รับชมคลิปวิเคราะห์แผนบน YouTube (즐인권 FIFA CAMPER)",
         dashSub1: "คะแนนทดสอบ Polling Rate และ Latency ตัวจริง",
+        padIntroTitle: "📝 แนะนำจอยคอนโทรลเลอร์",
         padUsersTitle: "🏆 นักแข่งมืออาชีพที่ใช้จอยรุ่นนี้",
         benchTitle: "📊 ผลทดสอบความเร็ว 3 โหมดการเชื่อมต่อ (LJ Lee)",
         thMode: "การเชื่อมต่อ",
@@ -1374,6 +1384,7 @@
       if (ytt) ytt.innerText = t.ytBtnTactics;
 
       const ds1 = document.getElementById('t-dash-sub1'); if(ds1) ds1.innerText = t.dashSub1;
+      const pit = document.getElementById('t-pad-intro-title'); if(pit) pit.innerText = t.padIntroTitle;
       const put = document.getElementById('t-pad-users-title'); if(put) put.innerText = t.padUsersTitle;
       const bt = document.getElementById('t-bench-table-title'); if(bt) bt.innerText = t.benchTitle;
 
@@ -1863,9 +1874,11 @@
         renderTactics(filtered);
       } else {
         const filtered = allPads.filter(pad => {
+          const introText = pad.padIntro || pad.intro || pad['패드소개'] || pad['소개글'] || '';
           return (
             (pad.padName && pad.padName.toLowerCase().includes(query)) ||
             (pad.stickMech && pad.stickMech.toLowerCase().includes(query)) ||
+            (introText && introText.toLowerCase().includes(query)) ||
             (pad.pros && pad.pros.toLowerCase().includes(query)) ||
             (pad.cons && pad.cons.toLowerCase().includes(query))
           );
@@ -2108,6 +2121,8 @@
     async function updatePadDetailLang() {
       if (!currentSelectedPad) return;
       const p = currentSelectedPad;
+      const rawIntro = p.padIntro || p.intro || p['패드소개'] || p['소개글'] || '-';
+      document.getElementById('viewPadIntroText').innerText = await translateDynamicText(rawIntro, currentLang);
       document.getElementById('viewPadPros').innerText = await translateDynamicText(p.pros || '-', currentLang);
       document.getElementById('viewPadCons').innerText = await translateDynamicText(p.cons || '-', currentLang);
     }
