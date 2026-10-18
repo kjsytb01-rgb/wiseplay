@@ -325,6 +325,7 @@
     .mc-top-cap.tier-yellow { background: linear-gradient(180deg, var(--accent-yellow) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-red { background: linear-gradient(180deg, var(--accent-red) 65%, var(--card-bg) 65%); }
 
+    /* 이미지 박스 안쪽 여백을 22px로 확장하여 듀얼센스처럼 안정적인 여백 자동 확보 */
     .card-img-wrapper {
       width: 100%;
       height: 180px;
@@ -335,7 +336,7 @@
       align-items: center;
       overflow: hidden;
       position: relative;
-      padding: 10px;
+      padding: 22px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
     .card-img-wrapper img {
@@ -390,6 +391,26 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    /* 전술 카드 클릭 유도 프롬프트 스타일 */
+    .tactic-cta-box {
+      background: #14171f;
+      border: 1px solid #252936;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin: 4px 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .card:hover .tactic-cta-box {
+      background: rgba(0, 255, 136, 0.08);
+      border-color: rgba(0, 255, 136, 0.35);
     }
 
     /* 패드 카드 내 총평(장단점) 박스 스타일 */
@@ -1094,6 +1115,7 @@
         prosLabel: "[장점]",
         consLabel: "[단점]",
         cardSummaryTitle: "📋 총평 (AI 요약)",
+        tacticCardPrompt: "📋 개인·팀 전술 세팅 및 분석 보기 →",
         usedPadPrefix: "선수 사용 패드: ",
         detailLinkTactics: "상세 분석 →",
         detailLinkPads: "세부 벤치마크 →",
@@ -1146,6 +1168,7 @@
         prosLabel: "[Pros]",
         consLabel: "[Cons]",
         cardSummaryTitle: "📋 Overall Review (AI Summary)",
+        tacticCardPrompt: "📋 View Full Tactics & Analysis →",
         usedPadPrefix: "Used Controller: ",
         detailLinkTactics: "View Details →",
         detailLinkPads: "View Benchmark →",
@@ -1198,6 +1221,7 @@
         prosLabel: "[Ưu điểm]",
         consLabel: "[Nhược điểm]",
         cardSummaryTitle: "📋 Đánh giá chung (AI Tóm tắt)",
+        tacticCardPrompt: "📋 Xem chi tiết chiến thuật & phân tích →",
         usedPadPrefix: "Tay cầm sử dụng: ",
         detailLinkTactics: "Xem chi tiết →",
         detailLinkPads: "Xem thông số →",
@@ -1250,6 +1274,7 @@
         prosLabel: "[จุดเด่น]",
         consLabel: "[ข้อเสีย]",
         cardSummaryTitle: "📋 บทสรุป (AI สรุป)",
+        tacticCardPrompt: "📋 ดูการตั้งค่าแทคติกและบทวิเคราะห์ →",
         usedPadPrefix: "จอยที่ใช้: ",
         detailLinkTactics: "ดูรายละเอียด →",
         detailLinkPads: "ดูผลทดสอบ →",
@@ -1650,13 +1675,10 @@
             <div class="card-body">
               <span class="card-badge">${item.formation || 'FORMATION'}</span>
               <h3 class="card-title">${item.playerName || 'Player'} <small style="color:var(--text-muted); font-size:0.8rem;">(${item.country || 'GLOBAL'})</small></h3>
-              <p class="card-desc" id="card-desc-tactics-${idx}">${item.reviewText || '-'}</p>
               
-              ${item.padName && item.padName !== '-' ? `
-                <div style="font-size:0.78rem; color:var(--accent-color); margin-top:2px;">
-                  🎮 ${t.usedPadPrefix}<b>${item.padName}</b>
-                </div>
-              ` : ''}
+              <div class="tactic-cta-box">
+                <span>${t.tacticCardPrompt}</span>
+              </div>
 
               <div class="mc-score-row">
                 <div class="mc-score-text">
@@ -1676,17 +1698,6 @@
           </a>
         `;
       }).join('');
-
-      if (currentLang !== 'ko') {
-        sorted.forEach((item, idx) => {
-          if (item.reviewText) {
-            translateDynamicText(item.reviewText, currentLang).then(trans => {
-              const el = document.getElementById(`card-desc-tactics-${idx}`);
-              if (el) el.innerText = trans;
-            });
-          }
-        });
-      }
     }
 
     function renderPads(list) {
