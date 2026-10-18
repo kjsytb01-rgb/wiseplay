@@ -392,6 +392,35 @@
       overflow: hidden;
     }
 
+    /* 패드 카드 내 총평(장단점) 박스 스타일 */
+    .pad-summary-box {
+      background: #14171f;
+      border: 1px solid #252936;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin: 2px 0 4px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pad-summary-title {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pad-summary-line {
+      font-size: 0.8rem;
+      color: #d1d5db;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .mc-score-row {
       display: flex;
       justify-content: space-between;
@@ -1064,6 +1093,7 @@
         prosConsTitle: "⚖️ AI 요약 (Pros & Cons)",
         prosLabel: "[장점]",
         consLabel: "[단점]",
+        cardSummaryTitle: "📋 총평 (AI 요약)",
         usedPadPrefix: "선수 사용 패드: ",
         detailLinkTactics: "상세 분석 →",
         detailLinkPads: "세부 벤치마크 →",
@@ -1115,6 +1145,7 @@
         prosConsTitle: "⚖️ AI Summary Pros & Cons",
         prosLabel: "[Pros]",
         consLabel: "[Cons]",
+        cardSummaryTitle: "📋 Overall Review (AI Summary)",
         usedPadPrefix: "Used Controller: ",
         detailLinkTactics: "View Details →",
         detailLinkPads: "View Benchmark →",
@@ -1166,6 +1197,7 @@
         prosConsTitle: "⚖️ Tóm tắt bằng AI (Pros & Cons)",
         prosLabel: "[Ưu điểm]",
         consLabel: "[Nhược điểm]",
+        cardSummaryTitle: "📋 Đánh giá chung (AI Tóm tắt)",
         usedPadPrefix: "Tay cầm sử dụng: ",
         detailLinkTactics: "Xem chi tiết →",
         detailLinkPads: "Xem thông số →",
@@ -1217,6 +1249,7 @@
         prosConsTitle: "⚖️ สรุปด้วย AI (Pros & Cons)",
         prosLabel: "[จุดเด่น]",
         consLabel: "[ข้อเสีย]",
+        cardSummaryTitle: "📋 บทสรุป (AI สรุป)",
         usedPadPrefix: "จอยที่ใช้: ",
         detailLinkTactics: "ดูรายละเอียด →",
         detailLinkPads: "ดูผลทดสอบ →",
@@ -1705,14 +1738,16 @@
             <div class="card-body">
               <h3 class="card-title">${pad.padName || '-'}</h3>
               
-              <table class="mini-spec-table">
-                <tr><td>${t.stickMechLabel}</td><td>${pad.stickMech || '-'}</td></tr>
-                <tr><td>${t.wiredStatLabel}</td><td>${pad.wPoll || '-'}Hz / ${pad.wStickLat || '-'}ms</td></tr>
-                <tr><td>${t.dongleStatLabel}</td><td>${pad.dPoll || '-'}Hz / ${pad.dStickLat || '-'}ms</td></tr>
-              </table>
-
-              <div style="font-size:0.8rem; color:var(--accent-color);">
-                ${t.prosCardLabel}<span id="card-pros-${idx}">${pad.pros ? pad.pros.substring(0, 18) + '...' : '-'}</span>
+              <div class="pad-summary-box">
+                <div class="pad-summary-title">${t.cardSummaryTitle}</div>
+                <div class="pad-summary-line">
+                  <b style="color:var(--accent-color);">${t.prosLabel}</b> <span id="card-pros-${idx}">${pad.pros || '-'}</span>
+                </div>
+                ${pad.cons && pad.cons !== '-' ? `
+                <div class="pad-summary-line">
+                  <b style="color:#ff6b6b;">${t.consLabel}</b> <span id="card-cons-${idx}">${pad.cons}</span>
+                </div>
+                ` : ''}
               </div>
 
               <div class="mc-score-row">
@@ -1739,7 +1774,13 @@
           if (pad.pros) {
             translateDynamicText(pad.pros, currentLang).then(trans => {
               const el = document.getElementById(`card-pros-${idx}`);
-              if (el) el.innerText = trans.substring(0, 18) + '...';
+              if (el) el.innerText = trans;
+            });
+          }
+          if (pad.cons && pad.cons !== '-') {
+            translateDynamicText(pad.cons, currentLang).then(trans => {
+              const el = document.getElementById(`card-cons-${idx}`);
+              if (el) el.innerText = trans;
             });
           }
         });
