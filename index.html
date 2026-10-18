@@ -325,7 +325,7 @@
     .mc-top-cap.tier-yellow { background: linear-gradient(180deg, var(--accent-yellow) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-red { background: linear-gradient(180deg, var(--accent-red) 65%, var(--card-bg) 65%); }
 
-    /* 이미지 박스 안쪽 여백을 22px로 확장하여 듀얼센스처럼 안정적인 여백 자동 확보 */
+    /* 사진을 위로 올려 하단 안내 문구에 가려지지 않도록 상단 10px, 하단 34px 여백 배분 */
     .card-img-wrapper {
       width: 100%;
       height: 180px;
@@ -336,7 +336,7 @@
       align-items: center;
       overflow: hidden;
       position: relative;
-      padding: 22px;
+      padding: 10px 22px 34px 22px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
     .card-img-wrapper img {
