@@ -7,17 +7,23 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- 대표 전술 상세 (실제 존재하는 주소들 추가) -->
+  <https://wiseplay.co.kr/tactics/navy/>
   <url>
     <loc>https://wiseplay.co.kr/tactics/lhat/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- 개인정보처리방침 / 이용약관 (별도 URL이 있는 경우) -->
+  <https://wiseplay.co.kr/privacy>
   <url>
     <loc>https://wiseplay.co.kr/privacy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
 </urlset>
+<https://wiseplay.co.kr/controllers/apex6pro/>
+  <url>
+    <loc>https://wiseplay.co.kr/controllers/실제패드이름/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
