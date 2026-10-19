@@ -1408,6 +1408,7 @@
 
     let currentTab = 'tactics';
     let isDetailView = false;
+    let initialRouteResolved = false;
     let allTactics = [];
     let allPads = [];
     let currentSelectedTactics = null;
@@ -1455,6 +1456,10 @@
         if (s) return s;
       }
       return (fallback || 'item').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
+    }
+
+    function normalizeSlugForMatch(str) {
+      return (str || '').toLowerCase().replace(/[^a-z0-9-_]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
     }
 
     function extractYoutubeId(url) {
@@ -1718,6 +1723,9 @@
               renderTacticsRanking();
               updateVideoShowcase();
               checkInitialUrl();
+              if (isDetailView && currentSelectedPad) {
+                renderPadMatchedPlayers(currentSelectedPad);
+              }
               loadAllReviewStats().then(() => {
                 renderTactics(allTactics);
                 renderTacticsRanking();
@@ -1958,7 +1966,6 @@
       if (!container || !allTactics || allTactics.length === 0) return;
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      // 점수순 정렬 후 상위 10개만 슬라이스
       const ranked = [...allTactics]
         .sort((a, b) => (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0))
         .slice(0, 10);
@@ -2032,7 +2039,6 @@
       if (!container || !allPads || allPads.length === 0) return;
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      // 점수순 정렬 후 상위 10개만 슬라이스
       const ranked = [...allPads]
         .sort((a, b) => (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0))
         .slice(0, 10);
@@ -2223,6 +2229,10 @@
       currentSelectedTactics = allTactics[index];
       if (!currentSelectedTactics) return;
 
+      currentTab = 'tactics';
+      document.getElementById('tabNavTactics').classList.add('active');
+      document.getElementById('tabNavPads').classList.remove('active');
+
       const t = currentSelectedTactics;
       document.getElementById('viewFormation').innerText = t.formation || 'FORMATION';
       document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
@@ -2260,6 +2270,7 @@
       document.getElementById('section-tactics-ranking').style.display = 'none';
       document.getElementById('section-pad-ranking').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'block';
       isDetailView = true;
 
@@ -2297,9 +2308,35 @@
       else el.classList.add('tier-none');
     }
 
+    function renderPadMatchedPlayers(p) {
+      if (!p) return;
+      const currentPadName = (p.padName || '').toLowerCase().trim();
+      const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
+      const userListContainer = document.getElementById('viewPadUserList');
+      if (matchedPlayers.length > 0) {
+        userListContainer.innerHTML = matchedPlayers.map(t => {
+          const tIdx = allTactics.indexOf(t);
+          return `
+            <div class="player-tag" onclick="navigateToPlayerByIndex(${tIdx})">
+              ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
+            </div>
+          `;
+        }).join('');
+        document.getElementById('viewPadUsersSection').style.display = 'block';
+      } else {
+        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
+        document.getElementById('viewPadUsersSection').style.display = 'block';
+      }
+    }
+
     function openPadDetail(index, targetUrl = null, pushState = true) {
       currentSelectedPad = allPads[index];
       if (!currentSelectedPad) return;
+
+      currentTab = 'pads';
+      document.getElementById('tabNavPads').classList.add('active');
+      document.getElementById('tabNavTactics').classList.remove('active');
+
       const p = currentSelectedPad;
 
       document.getElementById('viewPadName').innerText = p.padName || 'Gamepad';
@@ -2384,23 +2421,7 @@
         benchSec.style.display = 'none';
       }
 
-      const currentPadName = (p.padName || '').toLowerCase().trim();
-      const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
-      const userListContainer = document.getElementById('viewPadUserList');
-      if (matchedPlayers.length > 0) {
-        userListContainer.innerHTML = matchedPlayers.map(t => {
-          const tIdx = allTactics.indexOf(t);
-          return `
-            <div class="player-tag" onclick="navigateToPlayerByIndex(${tIdx})">
-              ⚽ <b>${t.playerName}</b> (${t.formation || 'Tactics'})
-            </div>
-          `;
-        }).join('');
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      } else {
-        userListContainer.innerHTML = '<span style="color:#777; font-size:0.85rem;">-</span>';
-        document.getElementById('viewPadUsersSection').style.display = 'block';
-      }
+      renderPadMatchedPlayers(p);
 
       const formatHz = (val) => val ? `${val} Hz` : '-';
       const formatMs = (val) => val ? `${val} ms` : '-';
@@ -2429,6 +2450,7 @@
       document.getElementById('section-tactics-ranking').style.display = 'none';
       document.getElementById('section-pad-ranking').style.display = 'none';
       document.getElementById('controlsBar').style.display = 'none';
+      document.getElementById('detail-view-tactics').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'block';
       isDetailView = true;
 
@@ -2464,20 +2486,12 @@
       const targetName = padName.toLowerCase().trim();
       const padIndex = allPads.findIndex(p => p.padName && p.padName.toLowerCase().trim() === targetName);
       if (padIndex !== -1) {
-        document.getElementById('detail-view-tactics').style.display = 'none';
-        currentTab = 'pads';
-        document.getElementById('tabNavPads').classList.add('active');
-        document.getElementById('tabNavTactics').classList.remove('active');
         openPadDetail(padIndex);
       }
     }
 
     function navigateToPlayerByIndex(tacticIndex) {
       if (tacticIndex !== -1 && allTactics[tacticIndex]) {
-        document.getElementById('detail-view-pads').style.display = 'none';
-        currentTab = 'tactics';
-        document.getElementById('tabNavTactics').classList.add('active');
-        document.getElementById('tabNavPads').classList.remove('active');
         openTacticsDetail(tacticIndex);
       }
     }
@@ -2694,20 +2708,68 @@
           openPadDetail(e.state.index, e.state.url, false);
         }
       } else {
-        const hash = window.location.hash;
-        if (hash === '#controller' || hash === '#pads') {
-          switchTab('pads', false);
-        } else {
-          switchTab('tactics', false);
-        }
+        initialRouteResolved = false;
+        checkInitialUrl();
       }
     });
 
+    /* 상세 주소(/tactics/..., /controllers/...) 직접 접속 및 새로고침 시 해당 상세 화면으로 즉시 연결 */
     function checkInitialUrl() {
+      if (initialRouteResolved) return;
+
+      const rawPath = window.location.pathname || '/';
+      const path = rawPath.replace(/\/+$/, '');
       const hash = window.location.hash;
-      if (hash === '#controller' || hash === '#pads') {
+
+      // 1. 전술 상세 페이지 직접 접속 (/tactics/슬러그)
+      if (path.toLowerCase().startsWith('/tactics/')) {
+        if (allTactics.length === 0) return; // 전술 시트 로딩 완료 시 재실행 대기
+        let targetSlug = '';
+        try {
+          targetSlug = decodeURIComponent(path.slice('/tactics/'.length)).trim().toLowerCase();
+        } catch (e) {
+          targetSlug = path.slice('/tactics/'.length).trim().toLowerCase();
+        }
+
+        const foundIdx = allTactics.findIndex(t => {
+          const itemSlug = cleanSlug(t.slug, t.playerName);
+          return itemSlug === targetSlug || normalizeSlugForMatch(itemSlug) === normalizeSlugForMatch(targetSlug);
+        });
+
+        initialRouteResolved = true;
+        if (foundIdx !== -1) {
+          openTacticsDetail(foundIdx, `/tactics/${cleanSlug(allTactics[foundIdx].slug, allTactics[foundIdx].playerName)}/`, false);
+          return;
+        }
+      }
+
+      // 2. 패드 상세 페이지 직접 접속 (/controllers/슬러그)
+      if (path.toLowerCase().startsWith('/controllers/')) {
+        if (allPads.length === 0) return; // 패드 시트 로딩 완료 시 재실행 대기
+        let targetSlug = '';
+        try {
+          targetSlug = decodeURIComponent(path.slice('/controllers/'.length)).trim().toLowerCase();
+        } catch (e) {
+          targetSlug = path.slice('/controllers/'.length).trim().toLowerCase();
+        }
+
+        const foundIdx = allPads.findIndex(p => {
+          const itemSlug = cleanSlug(p.slug, p.padName);
+          return itemSlug === targetSlug || normalizeSlugForMatch(itemSlug) === normalizeSlugForMatch(targetSlug);
+        });
+
+        initialRouteResolved = true;
+        if (foundIdx !== -1) {
+          openPadDetail(foundIdx, `/controllers/${cleanSlug(allPads[foundIdx].slug, allPads[foundIdx].padName)}/`, false);
+          return;
+        }
+      }
+
+      // 3. 일반 탭 접속 (#controller, #pads, #tactics 등)
+      initialRouteResolved = true;
+      if (hash === '#controller' || hash === '#pads' || path.toLowerCase() === '/controllers') {
         switchTab('pads', false);
-      } else if (hash === '#tactics') {
+      } else if (hash === '#tactics' || path.toLowerCase() === '/tactics') {
         switchTab('tactics', false);
       }
     }
