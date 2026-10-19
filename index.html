@@ -886,7 +886,7 @@
       </div>
     </section>
 
-    <!-- 전술 탭 하단: 실전 프로 전술 순위 리스트 -->
+    <!-- 전술 탭 하단: 실전 프로 전술 순위 리스트 (TOP 10 제한) -->
     <section id="section-tactics-ranking" class="pad-ranking-section">
       <div class="section-header-row">
         <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
@@ -894,7 +894,7 @@
       <div id="tactics-ranking-list" class="ranking-list"></div>
     </section>
 
-    <!-- 패드 탭 하단: 컨트롤러 성능 순위 리스트 -->
+    <!-- 패드 탭 하단: 컨트롤러 성능 순위 리스트 (TOP 10 제한) -->
     <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
       <div class="section-header-row">
         <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
@@ -1653,9 +1653,9 @@
         const c = text[i];
         const next = text[i + 1];
 
-        if (c === '"') {
-          if (inQuotes && next === '"') {
-            cell += '"';
+        if (c === '"' || c === "'") {
+          if (inQuotes && next === c) {
+            cell += c;
             i++;
           } else {
             inQuotes = !inQuotes;
@@ -1952,13 +1952,16 @@
       }).join('');
     }
 
-    /* 전술 탭 하단: 세로형 실전 프로 전술 순위 (전술 소개글 연동) */
+    /* 전술 탭 하단: 세로형 실전 프로 전술 순위 (TOP 10 제한) */
     function renderTacticsRanking() {
       const container = document.getElementById('tactics-ranking-list');
       if (!container || !allTactics || allTactics.length === 0) return;
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      const ranked = [...allTactics].sort((a, b) => (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0));
+      // 점수순 정렬 후 상위 10개만 슬라이스
+      const ranked = [...allTactics]
+        .sort((a, b) => (Number(b.wiseScore) || 0) - (Number(a.wiseScore) || 0))
+        .slice(0, 10);
 
       container.innerHTML = ranked.map((item, idx) => {
         const origIdx = allTactics.indexOf(item);
@@ -2023,13 +2026,16 @@
       }
     }
 
-    /* 패드 탭 하단: 세로형 컨트롤러 성능 순위 (패드 소개글 연동) */
+    /* 패드 탭 하단: 세로형 컨트롤러 성능 순위 (TOP 10 제한) */
     function renderPadRanking() {
       const container = document.getElementById('pad-ranking-list');
       if (!container || !allPads || allPads.length === 0) return;
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
-      const ranked = [...allPads].sort((a, b) => (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0));
+      // 점수순 정렬 후 상위 10개만 슬라이스
+      const ranked = [...allPads]
+        .sort((a, b) => (Number(b.metaScore) || 0) - (Number(a.metaScore) || 0))
+        .slice(0, 10);
 
       container.innerHTML = ranked.map((pad, idx) => {
         const origIdx = allPads.indexOf(pad);
