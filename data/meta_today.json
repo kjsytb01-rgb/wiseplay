@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-18 23:08:56",
+  "updated_at": "2026-10-19 23:16:09",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-3-1",
-      "count": 33,
-      "share": 33.0,
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -13,83 +13,41 @@
       "key_players": {
         "MID": {
           "ko": "조 콜",
-          "en": "Joe Cole",
-          "vi": "Joe Cole",
-          "th": "โจ โคล"
+          "en": "조 콜",
+          "vi": "조 콜",
+          "th": "조 콜"
         },
         "CDM": {
           "ko": "스티븐 제라드",
-          "en": "steven gerrard",
-          "vi": "Steven Gerrard",
-          "th": "สตีเว่น เจอร์ราร์ด"
+          "en": "스티븐 제라드",
+          "vi": "스티븐 제라드",
+          "th": "스티븐 제라드"
         },
         "CB": {
           "ko": "버질 반다이크",
-          "en": "Virgil van Dijk",
-          "vi": "Virgil van Dijk",
-          "th": "เวอร์จิล ฟาน ไดจ์ค"
+          "en": "버질 반다이크",
+          "vi": "버질 반다이크",
+          "th": "버질 반다이크"
         },
         "ST": {
           "ko": "코디 각포",
-          "en": "Cody Gakpo",
-          "vi": "Cody Gakpo",
-          "th": "โคดี้ กักโป"
+          "en": "코디 각포",
+          "vi": "코디 각포",
+          "th": "코디 각포"
         }
       },
       "recommended_rankers": [
         "ryuK",
         "Edith이구치리",
         "GCTCrong",
-        "T1Pierce",
-        "PERALTA"
-      ]
-    },
-    {
-      "formation": "4-2-2-1-1",
-      "count": 29,
-      "share": 29.0,
-      "tactical_routes": [
-        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
-        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
-      ],
-      "key_players": {
-        "MID": {
-          "ko": "카카",
-          "en": "Kaka",
-          "vi": "Kaka",
-          "th": "กาก้า"
-        },
-        "CB": {
-          "ko": "카제미루",
-          "en": "casemiro",
-          "vi": "Casemiro",
-          "th": "คาเซมิโร"
-        },
-        "ST": {
-          "ko": "킬리안 음바페",
-          "en": "Kylian Mbappe",
-          "vi": "Kylian Mbappé",
-          "th": "คีเลียน เอ็มบัปเป้"
-        },
-        "CDM": {
-          "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก บัลเบร์เด้"
-        }
-      },
-      "recommended_rankers": [
-        "DRXSavior",
-        "KRXTak",
-        "FCL킴네시리",
-        "삼켜",
-        "리바이브엘니뇨"
+        "PERALTA",
+        "BFXLight"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 26,
-      "share": 26.0,
+      "count": 28,
+      "share": 28.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -97,35 +55,77 @@
       "key_players": {
         "MID": {
           "ko": "이스코",
-          "en": "isco",
-          "vi": "isco",
-          "th": "อิสโก้"
+          "en": "이스코",
+          "vi": "이스코",
+          "th": "이스코"
         },
         "CB": {
           "ko": "카제미루",
-          "en": "casemiro",
-          "vi": "Casemiro",
-          "th": "คาเซมิโร"
+          "en": "카제미루",
+          "vi": "카제미루",
+          "th": "카제미루"
         },
         "ST": {
           "ko": "킬리안 음바페",
-          "en": "Kylian Mbappe",
-          "vi": "Kylian Mbappé",
-          "th": "คีเลียน เอ็มบัปเป้"
+          "en": "킬리안 음바페",
+          "vi": "킬리안 음바페",
+          "th": "킬리안 음바페"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก บัลเบร์เด้"
+          "en": "페데리코 발베르데",
+          "vi": "페데리코 발베르데",
+          "th": "페데리코 발베르데"
         }
       },
       "recommended_rankers": [
         "크몽신경섭",
-        "유이령",
         "DKKWAK",
-        "두심키컨충",
-        "가나현지인"
+        "유이령",
+        "가나현지인",
+        "KRXDaze"
+      ]
+    },
+    {
+      "formation": "4-2-2-1-1",
+      "count": 26,
+      "share": 26.0,
+      "tactical_routes": [
+        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
+        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
+      ],
+      "key_players": {
+        "CDM": {
+          "ko": "파트리크 비에이라",
+          "en": "파트리크 비에이라",
+          "vi": "파트리크 비에이라",
+          "th": "파트리크 비에이라"
+        },
+        "MID": {
+          "ko": "파벨 네드베드",
+          "en": "파벨 네드베드",
+          "vi": "파벨 네드베드",
+          "th": "파벨 네드베드"
+        },
+        "CB": {
+          "ko": "필리프 코스티치",
+          "en": "필리프 코스티치",
+          "vi": "필리프 코스티치",
+          "th": "필리프 코스티치"
+        },
+        "ST": {
+          "ko": "이언 러시",
+          "en": "이언 러시",
+          "vi": "이언 러시",
+          "th": "이언 러시"
+        }
+      },
+      "recommended_rankers": [
+        "KRXTak",
+        "DRXSavior",
+        "삼켜",
+        "FCL킴네시리",
+        "청소"
       ]
     },
     {
@@ -139,35 +139,35 @@
       "key_players": {
         "MID": {
           "ko": "미켈 메리노",
-          "en": "Mikel Merino",
-          "vi": "Mikel Merino",
-          "th": "มิเกล เมอริโน"
+          "en": "미켈 메리노",
+          "vi": "미켈 메리노",
+          "th": "미켈 메리노"
         },
         "CB": {
           "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
+          "en": "가브리엘 마갈량이스",
+          "vi": "가브리엘 마갈량이스",
+          "th": "가브리엘 마갈량이스"
         },
         "ST": {
           "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาแวร์ตซ์"
+          "en": "카이 하베르츠",
+          "vi": "카이 하베르츠",
+          "th": "카이 하베르츠"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "en": "수비멘디",
+          "vi": "수비멘디",
+          "th": "수비멘디"
         }
       },
       "recommended_rankers": [
         "T1Seon9min",
         "BFXTaeGod",
+        "쓰루딩",
         "에넬",
-        "T1정성민",
-        "쓰루딩"
+        "T1정성민"
       ]
     },
     {
@@ -181,15 +181,15 @@
       "key_players": {
         "CB": {
           "ko": "제라르 마르틴",
-          "en": "Gerard Martin",
-          "vi": "Gerard Martin",
-          "th": "เจอราร์ด มาร์ติน"
+          "en": "제라르 마르틴",
+          "vi": "제라르 마르틴",
+          "th": "제라르 마르틴"
         },
         "MID": {
           "ko": "요한 크루이프",
-          "en": "Johan Cruyff",
-          "vi": "Johan Cruyff",
-          "th": "โยฮัน ครัฟฟ์"
+          "en": "요한 크루이프",
+          "vi": "요한 크루이프",
+          "th": "요한 크루이프"
         },
         "CDM": {
           "ko": "로드리",
@@ -199,9 +199,9 @@
         },
         "ST": {
           "ko": "하피냐",
-          "en": "Hapinya",
-          "vi": "hapinya",
-          "th": "หปิญญา"
+          "en": "하피냐",
+          "vi": "하피냐",
+          "th": "하피냐"
         }
       },
       "recommended_rankers": [
