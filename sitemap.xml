@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 메인 홈 -->
+  <url>
+    <loc>https://wiseplay.co.kr/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 대표 전술 상세 (실제 존재하는 주소들 추가) -->
+  <url>
+    <loc>https://wiseplay.co.kr/tactics/lhat/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 개인정보처리방침 / 이용약관 (별도 URL이 있는 경우) -->
+  <url>
+    <loc>https://wiseplay.co.kr/privacy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>
