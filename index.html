@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588681740584138"
-     crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE0FWNSNYM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,6 +10,11 @@
 
     gtag('config', 'G-JE0FWNSNYM');
   </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588681740584138"
+     crossorigin="anonymous"></script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee</title>
@@ -540,7 +543,7 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 전술 & 패드 탭 하단: 순위 -> 점수 -> 사진 -> 이름 -> 평가(한줄평) */
+    /* 전술 & 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] 심플 가로 정렬 */
     .pad-ranking-section { margin-top: 48px; }
     .ranking-list { display: flex; flex-direction: column; gap: 14px; }
     .ranking-item {
@@ -577,22 +580,6 @@
     .rank-num.rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #000; }
     .rank-num.rank-3 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
 
-    /* 점수 열 */
-    .rank-score-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-width: 170px;
-      flex-shrink: 0;
-      border-right: 1px solid var(--card-border);
-      padding-right: 16px;
-    }
-    .rank-score-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
     /* 사진 썸네일 */
     .rank-thumb-wrap {
       width: 110px;
@@ -628,7 +615,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 5px;
-      width: 200px;
+      width: 210px;
       flex-shrink: 0;
       min-width: 0;
     }
@@ -701,7 +688,6 @@
 
     @media (max-width: 900px) {
       .ranking-item { flex-wrap: wrap; gap: 12px; }
-      .rank-score-col { border-right: none; padding-right: 0; min-width: auto; }
       .rank-name-col { width: auto; flex: 1; min-width: 140px; }
       .rank-intro-box { width: 100%; flex: 0 0 100%; }
     }
@@ -968,7 +954,7 @@
       </div>
     </section>
 
-    <!-- 전술 탭 하단: 실전 프로 전술 순위 리스트 (순위 -> 점수 -> 사진 -> 이름 -> 한줄평) -->
+    <!-- 전술 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
     <section id="section-tactics-ranking" class="pad-ranking-section">
       <div class="section-header-row">
         <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
@@ -977,7 +963,7 @@
       <div id="tactics-ranking-pagination" class="ranking-pagination"></div>
     </section>
 
-    <!-- 패드 탭 하단: 컨트롤러 성능 순위 리스트 (순위 -> 점수 -> 사진 -> 이름 -> 한줄평) -->
+    <!-- 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
     <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
       <div class="section-header-row">
         <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
@@ -1539,7 +1525,7 @@
       return firstLine || raw;
     }
 
-    /* 스틱 방식에 따른 컬러 뱃지 클래스 (Hall: 노란색, TMR: 초록색, Capacitive: 핑크색) */
+    /* 스틱 방식 전용 컬러 뱃지 (Hall: 노란색, TMR: 초록색, Capacitive: 핑크색) */
     function getStickMechBadgeClass(mech) {
       if (!mech) return '';
       const m = String(mech).toUpperCase();
@@ -1549,7 +1535,7 @@
       return '';
     }
 
-    /* 90점 이상 보라색(강력 추천), 80~89점 초록색(보편적 찬사) 티어 계산 */
+    /* 티어 계산 */
     function getScoreTier(scoreVal) {
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       const n = Number(scoreVal) || 85;
@@ -1602,7 +1588,7 @@
 
     function setLang(lang) {
       currentLang = lang;
-      try { localStorage.setItem('wiseplay_lang', lang); } catch (e) {}
+      try { localStorage.getItem('wiseplay_lang', lang); } catch (e) {}
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === `btn-lang-${lang}`);
       });
@@ -1760,7 +1746,6 @@
       switchTab('tactics', true);
     }
 
-    /* Alt+Enter 및 모든 형식의 구글 시트 데이터를 100% 온전히 읽어오는 표준 CSV 파서 */
     function parseCSV(text) {
       if (!text || !text.trim()) return [];
       const rows = [];
@@ -2088,7 +2073,7 @@
       if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    /* 전술 순위: 순위 -> 점수 -> 사진 -> 이름 -> 한줄평 */
+    /* 전술 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderTacticsRanking() {
       const container = document.getElementById('tactics-ranking-list');
       const pageContainer = document.getElementById('tactics-ranking-pagination');
@@ -2109,8 +2094,6 @@
         const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
         const score = item.wiseScore || '85';
         const tier = getScoreTier(score);
-        const key = (item.playerName || '').toLowerCase().trim();
-        const uStats = globalTacticStats[key] || { avg: '-', count: 0 };
         const oneLineText = getTacticOneLine(item);
 
         return `
@@ -2119,21 +2102,7 @@
             <div class="rank-num ${rankClass}">${rank}</div>
 
             <!-- 2. 점수 -->
-            <div class="rank-score-col">
-              <div class="rank-score-top">
-                <div class="mc-score-box ${tier.cls}">${score}</div>
-                <div class="mc-score-text">
-                  <span class="mc-score-label">WISE SCORE</span>
-                  <span class="mc-score-verdict">${tier.verdict}</span>
-                  <span class="mc-score-sub">${uStats.count > 0 ? `유저 ★ ${uStats.avg} (${uStats.count}개 리뷰)` : (item.versionName || '-')}</span>
-                </div>
-              </div>
-              <div class="mc-bar-wrap">
-                <div class="${tier.barCls}" style="width:${tier.g}%"></div>
-                <div class="mc-bar-y" style="width:${tier.y}%"></div>
-                <div class="mc-bar-r" style="width:${tier.r}%"></div>
-              </div>
-            </div>
+            <div class="mc-score-box ${tier.cls}">${score}</div>
 
             <!-- 3. 사진 -->
             <div class="rank-thumb-wrap ${tier.cls}">
@@ -2183,7 +2152,7 @@
       }
     }
 
-    /* 패드 순위: 순위 -> 점수 -> 사진 -> 이름 -> 한줄평 */
+    /* 패드 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderPadRanking() {
       const container = document.getElementById('pad-ranking-list');
       const pageContainer = document.getElementById('pad-ranking-pagination');
@@ -2203,8 +2172,6 @@
         const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
         const score = pad.metaScore || '80';
         const tier = getScoreTier(score);
-        const padKey = (pad.padName || '').toLowerCase().trim();
-        const userStats = globalPadStats[padKey] || { avg: '-', count: 0 };
         const ytId = extractYoutubeId(pad.ytUrl);
         const thumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '/logo.png');
         const oneLineText = getPadOneLine(pad);
@@ -2215,21 +2182,7 @@
             <div class="rank-num ${rankClass}">${rank}</div>
 
             <!-- 2. 점수 -->
-            <div class="rank-score-col">
-              <div class="rank-score-top">
-                <div class="mc-score-box ${tier.cls}">${score}</div>
-                <div class="mc-score-text">
-                  <span class="mc-score-label">WISE META SCORE</span>
-                  <span class="mc-score-verdict">${tier.verdict}</span>
-                  <span class="mc-score-sub">유저 ★ ${userStats.avg} (${userStats.count}개 리뷰)</span>
-                </div>
-              </div>
-              <div class="mc-bar-wrap">
-                <div class="${tier.barCls}" style="width:${tier.g}%"></div>
-                <div class="mc-bar-y" style="width:${tier.y}%"></div>
-                <div class="mc-bar-r" style="width:${tier.r}%"></div>
-              </div>
-            </div>
+            <div class="mc-score-box ${tier.cls}">${score}</div>
 
             <!-- 3. 사진 -->
             <div class="rank-thumb-wrap ${tier.cls}">
@@ -2883,7 +2836,6 @@
       }
     });
 
-    /* 상세 주소(/tactics/..., /controllers/...) 직접 접속 및 새로고침 시 해당 상세 화면으로 즉시 연결 */
     function checkInitialUrl() {
       if (initialRouteResolved) return;
 
@@ -2891,7 +2843,6 @@
       const path = rawPath.replace(/\/+$/, '');
       const hash = window.location.hash;
 
-      // 1. 전술 상세 페이지 직접 접속 (/tactics/슬러그)
       if (path.toLowerCase().startsWith('/tactics/')) {
         if (allTactics.length === 0) return;
         let targetSlug = '';
@@ -2913,7 +2864,6 @@
         }
       }
 
-      // 2. 패드 상세 페이지 직접 접속 (/controllers/슬러그)
       if (path.toLowerCase().startsWith('/controllers/')) {
         if (allPads.length === 0) return;
         let targetSlug = '';
@@ -2935,7 +2885,6 @@
         }
       }
 
-      // 3. 일반 탭 접속 (#controller, #pads, #tactics 등)
       initialRouteResolved = true;
       if (hash === '#controller' || hash === '#pads' || path.toLowerCase() === '/controllers') {
         switchTab('pads', false);
