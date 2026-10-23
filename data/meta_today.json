@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-22 23:21:22",
+  "updated_at": "2026-10-23 23:14:14",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -38,16 +38,16 @@
       },
       "recommended_rankers": [
         "DRXSavior",
+        "카리나",
         "KRXTak",
         "BFXNoiZ",
-        "삼켜",
-        "카리나"
+        "삼켜"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 35,
-      "share": 35.0,
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -80,16 +80,16 @@
       },
       "recommended_rankers": [
         "ryuK",
+        "농심류크",
         "GCTCrong",
-        "Edith이구치리",
-        "T1Pierce",
-        "DKKWAK"
+        "DKNova",
+        "Edith이구치리"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 19,
-      "share": 19.0,
+      "count": 21,
+      "share": 21.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -123,15 +123,15 @@
       "recommended_rankers": [
         "크몽신경섭",
         "유이령",
-        "가나현지인",
+        "GCTwonder08",
         "피구",
-        "롤로노아신재원"
+        "KRXMINION"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 6,
-      "share": 6.0,
+      "count": 5,
+      "share": 5.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
