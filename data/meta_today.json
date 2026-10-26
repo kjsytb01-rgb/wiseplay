@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-10-24 23:10:59",
+  "updated_at": "2026-10-26 00:48:22",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 37,
+      "share": 37.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -13,41 +13,41 @@
       "key_players": {
         "MID": {
           "ko": "다비드 지놀라",
-          "en": "David Ginola",
-          "vi": "David Ginola",
-          "th": "เดวิด จิโนลา"
+          "en": "다비드 지놀라",
+          "vi": "다비드 지놀라",
+          "th": "다비드 지놀라"
         },
         "ST": {
           "ko": "티모 베르너",
-          "en": "Timo Werner",
-          "vi": "Timo Werner",
-          "th": "ติโม แวร์เนอร์"
+          "en": "티모 베르너",
+          "vi": "티모 베르너",
+          "th": "티모 베르너"
         },
         "CDM": {
           "ko": "로드리고 벤탕쿠르",
-          "en": "Rodrigo Bentancourt",
-          "vi": "Rodrigo Bentancourt",
-          "th": "โรดริโก เบนตันคอร์ต"
+          "en": "로드리고 벤탕쿠르",
+          "vi": "로드리고 벤탕쿠르",
+          "th": "로드리고 벤탕쿠르"
         },
         "CB": {
           "ko": "크리스티안 로메로",
-          "en": "Christian Romero",
-          "vi": "Christian Romero",
-          "th": "คริสเตียน โรเมโร"
+          "en": "크리스티안 로메로",
+          "vi": "크리스티안 로메로",
+          "th": "크리스티안 로메로"
         }
       },
       "recommended_rankers": [
         "카리나",
-        "DRXSavior",
         "KRXTak",
+        "DRXSavior",
         "BFXNoiZ",
-        "삼켜"
+        "이터니티준서"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 31,
-      "share": 31.0,
+      "count": 29,
+      "share": 29.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -55,35 +55,35 @@
       "key_players": {
         "MID": {
           "ko": "조 콜",
-          "en": "Joe Cole",
-          "vi": "Joe Cole",
-          "th": "โจ โคล"
+          "en": "조 콜",
+          "vi": "조 콜",
+          "th": "조 콜"
         },
         "CDM": {
           "ko": "스티븐 제라드",
-          "en": "steven gerrard",
-          "vi": "Steven Gerrard",
-          "th": "สตีเว่น เจอร์ราร์ด"
+          "en": "스티븐 제라드",
+          "vi": "스티븐 제라드",
+          "th": "스티븐 제라드"
         },
         "CB": {
           "ko": "버질 반다이크",
-          "en": "Virgil van Dijk",
-          "vi": "Virgil van Dijk",
-          "th": "เวอร์จิล ฟาน ไดจ์ค"
+          "en": "버질 반다이크",
+          "vi": "버질 반다이크",
+          "th": "버질 반다이크"
         },
         "ST": {
           "ko": "루이스 디아스",
-          "en": "Luis Diaz",
-          "vi": "Luis Diaz",
-          "th": "หลุยส์ ดิแอซ"
+          "en": "루이스 디아스",
+          "vi": "루이스 디아스",
+          "th": "루이스 디아스"
         }
       },
       "recommended_rankers": [
         "ryuK",
-        "농심류크",
-        "DKKWAK",
+        "T1Pierce",
+        "크뭉신경섭",
         "Edith이구치리",
-        "DKNova"
+        "농심류크"
       ]
     },
     {
@@ -97,35 +97,35 @@
       "key_players": {
         "MID": {
           "ko": "이스코",
-          "en": "isco",
-          "vi": "isco",
-          "th": "อิสโก้"
+          "en": "이스코",
+          "vi": "이스코",
+          "th": "이스코"
         },
         "CB": {
           "ko": "카제미루",
-          "en": "casemiro",
-          "vi": "Casemiro",
-          "th": "คาเซมิโร"
+          "en": "카제미루",
+          "vi": "카제미루",
+          "th": "카제미루"
         },
         "ST": {
           "ko": "킬리안 음바페",
-          "en": "Kylian Mbappe",
-          "vi": "Kylian Mbappé",
-          "th": "คีเลียน เอ็มบัปเป้"
+          "en": "킬리안 음바페",
+          "vi": "킬리안 음바페",
+          "th": "킬리안 음바페"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก บัลเบร์เด้"
+          "en": "페데리코 발베르데",
+          "vi": "페데리코 발베르데",
+          "th": "페데리코 발베르데"
         }
       },
       "recommended_rankers": [
         "크몽신경섭",
-        "youngsookim",
-        "BFXKaiser",
-        "유이령",
-        "GCTwonder08"
+        "GCTCrong",
+        "DKKWAK",
+        "GCTwonder08",
+        "youngsookim"
       ]
     },
     {
@@ -139,35 +139,35 @@
       "key_players": {
         "MID": {
           "ko": "미켈 메리노",
-          "en": "Mikel Merino",
-          "vi": "Mikel Merino",
-          "th": "มิเกล เมอริโน"
+          "en": "미켈 메리노",
+          "vi": "미켈 메리노",
+          "th": "미켈 메리노"
         },
         "CB": {
           "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
+          "en": "가브리엘 마갈량이스",
+          "vi": "가브리엘 마갈량이스",
+          "th": "가브리엘 마갈량이스"
         },
         "ST": {
           "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
+          "en": "카이 하베르츠",
+          "vi": "카이 하베르츠",
+          "th": "카이 하베르츠"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "en": "수비멘디",
+          "vi": "수비멘디",
+          "th": "수비멘디"
         }
       },
       "recommended_rankers": [
         "T1Seon9min",
         "T1ELEMENTAL",
         "T1정성민",
-        "BFXTaeGod",
-        "에넬"
+        "에넬",
+        "BFXTaeGod"
       ]
     },
     {
@@ -181,27 +181,27 @@
       "key_players": {
         "MID": {
           "ko": "프랭크 램파드",
-          "en": "frank lampard",
-          "vi": "Lampard thẳng thắn",
-          "th": "แฟรงค์ แลมพาร์ด"
+          "en": "프랭크 램파드",
+          "vi": "프랭크 램파드",
+          "th": "프랭크 램파드"
         },
         "CB": {
           "ko": "리오 퍼디난드",
-          "en": "Rio Ferdinand",
-          "vi": "Rio Ferdinand",
-          "th": "ริโอ เฟอร์ดินานด์"
+          "en": "리오 퍼디난드",
+          "vi": "리오 퍼디난드",
+          "th": "리오 퍼디난드"
         },
         "CDM": {
           "ko": "보비 무어",
-          "en": "Bobby Moore",
-          "vi": "Bobby Moore",
-          "th": "บ๊อบบี้ มัวร์"
+          "en": "보비 무어",
+          "vi": "보비 무어",
+          "th": "보비 무어"
         },
         "ST": {
           "ko": "해리 케인",
-          "en": "harry kane",
-          "vi": "harry kane",
-          "th": "แฮร์รี่ เคน"
+          "en": "해리 케인",
+          "vi": "해리 케인",
+          "th": "해리 케인"
         }
       },
       "recommended_rankers": [
