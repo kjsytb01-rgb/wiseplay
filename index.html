@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8637415469240696"
-     crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE0FWNSNYM"></script>
   <script>
@@ -721,7 +719,16 @@
     .detail-view-header { border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 20px; }
     .detail-view-header h2 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 6px; }
     .detail-view-header p { color: var(--text-muted); font-size: 0.9rem; }
-    .tactics-img-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; margin-bottom: 14px; }
+    
+    /* 5개 탭이 모바일에서도 예쁘게 감싸지도록 flex-wrap: wrap 추가 */
+    .tactics-img-tabs { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--card-border); 
+      padding-bottom: 10px; 
+      margin-bottom: 14px; 
+    }
     .tactics-img-tab-btn {
       background: #232732;
       border: none;
@@ -731,7 +738,9 @@
       font-size: 0.85rem;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.15s;
     }
+    .tactics-img-tab-btn:hover { color: #fff; background: #2c3240; }
     .tactics-img-tab-btn.active { background: var(--accent-color); color: #000; }
     .view-display-img {
       width: 100%;
@@ -974,7 +983,7 @@
       <div id="pad-ranking-pagination" class="ranking-pagination"></div>
     </section>
 
-    <!-- 전술 상세 화면 -->
+    <!-- 전술 상세 화면 (5개 탭 완벽 지원) -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -988,6 +997,8 @@
         <button type="button" class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. <span class="t-img-tab1">포메이션 배치도</span></button>
         <button type="button" class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. <span class="t-img-tab2">개인 전술 세팅</span></button>
         <button type="button" class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. <span class="t-img-tab3">팀 전술 세팅</span></button>
+        <button type="button" class="tactics-img-tab-btn" id="tabBtnCoach" onclick="showTacticsTabImg('coach')">4. <span class="t-img-tab4">훈련 코치</span></button>
+        <button type="button" class="tactics-img-tab-btn" id="tabBtnTrait" onclick="showTacticsTabImg('trait')">5. <span class="t-img-tab5">특성</span></button>
       </div>
 
       <div style="position:relative;">
@@ -1260,6 +1271,8 @@
         imgTab1: "포메이션 배치도",
         imgTab2: "개인 전술 세팅",
         imgTab3: "팀 전술 세팅",
+        imgTab4: "훈련 코치",
+        imgTab5: "특성",
         zoomHint: "🔍 클릭하면 원본 크기로 확대됩니다",
         descTitle: "📋 전술 분석 및 실전 코멘트",
         playerPadTitle: "🎮 선수가 사용하는 패드",
@@ -1317,6 +1330,8 @@
         imgTab1: "Formation Map",
         imgTab2: "Player Tactics",
         imgTab3: "Team Tactics",
+        imgTab4: "Head Coach",
+        imgTab5: "Traits",
         zoomHint: "🔍 Click to zoom full image",
         descTitle: "📋 Tactical Analysis & In-Game Notes",
         playerPadTitle: "🎮 Controller Used by Player",
@@ -1374,6 +1389,8 @@
         imgTab1: "Sơ đồ bố trí",
         imgTab2: "Chiến thuật đơn",
         imgTab3: "Chiến thuật đội",
+        imgTab4: "HLV Kỹ Năng",
+        imgTab5: "Đặc tính",
         zoomHint: "🔍 Nhấp để phóng to ảnh gốc",
         descTitle: "📋 Phân Tích Chiến Thuật & Lưu Ý",
         playerPadTitle: "🎮 Tay Cầm Tuyển Thủ Sử Dụng",
@@ -1431,6 +1448,8 @@
         imgTab1: "ผังตำแหน่ง",
         imgTab2: "แทคติกส่วนตัว",
         imgTab3: "แทคติกทีม",
+        imgTab4: "โค้ชฝึกซ้อม",
+        imgTab5: "คุณสมบัติ",
         zoomHint: "🔍 คลิกเพื่อขยายภาพขนาดเต็ม",
         descTitle: "📋 วิเคราะห์แทคติกและข้อแนะนำการเล่น",
         playerPadTitle: "🎮 จอยที่นักแข่งคนนี้เลือกใช้",
@@ -1590,7 +1609,7 @@
 
     function setLang(lang) {
       currentLang = lang;
-      try { localStorage.getItem('wiseplay_lang', lang); } catch (e) {}
+      try { localStorage.setItem('wiseplay_lang', lang); } catch (e) {}
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === `btn-lang-${lang}`);
       });
@@ -1639,6 +1658,8 @@
         const tab1 = document.querySelector('.t-img-tab1'); if (tab1) tab1.innerText = t.imgTab1;
         const tab2 = document.querySelector('.t-img-tab2'); if (tab2) tab2.innerText = t.imgTab2;
         const tab3 = document.querySelector('.t-img-tab3'); if (tab3) tab3.innerText = t.imgTab3;
+        const tab4 = document.querySelector('.t-img-tab4'); if (tab4) tab4.innerText = t.imgTab4;
+        const tab5 = document.querySelector('.t-img-tab5'); if (tab5) tab5.innerText = t.imgTab5;
         const zh = document.getElementById('t-zoom-hint'); if (zh) zh.innerText = t.zoomHint;
         const dt = document.getElementById('t-desc-title'); if (dt) dt.innerText = t.descTitle;
         const ppt = document.getElementById('t-player-pad-title'); if (ppt) ppt.innerText = t.playerPadTitle;
@@ -2628,6 +2649,7 @@
       navigateToPlayerByIndex(tacticIndex);
     }
 
+    /* 전술 이미지 탭 전환 (1. 포메이션 / 2. 개인전술 / 3. 팀전술 / 4. 훈련코치 / 5. 특성) */
     function showTacticsTabImg(tabType) {
       if (!currentSelectedTactics) return;
       const t = currentSelectedTactics;
@@ -2643,6 +2665,12 @@
       } else if (tabType === 'team') {
         document.getElementById('tabBtnTeam').classList.add('active');
         imgDisplay.src = t.imgTeam || t.imgFormation || '/logo.png';
+      } else if (tabType === 'coach') {
+        document.getElementById('tabBtnCoach').classList.add('active');
+        imgDisplay.src = t.imgCoach || t.imgTrainingCoach || t['훈련코치'] || t['훈련 코치'] || t['코치'] || t.imgFormation || '/logo.png';
+      } else if (tabType === 'trait') {
+        document.getElementById('tabBtnTrait').classList.add('active');
+        imgDisplay.src = t.imgTrait || t.imgTraits || t['특성'] || t['팀특성'] || t['팀 특성'] || t.imgFormation || '/logo.png';
       }
     }
 
