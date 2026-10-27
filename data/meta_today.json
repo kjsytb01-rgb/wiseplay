@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-10-26 00:48:22",
+  "updated_at": "2026-10-27 01:41:18",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 37,
-      "share": 37.0,
+      "count": 36,
+      "share": 36.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "MID": {
-          "ko": "다비드 지놀라",
-          "en": "다비드 지놀라",
-          "vi": "다비드 지놀라",
-          "th": "다비드 지놀라"
-        },
-        "ST": {
-          "ko": "티모 베르너",
-          "en": "티모 베르너",
-          "vi": "티모 베르너",
-          "th": "티모 베르너"
-        },
         "CDM": {
-          "ko": "로드리고 벤탕쿠르",
-          "en": "로드리고 벤탕쿠르",
-          "vi": "로드리고 벤탕쿠르",
-          "th": "로드리고 벤탕쿠르"
+          "ko": "잔루카 잠브로타",
+          "en": "Gianluca Zambrotta",
+          "vi": "Gianluca Zambrotta",
+          "th": "จานลูก้า ซัมบรอตต้า"
+        },
+        "MID": {
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
         },
         "CB": {
-          "ko": "크리스티안 로메로",
-          "en": "크리스티안 로메로",
-          "vi": "크리스티안 로메로",
-          "th": "크리스티안 로메로"
+          "ko": "필리프 코스티치",
+          "en": "Filip Kostic",
+          "vi": "Filip Kostic",
+          "th": "ฟิลิป คอสติช"
+        },
+        "ST": {
+          "ko": "이언 러시",
+          "en": "Ian Rush",
+          "vi": "Ian Rush",
+          "th": "เอียน รัช"
         }
       },
       "recommended_rankers": [
-        "카리나",
         "KRXTak",
+        "카리나",
         "DRXSavior",
-        "BFXNoiZ",
-        "이터니티준서"
+        "삼켜",
+        "Benz성언"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 29,
-      "share": 29.0,
+      "count": 31,
+      "share": 31.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -55,41 +55,41 @@
       "key_players": {
         "MID": {
           "ko": "조 콜",
-          "en": "조 콜",
-          "vi": "조 콜",
-          "th": "조 콜"
+          "en": "Joe Cole",
+          "vi": "Joe Cole",
+          "th": "โจ โคล"
         },
         "CDM": {
           "ko": "스티븐 제라드",
-          "en": "스티븐 제라드",
-          "vi": "스티븐 제라드",
-          "th": "스티븐 제라드"
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
         },
         "CB": {
           "ko": "버질 반다이크",
-          "en": "버질 반다이크",
-          "vi": "버질 반다이크",
-          "th": "버질 반다이크"
+          "en": "Virgil van Dijk",
+          "vi": "Virgil van Dijk",
+          "th": "เวอร์จิล ฟาน ไดจ์ค"
         },
         "ST": {
           "ko": "루이스 디아스",
-          "en": "루이스 디아스",
-          "vi": "루이스 디아스",
-          "th": "루이스 디아스"
+          "en": "Luis Diaz",
+          "vi": "Luis Diaz",
+          "th": "หลุยส์ ดิแอซ"
         }
       },
       "recommended_rankers": [
         "ryuK",
+        "리바이브말맨",
         "T1Pierce",
-        "크뭉신경섭",
-        "Edith이구치리",
-        "농심류크"
+        "DKNova",
+        "KRXChan"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 24,
-      "share": 24.0,
+      "count": 23,
+      "share": 23.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -97,35 +97,35 @@
       "key_players": {
         "MID": {
           "ko": "이스코",
-          "en": "이스코",
-          "vi": "이스코",
-          "th": "이스코"
+          "en": "isco",
+          "vi": "isco",
+          "th": "อิสโก้"
         },
         "CB": {
           "ko": "카제미루",
-          "en": "카제미루",
-          "vi": "카제미루",
-          "th": "카제미루"
+          "en": "casemiro",
+          "vi": "Casemiro",
+          "th": "คาเซมิโร"
         },
         "ST": {
           "ko": "킬리안 음바페",
-          "en": "킬리안 음바페",
-          "vi": "킬리안 음바페",
-          "th": "킬리안 음바페"
+          "en": "Kylian Mbappe",
+          "vi": "Kylian Mbappé",
+          "th": "คีเลียน เอ็มบัปเป้"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
-          "en": "페데리코 발베르데",
-          "vi": "페데리코 발베르데",
-          "th": "페데리코 발베르데"
+          "en": "Federico Valverde",
+          "vi": "Federico Valverde",
+          "th": "เฟเดริโก บัลเบร์เด้"
         }
       },
       "recommended_rankers": [
         "크몽신경섭",
         "GCTCrong",
-        "DKKWAK",
         "GCTwonder08",
-        "youngsookim"
+        "ZEROJ",
+        "Volition화이"
       ]
     },
     {
@@ -139,27 +139,27 @@
       "key_players": {
         "MID": {
           "ko": "미켈 메리노",
-          "en": "미켈 메리노",
-          "vi": "미켈 메리노",
-          "th": "미켈 메리노"
+          "en": "Mikel Merino",
+          "vi": "Mikel Merino",
+          "th": "มิเกล เมอริโน"
         },
         "CB": {
           "ko": "가브리엘 마갈량이스",
-          "en": "가브리엘 마갈량이스",
-          "vi": "가브리엘 마갈량이스",
-          "th": "가브리엘 마갈량이스"
+          "en": "Gabriel Magalliance",
+          "vi": "Gabriel Magalliance",
+          "th": "กาเบรียล มากาลิเซียนซ์"
         },
         "ST": {
           "ko": "카이 하베르츠",
-          "en": "카이 하베르츠",
-          "vi": "카이 하베르츠",
-          "th": "카이 하베르츠"
+          "en": "Kai Havertz",
+          "vi": "Kai Havertz",
+          "th": "ไค ฮาแวร์ตซ์"
         },
         "CDM": {
           "ko": "수비멘디",
-          "en": "수비멘디",
-          "vi": "수비멘디",
-          "th": "수비멘디"
+          "en": "Subi Mendi",
+          "vi": "Subi Mendi",
+          "th": "ซูบี เมนดิ"
         }
       },
       "recommended_rankers": [
@@ -172,8 +172,8 @@
     },
     {
       "formation": "4-1-2-3",
-      "count": 2,
-      "share": 2.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -181,32 +181,33 @@
       "key_players": {
         "MID": {
           "ko": "프랭크 램파드",
-          "en": "프랭크 램파드",
-          "vi": "프랭크 램파드",
-          "th": "프랭크 램파드"
+          "en": "frank lampard",
+          "vi": "Lampard thẳng thắn",
+          "th": "แฟรงค์ แลมพาร์ด"
         },
         "CB": {
           "ko": "리오 퍼디난드",
-          "en": "리오 퍼디난드",
-          "vi": "리오 퍼디난드",
-          "th": "리오 퍼디난드"
+          "en": "Rio Ferdinand",
+          "vi": "Rio Ferdinand",
+          "th": "ริโอ เฟอร์ดินานด์"
         },
         "CDM": {
           "ko": "보비 무어",
-          "en": "보비 무어",
-          "vi": "보비 무어",
-          "th": "보비 무어"
+          "en": "Bobby Moore",
+          "vi": "Bobby Moore",
+          "th": "บ๊อบบี้ มัวร์"
         },
         "ST": {
           "ko": "해리 케인",
-          "en": "해리 케인",
-          "vi": "해리 케인",
-          "th": "해리 케인"
+          "en": "harry kane",
+          "vi": "harry kane",
+          "th": "แฮร์รี่ เคน"
         }
       },
       "recommended_rankers": [
         "선재스님의갈비찜",
-        "UnLMTD김재디"
+        "UnLMTD김재디",
+        "TRACE아카데미"
       ]
     }
   ]
