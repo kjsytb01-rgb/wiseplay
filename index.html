@@ -17,6 +17,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" id="metaDesc" content="WISEPLAY - FC온라인 프로게이머 실전 전술 DB 및 게이밍 컨트롤러(패드) 폴링레이트·인풋랙 정밀 실측 벤치마크 플랫폼">
   <title>WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee</title>
   <style>
     :root {
@@ -720,7 +721,7 @@
     .detail-view-header h2 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 6px; }
     .detail-view-header p { color: var(--text-muted); font-size: 0.9rem; }
     
-    /* 5개 탭이 모바일에서도 예쁘게 감싸지도록 flex-wrap: wrap 추가 */
+    /* 5개 탭이 모바일에서도 예쁘게 감싸지도록 flex-wrap: wrap 적용 */
     .tactics-img-tabs { 
       display: flex; 
       gap: 8px; 
@@ -755,7 +756,34 @@
     }
     .detail-section { background: #1c202a; padding: 18px; border-radius: 10px; border: 1px solid #282d3b; margin-bottom: 18px; }
     .detail-section h4 { font-size: 0.98rem; color: var(--accent-color); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-    .detail-section p { font-size: 0.92rem; color: #d1d5db; line-height: 1.6; white-space: pre-wrap; }
+    .detail-section p { font-size: 0.92rem; color: #d1d5db; line-height: 1.65; white-space: pre-wrap; }
+
+    /* 심층 가이드 서브 블록 */
+    .deep-guide-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .deep-guide-card {
+      background: #14171f;
+      border: 1px solid #252a38;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .deep-guide-card h5 {
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+    .deep-guide-card p {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
     .dual-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
     .dash-box {
       background: linear-gradient(135deg, #131722 0%, #1c2230 100%);
@@ -846,6 +874,42 @@
     .comment-score { color: #ffbb00; font-weight: 700; }
     .comment-body { color: #c9d1d9; }
 
+    /* 홈 화면 하단 정적 가이드 아티클 (애드센스 및 검색엔진 크롤링용) */
+    .editorial-guide-section {
+      margin-top: 56px;
+      background: #141720;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    .editorial-guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 16px;
+    }
+    .editorial-card {
+      background: #1a1e29;
+      border: 1px solid #282e3d;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .editorial-card h3 {
+      font-size: 1.05rem;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .editorial-card p {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 860px) {
+      .editorial-guide-grid { grid-template-columns: 1fr; }
+    }
+
     #imageModal {
       display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100vw; height: 100vh; background: rgba(5, 7, 10, 0.92); justify-content: center; align-items: center; cursor: zoom-out;
     }
@@ -910,80 +974,7 @@
   </header>
 
   <main>
-    <!-- 전술 섹션 -->
-    <section id="section-tactics">
-      <div class="section-header-row">
-        <div class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="tacticsSortBadge">전체 / 최신순</span></div>
-        <div class="carousel-arrows">
-          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', -1)">&larr;</button>
-          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', 1)">&rarr;</button>
-        </div>
-      </div>
-      <div id="tactics-list" class="cards-grid">
-        <div class="loading" id="t-loading-tactics">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
-      </div>
-    </section>
-
-    <!-- 패드 섹션 -->
-    <section id="section-pads" style="display: none;">
-      <div class="section-header-row">
-        <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
-        <div class="carousel-arrows">
-          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
-          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
-        </div>
-      </div>
-      <div id="pads-list" class="cards-grid">
-        <div class="loading" id="t-loading-pads">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
-      </div>
-    </section>
-
-    <!-- 최신 영상 섹션 -->
-    <section id="section-latest-videos" class="latest-videos-section">
-      <div class="section-header-row">
-        <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 해설 영상</h2>
-      </div>
-      <div class="video-showcase-grid">
-        <div class="video-main-stage">
-          <div class="video-player-frame" id="mainVideoFrame"></div>
-          <div class="video-stage-meta">
-            <div>
-              <h3 class="video-stage-title" id="mainVideoTitle">영상을 불러오는 중...</h3>
-              <span class="card-badge" id="mainVideoTag">WISEPLAY</span>
-            </div>
-            <div class="video-stage-right" id="mainVideoScoreBox" title="클릭 시 상세 분석 페이지로 이동">
-              <div class="mc-score-text" style="text-align:right;">
-                <span class="mc-score-label">SCORE</span>
-                <span class="mc-score-verdict" id="mainVideoVerdict">강력 추천</span>
-                <span class="mc-score-sub">상세 분석 보기 &rarr;</span>
-              </div>
-              <div class="mc-score-box tier-purple" id="mainVideoScore">90</div>
-            </div>
-          </div>
-        </div>
-        <div class="video-playlist-side" id="videoPlaylistContainer"></div>
-      </div>
-    </section>
-
-    <!-- 전술 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
-    <section id="section-tactics-ranking" class="pad-ranking-section">
-      <div class="section-header-row">
-        <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
-      </div>
-      <div id="tactics-ranking-list" class="ranking-list"></div>
-      <div id="tactics-ranking-pagination" class="ranking-pagination"></div>
-    </section>
-
-    <!-- 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
-    <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
-      <div class="section-header-row">
-        <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
-      </div>
-      <div id="pad-ranking-list" class="ranking-list"></div>
-      <div id="pad-ranking-pagination" class="ranking-pagination"></div>
-    </section>
-
-    <!-- 전술 상세 화면 (5개 탭 완벽 지원) -->
+    <!-- [최상단 배치] 전술 상세 화면 (크롤러가 상세 URL 접속 시 1순위로 읽도록 최상단 배치) -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1011,6 +1002,12 @@
       <div class="detail-section">
         <h4 id="t-desc-title">📋 전술 분석 및 실전 코멘트</h4>
         <p id="viewReviewText">설명 내용</p>
+      </div>
+
+      <!-- 포메이션 및 인게임 운영 심층 해설 섹션 (고유 텍스트 자동 생성) -->
+      <div class="detail-section" id="viewTacticsDeepSection">
+        <h4 id="t-deep-tactics-title">🔍 포메이션 구조 및 인게임 실전 운영 가이드</h4>
+        <div class="deep-guide-grid" id="viewTacticsDeepContent"></div>
       </div>
 
       <div class="detail-section" id="viewPadSection">
@@ -1059,7 +1056,7 @@
       </div>
     </section>
 
-    <!-- 컨트롤러 상세 화면 -->
+    <!-- [최상단 배치] 컨트롤러 상세 화면 -->
     <section id="detail-view-pads" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1143,6 +1140,12 @@
       <div class="detail-section" id="viewPadIntroSection">
         <h4 id="t-pad-intro-title">📝 패드 소개글</h4>
         <p id="viewPadIntroText">-</p>
+      </div>
+
+      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 (고유 텍스트 자동 생성) -->
+      <div class="detail-section" id="viewPadDeepSection">
+        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
+        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
       </div>
 
       <div class="detail-section" id="viewBenchImgSection">
@@ -1232,6 +1235,109 @@
 
           <div class="comment-list" id="padCommentList"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- 전술 목록 섹션 -->
+    <section id="section-tactics">
+      <div class="section-header-row">
+        <div class="section-title" id="t-sec-title-tactics">⚽ 선수 & 인게임 전술 DB <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-tactics">(카드를 클릭하면 상세 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="tacticsSortBadge">전체 / 최신순</span></div>
+        <div class="carousel-arrows">
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', -1)">&larr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('tactics-list', 1)">&rarr;</button>
+        </div>
+      </div>
+      <div id="tactics-list" class="cards-grid">
+        <div class="loading" id="t-loading-tactics">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
+      </div>
+    </section>
+
+    <!-- 패드 목록 섹션 -->
+    <section id="section-pads" style="display: none;">
+      <div class="section-header-row">
+        <div class="section-title" id="t-sec-title-pads">🎮 컨트롤러 정밀 벤치마크 <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;" id="t-sec-sub-pads">(카드를 클릭하면 벤치마크 세부 페이지로 전환됩니다)</span> <span class="sort-status-badge" id="padsSortBadge">전체 / 최신순</span></div>
+        <div class="carousel-arrows">
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', -1)">&larr;</button>
+          <button type="button" class="arrow-btn" onclick="scrollCarousel('pads-list', 1)">&rarr;</button>
+        </div>
+      </div>
+      <div id="pads-list" class="cards-grid">
+        <div class="loading" id="t-loading-pads">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
+      </div>
+    </section>
+
+    <!-- 최신 영상 섹션 -->
+    <section id="section-latest-videos" class="latest-videos-section">
+      <div class="section-header-row">
+        <h2 class="section-title" id="t-video-sec-title">🎬 최신 전술 해설 영상</h2>
+      </div>
+      <div class="video-showcase-grid">
+        <div class="video-main-stage">
+          <div class="video-player-frame" id="mainVideoFrame"></div>
+          <div class="video-stage-meta">
+            <div>
+              <h3 class="video-stage-title" id="mainVideoTitle">영상을 불러오는 중...</h3>
+              <span class="card-badge" id="mainVideoTag">WISEPLAY</span>
+            </div>
+            <div class="video-stage-right" id="mainVideoScoreBox" title="클릭 시 상세 분석 페이지로 이동">
+              <div class="mc-score-text" style="text-align:right;">
+                <span class="mc-score-label">SCORE</span>
+                <span class="mc-score-verdict" id="mainVideoVerdict">강력 추천</span>
+                <span class="mc-score-sub">상세 분석 보기 &rarr;</span>
+              </div>
+              <div class="mc-score-box tier-purple" id="mainVideoScore">90</div>
+            </div>
+          </div>
+        </div>
+        <div class="video-playlist-side" id="videoPlaylistContainer"></div>
+      </div>
+    </section>
+
+    <!-- 전술 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
+    <section id="section-tactics-ranking" class="pad-ranking-section">
+      <div class="section-header-row">
+        <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
+      </div>
+      <div id="tactics-ranking-list" class="ranking-list"></div>
+      <div id="tactics-ranking-pagination" class="ranking-pagination"></div>
+    </section>
+
+    <!-- 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
+    <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
+      <div class="section-header-row">
+        <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
+      </div>
+      <div id="pad-ranking-list" class="ranking-list"></div>
+      <div id="pad-ranking-pagination" class="ranking-pagination"></div>
+    </section>
+
+    <!-- 메인 홈 화면 전용 정적 분석 가이드 (초기 HTML 텍스트 볼륨 확보 및 상세 페이지 진입 시 숨김) -->
+    <section id="section-editorial-guide" class="editorial-guide-section">
+      <div class="section-header-row" style="margin-bottom:12px;">
+        <h2 class="section-title">📘 WISEPLAY 전술 데이터 분석 및 컨트롤러 벤치마크 측정 가이드</h2>
+      </div>
+      <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.65;">
+        WISEPLAY는 FC 온라인(FC Online) e스포츠 프로게이머들의 대회 실전 포메이션 및 세부 전술 데이터베이스와 게이밍 컨트롤러(게임패드)의 하드웨어 입력 지연(Input Lag) 실측 데이터를 통합 제공하는 전문 분석 플랫폼입니다.
+      </p>
+      <div class="editorial-guide-grid">
+        <article class="editorial-card">
+          <h3>⚽ 프로 전술 DB 구성 및 5단계 인게임 세팅 활용법</h3>
+          <p>
+            현대 축구 게임 메타에서는 단순히 포메이션 형태만 복사하는 것으로는 프로 선수들의 공수 움직임을 온전히 재현하기 어렵습니다. WISEPLAY의 모든 전술 데이터는 <b>1. 포메이션 배치도, 2. 개인 전술(공격/수비 참여도 및 침투 지시), 3. 팀 전술(전개 속도, 패스 성향, 수비 라인 간격), 4. 훈련 코치 조합, 5. 팀 특성</b>의 5단계로 세분화되어 제공됩니다.
+          </p>
+          <p>
+            특히 수비형 미드필더(CDM)의 간격 유지와 풀백의 오버래핑 제어는 개인 전술과 팀 전술 수치가 맞물려 작동하므로, 자신의 주력 스쿼드 활동량과 커서 수비 스타일에 맞춰 전개 수치와 압박 라인을 미세 조정하는 것이 승률 향상의 핵심입니다.
+          </p>
+        </article>
+        <article class="editorial-card">
+          <h3>🎮 게이밍 패드 인풋랙(Latency) 실측 및 센서 메커니즘 기준</h3>
+          <p>
+            0.1초의 퍼스트 터치와 방향 전환이 승패를 가르는 환경에서는 컨트롤러의 물리적 스펙과 통신 레이턴시가 직접적인 체감 차이를 만듭니다. WISEPLAY 벤치마크는 유선(Wired), 2.4GHz 무선 동글(Dongle), 블루투스(BT) 3대 연결 환경에서 <b>폴링레이트(Hz), 아날로그 스틱 레이턴시(ms), 메인 버튼 레이턴시(ms)</b>를 계측 장비로 직접 실측하여 산출합니다.
+          </p>
+          <p>
+            아날로그 스틱 센서 역시 기존의 가변저항(Potentiometer)을 넘어 자석 기반의 <b>홀 이펙트(Hall Effect)</b>, 초정밀 자기저항 센서인 <b>TMR(터널 자기저항)</b>, 그리고 <b>정전용량(Capacitive)</b> 방식으로 진화하고 있습니다. 각 센서의 데드존(Deadzone) 특성과 리니어리티(직선성) 그래프를 비교하여 본인의 드리블 스타일에 가장 적합한 장비를 선택할 수 있습니다.
+          </p>
+        </article>
       </div>
     </section>
   </main>
@@ -1517,6 +1623,11 @@
     let currentPadRankPage = 1;
     const RANK_ITEMS_PER_PAGE = 10;
 
+    function updateMetaDesc(descText) {
+      const el = document.getElementById('metaDesc');
+      if (el && descText) el.setAttribute('content', descText);
+    }
+
     function safePushState(stateObj, urlStr) {
       try {
         if (window.location.protocol !== 'file:') {
@@ -1525,12 +1636,32 @@
       } catch (e) {}
     }
 
+    /* 상세 페이지 진입 시 메인 목록/순위표/영상의 DOM을 완전히 비워 구글 크롤러의 중복 콘텐츠(Duplicate Content) 판정을 원천 차단 */
+    function clearMainListDomForSEO() {
+      const idsToClear = [
+        'tactics-list',
+        'pads-list',
+        'tactics-ranking-list',
+        'tactics-ranking-pagination',
+        'pad-ranking-list',
+        'pad-ranking-pagination',
+        'videoPlaylistContainer',
+        'mainVideoFrame'
+      ];
+      idsToClear.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '';
+      });
+      const guideEl = document.getElementById('section-editorial-guide');
+      if (guideEl) guideEl.style.display = 'none';
+    }
+
     function getPadIntro(pad) {
       if (!pad) return '-';
       return pad.padIntro || pad.PadIntro || pad.intro || pad['패드소개'] || pad['패드 소개글'] || pad['패드소개글'] || pad['소개글'] || pad.pros || '-';
     }
 
-    /* 전술 한줄평 추출 (구글 시트의 oneLine, 한줄평 컬럼 우선, 없으면 첫 줄 자동 추출) */
+    /* 전술 한줄평 추출 */
     function getTacticOneLine(item) {
       if (!item) return '-';
       const raw = item.oneLine || item['한줄평'] || item['한줄 평'] || item.shortReview || item.summary || item.reviewText || '-';
@@ -1538,7 +1669,7 @@
       return firstLine || raw;
     }
 
-    /* 패드 한줄평 추출 (구글 시트의 oneLine, 한줄평 컬럼 우선, 없으면 첫 줄 자동 추출) */
+    /* 패드 한줄평 추출 */
     function getPadOneLine(pad) {
       if (!pad) return '-';
       const raw = pad.oneLine || pad['한줄평'] || pad['한줄 평'] || pad.shortReview || pad.summary || getPadIntro(pad) || '-';
@@ -1554,6 +1685,94 @@
       if (m.includes('TMR')) return 'mech-tmr';
       if (m.includes('CAP') || m.includes('정전')) return 'mech-capacitive';
       return '';
+    }
+
+    /* 포메이션별 구조적 특징 및 실전 운영 심층 해설 생성기 (각 전술 상세 페이지의 고유 텍스트 분량 확보) */
+    function buildTacticsDeepGuideHTML(t) {
+      const player = t.playerName || '프로';
+      const form = (t.formation || '포메이션').trim();
+      const country = t.country || 'GLOBAL';
+      const ver = t.versionName || '최신 대회 메타';
+      const pad = (t.padName && t.padName !== '-') ? t.padName : '고반응성 게이밍 패드';
+      const score = t.wiseScore || '85';
+
+      let structureDesc = '';
+      if (form.includes('4-2-2-2')) {
+        structureDesc = `${form} 포메이션은 두 명의 수비형 미드필더( 투 볼란치)를 통해 중앙 수비 라인 앞의 보호막을 두텁게 형성하면서도, 좌우 공격형 미드필더(LAM/RAM)와 투톱(LS/RS)이 유기적인 사각형 패스 워크를 만들어내는 밸런스형 전술입니다. ${player} 선수는 이 구조에서 2선과 1선의 간격을 촘촘하게 유지하여 빠른 원투패스 침투와 측면 하프스페이스 공략을 동시에 극대화했습니다.`;
+      } else if (form.includes('4-2-3-1')) {
+        structureDesc = `${form} 포메이션은 현대 축구 게임에서 가장 안정적인 공수 밸런스를 자랑하는 전형입니다. 투 볼란치가 후방 빌드업의 기점과 1차 저지선 역할을 수행하고, 중앙 공격형 미드필더(CAM)가 원톱 스트라이커와 좌우 윙어 사이의 연결고리 역할을 맡습니다. ${player} 선수의 세팅은 중원에서의 볼 점유율 유지는 물론 역습 전환 시 CAM과 양 윙어의 날카로운 침투 타이밍을 살리는 데 최적화되어 있습니다.`;
+      } else if (form.includes('4-1-4-1') || form.includes('4-1-2-3')) {
+        structureDesc = `${form} 포메이션은 원 볼란치(단독 CDM)를 축으로 2선에 4명의 미드필더를 배치해 중원 수적 우위와 강력한 전방 압박을 구현하는 전술입니다. ${player} 선수는 수비 시 4-1-4-1 형태의 두 줄 수비 대형을 빠르게 갖추어 상대의 중앙 침투 패스 각도를 차단하고, 볼 탈취 직후에는 좌우 측면과 중앙 미드필더가 동시에 전진하며 다채로운 공격 루트를 형성합니다.`;
+      } else if (form.includes('4-2-1-3')) {
+        structureDesc = `${form} 포메이션은 투 볼란치의 수비적 안정감과 쓰리톱(LW-ST-RW)의 파괴적인 역습 화력을 결합한 실전형 메타 포메이션입니다. ${player} 선수는 중원 공백을 최소화하기 위해 공격형 미드필더(CAM)와 수비형 미드필더 간의 패스 길목을 정교하게 설계했으며, 측면 윙어의 대각선 침투와 컷백, 크로스 플레이에서 높은 득점 기대치를 보여줍니다.`;
+      } else if (form.includes('4-4-2') || form.includes('4-1-2-1-2')) {
+        structureDesc = `${form} 포메이션은 투톱 스트라이커의 연계를 중심으로 직선적인 빌드업과 단단한 지역 방어를 수행하는 전통의 강호 전형입니다. ${player} 선수는 투톱 간의 거리 조절과 미드필더 라인의 수비 가담 속도를 세밀하게 조율하여, 상대 수비진이 정비되기 전에 박스 안으로 진입하는 속도감 있는 공격 전개를 구사합니다.`;
+      } else if (form.includes('5-') || form.includes('3-')) {
+        structureDesc = `${form} 포메이션은 3명의 중앙 수비수(쓰리백)를 기반으로 페널티 박스 내부의 수비 밀집도를 극대화하고, 양 측면 윙백(LWB/RWB)의 넓은 활동량을 활용해 공수 폭을 넓히는 전술입니다. ${player} 선수는 상대의 집요한 측면 크로스와 중앙 스루패스를 효과적으로 제어하면서도, 역습 시 윙백과 전방 공격수들의 빠른 스위칭으로 결정적인 찬스를 만들어냅니다.`;
+      } else {
+        structureDesc = `${player} 선수가 ${ver}에서 선보인 ${form} 포메이션은 상대의 압박을 유연하게 풀어내는 빌드업 동선과 탄탄한 수비 블록을 겸비한 맞춤형 실전 전술입니다. 각 포지션별 간격과 공수 참여도가 정밀하게 계산되어 있어 공식경기 상위 티어 경쟁에서 높은 안정감을 제공합니다.`;
+      }
+
+      const settingGuide = `상단 탭의 5가지 세부 세팅(1. 포메이션 배치도, 2. 개인 전술, 3. 팀 전술, 4. 훈련 코치, 5. 특성)을 인게임에 적용할 때는 먼저 포메이션 내 선수들의 미세한 위치(좌우 폭 및 높낮이)를 동일하게 맞추는 것이 중요합니다.\n개인 전술에서는 공격진의 침투 성향(뒤로 침투/균형)과 수비형 미드필더의 수비 시 위치 사수 지시를 반드시 확인해야 하며, 팀 전술의 전개 속도와 수비 간격 수치는 ${player} 선수의 템포를 재현하는 핵심 지표입니다. 여기에 훈련 코치(퍼스트 터치, 능숙한 몸싸움, 스탠딩 태클 등)와 팀 특성 시너지를 함께 구성하면 전술 완성도가 극대화됩니다.`;
+
+      const padSynergy = `${player} 선수의 전술(WISE SCORE ${score}점)은 빠른 방향 전환과 정교한 커서 체인지 수비가 뒷받침될 때 진가를 발휘합니다. 특히 해당 선수가 활용하는 '${pad}' 등 저지연 컨트롤러 환경에서는 패스 입력 반응과 수비 시 조키(Jockey) 스텝의 미세 조정이 한층 수월해집니다. 본인의 손에 맞는 데드존 및 스틱 감도 세팅을 병행하여 실전 경기에 적용해 보시기 바랍니다.`;
+
+      return `
+        <div class="deep-guide-card">
+          <h5>1. ${player} (${country}) ${form} 포메이션 구조적 핵심</h5>
+          <p id="deep-t-p1">${structureDesc}</p>
+        </div>
+        <div class="deep-guide-card">
+          <h5>2. 5단계 인게임 전술·코치·특성 세팅 체크포인트</h5>
+          <p id="deep-t-p2">${settingGuide}</p>
+        </div>
+        <div class="deep-guide-card">
+          <h5>3. 실전 운영 및 컨트롤러(${pad}) 조작 시너지</h5>
+          <p id="deep-t-p3">${padSynergy}</p>
+        </div>
+      `;
+    }
+
+    /* 컨트롤러 상세 페이지용 하드웨어 및 실측 수치 해설 생성기 */
+    function buildPadDeepGuideHTML(p) {
+      const name = p.padName || '컨트롤러';
+      const mech = p.stickMech || p.specStick || '정밀 아날로그';
+      const score = p.metaScore || '80';
+      const wPoll = p.wPoll ? `${p.wPoll}Hz` : '고주사율';
+      const wSLat = p.wStickLat ? `${p.wStickLat}ms` : '저지연';
+      const wBLat = p.wBtnLat ? `${p.wBtnLat}ms` : '저지연';
+      const dPoll = p.dPoll ? `${p.dPoll}Hz` : '-';
+
+      let mechExplanation = '';
+      const mUpper = String(mech).toUpperCase();
+      if (mUpper.includes('TMR')) {
+        mechExplanation = `${name}에 탑재된 TMR(Tunnel Magnetoresistance, 터널 자기저항) 스틱 센서는 기존 홀 이펙트 센서 대비 전력 소모를 대폭 줄이면서도 자기장 변화 감지 해상도를 한 단계 끌어올린 차세대 규격입니다. 미세한 스틱 기울기 변화를 선형적(Linear)으로 읽어내기 때문에 FC 온라인의 심리전 드리블, 미세 방향 전환, 정교한 패스 게이지 및 방향 지정에서 최상위권의 입력 정확도를 제공합니다.`;
+      } else if (mUpper.includes('HALL') || mUpper.includes('홀')) {
+        mechExplanation = `${name}은 물리적 접점이 마모되면서 발생하는 스틱 쏠림(Drift) 현상을 원천 방지하는 홀 이펙트(Hall Effect) 자기 센서를 채택했습니다. 장기간 사용 시에도 초기 센터 영점과 데드존 안정성이 꾸준히 유지되며, 부드러운 스틱 움직임 덕분에 장시간 플레이 시 손목과 엄지손가락의 피로도가 낮은 것이 강점입니다.`;
+      } else if (mUpper.includes('CAP') || mUpper.includes('정전')) {
+        mechExplanation = `${name}은 정전용량(Capacitive) 방식의 고감도 센서 메커니즘을 적용하여 외부 자기장 간섭을 최소화하고 즉각적인 스틱 중심 복귀력과 세밀한 입력 해상도를 구현했습니다. 빠르고 직관적인 스틱 반응성을 선호하는 유저에게 최적화된 퍼포먼스를 보여줍니다.`;
+      } else {
+        mechExplanation = `${name}은 직관적인 아날로그 스틱 텐션과 안정적인 중심 복귀 설계를 갖추고 있어, 축구 게임 특유의 360도 방향 전환과 스킬 무브 입력 시 일관된 조작감을 제공합니다.`;
+      }
+
+      const benchExplanation = `실측 벤치마크 결과 ${name}은 WISE META SCORE ${score}점을 기록했습니다. 유선(Wired) 연결 기준 폴링레이트 ${wPoll}, 스틱 입력 레이턴시 ${wSLat}, 버튼 입력 레이턴시 ${wBLat}의 계측 수치를 보여주며, 무선 2.4GHz 동글 환경에서는 폴링레이트 ${dPoll} 수준으로 작동합니다. 인게임에서 슛 캔슬, 퍼스트 터치 방향 전환, 수비 커서 변경 시 입력 지연으로 인한 답답함 없이 즉각적인 피드백을 받을 수 있는 성능입니다.`;
+
+      constbuttonSpec = `메인 액션 버튼(${p.specBtn || '표준 스위치'}), D패드(${p.specDpad || '전술 십자키'}), 범퍼(${p.specBumper || 'L1/R1'})의 클릭감과 반발력은 연속적인 개인기 입력 및 커서 변경 속도에 직접적인 영향을 미칩니다. 또한 전용 소프트웨어(${p.specApp || '기본 매핑'})를 통해 이너/아우터 데드존과 반응 곡선을 본인의 손에 맞게 파인튜닝하면 실전 승률을 한층 높일 수 있습니다.`;
+
+      return `
+        <div class="deep-guide-card">
+          <h5>1. 아날로그 스틱 센서 메커니즘 (${mech})</h5>
+          <p id="deep-p-p1">${mechExplanation}</p>
+        </div>
+        <div class="deep-guide-card">
+          <h5>2. 폴링레이트 및 인풋랙(Latency) 실측 데이터 해석</h5>
+          <p id="deep-p-p2">${benchExplanation}</p>
+        </div>
+        <div class="deep-guide-card">
+          <h5>3. 스위치 구조 및 FC 온라인 실전 세팅 조언</h5>
+          <p id="deep-p-p3">${buttonSpec}</p>
+        </div>
+      `;
     }
 
     /* 티어 계산 */
@@ -1614,11 +1833,11 @@
         btn.classList.toggle('active', btn.id === `btn-lang-${lang}`);
       });
       applyI18n();
-      handleSearch();
-      renderTacticsRanking();
-      renderPadRanking();
-
-      if (isDetailView) {
+      if (!isDetailView) {
+        handleSearch();
+        renderTacticsRanking();
+        renderPadRanking();
+      } else {
         if (currentSelectedTactics) updateTacticsDetailLang();
         if (currentSelectedPad) updatePadDetailLang();
       }
@@ -1725,8 +1944,11 @@
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('section-latest-videos').style.display = 'block';
       document.getElementById('controlsBar').style.display = 'flex';
+      const guideEl = document.getElementById('section-editorial-guide');
+      if (guideEl) guideEl.style.display = 'block';
 
       document.title = "WISEPLAY - 즐인권(FIFA CAMPER) X LJ Lee";
+      updateMetaDesc("WISEPLAY - FC온라인 프로게이머 실전 전술 DB 및 게이밍 컨트롤러(패드) 폴링레이트·인풋랙 정밀 실측 벤치마크 플랫폼");
 
       const tabNavTactics = document.getElementById('tabNavTactics');
       const tabNavPads = document.getElementById('tabNavPads');
@@ -1841,16 +2063,19 @@
             const text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allTactics = parseCSV(text);
-              renderTactics(allTactics);
-              renderTacticsRanking();
-              updateVideoShowcase();
               checkInitialUrl();
-              if (isDetailView && currentSelectedPad) {
+              if (!isDetailView) {
+                renderTactics(allTactics);
+                renderTacticsRanking();
+                updateVideoShowcase();
+              } else if (currentSelectedPad) {
                 renderPadMatchedPlayers(currentSelectedPad);
               }
               loadAllReviewStats().then(() => {
-                renderTactics(allTactics);
-                renderTacticsRanking();
+                if (!isDetailView) {
+                  renderTactics(allTactics);
+                  renderTacticsRanking();
+                }
               });
               return;
             }
@@ -1859,7 +2084,9 @@
           console.warn("Tactics fetch error:", err);
         }
       }
-      document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+      if (!isDetailView) {
+        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+      }
     }
 
     async function loadPads() {
@@ -1874,13 +2101,17 @@
             const text = await res.text();
             if (text && !text.includes('<!DOCTYPE html>') && !text.includes('<html>')) {
               allPads = parseCSV(text);
-              renderPads(allPads);
-              renderPadRanking();
-              updateVideoShowcase();
               checkInitialUrl();
-              loadAllReviewStats().then(() => {
+              if (!isDetailView) {
                 renderPads(allPads);
                 renderPadRanking();
+                updateVideoShowcase();
+              }
+              loadAllReviewStats().then(() => {
+                if (!isDetailView) {
+                  renderPads(allPads);
+                  renderPadRanking();
+                }
               });
               return;
             }
@@ -1889,7 +2120,9 @@
           console.warn("Pads fetch error:", err);
         }
       }
-      document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+      if (!isDetailView) {
+        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+      }
     }
 
     async function loadAllReviewStats() {
@@ -1939,6 +2172,7 @@
     }
 
     function renderTactics(list) {
+      if (isDetailView) return;
       const container = document.getElementById('tactics-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       if (!list || list.length === 0) return;
@@ -2010,6 +2244,7 @@
     }
 
     function renderPads(list) {
+      if (isDetailView) return;
       const container = document.getElementById('pads-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       if (!list || list.length === 0) return;
@@ -2098,6 +2333,7 @@
 
     /* 전술 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderTacticsRanking() {
+      if (isDetailView) return;
       const container = document.getElementById('tactics-ranking-list');
       const pageContainer = document.getElementById('tactics-ranking-pagination');
       if (!container || !allTactics || allTactics.length === 0) return;
@@ -2121,20 +2357,13 @@
 
         return `
           <div class="ranking-item" onclick="openTacticsDetail(${origIdx})">
-            <!-- 1. 순위 -->
             <div class="rank-num ${rankClass}">${rank}</div>
-
-            <!-- 2. 점수 -->
             <div class="mc-score-box ${tier.cls}">${score}</div>
-
-            <!-- 3. 사진 -->
             <div class="rank-thumb-wrap ${tier.cls}">
               <div class="rank-thumb">
                 <img src="${item.imgFormation || '/logo.png'}" alt="Formation" onerror="this.src='/logo.png'">
               </div>
             </div>
-
-            <!-- 4. 이름 -->
             <div class="rank-name-col">
               <div class="rank-top-row">
                 <span class="card-badge">${item.formation || 'FORMATION'}</span>
@@ -2146,8 +2375,6 @@
                 </div>
               ` : ''}
             </div>
-
-            <!-- 5. 평가 (한줄평) -->
             <div class="rank-intro-box" id="rank-tactic-intro-${rank}">${oneLineText}</div>
           </div>
         `;
@@ -2177,6 +2404,7 @@
 
     /* 패드 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderPadRanking() {
+      if (isDetailView) return;
       const container = document.getElementById('pad-ranking-list');
       const pageContainer = document.getElementById('pad-ranking-pagination');
       if (!container || !allPads || allPads.length === 0) return;
@@ -2201,28 +2429,19 @@
 
         return `
           <div class="ranking-item" onclick="openPadDetail(${origIdx})">
-            <!-- 1. 순위 -->
             <div class="rank-num ${rankClass}">${rank}</div>
-
-            <!-- 2. 점수 -->
             <div class="mc-score-box ${tier.cls}">${score}</div>
-
-            <!-- 3. 사진 -->
             <div class="rank-thumb-wrap ${tier.cls}">
               <div class="rank-thumb">
                 <img src="${thumb}" alt="Controller" onerror="this.src='/logo.png'">
               </div>
             </div>
-
-            <!-- 4. 이름 -->
             <div class="rank-name-col">
               <div class="rank-top-row">
                 ${pad.stickMech ? `<span class="card-badge ${getStickMechBadgeClass(pad.stickMech)}">${pad.stickMech}</span>` : ''}
                 <span class="rank-title">${pad.padName || '-'}</span>
               </div>
             </div>
-
-            <!-- 5. 평가 (한줄평) -->
             <div class="rank-intro-box" id="rank-pad-intro-${rank}">${oneLineText}</div>
           </div>
         `;
@@ -2251,6 +2470,7 @@
     }
 
     function updateVideoShowcase() {
+      if (isDetailView) return;
       const collected = [];
       const titleEl = document.getElementById('t-video-sec-title');
 
@@ -2297,6 +2517,7 @@
     }
 
     function selectShowcaseVideo(idx, autoplay = false) {
+      if (isDetailView) return;
       currentVideoIdx = idx;
       const v = videoItems[idx];
       if (!v) return;
@@ -2336,6 +2557,7 @@
     }
 
     function handleSearch() {
+      if (isDetailView) return;
       const searchInput = document.getElementById('searchInput');
       const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
       if (currentTab === 'tactics') {
@@ -2375,6 +2597,9 @@
       currentSelectedTactics = allTactics[index];
       if (!currentSelectedTactics) return;
 
+      isDetailView = true;
+      clearMainListDomForSEO();
+
       currentTab = 'tactics';
       document.getElementById('tabNavTactics').classList.add('active');
       document.getElementById('tabNavPads').classList.remove('active');
@@ -2384,8 +2609,10 @@
       document.getElementById('viewPlayerName').innerText = `${t.playerName || 'Player'}`;
       document.getElementById('viewSubInfo').innerText = `${t.country || 'GLOBAL'} | ${t.versionName || '-'}`;
 
-      document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 | FC온라인 프로 전술 - WISEPLAY`;
+      document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 및 세팅 가이드 | WISEPLAY`;
+      updateMetaDesc(`${t.playerName || '프로'} 선수의 ${t.formation || ''} 포메이션 배치도, 개인 전술, 팀 전술, 훈련 코치 및 인게임 운영 심층 분석 - WISEPLAY`);
 
+      document.getElementById('viewTacticsDeepContent').innerHTML = buildTacticsDeepGuideHTML(t);
       updateTacticsDetailLang();
 
       if (t.padName && t.padName !== '-') {
@@ -2418,7 +2645,6 @@
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'block';
-      isDetailView = true;
 
       const slug = cleanSlug(t.slug, t.playerName);
       const finalUrl = targetUrl || `/tactics/${slug}/`;
@@ -2479,6 +2705,9 @@
       currentSelectedPad = allPads[index];
       if (!currentSelectedPad) return;
 
+      isDetailView = true;
+      clearMainListDomForSEO();
+
       currentTab = 'pads';
       document.getElementById('tabNavPads').classList.add('active');
       document.getElementById('tabNavTactics').classList.remove('active');
@@ -2522,6 +2751,7 @@
       }
 
       document.title = `${p.padName || 'Gamepad'} 레이턴시·폴링레이트 실측 벤치마크 | WISEPLAY`;
+      updateMetaDesc(`${p.padName || '컨트롤러'} (${p.stickMech || ''}) 유선·무선 폴링레이트 및 스틱·버튼 인풋랙 실측 벤치마크 리뷰 - WISEPLAY`);
 
       setTierValue('tStick', p.gradeStick);
       setTierValue('tBtn', p.gradeBtn);
@@ -2555,6 +2785,8 @@
       document.getElementById('sDock').innerText = p.specDock || '-';
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
+
+      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
 
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
@@ -2598,7 +2830,6 @@
       document.getElementById('controlsBar').style.display = 'none';
       document.getElementById('detail-view-tactics').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'block';
-      isDetailView = true;
 
       const slug = cleanSlug(p.slug, p.padName);
       const finalUrl = targetUrl || `/controllers/${slug}/`;
