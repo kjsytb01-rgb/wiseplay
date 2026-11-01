@@ -1004,11 +1004,7 @@
         <p id="viewReviewText">설명 내용</p>
       </div>
 
-      <!-- 포메이션 및 인게임 운영 심층 해설 섹션 (고유 텍스트 자동 생성) -->
-      <div class="detail-section" id="viewTacticsDeepSection">
-        <h4 id="t-deep-tactics-title">🔍 포메이션 구조 및 인게임 실전 운영 가이드</h4>
-        <div class="deep-guide-grid" id="viewTacticsDeepContent"></div>
-      </div>
+      
 
       <div class="detail-section" id="viewPadSection">
         <h4 id="t-player-pad-title">🎮 선수가 사용하는 패드</h4>
@@ -2612,7 +2608,7 @@
       document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 및 세팅 가이드 | WISEPLAY`;
       updateMetaDesc(`${t.playerName || '프로'} 선수의 ${t.formation || ''} 포메이션 배치도, 개인 전술, 팀 전술, 훈련 코치 및 인게임 운영 심층 분석 - WISEPLAY`);
 
-      document.getElementById('viewTacticsDeepContent').innerHTML = buildTacticsDeepGuideHTML(t);
+     
       updateTacticsDetailLang();
 
       if (t.padName && t.padName !== '-') {
