@@ -971,81 +971,6 @@
   </header>
 
   <main>
-    <section id="detail-view-tactics" class="detail-view-container">
-      <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
-      
-      <div class="detail-view-header">
-        <span class="card-badge" id="viewFormation">포메이션</span>
-        <h2 id="viewPlayerName">선수명</h2>
-        <p id="viewSubInfo">국가 | 대회 버전</p>
-      </div>
-
-      <div class="tactics-img-tabs">
-        <button type="button" class="tactics-img-tab-btn active" id="tabBtnFormation" onclick="showTacticsTabImg('formation')">1. <span class="t-img-tab1">포메이션 배치도</span></button>
-        <button type="button" class="tactics-img-tab-btn" id="tabBtnPersonal" onclick="showTacticsTabImg('personal')">2. <span class="t-img-tab2">개인 전술 세팅</span></button>
-        <button type="button" class="tactics-img-tab-btn" id="tabBtnTeam" onclick="showTacticsTabImg('team')">3. <span class="t-img-tab3">팀 전술 세팅</span></button>
-        <button type="button" class="tactics-img-tab-btn" id="tabBtnCoach" onclick="showTacticsTabImg('coach')">4. <span class="t-img-tab4">훈련 코치</span></button>
-        <button type="button" class="tactics-img-tab-btn" id="tabBtnTrait" onclick="showTacticsTabImg('trait')">5. <span class="t-img-tab5">특성</span></button>
-      </div>
-
-      <div style="position:relative;">
-        <img id="viewImgDisplay" class="view-display-img" src="/logo.png" alt="Tactics" onclick="openLightbox(this.src)">
-        <div style="position:absolute; bottom:28px; right:14px; background:rgba(0,0,0,0.7); font-size:0.75rem; padding:4px 8px; border-radius:4px; pointer-events:none;" id="t-zoom-hint">
-          🔍 클릭하면 원본 크기로 확대됩니다
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <h4 id="t-desc-title">📋 전술 분석 및 실전 코멘트</h4>
-        <p id="viewReviewText" style="white-space:pre-line;">설명 내용</p>
-      </div>
-
-      <div class="detail-section" id="viewPadSection">
-        <h4 id="t-player-pad-title">🎮 선수가 사용하는 패드</h4>
-        <div style="margin-top:6px;">
-          <div id="viewPadNameBadge" class="cross-link-badge" onclick="navigateToPad(this.dataset.pad)">
-            🎮 <span id="viewPadNameText"></span> <span style="font-size:0.8rem; opacity:0.8;" id="t-view-spec-hint">(벤치마크 스펙 보기 &rarr;)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <h4 id="t-review-sec-title">⭐ 유저 실전 체감 평점 & 코멘트</h4>
-        <div class="user-review-box">
-          <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-            <span style="font-size:1.4rem; font-weight:900; color:var(--accent-gold);" id="tacticsAvgScore">0.0</span>
-            <span style="color:var(--accent-gold); font-size:1.1rem;" id="tacticsAvgStars">☆☆☆☆☆</span>
-            <span style="font-size:0.8rem; color:#888;" id="tacticsReviewCount">(0)</span>
-          </div>
-
-          <div class="review-form">
-            <div class="review-input-row">
-              <input type="text" id="tReviewNick" class="review-nick-input" placeholder="닉네임">
-              <select id="tReviewScore" class="review-score-select">
-                <option value="5">★ 5</option>
-                <option value="4">★ 4</option>
-                <option value="3">★ 3</option>
-                <option value="2">★ 2</option>
-                <option value="1">★ 1</option>
-              </select>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <input type="text" id="tReviewText" class="review-text-input" placeholder="실전 체감 한줄평 후기를 남겨주세요...">
-              <button type="button" class="review-submit-btn" onclick="submitReview('tactics')" id="t-review-submit-btn1">등록</button>
-            </div>
-          </div>
-
-          <div class="comment-list" id="tacticsCommentList"></div>
-        </div>
-      </div>
-
-      <div id="viewYtSection">
-        <a id="viewYtLink" href="#" target="_blank" rel="noopener" class="detail-footer-btn" style="background:#ff0000;">
-          ▶ 즐인권의 실전 전술 해설 유튜브 영상 보기
-        </a>
-      </div>
-    </section>
-
     <section id="detail-view-pads" class="detail-view-container" style="display:block;">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
 
@@ -1210,7 +1135,20 @@ TMR 센서 및 메탈 셰프트 부재: 최신 TMR이 아닌 구형 홀이펙트
       </div>
     </section>
 
-    <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+  </main>
+
+  <footer style="max-width: 1200px; margin: 40px auto 0; padding: 24px 16px; border-top: 1px solid var(--card-border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
     <p style="margin-bottom: 8px;">WISEPLAY &copy; 2026 즐인권(FIFA CAMPER) X LJ Lee. All rights reserved.</p>
     <p style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
       <a href="/about.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">서비스 소개 및 문의 (About & Contact)</a>
