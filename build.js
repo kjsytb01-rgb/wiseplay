@@ -172,4 +172,59 @@ function buildIndividualTacticPages(baseHtml, tactics) {
 }
 
 async function runBuild() {
-  console.
+  console.log('1. 구글 시트에서 CSV 데이터를 가져오는 중...');
+  const [tacticsRes, padsRes] = await Promise.all([
+    fetch(TACTICS_CSV_URL),
+    fetch(PADS_CSV_URL)
+  ]);
+
+  const tacticsText = await tacticsRes.text();
+  const padsText = await padsRes.text();
+
+  const tactics = parseCSV(tacticsText);
+  const pads = parseCSV(padsText);
+
+  console.log(`파싱 완료: 전술 ${tactics.length}개, 패드 ${pads.length}개`);
+
+  let html = fs.readFileSync('index.html', 'utf8');
+
+  // 1) HTML 정적 카드 주입
+  const tStart = '<!-- SSG_TACTICS_START -->';
+  const tEnd = '<!-- SSG_TACTICS_END -->';
+  if (html.includes(tStart) && html.includes(tEnd)) {
+    const b = html.substring(0, html.indexOf(tStart) + tStart.length);
+    const a = html.substring(html.indexOf(tEnd));
+    html = b + '\n' + generateTacticsHTML(tactics) + '\n' + a;
+  }
+
+  const pStart = '<!-- SSG_PADS_START -->';
+  const pEnd = '<!-- SSG_PADS_END -->';
+  if (html.includes(pStart) && html.includes(pEnd)) {
+    const b = html.substring(0, html.indexOf(pStart) + pStart.length);
+    const a = html.substring(html.indexOf(pEnd));
+    html = b + '\n' + generatePadsHTML(pads) + '\n' + a;
+  }
+
+  // 2) JavaScript 프리로드 데이터 주입
+  const dStart = '/* SSG_DATA_START */';
+  const dEnd = '/* SSG_DATA_END */';
+  if (html.includes(dStart) && html.includes(dEnd)) {
+    const b = html.substring(0, html.indexOf(dStart) + dStart.length);
+    const a = html.substring(html.indexOf(dEnd));
+    const dataContent = `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    `;
+    html = b + dataContent + a;
+    console.log('JavaScript 프리로드 데이터 주입 완료!');
+  } else {
+    console.error('SSG_DATA 마커를 찾지 못했습니다.');
+  }
+
+  fs.writeFileSync('index.html', html, 'utf8');
+  console.log('메인 index.html 업데이트 완료!');
+
+  buildIndividualTacticPages(html, tactics);
+}
+
+runBuild().catch(err => {
+  console.error('빌드 중 오류 발생:', err);
+  process.exit(1);
+});
