@@ -105,48 +105,7 @@ function removeSectionById(html, sectionId) {
   return html;
 }
 
-function generateTacticsHTML(tactics) {
-  return tactics.map(t => {
-    const name = escapeHtml(t.playerName || '');
-    const team = escapeHtml(t.team || '');
-    const formation = escapeHtml(t.formation || '');
-    const score = escapeHtml(t.score || t.wiseScore || '85');
-    const summary = escapeHtml(t.summary || t.oneLineReview || t.oneLine || '');
-    const review = escapeHtml(t.reviewText || '');
-
-    return `
-    <article class="static-tactic-card" style="background:#14171c; border:1px solid #262b33; border-radius:12px; padding:20px; margin-bottom:16px;">
-      <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="background:#00e67622; color:#00e676; padding:4px 8px; border-radius:4px; font-weight:700; font-size:13px;">${formation}</span>
-        <span style="background:#00e676; color:#000; font-weight:800; padding:4px 8px; border-radius:6px;">WISE SCORE ${score}</span>
-      </header>
-      <h3 style="margin:0 0 8px 0; font-size:18px; color:#fff;">${name} ${team ? `(${team})` : ''} - ${formation} 실전 전술 분석</h3>
-      <p style="color:#b0b8c1; font-size:14px; line-height:1.6; margin-bottom:12px;"><strong>핵심 요약:</strong> ${summary}</p>
-      <div class="tactic-full-review" style="color:#9aa4b0; font-size:13px; line-height:1.7; white-space:pre-line; border-top:1px solid #262b33; padding-top:12px;">${review}</div>
-    </article>`;
-  }).join('\n');
-}
-
-function generatePadsHTML(pads) {
-  return pads.map(p => {
-    const padName = escapeHtml(p.padName || '');
-    const score = escapeHtml(p.score || p.metaScore || '');
-    const summary = escapeHtml(p.summary || p.padIntro || p.pros || '');
-    const polling = escapeHtml(p.pollingRate || p.wPoll || '-');
-    const sensor = escapeHtml(p.stickSensor || p.stickMech || '-');
-
-    return `
-    <article class="static-pad-card" style="background:#14171c; border:1px solid #262b33; border-radius:12px; padding:20px; margin-bottom:16px;">
-      <h3 style="margin:0 0 8px 0; font-size:18px; color:#fff;">${padName} (벤치마크 점수: ${score})</h3>
-      <ul style="color:#b0b8c1; font-size:13px; line-height:1.6; margin:0 0 10px 0; padding-left:18px;">
-        <li>스틱 센서: ${sensor}</li>
-        <li>폴링레이트 및 입력지연 스펙: ${polling}</li>
-      </ul>
-      <p style="color:#9aa4b0; font-size:13px; line-height:1.7; white-space:pre-line;">${summary}</p>
-    </article>`;
-  }).join('\n');
-}
-
+// 1. 개별 전술 상세 정적 페이지 생성
 function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
   tactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
@@ -212,6 +171,7 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
 
+    // 상세 페이지에서 불필요한 메인 리스트와 다른 템플릿들을 확실히 삭제
     const sectionsToRemove = [
       'detail-view-pads',
       'section-tactics',
@@ -231,6 +191,7 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
   console.log(`개별 전술 정적 페이지 ${tactics.length}개 정밀 생성 완료!`);
 }
 
+// 2. 개별 컨트롤러 상세 정적 페이지 생성
 function buildIndividualPadPages(cleanTemplateHtml, pads) {
   pads.forEach(p => {
     const slug = cleanSlug(p.slug, p.padName);
@@ -330,6 +291,7 @@ async function runBuild() {
 
   const rawTemplate = fs.readFileSync('index.html', 'utf8');
 
+  // 이전 빌드 잔재 클린업
   ['tactics', 'controllers'].forEach(baseDir => {
     if (fs.existsSync(baseDir)) {
       fs.readdirSync(baseDir).forEach(sub => {
@@ -344,26 +306,12 @@ async function runBuild() {
   });
   console.log('기존 개별 상세 폴더 클린업 완료!');
 
+  // 1) 개별 상세 정적 페이지 생성
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
+  // 2) 메인 홈 index.html: 기존 카드 디자인을 해치는 투박한 HTML 주입을 생략하고 순수 데이터만 프리로드 주입
   let homeHtml = rawTemplate;
-
-  const tStart = '<!-- SSG_TACTICS_START -->';
-  const tEnd = '<!-- SSG_TACTICS_END -->';
-  if (homeHtml.includes(tStart) && homeHtml.includes(tEnd)) {
-    const b = homeHtml.substring(0, homeHtml.indexOf(tStart) + tStart.length);
-    const a = homeHtml.substring(homeHtml.indexOf(tEnd));
-    homeHtml = b + '\n' + generateTacticsHTML(tactics) + '\n' + a;
-  }
-
-  const pStart = '<!-- SSG_PADS_START -->';
-  const pEnd = '<!-- SSG_PADS_END -->';
-  if (homeHtml.includes(pStart) && homeHtml.includes(pEnd)) {
-    const b = homeHtml.substring(0, homeHtml.indexOf(pStart) + pStart.length);
-    const a = homeHtml.substring(homeHtml.indexOf(pEnd));
-    homeHtml = b + '\n' + generatePadsHTML(pads) + '\n' + a;
-  }
 
   const dStart = '/* SSG_DATA_START */';
   const dEnd = '/* SSG_DATA_END */';
