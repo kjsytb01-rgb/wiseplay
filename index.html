@@ -1290,7 +1290,7 @@
         </div>
       </div>
       <div id="tactics-list" class="cards-grid">
-        <div class="loading" id="t-loading-tactics">구글 시트에서 최신 전술 데이터를 불러오는 중...</div>
+       <div class="loading" id="t-loading-tactics">⚡ WISEPLAY 실전 프로 전술 데이터베이스를 동기화하고 있습니다...</div>
       </div>
     </section>
 
@@ -1304,7 +1304,7 @@
         </div>
       </div>
       <div id="pads-list" class="cards-grid">
-        <div class="loading" id="t-loading-pads">구글 시트에서 패드 벤치마크 데이터를 불러오는 중...</div>
+       <div class="loading" id="t-loading-pads">⚡ 하드웨어 입력 지연 및 정밀 벤치마크 실측 지표를 분석 중입니다...</div>
       </div>
     </section>
 
@@ -2090,7 +2090,7 @@
         }
       }
       if (!isDetailView) {
-        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Tactics 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">전술 데이터베이스를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
       }
     }
 
