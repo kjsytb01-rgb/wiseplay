@@ -1290,7 +1290,9 @@
         </div>
       </div>
       <div id="tactics-list" class="cards-grid">
-       <div class="loading" id="t-loading-tactics">⚡ WISEPLAY 실전 프로 전술 데이터베이스를 동기화하고 있습니다...</div>
+        <!-- SSG_TACTICS_START -->
+        <div class="loading" id="t-loading-tactics">⚡ WISEPLAY 실전 프로 전술 데이터베이스를 동기화하고 있습니다...</div>
+        <!-- SSG_TACTICS_END -->
       </div>
     </section>
 
@@ -1304,7 +1306,9 @@
         </div>
       </div>
       <div id="pads-list" class="cards-grid">
-       <div class="loading" id="t-loading-pads">⚡ 하드웨어 입력 지연 및 정밀 벤치마크 실측 지표를 분석 중입니다...</div>
+        <!-- SSG_PADS_START -->
+        <div class="loading" id="t-loading-pads">⚡ 하드웨어 입력 지연 및 정밀 벤치마크 실측 지표를 분석 중입니다...</div>
+        <!-- SSG_PADS_END -->
       </div>
     </section>
 
@@ -1398,6 +1402,11 @@
   </div>
 
   <script>
+    /* SSG_DATA_START */
+    window.__PRELOADED_TACTICS__ = null;
+    window.__PRELOADED_PADS__ = null;
+    /* SSG_DATA_END */
+
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
 
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
@@ -1996,6 +2005,7 @@
       switchTab('tactics', true);
     }
 
+    /* 작은따옴표(')로 인한 파싱 파손 방지 및 정밀 CSV 파서 */
     function parseCSV(text) {
       if (!text || !text.trim()) return [];
       const rows = [];
@@ -2007,9 +2017,9 @@
         const c = text[i];
         const next = text[i + 1];
 
-        if (c === '"' || c === "'") {
-          if (inQuotes && next === c) {
-            cell += c;
+        if (c === '"') {
+          if (inQuotes && next === '"') {
+            cell += '"';
             i++;
           } else {
             inQuotes = !inQuotes;
@@ -2040,7 +2050,7 @@
 
       if (rows.length <= 1) return [];
 
-      const headers = rows[0].map(h => h.replace(/^\uFEFF/, '').replace(/^["']|["']$/g, '').trim());
+      const headers = rows[0].map(h => h.replace(/^\uFEFF/, '').replace(/^"|"$/g, '').trim());
       const data = [];
 
       for (let r = 1; r < rows.length; r++) {
@@ -2049,14 +2059,33 @@
         const obj = {};
         headers.forEach((h, idx) => {
           let val = rowData[idx] || '';
-          obj[h] = val.replace(/^["']|["']$/g, '').trim();
+          obj[h] = val.replace(/^"|"$/g, '').trim();
         });
-        data.push(obj);
+        if (obj.playerName || obj.padName) {
+          data.push(obj);
+        }
       }
       return data;
     }
 
     async function loadTactics() {
+      if (window.__PRELOADED_TACTICS__ && Array.isArray(window.__PRELOADED_TACTICS__) && window.__PRELOADED_TACTICS__.length > 0) {
+        allTactics = window.__PRELOADED_TACTICS__;
+        checkInitialUrl();
+        if (!isDetailView) {
+          renderTactics(allTactics);
+          renderTacticsRanking();
+          if (currentTab === 'tactics') updateVideoShowcase();
+        }
+        loadAllReviewStats().then(() => {
+          if (!isDetailView) {
+            renderTactics(allTactics);
+            renderTacticsRanking();
+          }
+        });
+        return;
+      }
+
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
@@ -2095,6 +2124,23 @@
     }
 
     async function loadPads() {
+      if (window.__PRELOADED_PADS__ && Array.isArray(window.__PRELOADED_PADS__) && window.__PRELOADED_PADS__.length > 0) {
+        allPads = window.__PRELOADED_PADS__;
+        checkInitialUrl();
+        if (!isDetailView) {
+          renderPads(allPads);
+          renderPadRanking();
+          if (currentTab === 'pads') updateVideoShowcase();
+        }
+        loadAllReviewStats().then(() => {
+          if (!isDetailView) {
+            renderPads(allPads);
+            renderPadRanking();
+          }
+        });
+        return;
+      }
+
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
@@ -2126,7 +2172,7 @@
         }
       }
       if (!isDetailView) {
-        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:#ff6b6b;">⚠️ 구글 시트(Pads 탭)를 불러오지 못했습니다. 시트 권한을 확인해주세요.</div>`;
+        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">컨트롤러 벤치마크 데이터를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
       }
     }
 
