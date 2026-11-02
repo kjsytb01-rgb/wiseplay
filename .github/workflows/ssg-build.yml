@@ -14,18 +14,25 @@ jobs:
     steps:
       - name: 레포지토리 코드 체크아웃
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Node.js 24 설정
         uses: actions/setup-node@v4
         with:
           node-version: '24'
 
-      - name: 구글 시트 데이터 가져와서 index.html 정적 빌드 실행
+      - name: 구글 시트 데이터 가져와서 정적 빌드 실행
         run: node build.js
 
       - name: 변경된 정적 HTML 파일 자동 커밋 및 배포
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.html tactics/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: 전술 상세 정적 페이지 자동 빌드 반영" && git push)
+          git add -A
+          if git diff --staged --quiet; then
+            echo "변경 사항이 없어 커밋을 건너뜁니다."
+          else
+            git commit -m "chore: 전술 및 패드 정적 데이터 자동 빌드 반영"
+            git push
+          fi
