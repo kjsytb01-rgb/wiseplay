@@ -75,29 +75,32 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-function removeSectionById(html, sectionId) {
-  const pattern = new RegExp(`<section[^>]*id=["']${sectionId}["'][^>]*>`, 'i');
-  const match = pattern.exec(html);
+// div, section 등 어떤 태그든 ID를 찾아 중첩 태그 depth를 계산해 깔끔하게 도려내는 함수
+function removeElementById(html, elementId) {
+  const openRegex = new RegExp(`<([a-zA-Z0-9]+)[^>]*\\bid=["']${elementId}["'][^>]*>`, 'i');
+  const match = openRegex.exec(html);
   if (!match) return html;
 
+  const tagName = match[1].toLowerCase();
   const startIndex = match.index;
-  let depth = 0;
-  let cursor = startIndex;
+  let cursor = startIndex + match[0].length;
+  let depth = 1;
 
-  while (cursor < html.length) {
-    const nextOpen = html.indexOf('<section', cursor);
-    const nextClose = html.indexOf('</section>', cursor);
+  const tagRegex = new RegExp(`(</?${tagName}\\b[^>]*>)`, 'gi');
+  tagRegex.lastIndex = cursor;
 
-    if (nextClose === -1) break;
-
-    if (nextOpen !== -1 && nextOpen < nextClose) {
-      depth++;
-      cursor = nextOpen + 8;
-    } else {
+  let m;
+  while ((m = tagRegex.exec(html)) !== null) {
+    const foundTag = m[1];
+    if (foundTag.startsWith('</')) {
       depth--;
-      cursor = nextClose + 10;
       if (depth === 0) {
-        return html.slice(0, startIndex) + html.slice(cursor);
+        const endIndex = m.index + foundTag.length;
+        return html.slice(0, startIndex) + html.slice(endIndex);
+      }
+    } else {
+      if (!/\/>\s*$/.test(foundTag)) {
+        depth++;
       }
     }
   }
@@ -171,8 +174,8 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
 
-    // 상세 페이지에서 불필요한 메인 리스트와 다른 템플릿들을 확실히 삭제
-    const sectionsToRemove = [
+    // 상세 페이지에서 불필요한 빈 패드 템플릿과 메인 섹션들을 완전히 제거
+    const elementsToRemove = [
       'detail-view-pads',
       'section-tactics',
       'section-pads',
@@ -182,8 +185,8 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'section-editorial-guide'
     ];
 
-    sectionsToRemove.forEach(secId => {
-      pageHtml = removeSectionById(pageHtml, secId);
+    elementsToRemove.forEach(elemId => {
+      pageHtml = removeElementById(pageHtml, elemId);
     });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
@@ -252,7 +255,8 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
       'id="detail-view-pads" class="detail-view-container" style="display:block;"'
     );
 
-    const sectionsToRemove = [
+    // 컨트롤러 페이지에서 불필요한 빈 전술 템플릿과 메인 섹션들을 완전히 제거
+    const elementsToRemove = [
       'detail-view-tactics',
       'section-tactics',
       'section-pads',
@@ -262,8 +266,8 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
       'section-editorial-guide'
     ];
 
-    sectionsToRemove.forEach(secId => {
-      pageHtml = removeSectionById(pageHtml, secId);
+    elementsToRemove.forEach(elemId => {
+      pageHtml = removeElementById(pageHtml, elemId);
     });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
@@ -306,11 +310,11 @@ async function runBuild() {
   });
   console.log('기존 개별 상세 폴더 클린업 완료!');
 
-  // 1) 개별 상세 정적 페이지 생성
+  // 1) 개별 상세 정적 페이지 생성 (불필요 요소 완전 제거 적용)
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
-  // 2) 메인 홈 index.html: 기존 카드 디자인을 해치는 투박한 HTML 주입을 생략하고 순수 데이터만 프리로드 주입
+  // 2) 메인 홈 index.html: 데이터 프리로드 주입
   let homeHtml = rawTemplate;
 
   const dStart = '/* SSG_DATA_START */';
