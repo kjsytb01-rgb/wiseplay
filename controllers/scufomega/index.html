@@ -1190,13 +1190,7 @@
 다만 e스포츠 경쟁전 최적화라는 명목으로 진동 모터(햅틱/트리거)가 전면 제거되었다. 듀얼센스 엣지의 핵심인 햅틱 피드백을 기대하는 유저에게는 치명적인 감점 요소이며, 서드파티 프리미엄 브랜드 특유의 고가 정책 역시 진입장벽으로 남는다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4023,8 +4017,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

@@ -1190,13 +1190,7 @@
 하지만 경쟁전 게이밍을 위한 핵심 하드웨어 스펙에서는 뚜렷한 한계를 보였다. 최신 TMR 센서가 아닌 구형 홀이펙트 센서를 채택했으며, 내부적으로 12비트를 지원함에도 실측 해상도가 200 수준에 머물러 미세 에이밍 조작이 제한된다. 무선 환경에서의 지연율 증가와 비금속 스틱 셰프트의 서걱임 등 마감 면에서도 명확한 감점 요인을 드러냈다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4020,8 +4014,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

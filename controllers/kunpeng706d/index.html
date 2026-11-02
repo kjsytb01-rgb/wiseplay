@@ -1188,13 +1188,7 @@
 차별화의 핵심은 세계 최초로 범퍼에 탑재된 '숄더 햅틱 모터'와 '터치 감응형 스틱'이다. 기존 어댑티브 트리거에 더해 숄더 버튼 클릭 시 스프링백 질감의 햅틱 피드백을 전달해 손끝 감각을 극대화했다. 썸스틱 상단에는 정전식 터치 센서를 장착해 손가락을 얹는 순간 자이로가 켜지거나 스나이퍼용 데드존이 해제되는 등 독창적인 조작 체계를 구현했다. 모니터 화면에 물리적 장력 수치(40~100gf)가 백분율로 실시간 연동되는 시각적 장력 조절 시스템과 60gf 광축(옵티컬) 액션 버튼까지 더해져 10만 원대 후반 플래그십다운 완성도를 과시한다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4018,8 +4012,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

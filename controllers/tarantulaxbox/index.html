@@ -1188,13 +1188,7 @@
 하지만 하드웨어 세부 벤치마크 결과, 심각한 '스펙 급나누기'가 드러났다. 8K 버전(JS13 Pro 센서)과 달리 구형 1세대 마그레스(Mag-Res) TMR 센서를 탑재해 스틱 비대칭 오차와 선형성 저하가 발생했으며, 해상도 역시 4,000대에서 약 1,300 수준으로 축소됐다. 1,000Hz 폴링레이트 환경에서 스틱 인풋렉은 2.18ms로 양호했으나, 얇은 트리거 플라스틱 하우징 탓에 임펄스 진동 작동 시 내부 부품이 부딪히는 '달그락' 잡소리가 발생하는 등 마감과 원가 절감에서 뚜렷한 한계를 노출했다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4020,8 +4014,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

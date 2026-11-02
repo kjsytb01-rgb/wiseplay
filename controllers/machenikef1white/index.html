@@ -1190,13 +1190,7 @@
 그러나 센서와 스틱 튜닝에서 명확한 한계가 드러났다. 당초 탑재 예정이던 K-Silver의 JS13 Pro 센서 채택이 무산되고 타 센서(JT19 추정)가 적용되면서, 해상도가 약 700대 수준에 그치고 선형성이 다소 무너지는 결과를 낳았다. PC 유선 직결 시 USB 3.0 포트 인식 불가(USB 2.0 강제) 버그와 굼뜬 자이로 반응성 역시 하이엔드 패드로서 아쉬운 감점 요인이다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4022,8 +4016,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

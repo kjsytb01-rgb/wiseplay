@@ -1190,13 +1190,7 @@
 그러나 하이엔드 게이머들이 고대하던 핵심 스펙에서의 타협점도 뚜렷하다. 최신 트렌드인 TMR 센서 대신 기존 홀이펙트 스틱 센서를 고수했으며, 실측 해상도가 580 수준(12비트 기준)에 머물러 전작 대비 다소 하향되었다. 특히 물리 마이크로 스위치 기반의 '하드웨어 숏 트리거 락'이 여전히 누락되었고, 레이싱 감속 시 스틱 튕김 현상(스냅백)이 잔존하는 점은 10만 원대 중후반(충전독 포함 시 20만 원 육박)의 가격표 대비 아쉬운 감점 요인이다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4023,8 +4017,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

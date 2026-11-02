@@ -1188,13 +1188,7 @@
 기존 상위 모델에 탑재되던 TMR 센서 스틱 대신 가성비 홀이펙트 센서로 전환했으나, 특유의 '글라이드 스틱' 설계를 그대로 유지해 최상급의 스틱 회전 부드러움을 구현했다. 닌텐도 스위치 환경에서 퍼스트 파티(프로콘)에 필적하는 6축 자이로 센서 성능은 다운그레이드 없이 그대로 유지되었으며, 리퀴드 실리콘 기반의 쫀득한 멤브레인 액션 버튼과 215g 초경량 바디로 스위치 및 PC(X-Input) 유저 모두에게 뛰어난 가성비를 제공한다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4019,8 +4013,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

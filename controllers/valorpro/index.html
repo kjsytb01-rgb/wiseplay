@@ -1190,13 +1190,7 @@
 하지만 중국산 가성비 컨트롤러들이 TMR 센서와 수천 단위의 고해상도를 앞세우는 최신 트렌드와 비교하면 하드웨어 지표에서 뚜렷한 세대 차이가 드러난다. 홀이펙트 스틱 센서를 채택했음에도 내부 해상도가 약 108 수준(9비트, 스텝 레솔루션 0.009)에 머물며, 공식 엑스박스 라이선스 규격상 자이로와 매크로/터보 기능이 빠지고 유선 연결만 지원하는 등 실전 경쟁전용 스펙에서는 명확한 타협점을 보여준다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4020,8 +4014,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

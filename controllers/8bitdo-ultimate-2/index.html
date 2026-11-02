@@ -1190,13 +1190,7 @@
 그러나 특유의 폼팩터 구조로 인한 호불호는 여전히 해결해야 할 과제로 남았다. 엑스박스 쉘에 익숙한 유저들에게 이질감을 주는 11자형 수직 그립감과 그로 인해 손가락 동선이 애매해지는 후면 백버튼 배치가 대표적이다. 멤브레인 방식임에도 127gf에 달하는 높은 액션 버튼 키압과 특유의 플라스틱 타건 소음, 스틱 마찰음 등 정숙성이 다소 떨어지는 점은 실사용 시 체크 포인트다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4022,8 +4016,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

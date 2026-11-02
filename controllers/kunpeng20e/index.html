@@ -1188,13 +1188,7 @@
 가장 돋보이는 부분은 스틱 성능과 반응 속도다. 13비트 스틱 세팅 기반으로 기본 1,700대, 재측정 시 무려 3,800대 수준의 경이로운 해상도(데이터 포인트 15,000개 수준)를 뽑아내며 동급 최강의 미세 컨트롤 공간을 확보했다. 반응 속도 역시 유선 2~2.5ms, 블루투스 무선 환경에서도 8ms 초반의 최상위 S티어 인풋렉을 기록했다. 여기에 40gf~100gf 범위의 아날로그 장력 조절 링, 마이크로 스위치 기반의 물리 트리거 락, 상단 추가 숄더 범퍼 등 10만 원대 패드에서나 보던 옵션을 228g의 가벼운 하우징에 모조리 집어넣었다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4020,8 +4014,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

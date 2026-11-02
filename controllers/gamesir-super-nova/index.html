@@ -1190,13 +1190,7 @@
 다만 TMR 센서 및 광축 스위치로 대변되는 최신 e스포츠 깡성능 경쟁과는 다소 거리가 있다. 액션 버튼과 숄더 범퍼가 모두 부드러운 멤브레인 방식을 채택하고 있어 초고속 마우스 클릭감을 선호하는 유저에게는 호불호가 갈리며, 물리 트리거 락이 단순 스트로크 제동(헤어 트리거 미지원)에 머물고 상단 추가 범퍼(M3/M4) 및 3.5mm 오디오 잭이 제외된 점은 실사용 시 아쉬운 요소다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4017,8 +4011,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

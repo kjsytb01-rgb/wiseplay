@@ -1190,13 +1190,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
 그러나 10만 원대(정가 약 75달러)에 형성된 가격표 대비 핵심 입력 성능에서 명확한 한계를 드러냈다. 최신 TMR 센서(JS13 Pro 등)가 아닌 구형 홀이펙트(JS20 계열) 스틱 모듈을 사용해 해상도가 1,000대 수준에 머물렀으며, 유선(12ms) 대비 2.4GHz 무선 동글 연결 시 폴링레이트가 500Hz로 반토막 나며 인풋렉이 크게 치솟는 결함을 노출했다. 10만 원대 경쟁작(베이더 5 프로, G7 프로 등) 대비 뚜렷한 '1황급 킬러 스펙'이 부재하다는 점이 치명적인 약점으로 지적된다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4019,8 +4013,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

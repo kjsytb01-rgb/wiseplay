@@ -1188,13 +1188,7 @@
 하지만 실제 하드웨어 측정 결과는 실망스럽다. 버튼 인풋렉은 8ms로 정상 수준이나, 스틱 인풋렉이 유선 기준 19.97ms까지 치솟았으며 무선 어댑터(고쿠 등) 연결 시 약 40ms까지 늘어나는 치명적인 지연 문제가 드러났다. 스틱 센서 역시 홀이펙트 방식이지만 구형 센서 특유의 다이아몬드형 비대칭 오차와 낮은 선형성을 보여 정밀 조작에서 순정 ALPS 스틱보다 정확도가 떨어진다. 순정 듀얼센스의 햅틱과 편의성(백 버튼·충전독)을 손쉽게 챙길 수 있는 대신, 입력 지연과 스틱 정밀도를 심각하게 희생해야 하는 극단적인 타협형 제품이다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4018,8 +4012,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

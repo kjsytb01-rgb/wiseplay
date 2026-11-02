@@ -1190,13 +1190,7 @@
 하지만 플래그십 타이틀에 걸맞지 않은 치명적인 결함이 발목을 잡는다. 실측 결과 유선 스틱 인풋렉이 20ms(18~21ms) 수준으로 밀려나며 빠른 반응 속도가 생명인 경쟁전 게이밍에 부적합 판정을 받았다. 여기에 비싼 추가 모듈(정전식 스틱, 4백버튼)의 떨어지는 완성도와 300g을 넘나드는 묵직한 하우징 무게가 겹치며, 실전용 기기보다는 '모듈러 기믹 수집형 패드'에 머물렀다는 평가다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4023,8 +4017,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

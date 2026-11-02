@@ -1190,13 +1190,7 @@
 다만 전용 PC 소프트웨어의 부재(모바일 앱 키링커 의존)와 기본 제공 스틱이 TMR이 아닌 구형 홀이펙트(해상도 255 수준)라는 점은 타협점이다. 1,000Hz 표기 폴링레이트 대비 실측 수치가 700~850Hz에 머물며, 볼록 튀어나온 기계식 액션 버튼의 장시간 타건 피로감과 필수 액세서리(TMR 모듈, 충전독 등) 추가 구매 시 15만 원을 상회하는 누적 비용은 구매 전 고려해야 할 요소다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4022,8 +4016,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

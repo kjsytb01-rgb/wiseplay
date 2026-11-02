@@ -1188,13 +1188,7 @@
 핵심은 상위 티어 TMR 센서인 JH13Pro 스틱 탑재다. 12.3비트 기반으로 약 1,900~2,000 수준의 고해상도와 5,000개의 데이터 포인트를 확보해 뛰어난 선형성과 에이밍 정밀도를 제공한다. 여기에 듀얼센스보다 스틱 간 간격을 좁혀 대칭형 특유의 엄지 피로도를 크게 줄였고, 멤브레인 D-패드와 마이크로 스위치 액션 버튼을 적재적소에 배치했다. 리드조이 특유의 서드파티 최정상급 6축 자이로 센서와 물리 마이크로 스위치 트리거 락, 총 4개의 추가 버튼(백버튼 2개, 숄더 2개)까지 알차게 담아냈다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4018,8 +4012,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

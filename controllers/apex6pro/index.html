@@ -1188,13 +1188,7 @@
 하드웨어 완성도 역시 전작의 치명적 약점들을 전부 뜯어고쳤다. 스틱 센서를 홀이펙트에서 TMR 센서로 교체하고 해상도를 2,000 수준으로 대폭 복구했다. 조절 한계를 알 수 없어 고장이 잦던 장력 링에는 물리 스토퍼가 추가됐으며, FPS 유저들의 숙원이었던 마이크로 스위치 기반 물리 트리거 락까지 탑재됐다. 무게 또한 약 320g으로 감량되며 유선·2.4GHz 무선 모두 5ms 미만의 초저지연을 기록해 게이밍 패드 시장의 최상위 티어를 다시 노린다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4017,8 +4011,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

@@ -1190,13 +1190,7 @@
 그러나 플래그십의 핵심인 반응 속도와 실사용 조작성에서 치명적인 결함이 드러났다. 자사 보급형 모델(G5 Pro v2, G1)이 1~5ms대의 최상급 지연율을 기록했던 것과 달리, G6 V2는 2.4GHz 무선 동글 연결 시 스틱 인풋렉이 33.66ms(버튼 16.23ms)로 폭증했다. 유선 스틱 지연율 역시 10.2ms에 머물렀으며, 배열 교체를 위해 상판을 매번 들어내야 하는 번거로움과 헐렁한 멤브레인 백버튼 배치가 겹치며 플래그십다운 완성도에 물음표를 남겼다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4021,8 +4015,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

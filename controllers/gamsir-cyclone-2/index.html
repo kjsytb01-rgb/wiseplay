@@ -1190,13 +1190,7 @@
 다만 e스포츠 경쟁전 관점에서는 몇 가지 타협점이 존재한다. 기계식 숏 트리거 락 체결 시 내부 쿠셔닝이 부족해 타건감이 다소 딱딱하고 피로감이 누적되며, 2,000Hz 초고속 폴링레이트 기반 패드 대비 극단적인 반응 속도에서는 한 걸음 물러서 있다. 상단 추가 숄더(M3/M4)가 누락되어 엑스트라 키가 후면 2구 백버튼에 한정된다는 점도 FPS 유저에게는 체크 포인트다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4018,8 +4012,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

@@ -1188,13 +1188,7 @@
 가장 결정적인 진보는 센서와 진동 아키텍처다. 기존 스틱을 최상위급 JH13 Pro+ TMR 센서로 전격 교체해 에이밍 시 완벽에 가까운 수평 추종성과 선형성을 구현했다. 여기에 PC 환경에서 구동하기 까다로웠던 'HD 진동'과 고밀도 '로터리 진동'을 동시에 때려 넣는 '믹스 모드(Dual/Mix Mode)'를 지원, 듀얼센스와는 또 다른 차원의 입체적인 3D 타격감을 완성했다. 세계 최초로 액션 버튼 스위치를 납땜 없이 갈아 끼우는 핫스왑 구조, 프리미엄 TPU 마감 하우징, 8K 지원 칩셋 기반의 2ms 초저지연까지 갖추며 완성도를 극대화했다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4020,8 +4014,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

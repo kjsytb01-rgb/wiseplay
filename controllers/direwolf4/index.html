@@ -1190,13 +1190,7 @@
 다만 상위 모델 대비 원가 절감의 흔적도 뚜렷하다. TMR 센서가 아닌 10비트 홀이펙트 센서(실측 해상도 460~500 수준)를 유지하고 있으며, 유선 및 무선 동글 연결 시 스틱 인풋렉이 15~18ms(블루투스 약 40ms)로 측정되어 초저지연을 요하는 랭커급 FPS 경쟁전에는 한계가 따른다. 닌텐도 스위치 환경에서의 원격 깨우기 미지원과 D-Input 미제공 역시 다기종 유저에게는 체크 포인트다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4021,8 +4015,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');

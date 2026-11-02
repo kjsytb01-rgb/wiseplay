@@ -1190,13 +1190,7 @@
 하지만 극단적인 FPS 전투 세팅에 치중한 만큼 범용성 면에서는 호불호가 갈린다. 트리거가 아날로그 깊이 조절을 지원하지 않는 순수 디지털 온·오프 방식으로 고정되어 레이싱 게임 스로틀 조작이 불가능하며, 3.5mm 오디오 잭 누락과 전용 충전독의 난해한 구매 접근성은 실사용 시 아쉬운 감점 요인이다. 1,250 수준의 평이한 스틱 해상도와 11자형 하우징에 따른 적응 기간 역시 체크 포인트다.</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
-      <div class="detail-section" id="viewPadDeepSection">
-        <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
-        <div class="deep-guide-grid" id="viewPadDeepContent"></div>
-      </div>
-
-      <div class="detail-section" id="viewBenchImgSection">
+          <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -4016,8 +4010,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-      document.getElementById('viewPadDeepContent').innerHTML = buildPadDeepGuideHTML(p);
-
+     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');
