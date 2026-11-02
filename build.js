@@ -75,9 +75,9 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// div, section 등 어떤 태그든 ID를 찾아 중첩 태그 depth를 계산해 깔끔하게 도려내는 함수
+// div, section 등 지정한 ID의 여는 태그부터 대응하는 닫는 태그까지 안전하게 도려내는 함수
 function removeElementById(html, elementId) {
-  const openRegex = new RegExp(`<([a-zA-Z0-9]+)[^>]*\\bid=["']${elementId}["'][^>]*>`, 'i');
+  const openRegex = new RegExp('<([a-zA-Z0-9]+)[^>]*\\bid=["\']' + elementId + '["\'][^>]*>', 'i');
   const match = openRegex.exec(html);
   if (!match) return html;
 
@@ -86,20 +86,29 @@ function removeElementById(html, elementId) {
   let cursor = startIndex + match[0].length;
   let depth = 1;
 
-  const tagRegex = new RegExp(`(</?${tagName}\\b[^>]*>)`, 'gi');
+  // 태그명 뒤에 공백, >, / 가 오는 경우만 매칭하여 태그 경계 정확히 탐색
+  const tagRegex = new RegExp('</?' + tagName + '(?:\\s|>|/)', 'gi');
   tagRegex.lastIndex = cursor;
 
   let m;
   while ((m = tagRegex.exec(html)) !== null) {
-    const foundTag = m[1];
+    const foundTag = m[0].toLowerCase();
     if (foundTag.startsWith('</')) {
       depth--;
       if (depth === 0) {
-        const endIndex = m.index + foundTag.length;
-        return html.slice(0, startIndex) + html.slice(endIndex);
+        const closeEnd = html.indexOf('>', m.index);
+        if (closeEnd !== -1) {
+          return html.slice(0, startIndex) + html.slice(closeEnd + 1);
+        }
       }
     } else {
-      if (!/\/>\s*$/.test(foundTag)) {
+      const tagEnd = html.indexOf('>', m.index);
+      if (tagEnd !== -1) {
+        const fullTag = html.slice(m.index, tagEnd + 1);
+        if (!/\/>\s*$/.test(fullTag)) {
+          depth++;
+        }
+      } else {
         depth++;
       }
     }
@@ -310,7 +319,7 @@ async function runBuild() {
   });
   console.log('기존 개별 상세 폴더 클린업 완료!');
 
-  // 1) 개별 상세 정적 페이지 생성 (불필요 요소 완전 제거 적용)
+  // 1) 개별 상세 정적 페이지 생성
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
