@@ -117,6 +117,7 @@ function generatePadsHTML(pads) {
   }).join('\n');
 }
 
+// 1. 전술 상세 개별 정적 페이지 생성
 function buildIndividualTacticPages(baseHtml, tactics) {
   tactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
@@ -168,7 +169,83 @@ function buildIndividualTacticPages(baseHtml, tactics) {
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
-  console.log(`개별 전술 정적 페이지 ${tactics.length}개 정밀 생성 완료!`);
+  console.log(`개별 전술 정적 페이지 ${tactics.length}개 생성 완료!`);
+}
+
+// 2. 컨트롤러 상세 개별 정적 페이지 생성
+function buildIndividualPadPages(baseHtml, pads) {
+  pads.forEach(p => {
+    const slug = cleanSlug(p.slug, p.padName);
+    const dir = path.join('controllers', slug);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    let pageHtml = baseHtml;
+
+    const name = escapeHtml(p.padName || 'Gamepad');
+    const mech = escapeHtml(p.stickMech || '-');
+    const score = escapeHtml(p.metaScore || '80');
+    const intro = escapeHtml(p.padIntro || p.pros || '실측 데이터 기반 정밀 벤치마크 리뷰');
+    const pros = escapeHtml(p.pros || '-');
+    const cons = escapeHtml(p.cons || '-');
+
+    pageHtml = pageHtml.replace(
+      /<title>[\s\S]*?<\/title>/,
+      `<title>${name} 레이턴시·폴링레이트 실측 벤치마크 스펙 | WISEPLAY</title>`
+    );
+    pageHtml = pageHtml.replace(
+      /<meta name="description" id="metaDesc" content="[\s\S]*?">/,
+      `<meta name="description" id="metaDesc" content="${name} (${mech}) 유선·무선 폴링레이트, 스틱 및 버튼 인풋랙 정밀 계측 벤치마크 분석 - WISEPLAY">`
+    );
+
+    pageHtml = pageHtml.replace(
+      /<h2 id="viewPadName">[\s\S]*?<\/h2>/,
+      `<h2 id="viewPadName">${name}</h2>`
+    );
+    pageHtml = pageHtml.replace(
+      /<p id="viewPadSub">[\s\S]*?<\/p>/,
+      `<p id="viewPadSub">스틱 방식: ${mech} | 키매핑: ${escapeHtml(p.keyMap || '-')} | 매크로: ${escapeHtml(p.macro || '-')}</p>`
+    );
+    pageHtml = pageHtml.replace(
+      /<span class="dash-big-num lj" id="viewPadScoreVal">[\s\S]*?<\/span>/,
+      `<span class="dash-big-num lj" id="viewPadScoreVal">${score}</span>`
+    );
+    pageHtml = pageHtml.replace(
+      /<p id="viewPadIntroText">[\s\S]*?<\/p>/,
+      `<p id="viewPadIntroText" style="white-space:pre-line;">${intro}</p>`
+    );
+    pageHtml = pageHtml.replace(
+      /<span id="viewPadPros">[\s\S]*?<\/span>/,
+      `<span id="viewPadPros">${pros}</span>`
+    );
+    pageHtml = pageHtml.replace(
+      /<span id="viewPadCons">[\s\S]*?<\/span>/,
+      `<span id="viewPadCons">${cons}</span>`
+    );
+
+    // 유선 수치
+    pageHtml = pageHtml.replace(/<td id="pW_poll">[\s\S]*?<\/td>/, `<td id="pW_poll">${escapeHtml(p.wPoll || '-')} Hz</td>`);
+    pageHtml = pageHtml.replace(/<td id="pW_sLat">[\s\S]*?<\/td>/, `<td id="pW_sLat">${escapeHtml(p.wStickLat || '-')} ms</td>`);
+    pageHtml = pageHtml.replace(/<td id="pW_bLat">[\s\S]*?<\/td>/, `<td id="pW_bLat">${escapeHtml(p.wBtnLat || '-')} ms</td>`);
+
+    // 무선 동글 수치
+    pageHtml = pageHtml.replace(/<td id="pD_poll">[\s\S]*?<\/td>/, `<td id="pD_poll">${escapeHtml(p.dPoll || '-')} Hz</td>`);
+    pageHtml = pageHtml.replace(/<td id="pD_sLat">[\s\S]*?<\/td>/, `<td id="pD_sLat">${escapeHtml(p.dStickLat || '-')} ms</td>`);
+    pageHtml = pageHtml.replace(/<td id="pD_bLat">[\s\S]*?<\/td>/, `<td id="pD_bLat">${escapeHtml(p.dBtnLat || '-')} ms</td>`);
+
+    // 컨트롤러 상세 화면 노출 설정
+    pageHtml = pageHtml.replace(
+      'id="detail-view-pads" class="detail-view-container"',
+      'id="detail-view-pads" class="detail-view-container" style="display:block;"'
+    );
+    pageHtml = pageHtml.replace('id="section-tactics"', 'id="section-tactics" style="display:none;"');
+    pageHtml = pageHtml.replace('id="section-pads"', 'id="section-pads" style="display:none;"');
+    pageHtml = pageHtml.replace('id="section-latest-videos"', 'id="section-latest-videos" style="display:none;"');
+    pageHtml = pageHtml.replace('id="section-pad-ranking"', 'id="section-pad-ranking" style="display:none;"');
+    pageHtml = pageHtml.replace('id="section-editorial-guide"', 'id="section-editorial-guide" style="display:none;"');
+
+    fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
+  });
+  console.log(`개별 컨트롤러 정적 페이지 ${pads.length}개 생성 완료!`);
 }
 
 async function runBuild() {
@@ -214,14 +291,14 @@ async function runBuild() {
     const dataContent = `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    `;
     html = b + dataContent + a;
     console.log('JavaScript 프리로드 데이터 주입 완료!');
-  } else {
-    console.error('SSG_DATA 마커를 찾지 못했습니다.');
   }
 
   fs.writeFileSync('index.html', html, 'utf8');
   console.log('메인 index.html 업데이트 완료!');
 
+  // 3) 전술 및 패드 개별 정적 파일 동시 빌드
   buildIndividualTacticPages(html, tactics);
+  buildIndividualPadPages(html, pads);
 }
 
 runBuild().catch(err => {
