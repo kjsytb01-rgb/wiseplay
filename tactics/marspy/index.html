@@ -2608,6 +2608,17 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
 
+    // XSS 방어용 보안 이스케이프 함수
+    function escapeReview(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     const I18N_INDEX = {
       ko: {
         contactText: "비즈니스 문의",
@@ -2882,7 +2893,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       } catch (e) {}
     }
 
-    /* 상세 페이지 진입 시 메인 목록/순위표/영상의 DOM을 비워 중복 판정을 막되, 목록 복귀 시 완벽하게 재렌더링되도록 설계 */
     function clearMainListDomForSEO() {
       const idsToClear = [
         'tactics-list',
@@ -2930,7 +2940,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       return '';
     }
 
-    /* 컨트롤러 상세 페이지용 하드웨어 및 실측 수치 해설 생성기 */
     function buildPadDeepGuideHTML(p) {
       const name = p.padName || '컨트롤러';
       const mech = p.stickMech || p.specStick || '정밀 아날로그';
@@ -3133,7 +3142,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       }
     }
 
-    /* 탭 전환 시 비워졌던 카드 목록과 랭킹 리스트를 무조건 다시 채워 넣도록 보장 */
     function switchTab(tab, pushState = true) {
       currentTab = tab;
       isDetailView = false;
@@ -3201,7 +3209,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       switchTab('tactics', true);
     }
 
-    /* 작은따옴표(')로 인한 파싱 파손 방지 및 정밀 CSV 파서 */
     function parseCSV(text) {
       if (!text || !text.trim()) return [];
       const rows = [];
@@ -3265,6 +3272,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
     }
 
     async function loadTactics() {
+      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_TACTICS__ && Array.isArray(window.__PRELOADED_TACTICS__) && window.__PRELOADED_TACTICS__.length > 0) {
         allTactics = window.__PRELOADED_TACTICS__;
         checkInitialUrl();
@@ -3282,6 +3290,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         return;
       }
 
+      // 2. 정적 데이터가 없는 환경(로컬 개발 등)일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
@@ -3314,12 +3323,10 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
           console.warn("Tactics fetch error:", err);
         }
       }
-      if (!isDetailView) {
-        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">전술 데이터베이스를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
-      }
     }
 
     async function loadPads() {
+      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_PADS__ && Array.isArray(window.__PRELOADED_PADS__) && window.__PRELOADED_PADS__.length > 0) {
         allPads = window.__PRELOADED_PADS__;
         checkInitialUrl();
@@ -3337,6 +3344,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         return;
       }
 
+      // 2. 정적 데이터가 없는 환경일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
@@ -3366,9 +3374,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         } catch (err) {
           console.warn("Pads fetch error:", err);
         }
-      }
-      if (!isDetailView) {
-        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">컨트롤러 벤치마크 데이터를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
       }
     }
 
@@ -4195,13 +4200,14 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
 
           globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
+          // XSS 방어 escapeReview 적용
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
+                <span class="comment-author">${escapeReview(item.nick || 'User')}</span>
                 <span class="comment-score">${'★'.repeat(item.score)}</span>
               </div>
-              <div class="comment-body">${item.text}</div>
+              <div class="comment-body">${escapeReview(item.text)}</div>
             </div>
           `).join('');
         }
@@ -4222,13 +4228,14 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
 
           globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
+          // XSS 방어 escapeReview 적용
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
-                <span class="comment-author">${item.nick || 'User'}</span>
+                <span class="comment-author">${escapeReview(item.nick || 'User')}</span>
                 <span class="comment-score">${'★'.repeat(item.score)}</span>
               </div>
-              <div class="comment-body">${item.text}</div>
+              <div class="comment-body">${escapeReview(item.text)}</div>
             </div>
           `).join('');
         }
@@ -4340,7 +4347,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       }
     });
 
-    /* 초기 URL 라우팅 시 전술/패드 데이터가 각각 로드된 시점에 맞춰 독립적으로 정확히 작동하도록 개선 */
     function checkInitialUrl() {
       const rawPath = window.location.pathname || '/';
       const path = rawPath.replace(/\/+$/, '');
