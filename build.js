@@ -75,46 +75,19 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// div, section 등 지정한 ID의 여는 태그부터 대응하는 닫는 태그까지 안전하게 도려내는 함수
-function removeElementById(html, elementId) {
-  const openRegex = new RegExp('<([a-zA-Z0-9]+)[^>]*\\bid=["\']' + elementId + '["\'][^>]*>', 'i');
-  const match = openRegex.exec(html);
-  if (!match) return html;
-
-  const tagName = match[1].toLowerCase();
-  const startIndex = match.index;
-  let cursor = startIndex + match[0].length;
-  let depth = 1;
-
-  // 태그명 뒤에 공백, >, / 가 오는 경우만 매칭하여 태그 경계 정확히 탐색
-  const tagRegex = new RegExp('</?' + tagName + '(?:\\s|>|/)', 'gi');
-  tagRegex.lastIndex = cursor;
-
-  let m;
-  while ((m = tagRegex.exec(html)) !== null) {
-    const foundTag = m[0].toLowerCase();
-    if (foundTag.startsWith('</')) {
-      depth--;
-      if (depth === 0) {
-        const closeEnd = html.indexOf('>', m.index);
-        if (closeEnd !== -1) {
-          return html.slice(0, startIndex) + html.slice(closeEnd + 1);
-        }
-      }
-    } else {
-      const tagEnd = html.indexOf('>', m.index);
-      if (tagEnd !== -1) {
-        const fullTag = html.slice(m.index, tagEnd + 1);
-        if (!/\/>\s*$/.test(fullTag)) {
-          depth++;
-        }
-      } else {
-        depth++;
-      }
-    }
-  }
-
-  return html;
+// 시작 지점부터 종료 경계 키워드 직전까지를 통째로 잘라내는 확실한 함수
+function cutBlock(html, startPattern, endPattern) {
+  const startMatch = html.match(startPattern);
+  if (!startMatch) return html;
+  
+  const startIndex = startMatch.index;
+  const rest = html.slice(startIndex);
+  const endMatch = rest.match(endPattern);
+  
+  if (!endMatch) return html;
+  const endIndex = startIndex + endMatch.index;
+  
+  return html.slice(0, startIndex) + html.slice(endIndex);
 }
 
 // 1. 개별 전술 상세 정적 페이지 생성
@@ -183,20 +156,13 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
 
-    // 상세 페이지에서 불필요한 빈 패드 템플릿과 메인 섹션들을 완전히 제거
-    const elementsToRemove = [
-      'detail-view-pads',
-      'section-tactics',
-      'section-pads',
-      'section-latest-videos',
-      'section-tactics-ranking',
-      'section-pad-ranking',
-      'section-editorial-guide'
-    ];
-
-    elementsToRemove.forEach(elemId => {
-      pageHtml = removeElementById(pageHtml, elemId);
-    });
+    // [전술 상세 핵심]
+    // detail-view-pads(패드 빈 템플릿)의 시작점부터 <footer> 태그 시작점 바로 앞까지의 모든 영역을 통째로 도려냅니다.
+    pageHtml = cutBlock(
+      pageHtml,
+      /<div[^>]*id=["']detail-view-pads["'][^>]*>/i,
+      /<footer/i
+    );
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
@@ -264,20 +230,20 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
       'id="detail-view-pads" class="detail-view-container" style="display:block;"'
     );
 
-    // 컨트롤러 페이지에서 불필요한 빈 전술 템플릿과 메인 섹션들을 완전히 제거
-    const elementsToRemove = [
-      'detail-view-tactics',
-      'section-tactics',
-      'section-pads',
-      'section-latest-videos',
-      'section-tactics-ranking',
-      'section-pad-ranking',
-      'section-editorial-guide'
-    ];
+    // [패드 상세 핵심]
+    // 1) 앞쪽에 위치한 detail-view-tactics(전술 템플릿)의 시작부터 detail-view-pads 바로 앞까지 도려냅니다.
+    pageHtml = cutBlock(
+      pageHtml,
+      /<div[^>]*id=["']detail-view-tactics["'][^>]*>/i,
+      /<div[^>]*id=["']detail-view-pads["'][^>]*>/i
+    );
 
-    elementsToRemove.forEach(elemId => {
-      pageHtml = removeElementById(pageHtml, elemId);
-    });
+    // 2) 패드 상세 뒤에 나오는 메인 목록 영역부터 <footer> 직전까지 도려냅니다.
+    pageHtml = cutBlock(
+      pageHtml,
+      /<section[^>]*id=["']section-tactics["'][^>]*>|<section[^>]*class=["'][^"']*tactic/i,
+      /<footer/i
+    );
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
