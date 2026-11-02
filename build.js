@@ -75,19 +75,48 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// 시작 지점부터 종료 경계 키워드 직전까지를 통째로 잘라내는 확실한 함수
-function cutBlock(html, startPattern, endPattern) {
-  const startMatch = html.match(startPattern);
-  if (!startMatch) return html;
-  
-  const startIndex = startMatch.index;
-  const rest = html.slice(startIndex);
-  const endMatch = rest.match(endPattern);
-  
-  if (!endMatch) return html;
-  const endIndex = startIndex + endMatch.index;
-  
-  return html.slice(0, startIndex) + html.slice(endIndex);
+// 검증된 두 ID 사이의 HTML 블록을 시작 태그(<)부터 다음 시작 태그(<) 직전까지 정확히 도려내는 함수
+function removeBetweenIds(html, startId, endId) {
+  const startIdPos = html.indexOf(`id="${startId}"`);
+  const endIdPos = html.indexOf(`id="${endId}"`);
+  if (startIdPos === -1 || endIdPos === -1 || startIdPos >= endIdPos) return html;
+
+  const startTagOpen = html.lastIndexOf('<', startIdPos);
+  const endTagOpen = html.lastIndexOf('<', endIdPos);
+  if (startTagOpen === -1 || endTagOpen === -1) return html;
+
+  return html.slice(0, startTagOpen) + html.slice(endTagOpen);
+}
+
+// 231줄을 정상 삭제했던 기존 section 전용 제거 함수
+function removeSectionById(html, sectionId) {
+  const pattern = new RegExp(`<section[^>]*id=["']${sectionId}["'][^>]*>`, 'i');
+  const match = pattern.exec(html);
+  if (!match) return html;
+
+  const startIndex = match.index;
+  let depth = 0;
+  let cursor = startIndex;
+
+  while (cursor < html.length) {
+    const nextOpen = html.indexOf('<section', cursor);
+    const nextClose = html.indexOf('</section>', cursor);
+
+    if (nextClose === -1) break;
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      cursor = nextOpen + 8;
+    } else {
+      depth--;
+      cursor = nextClose + 10;
+      if (depth === 0) {
+        return html.slice(0, startIndex) + html.slice(cursor);
+      }
+    }
+  }
+
+  return html;
 }
 
 // 1. 개별 전술 상세 정적 페이지 생성
@@ -156,13 +185,22 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
 
-    // [전술 상세 핵심]
-    // detail-view-pads(패드 빈 템플릿)의 시작점부터 <footer> 태그 시작점 바로 앞까지의 모든 영역을 통째로 도려냅니다.
-    pageHtml = cutBlock(
-      pageHtml,
-      /<div[^>]*id=["']detail-view-pads["'][^>]*>/i,
-      /<footer/i
-    );
+    // 1단계: 패드 상세 빈 템플릿(detail-view-pads)부터 바로 다음 섹션(section-tactics) 직전까지 통째로 삭제
+    pageHtml = removeBetweenIds(pageHtml, 'detail-view-pads', 'section-tactics');
+
+    // 2단계: 메인 홈 전용 6개 섹션 삭제 (231줄 삭제 검증됨)
+    const sectionsToRemove = [
+      'section-tactics',
+      'section-pads',
+      'section-latest-videos',
+      'section-tactics-ranking',
+      'section-pad-ranking',
+      'section-editorial-guide'
+    ];
+
+    sectionsToRemove.forEach(secId => {
+      pageHtml = removeSectionById(pageHtml, secId);
+    });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
@@ -230,20 +268,22 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
       'id="detail-view-pads" class="detail-view-container" style="display:block;"'
     );
 
-    // [패드 상세 핵심]
-    // 1) 앞쪽에 위치한 detail-view-tactics(전술 템플릿)의 시작부터 detail-view-pads 바로 앞까지 도려냅니다.
-    pageHtml = cutBlock(
-      pageHtml,
-      /<div[^>]*id=["']detail-view-tactics["'][^>]*>/i,
-      /<div[^>]*id=["']detail-view-pads["'][^>]*>/i
-    );
+    // 1단계: 전술 상세 빈 템플릿(detail-view-tactics)부터 패드 상세(detail-view-pads) 직전까지 통째로 삭제
+    pageHtml = removeBetweenIds(pageHtml, 'detail-view-tactics', 'detail-view-pads');
 
-    // 2) 패드 상세 뒤에 나오는 메인 목록 영역부터 <footer> 직전까지 도려냅니다.
-    pageHtml = cutBlock(
-      pageHtml,
-      /<section[^>]*id=["']section-tactics["'][^>]*>|<section[^>]*class=["'][^"']*tactic/i,
-      /<footer/i
-    );
+    // 2단계: 메인 홈 전용 6개 섹션 삭제
+    const sectionsToRemove = [
+      'section-tactics',
+      'section-pads',
+      'section-latest-videos',
+      'section-tactics-ranking',
+      'section-pad-ranking',
+      'section-editorial-guide'
+    ];
+
+    sectionsToRemove.forEach(secId => {
+      pageHtml = removeSectionById(pageHtml, secId);
+    });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
