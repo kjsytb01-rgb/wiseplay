@@ -1,9 +1,7 @@
 name: Update Static Site from Google Sheets
 
 on:
-  # 1. 내가 GitHub의 Actions 탭에서 'Run workflow' 버튼을 누를 때 즉시 반영
   workflow_dispatch:
-  # 2. 매시간 정각마다 자동으로 구글 시트 변경사항 확인 후 반영
   schedule:
     - cron: '0 * * * *'
 
@@ -17,10 +15,10 @@ jobs:
       - name: 레포지토리 코드 체크아웃
         uses: actions/checkout@v4
 
-      - name: Node.js 20 설정
+      - name: Node.js 24 설정
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: 구글 시트 데이터 가져와서 index.html 정적 빌드 실행
         run: node build.js
