@@ -831,6 +831,50 @@
     .yt-play-btn::after {
       content: ""; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-left: 22px solid #fff; margin-left: 4px;
     }
+    .pad-photo-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    /* 벤치마크 이미지 그리드 */
+    .bench-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .bench-img-item {
+      background: #12151c;
+      border: 1px solid #282d3b;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: zoom-in;
+    }
+    .bench-img-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .bench-img-item img {
+      max-width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+    @media (max-width: 720px) {
+      .bench-img-grid { grid-template-columns: 1fr; }
+    }
 
     .tier-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; background: #14171f; border-radius: 10px; padding: 12px; margin-bottom: 20px; }
     .tier-item { display: flex; flex-direction: column; align-items: center; background: #1c202a; border-radius: 8px; padding: 10px 4px; }
@@ -847,6 +891,10 @@
     .spec-row { display: flex; justify-content: space-between; border-bottom: 1px solid #232732; padding-bottom: 5px; }
     .spec-row span:first-child { color: var(--text-muted); }
     .spec-row span:last-child { color: #fff; font-weight: 700; }
+    @media (max-width: 760px) {
+      .tier-grid { grid-template-columns: repeat(3, 1fr); }
+      .specs-tri-grid { grid-template-columns: 1fr; }
+    }
 
     .bench-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 6px; }
     .bench-table th, .bench-table td { padding: 10px 12px; border: 1px solid #2d3342; text-align: left; }
@@ -974,7 +1022,7 @@
   </header>
 
   <main>
-    <!-- [최상단 배치] 전술 상세 화면 (크롤러가 상세 URL 접속 시 1순위로 읽도록 최상단 배치) -->
+    <!-- [최상단 배치] 전술 상세 화면 -->
     <section id="detail-view-tactics" class="detail-view-container">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1003,8 +1051,6 @@
         <h4 id="t-desc-title">📋 전술 분석 및 실전 코멘트</h4>
         <p id="viewReviewText">설명 내용</p>
       </div>
-
-      
 
       <div class="detail-section" id="viewPadSection">
         <h4 id="t-player-pad-title">🎮 선수가 사용하는 패드</h4>
@@ -1138,7 +1184,7 @@
         <p id="viewPadIntroText">-</p>
       </div>
 
-      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 (고유 텍스트 자동 생성) -->
+      <!-- 패드 하드웨어 및 실측 데이터 심층 분석 섹션 -->
       <div class="detail-section" id="viewPadDeepSection">
         <h4 id="t-deep-pad-title">🔬 하드웨어 메커니즘 및 인게임 체감 심층 분석</h4>
         <div class="deep-guide-grid" id="viewPadDeepContent"></div>
@@ -1307,7 +1353,7 @@
       <div id="pad-ranking-pagination" class="ranking-pagination"></div>
     </section>
 
-    <!-- 메인 홈 화면 전용 정적 분석 가이드 (초기 HTML 텍스트 볼륨 확보 및 상세 페이지 진입 시 숨김) -->
+    <!-- 메인 홈 화면 전용 정적 분석 가이드 -->
     <section id="section-editorial-guide" class="editorial-guide-section">
       <div class="section-header-row" style="margin-bottom:12px;">
         <h2 class="section-title">📘 WISEPLAY 전술 데이터 분석 및 컨트롤러 벤치마크 측정 가이드</h2>
@@ -1601,7 +1647,6 @@
 
     let currentTab = 'tactics';
     let isDetailView = false;
-    let initialRouteResolved = false;
     let allTactics = [];
     let allPads = [];
     let currentSelectedTactics = null;
@@ -1632,7 +1677,7 @@
       } catch (e) {}
     }
 
-    /* 상세 페이지 진입 시 메인 목록/순위표/영상의 DOM을 완전히 비워 구글 크롤러의 중복 콘텐츠(Duplicate Content) 판정을 원천 차단 */
+    /* 상세 페이지 진입 시 메인 목록/순위표/영상의 DOM을 비워 중복 판정을 막되, 목록 복귀 시 완벽하게 재렌더링되도록 설계 */
     function clearMainListDomForSEO() {
       const idsToClear = [
         'tactics-list',
@@ -1657,7 +1702,6 @@
       return pad.padIntro || pad.PadIntro || pad.intro || pad['패드소개'] || pad['패드 소개글'] || pad['패드소개글'] || pad['소개글'] || pad.pros || '-';
     }
 
-    /* 전술 한줄평 추출 */
     function getTacticOneLine(item) {
       if (!item) return '-';
       const raw = item.oneLine || item['한줄평'] || item['한줄 평'] || item.shortReview || item.summary || item.reviewText || '-';
@@ -1665,7 +1709,6 @@
       return firstLine || raw;
     }
 
-    /* 패드 한줄평 추출 */
     function getPadOneLine(pad) {
       if (!pad) return '-';
       const raw = pad.oneLine || pad['한줄평'] || pad['한줄 평'] || pad.shortReview || pad.summary || getPadIntro(pad) || '-';
@@ -1673,7 +1716,6 @@
       return firstLine || raw;
     }
 
-    /* 스틱 방식 전용 컬러 뱃지 (Hall: 노란색, TMR: 초록색, Capacitive: 핑크색) */
     function getStickMechBadgeClass(mech) {
       if (!mech) return '';
       const m = String(mech).toUpperCase();
@@ -1681,52 +1723,6 @@
       if (m.includes('TMR')) return 'mech-tmr';
       if (m.includes('CAP') || m.includes('정전')) return 'mech-capacitive';
       return '';
-    }
-
-    /* 포메이션별 구조적 특징 및 실전 운영 심층 해설 생성기 (각 전술 상세 페이지의 고유 텍스트 분량 확보) */
-    function buildTacticsDeepGuideHTML(t) {
-      const player = t.playerName || '프로';
-      const form = (t.formation || '포메이션').trim();
-      const country = t.country || 'GLOBAL';
-      const ver = t.versionName || '최신 대회 메타';
-      const pad = (t.padName && t.padName !== '-') ? t.padName : '고반응성 게이밍 패드';
-      const score = t.wiseScore || '85';
-
-      let structureDesc = '';
-      if (form.includes('4-2-2-2')) {
-        structureDesc = `${form} 포메이션은 두 명의 수비형 미드필더( 투 볼란치)를 통해 중앙 수비 라인 앞의 보호막을 두텁게 형성하면서도, 좌우 공격형 미드필더(LAM/RAM)와 투톱(LS/RS)이 유기적인 사각형 패스 워크를 만들어내는 밸런스형 전술입니다. ${player} 선수는 이 구조에서 2선과 1선의 간격을 촘촘하게 유지하여 빠른 원투패스 침투와 측면 하프스페이스 공략을 동시에 극대화했습니다.`;
-      } else if (form.includes('4-2-3-1')) {
-        structureDesc = `${form} 포메이션은 현대 축구 게임에서 가장 안정적인 공수 밸런스를 자랑하는 전형입니다. 투 볼란치가 후방 빌드업의 기점과 1차 저지선 역할을 수행하고, 중앙 공격형 미드필더(CAM)가 원톱 스트라이커와 좌우 윙어 사이의 연결고리 역할을 맡습니다. ${player} 선수의 세팅은 중원에서의 볼 점유율 유지는 물론 역습 전환 시 CAM과 양 윙어의 날카로운 침투 타이밍을 살리는 데 최적화되어 있습니다.`;
-      } else if (form.includes('4-1-4-1') || form.includes('4-1-2-3')) {
-        structureDesc = `${form} 포메이션은 원 볼란치(단독 CDM)를 축으로 2선에 4명의 미드필더를 배치해 중원 수적 우위와 강력한 전방 압박을 구현하는 전술입니다. ${player} 선수는 수비 시 4-1-4-1 형태의 두 줄 수비 대형을 빠르게 갖추어 상대의 중앙 침투 패스 각도를 차단하고, 볼 탈취 직후에는 좌우 측면과 중앙 미드필더가 동시에 전진하며 다채로운 공격 루트를 형성합니다.`;
-      } else if (form.includes('4-2-1-3')) {
-        structureDesc = `${form} 포메이션은 투 볼란치의 수비적 안정감과 쓰리톱(LW-ST-RW)의 파괴적인 역습 화력을 결합한 실전형 메타 포메이션입니다. ${player} 선수는 중원 공백을 최소화하기 위해 공격형 미드필더(CAM)와 수비형 미드필더 간의 패스 길목을 정교하게 설계했으며, 측면 윙어의 대각선 침투와 컷백, 크로스 플레이에서 높은 득점 기대치를 보여줍니다.`;
-      } else if (form.includes('4-4-2') || form.includes('4-1-2-1-2')) {
-        structureDesc = `${form} 포메이션은 투톱 스트라이커의 연계를 중심으로 직선적인 빌드업과 단단한 지역 방어를 수행하는 전통의 강호 전형입니다. ${player} 선수는 투톱 간의 거리 조절과 미드필더 라인의 수비 가담 속도를 세밀하게 조율하여, 상대 수비진이 정비되기 전에 박스 안으로 진입하는 속도감 있는 공격 전개를 구사합니다.`;
-      } else if (form.includes('5-') || form.includes('3-')) {
-        structureDesc = `${form} 포메이션은 3명의 중앙 수비수(쓰리백)를 기반으로 페널티 박스 내부의 수비 밀집도를 극대화하고, 양 측면 윙백(LWB/RWB)의 넓은 활동량을 활용해 공수 폭을 넓히는 전술입니다. ${player} 선수는 상대의 집요한 측면 크로스와 중앙 스루패스를 효과적으로 제어하면서도, 역습 시 윙백과 전방 공격수들의 빠른 스위칭으로 결정적인 찬스를 만들어냅니다.`;
-      } else {
-        structureDesc = `${player} 선수가 ${ver}에서 선보인 ${form} 포메이션은 상대의 압박을 유연하게 풀어내는 빌드업 동선과 탄탄한 수비 블록을 겸비한 맞춤형 실전 전술입니다. 각 포지션별 간격과 공수 참여도가 정밀하게 계산되어 있어 공식경기 상위 티어 경쟁에서 높은 안정감을 제공합니다.`;
-      }
-
-      const settingGuide = `상단 탭의 5가지 세부 세팅(1. 포메이션 배치도, 2. 개인 전술, 3. 팀 전술, 4. 훈련 코치, 5. 특성)을 인게임에 적용할 때는 먼저 포메이션 내 선수들의 미세한 위치(좌우 폭 및 높낮이)를 동일하게 맞추는 것이 중요합니다.\n개인 전술에서는 공격진의 침투 성향(뒤로 침투/균형)과 수비형 미드필더의 수비 시 위치 사수 지시를 반드시 확인해야 하며, 팀 전술의 전개 속도와 수비 간격 수치는 ${player} 선수의 템포를 재현하는 핵심 지표입니다. 여기에 훈련 코치(퍼스트 터치, 능숙한 몸싸움, 스탠딩 태클 등)와 팀 특성 시너지를 함께 구성하면 전술 완성도가 극대화됩니다.`;
-
-      const padSynergy = `${player} 선수의 전술(WISE SCORE ${score}점)은 빠른 방향 전환과 정교한 커서 체인지 수비가 뒷받침될 때 진가를 발휘합니다. 특히 해당 선수가 활용하는 '${pad}' 등 저지연 컨트롤러 환경에서는 패스 입력 반응과 수비 시 조키(Jockey) 스텝의 미세 조정이 한층 수월해집니다. 본인의 손에 맞는 데드존 및 스틱 감도 세팅을 병행하여 실전 경기에 적용해 보시기 바랍니다.`;
-
-      return `
-        <div class="deep-guide-card">
-          <h5>1. ${player} (${country}) ${form} 포메이션 구조적 핵심</h5>
-          <p id="deep-t-p1">${structureDesc}</p>
-        </div>
-        <div class="deep-guide-card">
-          <h5>2. 5단계 인게임 전술·코치·특성 세팅 체크포인트</h5>
-          <p id="deep-t-p2">${settingGuide}</p>
-        </div>
-        <div class="deep-guide-card">
-          <h5>3. 실전 운영 및 컨트롤러(${pad}) 조작 시너지</h5>
-          <p id="deep-t-p3">${padSynergy}</p>
-        </div>
-      `;
     }
 
     /* 컨트롤러 상세 페이지용 하드웨어 및 실측 수치 해설 생성기 */
@@ -1753,7 +1749,7 @@
 
       const benchExplanation = `실측 벤치마크 결과 ${name}은 WISE META SCORE ${score}점을 기록했습니다. 유선(Wired) 연결 기준 폴링레이트 ${wPoll}, 스틱 입력 레이턴시 ${wSLat}, 버튼 입력 레이턴시 ${wBLat}의 계측 수치를 보여주며, 무선 2.4GHz 동글 환경에서는 폴링레이트 ${dPoll} 수준으로 작동합니다. 인게임에서 슛 캔슬, 퍼스트 터치 방향 전환, 수비 커서 변경 시 입력 지연으로 인한 답답함 없이 즉각적인 피드백을 받을 수 있는 성능입니다.`;
 
-      constbuttonSpec = `메인 액션 버튼(${p.specBtn || '표준 스위치'}), D패드(${p.specDpad || '전술 십자키'}), 범퍼(${p.specBumper || 'L1/R1'})의 클릭감과 반발력은 연속적인 개인기 입력 및 커서 변경 속도에 직접적인 영향을 미칩니다. 또한 전용 소프트웨어(${p.specApp || '기본 매핑'})를 통해 이너/아우터 데드존과 반응 곡선을 본인의 손에 맞게 파인튜닝하면 실전 승률을 한층 높일 수 있습니다.`;
+      const buttonSpec = `메인 액션 버튼(${p.specBtn || '표준 스위치'}), D패드(${p.specDpad || '전술 십자키'}), 범퍼(${p.specBumper || 'L1/R1'})의 클릭감과 반발력은 연속적인 개인기 입력 및 커서 변경 속도에 직접적인 영향을 미칩니다. 또한 전용 소프트웨어(${p.specApp || '기본 매핑'})를 통해 이너/아우터 데드존과 반응 곡선을 본인의 손에 맞게 파인튜닝하면 실전 승률을 한층 높일 수 있습니다.`;
 
       return `
         <div class="deep-guide-card">
@@ -1771,7 +1767,6 @@
       `;
     }
 
-    /* 티어 계산 */
     function getScoreTier(scoreVal) {
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       const n = Number(scoreVal) || 85;
@@ -1933,9 +1928,11 @@
       }
     }
 
+    /* 탭 전환 시 비워졌던 카드 목록과 랭킹 리스트를 무조건 다시 채워 넣도록 보장 */
     function switchTab(tab, pushState = true) {
       currentTab = tab;
       isDetailView = false;
+
       document.getElementById('detail-view-tactics').style.display = 'none';
       document.getElementById('detail-view-pads').style.display = 'none';
       document.getElementById('section-latest-videos').style.display = 'block';
@@ -1960,7 +1957,13 @@
         if (tRankSec) tRankSec.style.display = 'block';
         if (pRankSec) pRankSec.style.display = 'none';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderTactics;
-        renderTacticsRanking();
+
+        if (allTactics.length > 0) {
+          handleSearch();
+          renderTacticsRanking();
+        } else {
+          loadTactics();
+        }
         if (pushState) safePushState({ tab: 'tactics', detail: null }, '/#tactics');
       } else if (tab === 'pads') {
         tabNavPads.classList.add('active');
@@ -1970,10 +1973,16 @@
         if (tRankSec) tRankSec.style.display = 'none';
         if (pRankSec) pRankSec.style.display = 'block';
         document.getElementById('searchInput').placeholder = t.searchPlaceholderPads;
-        renderPadRanking();
+
+        if (allPads.length > 0) {
+          handleSearch();
+          renderPadRanking();
+        } else {
+          loadPads();
+        }
         if (pushState) safePushState({ tab: 'pads', detail: null }, '/#controller');
       }
-      handleSearch();
+
       updateVideoShowcase();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -2063,7 +2072,7 @@
               if (!isDetailView) {
                 renderTactics(allTactics);
                 renderTacticsRanking();
-                updateVideoShowcase();
+                if (currentTab === 'tactics') updateVideoShowcase();
               } else if (currentSelectedPad) {
                 renderPadMatchedPlayers(currentSelectedPad);
               }
@@ -2101,7 +2110,7 @@
               if (!isDetailView) {
                 renderPads(allPads);
                 renderPadRanking();
-                updateVideoShowcase();
+                if (currentTab === 'pads') updateVideoShowcase();
               }
               loadAllReviewStats().then(() => {
                 if (!isDetailView) {
@@ -2171,7 +2180,7 @@
       if (isDetailView) return;
       const container = document.getElementById('tactics-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      if (!list || list.length === 0) return;
+      if (!container || !list || list.length === 0) return;
 
       let sorted = [...list];
       if (currentTacticsSort === 'wise') {
@@ -2243,7 +2252,7 @@
       if (isDetailView) return;
       const container = document.getElementById('pads-list');
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
-      if (!list || list.length === 0) return;
+      if (!container || !list || list.length === 0) return;
 
       let sorted = [...list];
       if (currentPadsSort === 'wise') {
@@ -2327,7 +2336,6 @@
       if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    /* 전술 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderTacticsRanking() {
       if (isDetailView) return;
       const container = document.getElementById('tactics-ranking-list');
@@ -2398,7 +2406,6 @@
       }
     }
 
-    /* 패드 순위: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] */
     function renderPadRanking() {
       if (isDetailView) return;
       const container = document.getElementById('pad-ranking-list');
@@ -2608,7 +2615,6 @@
       document.title = `${t.playerName || 'Player'} ${t.formation || ''} 전술 분석 및 세팅 가이드 | WISEPLAY`;
       updateMetaDesc(`${t.playerName || '프로'} 선수의 ${t.formation || ''} 포메이션 배치도, 개인 전술, 팀 전술, 훈련 코치 및 인게임 운영 심층 분석 - WISEPLAY`);
 
-     
       updateTacticsDetailLang();
 
       if (t.padName && t.padName !== '-') {
@@ -2681,6 +2687,7 @@
       const currentPadName = (p.padName || '').toLowerCase().trim();
       const matchedPlayers = allTactics.filter(t => t.padName && t.padName.toLowerCase().trim() === currentPadName);
       const userListContainer = document.getElementById('viewPadUserList');
+      if (!userListContainer) return;
       if (matchedPlayers.length > 0) {
         userListContainer.innerHTML = matchedPlayers.map(t => {
           const tIdx = allTactics.indexOf(t);
@@ -2876,7 +2883,6 @@
       navigateToPlayerByIndex(tacticIndex);
     }
 
-    /* 전술 이미지 탭 전환 (1. 포메이션 / 2. 개인전술 / 3. 팀전술 / 4. 훈련코치 / 5. 특성) */
     function showTacticsTabImg(tabType) {
       if (!currentSelectedTactics) return;
       const t = currentSelectedTactics;
@@ -3088,14 +3094,12 @@
           openPadDetail(e.state.index, e.state.url, false);
         }
       } else {
-        initialRouteResolved = false;
         checkInitialUrl();
       }
     });
 
+    /* 초기 URL 라우팅 시 전술/패드 데이터가 각각 로드된 시점에 맞춰 독립적으로 정확히 작동하도록 개선 */
     function checkInitialUrl() {
-      if (initialRouteResolved) return;
-
       const rawPath = window.location.pathname || '/';
       const path = rawPath.replace(/\/+$/, '');
       const hash = window.location.hash;
@@ -3114,7 +3118,6 @@
           return itemSlug === targetSlug || normalizeSlugForMatch(itemSlug) === normalizeSlugForMatch(targetSlug);
         });
 
-        initialRouteResolved = true;
         if (foundIdx !== -1) {
           openTacticsDetail(foundIdx, `/tactics/${cleanSlug(allTactics[foundIdx].slug, allTactics[foundIdx].playerName)}/`, false);
           return;
@@ -3135,18 +3138,18 @@
           return itemSlug === targetSlug || normalizeSlugForMatch(itemSlug) === normalizeSlugForMatch(targetSlug);
         });
 
-        initialRouteResolved = true;
         if (foundIdx !== -1) {
           openPadDetail(foundIdx, `/controllers/${cleanSlug(allPads[foundIdx].slug, allPads[foundIdx].padName)}/`, false);
           return;
         }
       }
 
-      initialRouteResolved = true;
-      if (hash === '#controller' || hash === '#pads' || path.toLowerCase() === '/controllers') {
-        switchTab('pads', false);
-      } else if (hash === '#tactics' || path.toLowerCase() === '/tactics') {
-        switchTab('tactics', false);
+      if (!isDetailView) {
+        if (hash === '#controller' || hash === '#pads' || path.toLowerCase() === '/controllers') {
+          if (currentTab !== 'pads') switchTab('pads', false);
+        } else if (hash === '#tactics' || path.toLowerCase() === '/tactics') {
+          if (currentTab !== 'tactics') switchTab('tactics', false);
+        }
       }
     }
 
