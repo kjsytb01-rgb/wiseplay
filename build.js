@@ -75,6 +75,41 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+/**
+ * 정규식 탐욕/비탐욕 매칭 오류를 원천 차단하는 완전 삭제 함수
+ * <section id="..."> 시작 태그부터 짝이 맞는 닫는 </section>까지를 정확히 계산하여 통째로 날립니다.
+ */
+function removeSectionById(html, sectionId) {
+  const pattern = new RegExp(`<section[^>]*id=["']${sectionId}["'][^>]*>`, 'i');
+  const match = pattern.exec(html);
+  if (!match) return html;
+
+  const startIndex = match.index;
+  let depth = 0;
+  let cursor = startIndex;
+
+  while (cursor < html.length) {
+    const nextOpen = html.indexOf('<section', cursor);
+    const nextClose = html.indexOf('</section>', cursor);
+
+    if (nextClose === -1) break;
+
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      cursor = nextOpen + 8;
+    } else {
+      depth--;
+      cursor = nextClose + 10;
+      if (depth === 0) {
+        // 정확히 바깥 감싸는 닫는 태그를 찾았으므로 통째로 제거
+        return html.slice(0, startIndex) + html.slice(cursor);
+      }
+    }
+  }
+
+  return html;
+}
+
 function generateTacticsHTML(tactics) {
   return tactics.map(t => {
     const name = escapeHtml(t.playerName || '');
@@ -188,14 +223,20 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
 
-    // 불필요한 모든 메인/패드 섹션 제거 (안전한 정규식)
-    pageHtml = pageHtml.replace(/<section id="detail-view-pads"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-tactics"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-pads"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-latest-videos"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-tactics-ranking"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-pad-ranking"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-editorial-guide"[\s\S]*?<\/section>/g, '');
+    // [완전 제거] 패드 상세 템플릿 및 메인 페이지 섹션들을 HTML 트리에서 100% 도려냄
+    const sectionsToRemove = [
+      'detail-view-pads',
+      'section-tactics',
+      'section-pads',
+      'section-latest-videos',
+      'section-tactics-ranking',
+      'section-pad-ranking',
+      'section-editorial-guide'
+    ];
+
+    sectionsToRemove.forEach(secId => {
+      pageHtml = removeSectionById(pageHtml, secId);
+    });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
@@ -267,14 +308,20 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
       'id="detail-view-pads" class="detail-view-container" style="display:block;"'
     );
 
-    // 불필요한 모든 메인/전술 섹션 제거
-    pageHtml = pageHtml.replace(/<section id="detail-view-tactics"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-tactics"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-pads"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-latest-videos"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-tactics-ranking"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-pad-ranking"[\s\S]*?<\/section>/g, '');
-    pageHtml = pageHtml.replace(/<section id="section-editorial-guide"[\s\S]*?<\/section>/g, '');
+    // [완전 제거] 전술 상세 템플릿 및 메인 페이지 섹션들을 HTML 트리에서 100% 도려냄
+    const sectionsToRemove = [
+      'detail-view-tactics',
+      'section-tactics',
+      'section-pads',
+      'section-latest-videos',
+      'section-tactics-ranking',
+      'section-pad-ranking',
+      'section-editorial-guide'
+    ];
+
+    sectionsToRemove.forEach(secId => {
+      pageHtml = removeSectionById(pageHtml, secId);
+    });
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
@@ -299,29 +346,36 @@ async function runBuild() {
 
   console.log(`파싱 완료: 전술 ${tactics.length}개, 패드 ${pads.length}개`);
 
-  // 원본 index.html을 기준 템플릿으로 보관
+  // 기준 템플릿 원본
   const rawTemplate = fs.readFileSync('index.html', 'utf8');
 
-  // [중요] 기존 tactics와 controllers 폴더 내 구버전 index.html 청소
+  // [중요] 기존 tactics 및 controllers 하위 폴더 완전 클린업
   ['tactics', 'controllers'].forEach(baseDir => {
     if (fs.existsSync(baseDir)) {
       fs.readdirSync(baseDir).forEach(sub => {
         const subPath = path.join(baseDir, sub);
-        if (fs.statSync(subPath).isDirectory()) {
-          fs.rmSync(subPath, { recursive: true, force: true });
-        }
+        try {
+          if (fs.statSync(subPath).isDirectory()) {
+            fs.rmSync(subPath, { recursive: true, force: true });
+          }
+        } catch (e) {}
       });
     }
   });
   console.log('기존 개별 상세 폴더 클린업 완료!');
 
-  // 1) 전술 및 패드 개별 정적 파일 생성 (오염되지 않은 rawTemplate 사용)
+  // 1) 전술 및 패드 개별 정적 파일 생성 (불필요한 섹션 찌꺼기가 100% 제거된 깨끗한 문서로 구워냄)
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
-  // 2) 메인 index.html 생성 (홈 화면용 카드 주입)
+  // 2) 메인 index.html 처리
   let homeHtml = rawTemplate;
 
+  // 메인 페이지 소스 상단에서 크롤러가 읽지 않도록 상세 뷰용 빈 템플릿 섹션 제거
+  homeHtml = removeSectionById(homeHtml, 'detail-view-tactics');
+  homeHtml = removeSectionById(homeHtml, 'detail-view-pads');
+
+  // 메인 홈 정적 카드 주입
   const tStart = '<!-- SSG_TACTICS_START -->';
   const tEnd = '<!-- SSG_TACTICS_END -->';
   if (homeHtml.includes(tStart) && homeHtml.includes(tEnd)) {
@@ -338,7 +392,7 @@ async function runBuild() {
     homeHtml = b + '\n' + generatePadsHTML(pads) + '\n' + a;
   }
 
-  // 3) JavaScript 프리로드 데이터 주입
+  // 프리로드 데이터 주입
   const dStart = '/* SSG_DATA_START */';
   const dEnd = '/* SSG_DATA_END */';
   if (homeHtml.includes(dStart) && homeHtml.includes(dEnd)) {
@@ -349,7 +403,7 @@ async function runBuild() {
   }
 
   fs.writeFileSync('index.html', homeHtml, 'utf8');
-  console.log('메인 index.html 업데이트 완료!');
+  console.log('메인 index.html (상세 템플릿 제거 및 정적 카드 주입) 업데이트 완료!');
 }
 
 runBuild().catch(err => {
