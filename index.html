@@ -2646,31 +2646,42 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       try {
         const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
 
+        const setSafeText = (id, text) => {
+          const el = document.getElementById(id);
+          if (el) el.innerText = text;
+        };
+
         const ct = document.querySelector('.t-contact-text');
         if (ct) ct.innerText = t.contactText;
 
-        document.getElementById('tabNavTactics').innerText = t.navTactics;
-        document.getElementById('tabNavPads').innerText = t.navController;
-        document.getElementById('tabNavMeta').innerText = t.navMeta;
-        document.getElementById('t-sec-title-tactics').childNodes[0].nodeValue = t.secTitleTactics + " ";
-        document.getElementById('t-sec-sub-tactics').innerText = t.secSubTactics;
-        document.getElementById('t-sec-title-pads').childNodes[0].nodeValue = t.secTitlePads + " ";
-        document.getElementById('t-sec-sub-pads').innerText = t.secSubPads;
+        setSafeText('tabNavTactics', t.navTactics);
+        setSafeText('tabNavPads', t.navController);
+        setSafeText('tabNavMeta', t.navMeta);
 
-        document.getElementById('sort-t-all').innerText = t.sortAll;
-        document.getElementById('sort-t-wise').innerText = t.sortWise;
-        document.getElementById('sort-t-user').innerText = t.sortUser;
-        document.getElementById('sort-t-hot').innerText = t.sortHot;
+        const secTactics = document.getElementById('t-sec-title-tactics');
+        if (secTactics && secTactics.childNodes[0]) {
+          secTactics.childNodes[0].nodeValue = t.secTitleTactics + " ";
+        }
+        setSafeText('t-sec-sub-tactics', t.secSubTactics);
 
-        document.getElementById('sort-p-all').innerText = t.sortAll;
-        document.getElementById('sort-p-wise').innerText = t.sortWise;
-        document.getElementById('sort-p-user').innerText = t.sortUser;
-        document.getElementById('sort-p-hot').innerText = t.sortPadHot;
+        const secPads = document.getElementById('t-sec-title-pads');
+        if (secPads && secPads.childNodes[0]) {
+          secPads.childNodes[0].nodeValue = t.secTitlePads + " ";
+        }
+        setSafeText('t-sec-sub-pads', t.secSubPads);
 
-        const trt = document.getElementById('t-tactics-ranking-title');
-        if (trt) trt.innerText = t.tacticsRankingTitle;
-        const prt = document.getElementById('t-pad-ranking-title');
-        if (prt) prt.innerText = t.padRankingTitle;
+        setSafeText('sort-t-all', t.sortAll);
+        setSafeText('sort-t-wise', t.sortWise);
+        setSafeText('sort-t-user', t.sortUser);
+        setSafeText('sort-t-hot', t.sortHot);
+
+        setSafeText('sort-p-all', t.sortAll);
+        setSafeText('sort-p-wise', t.sortWise);
+        setSafeText('sort-p-user', t.sortUser);
+        setSafeText('sort-p-hot', t.sortPadHot);
+
+        setSafeText('t-tactics-ranking-title', t.tacticsRankingTitle);
+        setSafeText('t-pad-ranking-title', t.padRankingTitle);
 
         document.querySelectorAll('.t-back-btn').forEach(el => el.innerText = t.backBtn);
         const tab1 = document.querySelector('.t-img-tab1'); if (tab1) tab1.innerText = t.imgTab1;
@@ -2678,39 +2689,42 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         const tab3 = document.querySelector('.t-img-tab3'); if (tab3) tab3.innerText = t.imgTab3;
         const tab4 = document.querySelector('.t-img-tab4'); if (tab4) tab4.innerText = t.imgTab4;
         const tab5 = document.querySelector('.t-img-tab5'); if (tab5) tab5.innerText = t.imgTab5;
-        const zh = document.getElementById('t-zoom-hint'); if (zh) zh.innerText = t.zoomHint;
-        const dt = document.getElementById('t-desc-title'); if (dt) dt.innerText = t.descTitle;
-        const ppt = document.getElementById('t-player-pad-title'); if (ppt) ppt.innerText = t.playerPadTitle;
-        const vsh = document.getElementById('t-view-spec-hint'); if (vsh) vsh.innerText = t.viewSpecHint;
-        const rst = document.getElementById('t-review-sec-title'); if (rst) rst.innerText = t.reviewSecTitle;
-        const rst2 = document.getElementById('t-review-sec-title2'); if (rst2) rst2.innerText = t.reviewSecTitle;
-        const sb1 = document.getElementById('t-review-submit-btn1'); if (sb1) sb1.innerText = t.submitBtn;
-        const sb2 = document.getElementById('t-review-submit-btn2'); if (sb2) sb2.innerText = t.submitBtn;
 
-        const ytt = document.getElementById('viewYtLink');
-        if (ytt) ytt.innerText = t.ytBtnTactics;
+        setSafeText('t-zoom-hint', t.zoomHint);
+        setSafeText('t-desc-title', t.descTitle);
+        setSafeText('t-player-pad-title', t.playerPadTitle);
+        setSafeText('t-view-spec-hint', t.viewSpecHint);
+        setSafeText('t-review-sec-title', t.reviewSecTitle);
+        setSafeText('t-review-sec-title2', t.reviewSecTitle);
+        setSafeText('t-review-submit-btn1', t.submitBtn);
+        setSafeText('t-review-submit-btn2', t.submitBtn);
+        setSafeText('viewYtLink', t.ytBtnTactics);
 
-        const ds1 = document.getElementById('t-dash-sub1'); if (ds1) ds1.innerText = t.dashSub1;
-        const pit = document.getElementById('t-pad-intro-title'); if (pit) pit.innerText = t.padIntroTitle;
-        const put = document.getElementById('t-pad-users-title'); if (put) put.innerText = t.padUsersTitle;
-        const bt = document.getElementById('t-bench-table-title'); if (bt) bt.innerText = t.benchTitle;
+        setSafeText('t-dash-sub1', t.dashSub1);
+        setSafeText('t-pad-intro-title', t.padIntroTitle);
+        setSafeText('t-pad-users-title', t.padUsersTitle);
+        setSafeText('t-bench-table-title', t.benchTitle);
 
-        document.getElementById('th-mode').innerText = t.thMode;
-        document.getElementById('th-poll').innerText = t.thPoll;
-        document.getElementById('th-slat').innerText = t.thSlat;
-        document.getElementById('th-blat').innerText = t.thBlat;
-        document.getElementById('t-pros-cons-title').innerText = t.prosConsTitle;
-        document.getElementById('t-pros-label').innerText = t.prosLabel;
-        document.getElementById('t-cons-label').innerText = t.consLabel;
+        setSafeText('th-mode', t.thMode);
+        setSafeText('th-poll', t.thPoll);
+        setSafeText('th-slat', t.thSlat);
+        setSafeText('th-blat', t.thBlat);
+        setSafeText('t-pros-cons-title', t.prosConsTitle);
+        setSafeText('t-pros-label', t.prosLabel);
+        setSafeText('t-cons-label', t.consLabel);
 
         const searchInput = document.getElementById('searchInput');
-        if (currentTab === 'tactics') {
-          searchInput.placeholder = t.searchPlaceholderTactics;
-        } else {
-          searchInput.placeholder = t.searchPlaceholderPads;
+        if (searchInput) {
+          if (currentTab === 'tactics') {
+            searchInput.placeholder = t.searchPlaceholderTactics;
+          } else {
+            searchInput.placeholder = t.searchPlaceholderPads;
+          }
         }
       } catch (err) {
         console.warn("I18n warning:", err);
+      }
+    }
       }
     }
 
