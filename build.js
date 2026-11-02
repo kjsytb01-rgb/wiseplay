@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-// index.html에서 사용 중인 구글 시트 CSV URL을 여기에 똑같이 입력합니다.
-const TACTICS_CSV_URL = '여기에_Tactics_구글시트_CSV_링크_입력';
-const PADS_CSV_URL = '여기에_Pads_구글시트_CSV_링크_입력';
+const SHEET_ID = '1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM';
+const TACTICS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`;
+const PADS_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`;
 
 function parseCSV(text) {
   if (!text || !text.trim()) return [];
@@ -66,14 +66,13 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// 크롤러와 초기 화면을 위한 정적 전술 카드 및 본문 HTML 생성
 function generateTacticsHTML(tactics) {
   return tactics.map(t => {
     const name = escapeHtml(t.playerName || '');
     const team = escapeHtml(t.team || '');
     const formation = escapeHtml(t.formation || '');
-    const score = escapeHtml(t.score || '85');
-    const summary = escapeHtml(t.summary || t.oneLineReview || '');
+    const score = escapeHtml(t.score || t.wiseScore || '85');
+    const summary = escapeHtml(t.summary || t.oneLineReview || t.oneLine || '');
     const review = escapeHtml(t.reviewText || '');
 
     return `
@@ -89,14 +88,13 @@ function generateTacticsHTML(tactics) {
   }).join('\n');
 }
 
-// 크롤러와 초기 화면을 위한 정적 패드 벤치마크 HTML 생성
 function generatePadsHTML(pads) {
   return pads.map(p => {
     const padName = escapeHtml(p.padName || '');
-    const score = escapeHtml(p.score || '');
-    const summary = escapeHtml(p.summary || p.reviewText || '');
-    const polling = escapeHtml(p.pollingRate || '-');
-    const sensor = escapeHtml(p.stickSensor || p.sensor || '-');
+    const score = escapeHtml(p.score || p.metaScore || '');
+    const summary = escapeHtml(p.summary || p.padIntro || p.pros || '');
+    const polling = escapeHtml(p.pollingRate || p.wPoll || '-');
+    const sensor = escapeHtml(p.stickSensor || p.stickMech || '-');
 
     return `
     <article class="static-pad-card" style="background:#14171c; border:1px solid #262b33; border-radius:12px; padding:20px; margin-bottom:16px;">
@@ -127,7 +125,7 @@ async function runBuild() {
 
   let html = fs.readFileSync('index.html', 'utf8');
 
-  // 1) 정적 HTML 카드 주입 (애드센스 봇 & 검색엔진 크롤러용 100% 정적 본문)
+  // 1) 크롤러를 위한 정적 카드 주입
   const tacticsStaticHTML = generateTacticsHTML(tactics);
   const padsStaticHTML = generatePadsHTML(pads);
 
@@ -141,8 +139,8 @@ async function runBuild() {
     `<!-- SSG_PADS_START -->\n${padsStaticHTML}\n<!-- SSG_PADS_END -->`
   );
 
-  // 2) 프리로드 JSON 데이터 주입 (브라우저 0.1초 즉시 렌더링용)
-  const dataScript = `/* SSG_DATA_START */\n  window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n  window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n  /* SSG_DATA_END */`;
+  // 2) 브라우저 0.1초 즉시 렌더링용 JSON 주입
+  const dataScript = `/* SSG_DATA_START */\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    /* SSG_DATA_END */`;
   html = html.replace(
     /\/\* SSG_DATA_START \*\/[\s\S]*?\/\* SSG_DATA_END \*\//,
     dataScript
