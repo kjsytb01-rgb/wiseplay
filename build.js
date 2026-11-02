@@ -117,7 +117,7 @@ function generatePadsHTML(pads) {
   }).join('\n');
 }
 
-// 1. 전술 상세 개별 정적 페이지 생성 (Canonical 자기 참조 + 확실한 정규식 치환)
+// 1. 전술 상세 개별 정적 페이지 생성
 function buildIndividualTacticPages(baseHtml, tactics) {
   tactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
@@ -133,13 +133,13 @@ function buildIndividualTacticPages(baseHtml, tactics) {
     const review = escapeHtml(t.reviewText || '');
     const currentUrl = `https://wiseplay.co.kr/tactics/${slug}/`;
 
-    // 1) Canonical 자기 자신 URL로 교체 (홈 가리키던 치명적 버그 수정)
+    // 1) 고유 Canonical 지정
     pageHtml = pageHtml.replace(
       /<link rel="canonical" href="[^"]*">/,
       `<link rel="canonical" href="${currentUrl}">`
     );
 
-    // 2) 타이틀 및 메타태그 치환
+    // 2) 타이틀 및 메타태그
     pageHtml = pageHtml.replace(
       /<title>[\s\S]*?<\/title>/,
       `<title>${name} ${formation} 전술 분석 및 세팅 가이드 | WISEPLAY</title>`
@@ -149,7 +149,7 @@ function buildIndividualTacticPages(baseHtml, tactics) {
       `<meta name="description" id="metaDesc" content="${name} 선수의 ${formation} 포메이션 배치도, 개인 전술, 팀 전술 및 인게임 운영 심층 분석 - WISEPLAY">`
     );
 
-    // 3) 상세 화면 데이터 주입 (유연한 정규식으로 줄바꿈/공백 완벽 대응)
+    // 3) 상세 데이터 주입
     pageHtml = pageHtml.replace(
       /<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/,
       `<span class="card-badge" id="viewFormation">${formation}</span>`
@@ -171,22 +171,27 @@ function buildIndividualTacticPages(baseHtml, tactics) {
       `<p id="viewReviewText" style="white-space:pre-line;">${review}</p>`
     );
 
-    // 4) 상세 페이지 레이아웃 노출 설정
+    // 4) 중복 콘텐츠 제거: 메인 홈 리스트 전체를 아예 빈 태그로 비워버림 (핵심!)
     pageHtml = pageHtml.replace(
       'id="detail-view-tactics" class="detail-view-container"',
       'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
     );
-    pageHtml = pageHtml.replace('id="section-tactics"', 'id="section-tactics" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-latest-videos"', 'id="section-latest-videos" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-tactics-ranking"', 'id="section-tactics-ranking" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-editorial-guide"', 'id="section-editorial-guide" style="display:none;"');
+    pageHtml = pageHtml.replace(/<section id="section-tactics"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-pads"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-latest-videos"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-tactics-ranking"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-pad-ranking"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-editorial-guide"[\s\S]*?<\/section>/, '');
+
+    // 컨트롤러 빈 템플릿 영역도 제거
+    pageHtml = pageHtml.replace(/<section id="detail-view-pads"[\s\S]*?<\/section>/, '');
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
   console.log(`개별 전술 정적 페이지 ${tactics.length}개 정밀 생성 완료!`);
 }
 
-// 2. 컨트롤러 상세 개별 정적 페이지 생성 (Canonical 자기 참조)
+// 2. 컨트롤러 상세 개별 정적 페이지 생성
 function buildIndividualPadPages(baseHtml, pads) {
   pads.forEach(p => {
     const slug = cleanSlug(p.slug, p.padName);
@@ -203,13 +208,13 @@ function buildIndividualPadPages(baseHtml, pads) {
     const cons = escapeHtml(p.cons || '-');
     const currentUrl = `https://wiseplay.co.kr/controllers/${slug}/`;
 
-    // 1) Canonical 자기 자신 URL로 교체
+    // 1) 고유 Canonical 지정
     pageHtml = pageHtml.replace(
       /<link rel="canonical" href="[^"]*">/,
       `<link rel="canonical" href="${currentUrl}">`
     );
 
-    // 2) 타이틀 및 메타태그 치환
+    // 2) 타이틀 및 메타태그
     pageHtml = pageHtml.replace(
       /<title>[\s\S]*?<\/title>/,
       `<title>${name} 레이턴시·폴링레이트 실측 벤치마크 스펙 | WISEPLAY</title>`
@@ -219,7 +224,7 @@ function buildIndividualPadPages(baseHtml, pads) {
       `<meta name="description" id="metaDesc" content="${name} (${mech}) 유선·무선 폴링레이트, 스틱 및 버튼 인풋랙 정밀 계측 벤치마크 분석 - WISEPLAY">`
     );
 
-    // 3) 상세 화면 데이터 주입
+    // 3) 상세 화면 실제 데이터 주입
     pageHtml = pageHtml.replace(
       /<h2[^>]*id="viewPadName"[^>]*>[\s\S]*?<\/h2>/,
       `<h2 id="viewPadName">${name}</h2>`
@@ -245,26 +250,30 @@ function buildIndividualPadPages(baseHtml, pads) {
       `<span id="viewPadCons">${cons}</span>`
     );
 
-    // 유선 수치
+    // 유선 실측 수치
     pageHtml = pageHtml.replace(/<td[^>]*id="pW_poll"[^>]*>[\s\S]*?<\/td>/, `<td id="pW_poll">${escapeHtml(p.wPoll || '-')} Hz</td>`);
     pageHtml = pageHtml.replace(/<td[^>]*id="pW_sLat"[^>]*>[\s\S]*?<\/td>/, `<td id="pW_sLat">${escapeHtml(p.wStickLat || '-')} ms</td>`);
     pageHtml = pageHtml.replace(/<td[^>]*id="pW_bLat"[^>]*>[\s\S]*?<\/td>/, `<td id="pW_bLat">${escapeHtml(p.wBtnLat || '-')} ms</td>`);
 
-    // 무선 동글 수치
+    // 무선 동글 실측 수치
     pageHtml = pageHtml.replace(/<td[^>]*id="pD_poll"[^>]*>[\s\S]*?<\/td>/, `<td id="pD_poll">${escapeHtml(p.dPoll || '-')} Hz</td>`);
     pageHtml = pageHtml.replace(/<td[^>]*id="pD_sLat"[^>]*>[\s\S]*?<\/td>/, `<td id="pD_sLat">${escapeHtml(p.dStickLat || '-')} ms</td>`);
     pageHtml = pageHtml.replace(/<td[^>]*id="pD_bLat"[^>]*>[\s\S]*?<\/td>/, `<td id="pD_bLat">${escapeHtml(p.dBtnLat || '-')} ms</td>`);
 
-    // 컨트롤러 상세 화면 노출 설정
+    // 4) 중복 콘텐츠 제거: 메인 홈 리스트 전체를 아예 빈 태그로 비워버림 (핵심!)
     pageHtml = pageHtml.replace(
       'id="detail-view-pads" class="detail-view-container"',
       'id="detail-view-pads" class="detail-view-container" style="display:block;"'
     );
-    pageHtml = pageHtml.replace('id="section-tactics"', 'id="section-tactics" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-pads"', 'id="section-pads" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-latest-videos"', 'id="section-latest-videos" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-pad-ranking"', 'id="section-pad-ranking" style="display:none;"');
-    pageHtml = pageHtml.replace('id="section-editorial-guide"', 'id="section-editorial-guide" style="display:none;"');
+    pageHtml = pageHtml.replace(/<section id="section-tactics"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-pads"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-latest-videos"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-tactics-ranking"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-pad-ranking"[\s\S]*?<\/section>/, '');
+    pageHtml = pageHtml.replace(/<section id="section-editorial-guide"[\s\S]*?<\/section>/, '');
+
+    // 전술 빈 템플릿 영역도 제거
+    pageHtml = pageHtml.replace(/<section id="detail-view-tactics"[\s\S]*?<\/section>/, '');
 
     fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
   });
@@ -288,7 +297,7 @@ async function runBuild() {
 
   let html = fs.readFileSync('index.html', 'utf8');
 
-  // 1) HTML 정적 카드 주입
+  // 1) HTML 정적 카드 주입 (메인 홈 전용)
   const tStart = '<!-- SSG_TACTICS_START -->';
   const tEnd = '<!-- SSG_TACTICS_END -->';
   if (html.includes(tStart) && html.includes(tEnd)) {
@@ -319,7 +328,7 @@ async function runBuild() {
   fs.writeFileSync('index.html', html, 'utf8');
   console.log('메인 index.html 업데이트 완료!');
 
-  // 3) 전술 및 패드 개별 정적 파일 동시 빌드 (각각 고유 Canonical 태그와 상세 본문 주입)
+  // 3) 전술 및 패드 개별 정적 파일 생성 (중복 섹션 완전 제거 및 고유 상세 본문 100% 주입)
   buildIndividualTacticPages(html, tactics);
   buildIndividualPadPages(html, pads);
 }
