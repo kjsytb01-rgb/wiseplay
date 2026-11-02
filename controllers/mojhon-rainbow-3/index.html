@@ -1207,40 +1207,7 @@
       <div class="detail-section">
         <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 </h4>
         <div style="overflow-x:auto;">
-          <table class="bench-table">
-            <thead>
-              <tr>
-                <th id="th-mode">연결 방식</th>
-                <th id="th-poll">폴링레이트 (Hz)</th>
-                <th id="th-slat">스틱 레이턴시 (ms)</th>
-                <th id="th-blat">버튼 레이턴시 (ms)</th>
-                <th>실전 권장 및 조언</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b id="tb-wired">유선 (Wired)</b></td>
-                <td id="pW_poll">2000 Hz</td>
-                <td id="pW_sLat">4.08 ms</td>
-                <td id="pW_bLat">2.95 ms</td>
-                <td id="pW_adv">-</td>
-              </tr>
-              <tr>
-                <td><b id="tb-dongle">동글 (Dongle)</b></td>
-                <td id="pD_poll">2000 Hz</td>
-                <td id="pD_sLat">5.27 ms</td>
-                <td id="pD_bLat">3.83 ms</td>
-                <td id="pD_adv">-</td>
-              </tr>
-              <tr>
-                <td><b id="tb-bt">블루투스 (BT)</b></td>
-                <td id="pB_poll">-</td>
-                <td id="pB_sLat">-</td>
-                <td id="pB_bLat">-</td>
-                <td id="pB_adv">-</td>
-              </tr>
-            </tbody>
-          </table>
+         
         </div>
       </div>
 
@@ -4034,17 +4001,17 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
       document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
       document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
-      document.getElementById('pW_adv').innerText = p.wAdvice || '-';
+    
 
       document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
       document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
       document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
-      document.getElementById('pD_adv').innerText = p.dAdvice || '-';
+  
 
       document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
       document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
       document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
-      document.getElementById('pB_adv').innerText = p.bAdvice || '-';
+    
 
       updatePadDetailLang();
       fetchSupabaseReviews('pad', p.padName || 'default_pad');
