@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <link rel="canonical" href="https://wiseplay.co.kr/tactics/wonde0r8/">
   <!-- Google tag (gtag.js) GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE0FWNSNYM"></script>
   <script>
@@ -19,6 +18,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" id="metaDesc" content="WONDE0R8 선수의 4-2-2-2 포메이션 배치도, 개인 전술, 팀 전술 및 인게임 운영 심층 분석 - WISEPLAY">
+  <link rel="canonical" href="https://wiseplay.co.kr/tactics/wonde0r8/">
   <title>WONDE0R8 4-2-2-2 전술 분석 및 세팅 가이드 | WISEPLAY</title>
   <style>
     :root {
@@ -337,14 +337,12 @@
       box-shadow: 0 8px 24px rgba(0, 255, 136, 0.12);
     }
 
-    /* 90점 이상 보라색(tier-purple) */
     .mc-top-cap { padding: 12px 12px 0 12px; }
     .mc-top-cap.tier-purple { background: linear-gradient(180deg, var(--accent-purple) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-green { background: linear-gradient(180deg, var(--accent-green) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-yellow { background: linear-gradient(180deg, var(--accent-yellow) 65%, var(--card-bg) 65%); }
     .mc-top-cap.tier-red { background: linear-gradient(180deg, var(--accent-red) 65%, var(--card-bg) 65%); }
 
-    /* 사진 박스 안쪽 여백 확보 & 이미지 크기 최적화 */
     .card-img-wrapper {
       width: 100%;
       height: 180px;
@@ -396,8 +394,6 @@
       color: var(--accent-color);
       align-self: flex-start;
     }
-
-    /* 스틱 방식 전용 컬러 뱃지 (Hall: 노랑, TMR: 초록, Capacitive: 핑크) */
     .card-badge.mech-hall {
       background: rgba(255, 189, 63, 0.15) !important;
       color: var(--accent-yellow) !important;
@@ -423,7 +419,6 @@
       text-overflow: ellipsis;
     }
 
-    /* 클릭 유도 프롬프트 버튼 스타일 */
     .tactic-cta-box {
       background: #14171f;
       border: 1px solid #252936;
@@ -545,7 +540,7 @@
 
     @media (max-width: 960px) { .video-showcase-grid { grid-template-columns: 1fr; } }
 
-    /* 전술 & 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] 심플 가로 정렬 */
+    /* 순위 리스트 */
     .pad-ranking-section { margin-top: 48px; }
     .ranking-list { display: flex; flex-direction: column; gap: 14px; }
     .ranking-item {
@@ -582,7 +577,6 @@
     .rank-num.rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #000; }
     .rank-num.rank-3 { background: linear-gradient(135deg, #f59e0b, #b45309); color: #fff; }
 
-    /* 사진 썸네일 */
     .rank-thumb-wrap {
       width: 110px;
       height: 74px;
@@ -611,7 +605,6 @@
     }
     .rank-thumb img { max-width: 90%; max-height: 90%; object-fit: contain; }
 
-    /* 이름 열 */
     .rank-name-col {
       display: flex;
       flex-direction: column;
@@ -632,7 +625,6 @@
       flex-wrap: wrap;
     }
 
-    /* 한줄평 박스 (깔끔한 1줄 말줄임표 규격) */
     .rank-intro-box {
       background: #14171f;
       border: 1px solid #252936;
@@ -651,7 +643,6 @@
       min-width: 0;
     }
 
-    /* 순위 페이지네이션 버튼 */
     .ranking-pagination {
       display: flex;
       justify-content: center;
@@ -722,7 +713,6 @@
     .detail-view-header h2 { font-size: 1.6rem; font-weight: 800; color: #fff; margin-top: 6px; }
     .detail-view-header p { color: var(--text-muted); font-size: 0.9rem; }
     
-    /* 5개 탭이 모바일에서도 예쁘게 감싸지도록 flex-wrap: wrap 적용 */
     .tactics-img-tabs { 
       display: flex; 
       gap: 8px; 
@@ -758,32 +748,6 @@
     .detail-section { background: #1c202a; padding: 18px; border-radius: 10px; border: 1px solid #282d3b; margin-bottom: 18px; }
     .detail-section h4 { font-size: 0.98rem; color: var(--accent-color); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
     .detail-section p { font-size: 0.92rem; color: #d1d5db; line-height: 1.65; white-space: pre-wrap; }
-
-    /* 심층 가이드 서브 블록 */
-    .deep-guide-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .deep-guide-card {
-      background: #14171f;
-      border: 1px solid #252a38;
-      border-radius: 8px;
-      padding: 14px 16px;
-    }
-    .deep-guide-card h5 {
-      font-size: 0.9rem;
-      color: #fff;
-      margin-bottom: 6px;
-      font-weight: 800;
-    }
-    .deep-guide-card p {
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      line-height: 1.65;
-      white-space: pre-line;
-    }
 
     .dual-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
     .dash-box {
@@ -844,7 +808,6 @@
       pointer-events: none;
     }
 
-    /* 벤치마크 이미지 그리드 */
     .bench-img-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -897,6 +860,7 @@
       .specs-tri-grid { grid-template-columns: 1fr; }
     }
 
+    /* 4대 핵심 실측 수치 전용 심플 테이블 */
     .bench-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 6px; }
     .bench-table th, .bench-table td { padding: 10px 12px; border: 1px solid #2d3342; text-align: left; }
     .bench-table th { background: #232834; color: var(--text-muted); }
@@ -923,7 +887,6 @@
     .comment-score { color: #ffbb00; font-weight: 700; }
     .comment-body { color: #c9d1d9; }
 
-    /* 홈 화면 하단 정적 가이드 아티클 (애드센스 및 검색엔진 크롤링용) */
     .editorial-guide-section {
       margin-top: 56px;
       background: #141720;
@@ -1023,7 +986,7 @@
   </header>
 
   <main>
-  <!-- [최상단 배치] 전술 상세 화면 -->
+    <!-- [최상단 배치] 전술 상세 화면 -->
     <section id="detail-view-tactics" class="detail-view-container" style="display:block;">
       <button type="button" class="back-btn" onclick="backToList()">&larr; <span class="t-back-btn">목록으로 돌아가기</span></button>
       
@@ -1211,7 +1174,7 @@
         <p id="viewPadIntroText">-</p>
       </div>
 
-          <div class="detail-section" id="viewBenchImgSection">
+      <div class="detail-section" id="viewBenchImgSection">
         <h4>📈 스틱 서큘러티 및 리니어리티 실측 그래프</h4>
         <div class="bench-img-grid">
           <div class="bench-img-item" onclick="openLightbox(document.getElementById('benchImg1').src)">
@@ -1225,10 +1188,40 @@
         </div>
       </div>
 
+      <!-- 4대 실측 지표 심플 테이블 -->
       <div class="detail-section">
         <h4 id="t-bench-table-title">📊 3대 연결 모드 정밀 벤치마크 </h4>
         <div style="overflow-x:auto;">
-         
+          <table class="bench-table">
+            <thead>
+              <tr>
+                <th id="th-mode">연결 방식</th>
+                <th id="th-poll">폴링레이트 (Hz)</th>
+                <th id="th-slat">스틱 레이턴시 (ms)</th>
+                <th id="th-blat">버튼 레이턴시 (ms)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b id="tb-wired">유선 (Wired)</b></td>
+                <td id="pW_poll">-</td>
+                <td id="pW_sLat">-</td>
+                <td id="pW_bLat">-</td>
+              </tr>
+              <tr>
+                <td><b id="tb-dongle">동글 (Dongle)</b></td>
+                <td id="pD_poll">-</td>
+                <td id="pD_sLat">-</td>
+                <td id="pD_bLat">-</td>
+              </tr>
+              <tr>
+                <td><b id="tb-bt">블루투스 (BT)</b></td>
+                <td id="pB_poll">-</td>
+                <td id="pB_sLat">-</td>
+                <td id="pB_bLat">-</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -2495,7 +2488,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       </div>
     </section>
 
-    <!-- 전술 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
+    <!-- 전술 순위 -->
     <section id="section-tactics-ranking" style="display:none;" class="pad-ranking-section">
       <div class="section-header-row">
         <h2 class="section-title" id="t-tactics-ranking-title">🏆 실전 프로 전술 순위 (WISE SCORE)</h2>
@@ -2504,7 +2497,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       <div id="tactics-ranking-pagination" class="ranking-pagination"></div>
     </section>
 
-    <!-- 패드 탭 하단: [순위] -> [점수] -> [사진] -> [이름] -> [한줄평] -->
+    <!-- 패드 순위 -->
     <section id="section-pad-ranking" class="pad-ranking-section" style="display: none;">
       <div class="section-header-row">
         <h2 class="section-title" id="t-pad-ranking-title">🏆 컨트롤러 성능 순위 (WISE META SCORE)</h2>
@@ -2513,7 +2506,7 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       <div id="pad-ranking-pagination" class="ranking-pagination"></div>
     </section>
 
-    <!-- 메인 홈 화면 전용 정적 분석 가이드 -->
+    <!-- 하단 정적 가이드 아티클 -->
     <section id="section-editorial-guide" style="display:none;" class="editorial-guide-section">
       <div class="section-header-row" style="margin-bottom:12px;">
         <h2 class="section-title">📘 WISEPLAY 전술 데이터 분석 및 컨트롤러 벤치마크 측정 가이드</h2>
@@ -2527,17 +2520,11 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
           <p>
             현대 축구 게임 메타에서는 단순히 포메이션 형태만 복사하는 것으로는 프로 선수들의 공수 움직임을 온전히 재현하기 어렵습니다. WISEPLAY의 모든 전술 데이터는 <b>1. 포메이션 배치도, 2. 개인 전술(공격/수비 참여도 및 침투 지시), 3. 팀 전술(전개 속도, 패스 성향, 수비 라인 간격), 4. 훈련 코치 조합, 5. 팀 특성</b>의 5단계로 세분화되어 제공됩니다.
           </p>
-          <p>
-            특히 수비형 미드필더(CDM)의 간격 유지와 풀백의 오버래핑 제어는 개인 전술과 팀 전술 수치가 맞물려 작동하므로, 자신의 주력 스쿼드 활동량과 커서 수비 스타일에 맞춰 전개 수치와 압박 라인을 미세 조정하는 것이 승률 향상의 핵심입니다.
-          </p>
         </article>
         <article class="editorial-card">
           <h3>🎮 게이밍 패드 인풋랙(Latency) 실측 및 센서 메커니즘 기준</h3>
           <p>
             0.1초의 퍼스트 터치와 방향 전환이 승패를 가르는 환경에서는 컨트롤러의 물리적 스펙과 통신 레이턴시가 직접적인 체감 차이를 만듭니다. WISEPLAY 벤치마크는 유선(Wired), 2.4GHz 무선 동글(Dongle), 블루투스(BT) 3대 연결 환경에서 <b>폴링레이트(Hz), 아날로그 스틱 레이턴시(ms), 메인 버튼 레이턴시(ms)</b>를 계측 장비로 직접 실측하여 산출합니다.
-          </p>
-          <p>
-            아날로그 스틱 센서 역시 기존의 가변저항(Potentiometer)을 넘어 자석 기반의 <b>홀 이펙트(Hall Effect)</b>, 초정밀 자기저항 센서인 <b>TMR(터널 자기저항)</b>, 그리고 <b>정전용량(Capacitive)</b> 방식으로 진화하고 있습니다. 각 센서의 데드존(Deadzone) 특성과 리니어리티(직선성) 그래프를 비교하여 본인의 드리블 스타일에 가장 적합한 장비를 선택할 수 있습니다.
           </p>
         </article>
       </div>
@@ -2564,11 +2551,9 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
     /* SSG_DATA_END */
 
     const SHEET_ID = "1LbMwTdfLRB45dqH1pLbk2vrTXPf6vu7DvqAWCgLMeDM";
-
     const SUPABASE_URL = "https://trmehqsfopordjohslul.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRybWVocXNmb3BvcmRqb2hzbHVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NjE0NjIsImV4cCI6MjEwNjEzNzQ2Mn0.Bu6o8I2OvgOSit2BJcOpPj14SX4EiTH9AJnCToXKvOU";
 
-    // XSS 방어용 보안 이스케이프 함수
     function escapeReview(str) {
       if (!str) return '';
       return String(str)
@@ -2900,47 +2885,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       return '';
     }
 
-    function buildPadDeepGuideHTML(p) {
-      const name = p.padName || '컨트롤러';
-      const mech = p.stickMech || p.specStick || '정밀 아날로그';
-      const score = p.metaScore || '80';
-      const wPoll = p.wPoll ? `${p.wPoll}Hz` : '고주사율';
-      const wSLat = p.wStickLat ? `${p.wStickLat}ms` : '저지연';
-      const wBLat = p.wBtnLat ? `${p.wBtnLat}ms` : '저지연';
-      const dPoll = p.dPoll ? `${p.dPoll}Hz` : '-';
-
-      let mechExplanation = '';
-      const mUpper = String(mech).toUpperCase();
-      if (mUpper.includes('TMR')) {
-        mechExplanation = `${name}에 탑재된 TMR(Tunnel Magnetoresistance, 터널 자기저항) 스틱 센서는 기존 홀 이펙트 센서 대비 전력 소모를 대폭 줄이면서도 자기장 변화 감지 해상도를 한 단계 끌어올린 차세대 규격입니다. 미세한 스틱 기울기 변화를 선형적(Linear)으로 읽어내기 때문에 FC 온라인의 심리전 드리블, 미세 방향 전환, 정교한 패스 게이지 및 방향 지정에서 최상위권의 입력 정확도를 제공합니다.`;
-      } else if (mUpper.includes('HALL') || mUpper.includes('홀')) {
-        mechExplanation = `${name}은 물리적 접점이 마모되면서 발생하는 스틱 쏠림(Drift) 현상을 원천 방지하는 홀 이펙트(Hall Effect) 자기 센서를 채택했습니다. 장기간 사용 시에도 초기 센터 영점과 데드존 안정성이 꾸준히 유지되며, 부드러운 스틱 움직임 덕분에 장시간 플레이 시 손목과 엄지손가락의 피로도가 낮은 것이 강점입니다.`;
-      } else if (mUpper.includes('CAP') || mUpper.includes('정전')) {
-        mechExplanation = `${name}은 정전용량(Capacitive) 방식의 고감도 센서 메커니즘을 적용하여 외부 자기장 간섭을 최소화하고 즉각적인 스틱 중심 복귀력과 세밀한 입력 해상도를 구현했습니다. 빠르고 직관적인 스틱 반응성을 선호하는 유저에게 최적화된 퍼포먼스를 보여줍니다.`;
-      } else {
-        mechExplanation = `${name}은 직관적인 아날로그 스틱 텐션과 안정적인 중심 복귀 설계를 갖추고 있어, 축구 게임 특유의 360도 방향 전환과 스킬 무브 입력 시 일관된 조작감을 제공합니다.`;
-      }
-
-      const benchExplanation = `실측 벤치마크 결과 ${name}은 WISE META SCORE ${score}점을 기록했습니다. 유선(Wired) 연결 기준 폴링레이트 ${wPoll}, 스틱 입력 레이턴시 ${wSLat}, 버튼 입력 레이턴시 ${wBLat}의 계측 수치를 보여주며, 무선 2.4GHz 동글 환경에서는 폴링레이트 ${dPoll} 수준으로 작동합니다. 인게임에서 슛 캔슬, 퍼스트 터치 방향 전환, 수비 커서 변경 시 입력 지연으로 인한 답답함 없이 즉각적인 피드백을 받을 수 있는 성능입니다.`;
-
-      const buttonSpec = `메인 액션 버튼(${p.specBtn || '표준 스위치'}), D패드(${p.specDpad || '전술 십자키'}), 범퍼(${p.specBumper || 'L1/R1'})의 클릭감과 반발력은 연속적인 개인기 입력 및 커서 변경 속도에 직접적인 영향을 미칩니다. 또한 전용 소프트웨어(${p.specApp || '기본 매핑'})를 통해 이너/아우터 데드존과 반응 곡선을 본인의 손에 맞게 파인튜닝하면 실전 승률을 한층 높일 수 있습니다.`;
-
-      return `
-        <div class="deep-guide-card">
-          <h5>1. 아날로그 스틱 센서 메커니즘 (${mech})</h5>
-          <p id="deep-p-p1">${mechExplanation}</p>
-        </div>
-        <div class="deep-guide-card">
-          <h5>2. 폴링레이트 및 인풋랙(Latency) 실측 데이터 해석</h5>
-          <p id="deep-p-p2">${benchExplanation}</p>
-        </div>
-        <div class="deep-guide-card">
-          <h5>3. 스위치 구조 및 FC 온라인 실전 세팅 조언</h5>
-          <p id="deep-p-p3">${buttonSpec}</p>
-        </div>
-      `;
-    }
-
     function getScoreTier(scoreVal) {
       const t = I18N_INDEX[currentLang] || I18N_INDEX.ko;
       const n = Number(scoreVal) || 85;
@@ -3232,7 +3176,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
     }
 
     async function loadTactics() {
-      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_TACTICS__ && Array.isArray(window.__PRELOADED_TACTICS__) && window.__PRELOADED_TACTICS__.length > 0) {
         allTactics = window.__PRELOADED_TACTICS__;
         checkInitialUrl();
@@ -3250,7 +3193,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         return;
       }
 
-      // 2. 정적 데이터가 없는 환경(로컬 개발 등)일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
@@ -3286,7 +3228,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
     }
 
     async function loadPads() {
-      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_PADS__ && Array.isArray(window.__PRELOADED_PADS__) && window.__PRELOADED_PADS__.length > 0) {
         allPads = window.__PRELOADED_PADS__;
         checkInitialUrl();
@@ -3304,7 +3245,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
         return;
       }
 
-      // 2. 정적 데이터가 없는 환경일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
@@ -3996,7 +3936,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('sMacro').innerText = p.specMacro || p.macro || '-';
       document.getElementById('sHotSwap').innerText = p.specHotSwap || '-';
 
-     
       const img1 = p.imgBench1 || '';
       const img2 = p.imgBench2 || '';
       const benchSec = document.getElementById('viewBenchImgSection');
@@ -4016,17 +3955,14 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
       document.getElementById('pW_poll').innerText = formatHz(p.wPoll);
       document.getElementById('pW_sLat').innerText = formatMs(p.wStickLat);
       document.getElementById('pW_bLat').innerText = formatMs(p.wBtnLat);
-    
 
       document.getElementById('pD_poll').innerText = formatHz(p.dPoll);
       document.getElementById('pD_sLat').innerText = formatMs(p.dStickLat);
       document.getElementById('pD_bLat').innerText = formatMs(p.dBtnLat);
-  
 
       document.getElementById('pB_poll').innerText = formatHz(p.bPoll);
       document.getElementById('pB_sLat').innerText = formatMs(p.bStickLat);
       document.getElementById('pB_bLat').innerText = formatMs(p.bBtnLat);
-    
 
       updatePadDetailLang();
       fetchSupabaseReviews('pad', p.padName || 'default_pad');
@@ -4159,7 +4095,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
 
           globalTacticStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
-          // XSS 방어 escapeReview 적용
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
@@ -4187,7 +4122,6 @@ PC 게이밍 기어 브랜드 썬더로봇(Thunderobot)이 교체식 스틱 모�
 
           globalPadStats[(itemId || '').toLowerCase().trim()] = { avg, count: list.length };
 
-          // XSS 방어 escapeReview 적용
           commentListEl.innerHTML = list.map(item => `
             <div class="comment-item">
               <div class="comment-top">
