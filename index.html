@@ -2076,6 +2076,7 @@
     }
 
     async function loadTactics() {
+      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_TACTICS__ && Array.isArray(window.__PRELOADED_TACTICS__) && window.__PRELOADED_TACTICS__.length > 0) {
         allTactics = window.__PRELOADED_TACTICS__;
         checkInitialUrl();
@@ -2093,6 +2094,7 @@
         return;
       }
 
+      // 2. 정적 데이터가 없는 환경(로컬 개발 등)일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Tactics`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=tactics`
@@ -2125,12 +2127,10 @@
           console.warn("Tactics fetch error:", err);
         }
       }
-      if (!isDetailView) {
-        document.getElementById('tactics-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">전술 데이터베이스를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
-      }
     }
 
     async function loadPads() {
+      // 1. 빌드된 정적 데이터가 이미 존재하는 경우: 구글 시트 호출 없이 즉시 화면 렌더링
       if (window.__PRELOADED_PADS__ && Array.isArray(window.__PRELOADED_PADS__) && window.__PRELOADED_PADS__.length > 0) {
         allPads = window.__PRELOADED_PADS__;
         checkInitialUrl();
@@ -2148,6 +2148,7 @@
         return;
       }
 
+      // 2. 정적 데이터가 없는 환경일 때만 구글 시트 호출
       const urls = [
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Pads`,
         `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=pads`
@@ -2177,9 +2178,6 @@
         } catch (err) {
           console.warn("Pads fetch error:", err);
         }
-      }
-      if (!isDetailView) {
-        document.getElementById('pads-list').innerHTML = `<div class="loading" style="color:var(--text-muted);">컨트롤러 벤치마크 데이터를 최신 상태로 갱신 중입니다. 잠시 후 새로고침해 주세요.</div>`;
       }
     }
 
