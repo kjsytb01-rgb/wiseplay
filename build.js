@@ -75,58 +75,27 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-// 검증된 두 ID 사이의 HTML 블록을 시작 태그(<)부터 다음 시작 태그(<) 직전까지 정확히 도려내는 함수
-function removeBetweenIds(html, startId, endId) {
-  const startIdPos = html.indexOf(`id="${startId}"`);
-  const endIdPos = html.indexOf(`id="${endId}"`);
-  if (startIdPos === -1 || endIdPos === -1 || startIdPos >= endIdPos) return html;
+// 1. 개별 전술 상세 정적 페이지 생성 (찌꺼기 원천 차단)
+function buildIndividualTacticPages(baseHtml, tactics) {
+  const mainOpenIdx = baseHtml.indexOf('<main>');
+  const mainCloseIdx = baseHtml.indexOf('</main>');
+  if (mainOpenIdx === -1 || mainCloseIdx === -1) return;
 
-  const startTagOpen = html.lastIndexOf('<', startIdPos);
-  const endTagOpen = html.lastIndexOf('<', endIdPos);
-  if (startTagOpen === -1 || endTagOpen === -1) return html;
+  const headerPart = baseHtml.substring(0, mainOpenIdx + 6);
+  const footerPart = baseHtml.substring(mainCloseIdx);
 
-  return html.slice(0, startTagOpen) + html.slice(endTagOpen);
-}
+  const startSec = baseHtml.indexOf('<section id="detail-view-tactics"');
+  const endSecStr = '</section>';
+  const endSec = baseHtml.indexOf(endSecStr, startSec);
+  if (startSec === -1 || endSec === -1) return;
 
-// 231줄을 정상 삭제했던 기존 section 전용 제거 함수
-function removeSectionById(html, sectionId) {
-  const pattern = new RegExp(`<section[^>]*id=["']${sectionId}["'][^>]*>`, 'i');
-  const match = pattern.exec(html);
-  if (!match) return html;
+  const tacticSectionTemplate = baseHtml.substring(startSec, endSec + endSecStr.length)
+    .replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
 
-  const startIndex = match.index;
-  let depth = 0;
-  let cursor = startIndex;
-
-  while (cursor < html.length) {
-    const nextOpen = html.indexOf('<section', cursor);
-    const nextClose = html.indexOf('</section>', cursor);
-
-    if (nextClose === -1) break;
-
-    if (nextOpen !== -1 && nextOpen < nextClose) {
-      depth++;
-      cursor = nextOpen + 8;
-    } else {
-      depth--;
-      cursor = nextClose + 10;
-      if (depth === 0) {
-        return html.slice(0, startIndex) + html.slice(cursor);
-      }
-    }
-  }
-
-  return html;
-}
-
-// 1. 개별 전술 상세 정적 페이지 생성
-function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
   tactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
     const dir = path.join('tactics', slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-    let pageHtml = cleanTemplateHtml;
 
     const name = escapeHtml(t.playerName || 'Player');
     const formation = escapeHtml(t.formation || 'FORMATION');
@@ -135,86 +104,52 @@ function buildIndividualTacticPages(cleanTemplateHtml, tactics) {
     const review = escapeHtml(t.reviewText || '');
     const currentUrl = `https://wiseplay.co.kr/tactics/${slug}/`;
 
-    pageHtml = pageHtml.replace(
-      /<link rel="canonical" href="[^"]*">/,
-      `<link rel="canonical" href="${currentUrl}">`
-    );
+    let currentHeader = headerPart
+      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${currentUrl}">`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${name} ${formation} 전술 분석 및 세팅 가이드 | WISEPLAY</title>`)
+      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${name} 선수의 ${formation} 포메이션 배치도, 개인 전술, 팀 전술 및 인게임 운영 심층 분석 - WISEPLAY">`);
 
-    pageHtml = pageHtml.replace(
-      /<title>[\s\S]*?<\/title>/,
-      `<title>${name} ${formation} 전술 분석 및 세팅 가이드 | WISEPLAY</title>`
-    );
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="description"[^>]*>/i,
-      `<meta name="description" id="metaDesc" content="${name} 선수의 ${formation} 포메이션 배치도, 개인 전술, 팀 전술 및 인게임 운영 심층 분석 - WISEPLAY">`
-    );
-
-    pageHtml = pageHtml.replace(
-      /<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/,
-      `<span class="card-badge" id="viewFormation">${formation}</span>`
-    );
-    pageHtml = pageHtml.replace(
-      /<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/,
-      `<h2 id="viewPlayerName">${name}</h2>`
-    );
-    pageHtml = pageHtml.replace(
-      /<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/,
-      `<p id="viewSubInfo">${country} | ${version}</p>`
-    );
-    pageHtml = pageHtml.replace(
-      /<img[^>]*id="viewImgDisplay"[^>]*>/,
-      `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="${name} 전술">`
-    );
-    pageHtml = pageHtml.replace(
-      /<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/,
-      `<p id="viewReviewText" style="white-space:pre-line;">${review}</p>`
-    );
+    let currentBody = tacticSectionTemplate
+      .replace(/<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/, `<span class="card-badge" id="viewFormation">${formation}</span>`)
+      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${name}</h2>`)
+      .replace(/<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/, `<p id="viewSubInfo">${country} | ${version}</p>`)
+      .replace(/<img[^>]*id="viewImgDisplay"[^>]*>/, `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="${name} 전술">`)
+      .replace(/<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewReviewText" style="white-space:pre-line;">${review}</p>`);
 
     if (t.padName && t.padName.trim() !== '' && t.padName.trim() !== '-') {
-      const pName = escapeHtml(t.padName);
-      pageHtml = pageHtml.replace(
-        /<span id="viewPadNameText">[\s\S]*?<\/span>/,
-        `<span id="viewPadNameText">${pName}</span>`
-      );
+      currentBody = currentBody.replace(/<span id="viewPadNameText">[\s\S]*?<\/span>/, `<span id="viewPadNameText">${escapeHtml(t.padName)}</span>`);
     } else {
-      pageHtml = pageHtml.replace(/<div class="detail-section" id="viewPadSection"[\s\S]*?<\/div>\s*<\/div>/, '');
+      currentBody = currentBody.replace(/<div class="detail-section" id="viewPadSection"[\s\S]*?<\/div>\s*<\/div>/, '');
     }
 
-    pageHtml = pageHtml.replace(
-      'id="detail-view-tactics" class="detail-view-container"',
-      'id="detail-view-tactics" class="detail-view-container" style="display:block;"'
-    );
-
-    // 1단계: 패드 상세 빈 템플릿(detail-view-pads)부터 바로 다음 섹션(section-tactics) 직전까지 통째로 삭제
-    pageHtml = removeBetweenIds(pageHtml, 'detail-view-pads', 'section-tactics');
-
-    // 2단계: 메인 홈 전용 6개 섹션 삭제 (231줄 삭제 검증됨)
-    const sectionsToRemove = [
-      'section-tactics',
-      'section-pads',
-      'section-latest-videos',
-      'section-tactics-ranking',
-      'section-pad-ranking',
-      'section-editorial-guide'
-    ];
-
-    sectionsToRemove.forEach(secId => {
-      pageHtml = removeSectionById(pageHtml, secId);
-    });
-
-    fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
+    const finalHtml = currentHeader + '\n' + currentBody + '\n' + footerPart;
+    fs.writeFileSync(path.join(dir, 'index.html'), finalHtml, 'utf8');
   });
-  console.log(`개별 전술 정적 페이지 ${tactics.length}개 정밀 생성 완료!`);
+
+  console.log(`클린 개별 전술 정적 페이지 ${tactics.length}개 생성 완료!`);
 }
 
-// 2. 개별 컨트롤러 상세 정적 페이지 생성
-function buildIndividualPadPages(cleanTemplateHtml, pads) {
+// 2. 개별 컨트롤러 상세 정적 페이지 생성 (찌꺼기 원천 차단)
+function buildIndividualPadPages(baseHtml, pads) {
+  const mainOpenIdx = baseHtml.indexOf('<main>');
+  const mainCloseIdx = baseHtml.indexOf('</main>');
+  if (mainOpenIdx === -1 || mainCloseIdx === -1) return;
+
+  const headerPart = baseHtml.substring(0, mainOpenIdx + 6);
+  const footerPart = baseHtml.substring(mainCloseIdx);
+
+  const startSec = baseHtml.indexOf('<section id="detail-view-pads"');
+  const endSecStr = '</section>';
+  const endSec = baseHtml.indexOf(endSecStr, startSec);
+  if (startSec === -1 || endSec === -1) return;
+
+  const padSectionTemplate = baseHtml.substring(startSec, endSec + endSecStr.length)
+    .replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
+
   pads.forEach(p => {
     const slug = cleanSlug(p.slug, p.padName);
     const dir = path.join('controllers', slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-    let pageHtml = cleanTemplateHtml;
 
     const name = escapeHtml(p.padName || 'Gamepad');
     const mech = escapeHtml(p.stickMech || '-');
@@ -224,70 +159,61 @@ function buildIndividualPadPages(cleanTemplateHtml, pads) {
     const cons = escapeHtml(p.cons || '-');
     const currentUrl = `https://wiseplay.co.kr/controllers/${slug}/`;
 
-    pageHtml = pageHtml.replace(
-      /<link rel="canonical" href="[^"]*">/,
-      `<link rel="canonical" href="${currentUrl}">`
-    );
+    let currentHeader = headerPart
+      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${currentUrl}">`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${name} 레이턴시·폴링레이트 실측 벤치마크 스펙 | WISEPLAY</title>`)
+      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${name} (${mech}) 유선·무선 폴링레이트, 스틱 및 버튼 인풋랙 정밀 계측 벤치마크 분석 - WISEPLAY">`);
 
-    pageHtml = pageHtml.replace(
-      /<title>[\s\S]*?<\/title>/,
-      `<title>${name} 레이턴시·폴링레이트 실측 벤치마크 스펙 | WISEPLAY</title>`
-    );
-    pageHtml = pageHtml.replace(
-      /<meta\s+name="description"[^>]*>/i,
-      `<meta name="description" id="metaDesc" content="${name} (${mech}) 유선·무선 폴링레이트, 스틱 및 버튼 인풋랙 정밀 계측 벤치마크 분석 - WISEPLAY">`
-    );
+    let currentBody = padSectionTemplate
+      .replace(/<h2[^>]*id="viewPadName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPadName">${name}</h2>`)
+      .replace(/<p[^>]*id="viewPadSub"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadSub">스틱 방식: ${mech} | 키매핑: ${escapeHtml(p.keyMap || '-')} | 매크로: ${escapeHtml(p.macro || '-')}</p>`)
+      .replace(/<span[^>]*id="viewPadScoreVal"[^>]*>[\s\S]*?<\/span>/, `<span class="dash-big-num lj" id="viewPadScoreVal">${score}</span>`)
+      .replace(/<p[^>]*id="viewPadIntroText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadIntroText" style="white-space:pre-line;">${intro}</p>`)
+      .replace(/<span[^>]*id="viewPadPros"[^>]*>[\s\S]*?<\/span>/, `<span id="viewPadPros">${pros}</span>`)
+      .replace(/<span[^>]*id="viewPadCons"[^>]*>[\s\S]*?<\/span>/, `<span id="viewPadCons">${cons}</span>`);
 
-    pageHtml = pageHtml.replace(
-      /<h2[^>]*id="viewPadName"[^>]*>[\s\S]*?<\/h2>/,
-      `<h2 id="viewPadName">${name}</h2>`
-    );
-    pageHtml = pageHtml.replace(
-      /<p[^>]*id="viewPadSub"[^>]*>[\s\S]*?<\/p>/,
-      `<p id="viewPadSub">스틱 방식: ${mech} | 키매핑: ${escapeHtml(p.keyMap || '-')} | 매크로: ${escapeHtml(p.macro || '-')}</p>`
-    );
-    pageHtml = pageHtml.replace(
-      /<span[^>]*id="viewPadScoreVal"[^>]*>[\s\S]*?<\/span>/,
-      `<span class="dash-big-num lj" id="viewPadScoreVal">${score}</span>`
-    );
-    pageHtml = pageHtml.replace(
-      /<p[^>]*id="viewPadIntroText"[^>]*>[\s\S]*?<\/p>/,
-      `<p id="viewPadIntroText" style="white-space:pre-line;">${intro}</p>`
-    );
-    pageHtml = pageHtml.replace(
-      /<span[^>]*id="viewPadPros"[^>]*>[\s\S]*?<\/span>/,
-      `<span id="viewPadPros">${pros}</span>`
-    );
-    pageHtml = pageHtml.replace(
-      /<span[^>]*id="viewPadCons"[^>]*>[\s\S]*?<\/span>/,
-      `<span id="viewPadCons">${cons}</span>`
-    );
-
-    pageHtml = pageHtml.replace(
-      'id="detail-view-pads" class="detail-view-container"',
-      'id="detail-view-pads" class="detail-view-container" style="display:block;"'
-    );
-
-    // 1단계: 전술 상세 빈 템플릿(detail-view-tactics)부터 패드 상세(detail-view-pads) 직전까지 통째로 삭제
-    pageHtml = removeBetweenIds(pageHtml, 'detail-view-tactics', 'detail-view-pads');
-
-    // 2단계: 메인 홈 전용 6개 섹션 삭제
-    const sectionsToRemove = [
-      'section-tactics',
-      'section-pads',
-      'section-latest-videos',
-      'section-tactics-ranking',
-      'section-pad-ranking',
-      'section-editorial-guide'
-    ];
-
-    sectionsToRemove.forEach(secId => {
-      pageHtml = removeSectionById(pageHtml, secId);
-    });
-
-    fs.writeFileSync(path.join(dir, 'index.html'), pageHtml, 'utf8');
+    const finalHtml = currentHeader + '\n' + currentBody + '\n' + footerPart;
+    fs.writeFileSync(path.join(dir, 'index.html'), finalHtml, 'utf8');
   });
-  console.log(`개별 컨트롤러 정적 페이지 ${pads.length}개 정밀 생성 완료!`);
+
+  console.log(`클린 개별 컨트롤러 정적 페이지 ${pads.length}개 생성 완료!`);
+}
+
+// 3. 최신 sitemap.xml 자동 생성 함수
+function generateSitemap(tactics, pads) {
+  const baseUrl = 'https://wiseplay.co.kr';
+  const urls = [];
+
+  urls.push({ loc: `${baseUrl}/`, priority: '1.0' });
+  urls.push({ loc: `${baseUrl}/about.html`, priority: '0.8' });
+  urls.push({ loc: `${baseUrl}/privacy.html`, priority: '0.8' });
+
+  tactics.forEach(t => {
+    const slug = cleanSlug(t.slug, t.playerName);
+    urls.push({ loc: `${baseUrl}/tactics/${slug}/`, priority: '0.9' });
+  });
+
+  pads.forEach(p => {
+    const slug = cleanSlug(p.slug, p.padName);
+    urls.push({ loc: `${baseUrl}/controllers/${slug}/`, priority: '0.9' });
+  });
+
+  const xmlLines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+  ];
+
+  urls.forEach(u => {
+    xmlLines.push('  <url>');
+    xmlLines.push(`    <loc>${u.loc}</loc>`);
+    xmlLines.push(`    <priority>${u.priority}</priority>`);
+    xmlLines.push('  </url>');
+  });
+
+  xmlLines.push('</urlset>');
+
+  fs.writeFileSync('sitemap.xml', xmlLines.join('\n'), 'utf8');
+  console.log(`sitemap.xml 자동 생성 완료! (총 ${urls.length}개 URL 등록됨)`);
 }
 
 async function runBuild() {
@@ -310,7 +236,7 @@ async function runBuild() {
 
   const rawTemplate = fs.readFileSync('index.html', 'utf8');
 
-  // 이전 빌드 잔재 클린업
+  // 이전 폴더 완전 클린업
   ['tactics', 'controllers'].forEach(baseDir => {
     if (fs.existsSync(baseDir)) {
       fs.readdirSync(baseDir).forEach(sub => {
@@ -325,13 +251,12 @@ async function runBuild() {
   });
   console.log('기존 개별 상세 폴더 클린업 완료!');
 
-  // 1) 개별 상세 정적 페이지 생성
+  // 1) 상세 페이지 클린 생성 (찌꺼기 0%)
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
-  // 2) 메인 홈 index.html: 데이터 프리로드 주입
+  // 2) 메인 index.html 데이터 프리로드 주입
   let homeHtml = rawTemplate;
-
   const dStart = '/* SSG_DATA_START */';
   const dEnd = '/* SSG_DATA_END */';
   if (homeHtml.includes(dStart) && homeHtml.includes(dEnd)) {
@@ -343,6 +268,9 @@ async function runBuild() {
 
   fs.writeFileSync('index.html', homeHtml, 'utf8');
   console.log('메인 index.html 정상 업데이트 완료!');
+
+  // 3) 최신 sitemap.xml 자동 생성
+  generateSitemap(tactics, pads);
 }
 
 runBuild().catch(err => {
