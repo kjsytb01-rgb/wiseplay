@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-03 03:47:26",
+  "updated_at": "2026-11-04 02:48:12",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 32,
-      "share": 32.0,
+      "count": 37,
+      "share": 37.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -38,16 +38,16 @@
       },
       "recommended_rankers": [
         "BFXNoiZ",
-        "1226",
         "kimwon",
         "T1Future",
+        "1226",
         "삼켜"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 29,
-      "share": 29.0,
+      "count": 27,
+      "share": 27.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -55,9 +55,9 @@
       "key_players": {
         "CB": {
           "ko": "하코보 라몬",
-          "en": "Hakobo Ramon",
-          "vi": "Hakobo Ramon",
-          "th": "ฮาโกโบะ รามอน"
+          "en": "Jakobo Ramon",
+          "vi": "Jakobo Ramon",
+          "th": "จาโคโบ รามอน"
         },
         "MID": {
           "ko": "마르코스 요렌테",
@@ -75,21 +75,21 @@
           "ko": "페데리코 발베르데",
           "en": "Federico Valverde",
           "vi": "Federico Valverde",
-          "th": "เฟเดริโก บัลเบร์เด้"
+          "th": "เฟเดริโก้ บัลเบร์เด้"
         }
       },
       "recommended_rankers": [
         "크몽신경섭",
-        "KRXMINION",
+        "유이령",
         "리바이브제리",
-        "불협화음",
-        "바이저"
+        "화력",
+        "불협화음"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 24,
-      "share": 24.0,
+      "count": 20,
+      "share": 20.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -123,93 +123,89 @@
       "recommended_rankers": [
         "T1Pierce",
         "DKKWAK",
-        "Edith이구치리",
-        "BenzJCW",
-        "파리우승5"
+        "KRXMINION",
+        "KRXDaze",
+        "Edith이구치리"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 8,
-      "share": 8.0,
+      "count": 12,
+      "share": 12.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
-        "MID": {
-          "ko": "미켈 메리노",
-          "en": "Mikel Merino",
-          "vi": "Mikel Merino",
-          "th": "มิเกล เมอริโน"
-        },
         "CB": {
-          "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
+          "ko": "비셴테 리자라쥐",
+          "en": "Vicente Lizarazu",
+          "vi": "Vicente Lizarazu",
+          "th": "วิเซนเต้ ลิซาราซู"
+        },
+        "MID": {
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
         },
         "ST": {
-          "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
+          "ko": "스티븐 제라드",
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
         },
         "CDM": {
-          "ko": "수비멘디",
-          "en": "Subi Mendi",
-          "vi": "Subi Mendi",
-          "th": "ซูบี เมนดิ"
+          "ko": "마이클 에시앙",
+          "en": "Michael Essien",
+          "vi": "Michael Essien",
+          "th": "มิเชล เอสเซียง"
         }
       },
       "recommended_rankers": [
-        "T1Seon9min",
         "Seon9min",
+        "T1Seon9min",
+        "허초",
         "BFXTaeGod",
-        "쓰루당",
-        "HappyGoguma"
+        "에넬"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 5,
-      "share": 5.0,
+      "count": 1,
+      "share": 1.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
-        "MID": {
-          "ko": "프랭크 램파드",
-          "en": "frank lampard",
-          "vi": "Lampard thẳng thắn",
-          "th": "แฟรงค์ แลมพาร์ด"
-        },
         "CB": {
-          "ko": "리오 퍼디난드",
-          "en": "Rio Ferdinand",
-          "vi": "Rio Ferdinand",
-          "th": "ริโอ เฟอร์ดินานด์"
+          "ko": "루시우",
+          "en": "Lucio",
+          "vi": "Lucio",
+          "th": "ลูซิโอ"
         },
         "CDM": {
-          "ko": "보비 무어",
-          "en": "Bobby Moore",
-          "vi": "Bobby Moore",
-          "th": "บ๊อบบี้ มัวร์"
+          "ko": "베켄바워",
+          "en": "Beckenbauer",
+          "vi": "Beckenbauer",
+          "th": "เบคเคนบาวเออร์"
         },
         "ST": {
-          "ko": "해리 케인",
-          "en": "harry kane",
-          "vi": "harry kane",
-          "th": "แฮร์รี่ เคน"
+          "ko": "마리오 만주키치",
+          "en": "Mario Mandzukic",
+          "vi": "Mario Mandzukic",
+          "th": "มาริโอ มานด์ซูคิช"
+        },
+        "MID": {
+          "ko": "로타어 마테우스",
+          "en": "Lothar Mateus",
+          "vi": "Lothar Mateus",
+          "th": "โลธาร์ มาเตอุส"
         }
       },
       "recommended_rankers": [
-        "선재스님의갈비찜",
-        "TOMIYASU",
-        "여수밤바다",
-        "전동석",
-        "민경준"
+        "선재스님의갈비찜"
       ]
     }
   ]
