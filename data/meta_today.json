@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-07 02:26:54",
+  "updated_at": "2026-11-08 01:56:35",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 36,
+      "share": 36.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -39,15 +39,57 @@
       "recommended_rankers": [
         "BFXNoiZ",
         "KRXTak",
+        "카리나",
         "태연",
-        "1226",
-        "DRXSavior"
+        "T1Future"
+      ]
+    },
+    {
+      "formation": "4-2-2-2",
+      "count": 27,
+      "share": 27.0,
+      "tactical_routes": [
+        "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
+        "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
+      ],
+      "key_players": {
+        "CB": {
+          "ko": "김남일",
+          "en": "Kim Nam-il",
+          "vi": "Kim Nam Il",
+          "th": "คิม นัมอิล"
+        },
+        "MID": {
+          "ko": "박지성",
+          "en": "Park Ji-sung",
+          "vi": "Park Ji Sung",
+          "th": "ปาร์ค จีซอง"
+        },
+        "CDM": {
+          "ko": "김정우",
+          "en": "Kim Jeong-woo",
+          "vi": "Kim Jeong Woo",
+          "th": "คิมจองอู"
+        },
+        "ST": {
+          "ko": "차범근",
+          "en": "Cha Bum Geun",
+          "vi": "Cha Bum Geun",
+          "th": "ชาบอมกึน"
+        }
+      },
+      "recommended_rankers": [
+        "KRXMINION",
+        "T1YooMin",
+        "크몽신경섭",
+        "SainT김유민",
+        "OoPpPp"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 26,
-      "share": 26.0,
+      "count": 21,
+      "share": 21.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -75,57 +117,15 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบุมกึน"
+          "th": "ชาบอมกึน"
         }
       },
       "recommended_rankers": [
-        "KRXMINION",
+        "DKKWAK",
         "KRXDaze",
         "푸우스",
-        "DKKWAK",
+        "Lumix네이비",
         "ryuK"
-      ]
-    },
-    {
-      "formation": "4-2-2-2",
-      "count": 25,
-      "share": 25.0,
-      "tactical_routes": [
-        "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
-        "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
-      ],
-      "key_players": {
-        "ST": {
-          "ko": "얀 디오만데",
-          "en": "Jan Diomande",
-          "vi": "Jan Diomande",
-          "th": "ยาน ดิโอมานเด"
-        },
-        "MID": {
-          "ko": "카카",
-          "en": "kaka",
-          "vi": "kaka",
-          "th": "กาก้า"
-        },
-        "CB": {
-          "ko": "페를랑 멘디",
-          "en": "Ferland Mendy",
-          "vi": "Ferland Mendy",
-          "th": "เฟอร์ลันด์ เมนดี้"
-        },
-        "CDM": {
-          "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก้ บัลเบร์เด้"
-        }
-      },
-      "recommended_rankers": [
-        "유이령",
-        "이서코",
-        "바이저",
-        "크몽신경섭",
-        "화력"
       ]
     },
     {
@@ -153,7 +153,7 @@
           "ko": "카이 하베르츠",
           "en": "Kai Havertz",
           "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
+          "th": "ไค ฮาแวร์ตซ์"
         },
         "CDM": {
           "ko": "브루누 기마랑이스",
