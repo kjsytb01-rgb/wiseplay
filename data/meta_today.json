@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-11-08 01:56:35",
+  "updated_at": "2026-11-09 02:09:04",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 36,
-      "share": 36.0,
+      "count": 32,
+      "share": 32.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "MID": {
-          "ko": "지네딘 지단",
-          "en": "Zinedine Zidane",
-          "vi": "Zinedine Zidane",
-          "th": "ซีเนดีน ซีดาน"
-        },
-        "CDM": {
-          "ko": "아드리앙 라비오",
-          "en": "Adrien Rabiot",
-          "vi": "Adrien Rabiot",
-          "th": "อาเดรียน ราบิโอต์"
-        },
         "CB": {
-          "ko": "다요 우파메카노",
-          "en": "Dayo Upamecano",
-          "vi": "Dayo Upamecano",
-          "th": "ดาโย อูปาเมกาโน"
+          "ko": "하코보 라몬",
+          "en": "Hakobo Ramon",
+          "vi": "Hakobo Ramon",
+          "th": "ฮาโกโบะ รามอน"
+        },
+        "MID": {
+          "ko": "카카",
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
         },
         "ST": {
           "ko": "킬리안 음바페",
           "en": "Kylian Mbappe",
           "vi": "Kylian Mbappé",
           "th": "คีเลียน เอ็มบัปเป้"
+        },
+        "CDM": {
+          "ko": "페데리코 발베르데",
+          "en": "Federico Valverde",
+          "vi": "Federico Valverde",
+          "th": "เฟเดริโก บัลเบร์เด้"
         }
       },
       "recommended_rankers": [
+        "DRXSavior",
         "BFXNoiZ",
-        "KRXTak",
-        "카리나",
+        "1226",
         "태연",
-        "T1Future"
+        "리바이브칠공일"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 27,
-      "share": 27.0,
+      "count": 29,
+      "share": 29.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -75,21 +75,21 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
         "KRXMINION",
-        "T1YooMin",
         "크몽신경섭",
-        "SainT김유민",
-        "OoPpPp"
+        "GCTwonder08",
+        "T1YooMin",
+        "크묭신경섭"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 21,
-      "share": 21.0,
+      "count": 26,
+      "share": 26.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -117,21 +117,21 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
         "DKKWAK",
-        "KRXDaze",
         "푸우스",
-        "Lumix네이비",
-        "ryuK"
+        "KRXDaze",
+        "T1Pierce",
+        "Lumix네이비"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 13,
-      "share": 13.0,
+      "count": 9,
+      "share": 9.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -153,7 +153,7 @@
           "ko": "카이 하베르츠",
           "en": "Kai Havertz",
           "vi": "Kai Havertz",
-          "th": "ไค ฮาแวร์ตซ์"
+          "th": "ไค ฮาเวิร์ตซ์"
         },
         "CDM": {
           "ko": "브루누 기마랑이스",
@@ -164,48 +164,50 @@
       },
       "recommended_rankers": [
         "T1Seon9min",
-        "성뮌",
         "Seon9min",
-        "T1정성민",
-        "모먼트만들기"
+        "성뮌",
+        "BFXTaeGod",
+        "에넬"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 1,
-      "share": 1.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
-        "CB": {
-          "ko": "루시우",
-          "en": "Lucio",
-          "vi": "Lucio",
-          "th": "ลูซิโอ"
-        },
         "CDM": {
-          "ko": "베켄바워",
-          "en": "Beckenbauer",
-          "vi": "Beckenbauer",
-          "th": "เบคเคนบาวเออร์"
-        },
-        "ST": {
-          "ko": "마리오 만주키치",
-          "en": "Mario Mandzukic",
-          "vi": "Mario Mandzukic",
-          "th": "มาริโอ มานด์ซูคิช"
+          "ko": "마이클 에시앙",
+          "en": "Michael Essien",
+          "vi": "Michael Essien",
+          "th": "มิเชล เอสเซียง"
         },
         "MID": {
-          "ko": "로타어 마테우스",
-          "en": "Lothar Mateus",
-          "vi": "Lothar Mateus",
-          "th": "โลธาร์ มาเตอุส"
+          "ko": "에스테반 캄비아소",
+          "en": "Esteban Cambiasso",
+          "vi": "Esteban Cambiasso",
+          "th": "เอสเตบัน กัมเบียสโซ"
+        },
+        "CB": {
+          "ko": "카제미루",
+          "en": "casemiro",
+          "vi": "Casemiro",
+          "th": "คาเซมิโร"
+        },
+        "ST": {
+          "ko": "킬리안 음바페",
+          "en": "Kylian Mbappe",
+          "vi": "Kylian Mbappé",
+          "th": "คีเลียน เอ็มบัปเป้"
         }
       },
       "recommended_rankers": [
-        "선재스님의갈비찜"
+        "신림동밀탱크",
+        "선재스님의갈비찜",
+        "정별이"
       ]
     }
   ]
