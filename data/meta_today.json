@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-09 02:09:04",
+  "updated_at": "2026-11-10 04:25:09",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 32,
-      "share": 32.0,
+      "count": 30,
+      "share": 30.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -37,11 +37,11 @@
         }
       },
       "recommended_rankers": [
-        "DRXSavior",
-        "BFXNoiZ",
-        "1226",
-        "태연",
-        "리바이브칠공일"
+        "FA세비어",
+        "지니지니영지니",
+        "리바이브이원희",
+        "KRXTak",
+        "1226"
       ]
     },
     {
@@ -80,16 +80,16 @@
       },
       "recommended_rankers": [
         "KRXMINION",
-        "크몽신경섭",
         "GCTwonder08",
-        "T1YooMin",
-        "크묭신경섭"
+        "GCTCrong",
+        "크묭신경섭",
+        "크몽신경섭"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 26,
-      "share": 26.0,
+      "count": 27,
+      "share": 27.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -121,91 +121,90 @@
         }
       },
       "recommended_rankers": [
-        "DKKWAK",
+        "FAKWAK",
+        "호지윤",
         "푸우스",
-        "KRXDaze",
-        "T1Pierce",
-        "Lumix네이비"
+        "파리우승5",
+        "KRXDaze"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 9,
-      "share": 9.0,
+      "count": 11,
+      "share": 11.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
-        "MID": {
-          "ko": "미켈 메리노",
-          "en": "Mikel Merino",
-          "vi": "Mikel Merino",
-          "th": "มิเกล เมอริโน"
-        },
         "CB": {
-          "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
-        },
-        "ST": {
-          "ko": "카이 하베르츠",
-          "en": "Kai Havertz",
-          "vi": "Kai Havertz",
-          "th": "ไค ฮาเวิร์ตซ์"
-        },
-        "CDM": {
-          "ko": "브루누 기마랑이스",
-          "en": "Bruno Guimaraes",
-          "vi": "Bruno Guimaraes",
-          "th": "บรูโน่ กิมาไรส์"
-        }
-      },
-      "recommended_rankers": [
-        "T1Seon9min",
-        "Seon9min",
-        "성뮌",
-        "BFXTaeGod",
-        "에넬"
-      ]
-    },
-    {
-      "formation": "4-1-2-3",
-      "count": 3,
-      "share": 3.0,
-      "tactical_routes": [
-        "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
-        "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
-      ],
-      "key_players": {
-        "CDM": {
-          "ko": "마이클 에시앙",
-          "en": "Michael Essien",
-          "vi": "Michael Essien",
-          "th": "มิเชล เอสเซียง"
+          "ko": "파트리크 비에이라",
+          "en": "Patrick Vieira",
+          "vi": "Patrick Vieira",
+          "th": "ปาทริค วิเอร่า"
         },
         "MID": {
           "ko": "에스테반 캄비아소",
           "en": "Esteban Cambiasso",
           "vi": "Esteban Cambiasso",
-          "th": "เอสเตบัน กัมเบียสโซ"
+          "th": "เอสเตบาน กัมเบียสโซ"
         },
-        "CB": {
-          "ko": "카제미루",
-          "en": "casemiro",
-          "vi": "Casemiro",
-          "th": "คาเซมิโร"
+        "CDM": {
+          "ko": "M. 브로조비치",
+          "en": "M. Brozovich",
+          "vi": "M. Brozovich",
+          "th": "เอ็ม. โบรโซวิช"
         },
         "ST": {
-          "ko": "킬리안 음바페",
-          "en": "Kylian Mbappe",
-          "vi": "Kylian Mbappé",
-          "th": "คีเลียน เอ็มบัปเป้"
+          "ko": "S. 에스포지토",
+          "en": "S. Esposito",
+          "vi": "S. Esposito",
+          "th": "เอสโปซิโต"
         }
       },
       "recommended_rankers": [
-        "신림동밀탱크",
+        "성뮌",
+        "T1Seon9min",
+        "T1정성민",
+        "Seon9min",
+        "태갓TaeGod"
+      ]
+    },
+    {
+      "formation": "4-1-2-3",
+      "count": 2,
+      "share": 2.0,
+      "tactical_routes": [
+        "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
+        "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
+      ],
+      "key_players": {
+        "CB": {
+          "ko": "루시우",
+          "en": "Lucio",
+          "vi": "Lucio",
+          "th": "ลูซิโอ"
+        },
+        "CDM": {
+          "ko": "베켄바워",
+          "en": "Beckenbauer",
+          "vi": "Beckenbauer",
+          "th": "เบคเคนบาวเออร์"
+        },
+        "ST": {
+          "ko": "마리오 만주키치",
+          "en": "Mario Mandzukic",
+          "vi": "Mario Mandzukic",
+          "th": "มาริโอ มานด์ซูคิช"
+        },
+        "MID": {
+          "ko": "로타어 마테우스",
+          "en": "Lothar Mateus",
+          "vi": "Lothar Mateus",
+          "th": "โลธาร์ มาเตอุส"
+        }
+      },
+      "recommended_rankers": [
         "선재스님의갈비찜",
         "정별이"
       ]
