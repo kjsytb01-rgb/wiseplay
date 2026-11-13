@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-12 03:28:49",
+  "updated_at": "2026-11-13 03:00:39",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 35,
+      "share": 35.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -13,41 +13,83 @@
       "key_players": {
         "CB": {
           "ko": "하코보 라몬",
-          "en": "하코보 라몬",
-          "vi": "하코보 라몬",
-          "th": "하코보 라몬"
+          "en": "Jakobo Ramon",
+          "vi": "Jakobo Ramon",
+          "th": "จาโคโบ รามอน"
         },
         "MID": {
           "ko": "카카",
-          "en": "카카",
-          "vi": "카카",
-          "th": "카카"
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
         },
         "ST": {
           "ko": "킬리안 음바페",
-          "en": "킬리안 음바페",
-          "vi": "킬리안 음바페",
-          "th": "킬리안 음바페"
+          "en": "Kylian Mbappe",
+          "vi": "Kylian Mbappé",
+          "th": "คีเลียน เอ็มบัปเป้"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
-          "en": "페데리코 발베르데",
-          "vi": "페데리코 발베르데",
-          "th": "페데리코 발베르데"
+          "en": "Federico Valverde",
+          "vi": "Federico Valverde",
+          "th": "เฟเดริโก บัลเบร์เด้"
         }
       },
       "recommended_rankers": [
         "FA세비어",
+        "태연",
         "리바이브이원희",
         "KRXTak",
-        "1226",
-        "태연"
+        "1226"
+      ]
+    },
+    {
+      "formation": "4-2-3-1",
+      "count": 28,
+      "share": 28.0,
+      "tactical_routes": [
+        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
+        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
+      ],
+      "key_players": {
+        "CB": {
+          "ko": "파트리크 비에이라",
+          "en": "Patrick Vieira",
+          "vi": "Patrick Vieira",
+          "th": "ปาทริค วิเอร่า"
+        },
+        "CDM": {
+          "ko": "릴리앙 튀람",
+          "en": "Lilian Thuram",
+          "vi": "Lilian Thuram",
+          "th": "ลิเลียน ตูราม"
+        },
+        "MID": {
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
+        },
+        "ST": {
+          "ko": "이언 러시",
+          "en": "Ian Rush",
+          "vi": "Ian Rush",
+          "th": "เอียน รัช"
+        }
+      },
+      "recommended_rankers": [
+        "Prime림광철",
+        "FAKWAK",
+        "T1Pierce",
+        "BFXKaiser",
+        "OoPpPp"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 28,
-      "share": 28.0,
+      "count": 25,
+      "share": 25.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -55,27 +97,27 @@
       "key_players": {
         "CB": {
           "ko": "김남일",
-          "en": "김남일",
-          "vi": "김남일",
-          "th": "김남일"
+          "en": "Kim Nam-il",
+          "vi": "Kim Nam Il",
+          "th": "คิม นัมอิล"
         },
         "MID": {
           "ko": "박지성",
-          "en": "박지성",
-          "vi": "박지성",
-          "th": "박지성"
+          "en": "Park Ji-sung",
+          "vi": "Park Ji Sung",
+          "th": "ปาร์ค จีซอง"
         },
         "CDM": {
           "ko": "김정우",
-          "en": "김정우",
-          "vi": "김정우",
-          "th": "김정우"
+          "en": "Kim Jeong-woo",
+          "vi": "Kim Jeong Woo",
+          "th": "คิมจองอู"
         },
         "ST": {
           "ko": "차범근",
-          "en": "차범근",
-          "vi": "차범근",
-          "th": "차범근"
+          "en": "Cha Bum Geun",
+          "vi": "Cha Bum Geun",
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
@@ -83,49 +125,7 @@
         "T1YooMin",
         "GCTwonder08",
         "카리나",
-        "GCTCrong"
-      ]
-    },
-    {
-      "formation": "4-2-3-1",
-      "count": 27,
-      "share": 27.0,
-      "tactical_routes": [
-        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
-        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
-      ],
-      "key_players": {
-        "MID": {
-          "ko": "지네딘 지단",
-          "en": "지네딘 지단",
-          "vi": "지네딘 지단",
-          "th": "지네딘 지단"
-        },
-        "ST": {
-          "ko": "사뮈엘 에토",
-          "en": "Samuel Eto'o",
-          "vi": "Samuel Eto'o",
-          "th": "ซามูเอล เอโต้"
-        },
-        "CB": {
-          "ko": "카제미루",
-          "en": "카제미루",
-          "vi": "카제미루",
-          "th": "카제미루"
-        },
-        "CDM": {
-          "ko": "페데리코 발베르데",
-          "en": "페데리코 발베르데",
-          "vi": "페데리코 발베르데",
-          "th": "페데리코 발베르데"
-        }
-      },
-      "recommended_rankers": [
-        "T1Pierce",
-        "FAKWAK",
-        "Prime림광철",
-        "푸우스",
-        "BFXKaiser"
+        "크묭신경섭"
       ]
     },
     {
@@ -139,41 +139,41 @@
       "key_players": {
         "CB": {
           "ko": "비셴테 리자라쥐",
-          "en": "비셴테 리자라쥐",
-          "vi": "비셴테 리자라쥐",
-          "th": "비셴테 리자라쥐"
+          "en": "Vicente Lizarazu",
+          "vi": "Vicente Lizarazu",
+          "th": "วิเซนเต้ ลิซาราซู"
         },
         "MID": {
           "ko": "파벨 네드베드",
-          "en": "파벨 네드베드",
-          "vi": "파벨 네드베드",
-          "th": "파벨 네드베드"
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
         },
         "ST": {
           "ko": "스티븐 제라드",
-          "en": "스티븐 제라드",
-          "vi": "스티븐 제라드",
-          "th": "스티븐 제라드"
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
         },
         "CDM": {
           "ko": "마이클 에시앙",
-          "en": "마이클 에시앙",
-          "vi": "마이클 에시앙",
-          "th": "마이클 에시앙"
+          "en": "Michael Essien",
+          "vi": "Michael Essien",
+          "th": "มิเชล เอสเซียง"
         }
       },
       "recommended_rankers": [
         "Seon9min",
+        "T1Seon9min",
         "성뮌",
         "T1정성민",
-        "T1Seon9min",
         "태갓TaeGod"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 2,
-      "share": 2.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -181,32 +181,33 @@
       "key_players": {
         "ST": {
           "ko": "페르난도 모리엔테스",
-          "en": "페르난도 모리엔테스",
-          "vi": "페르난도 모리엔테스",
-          "th": "페르난도 모리엔테스"
+          "en": "Fernando Morientes",
+          "vi": "Fernando Morientes",
+          "th": "เฟร์นานโด มอริเอนเตส"
         },
         "MID": {
           "ko": "스티븐 제라드",
-          "en": "스티븐 제라드",
-          "vi": "스티븐 제라드",
-          "th": "스티븐 제라드"
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
         },
         "CB": {
           "ko": "버질 반다이크",
-          "en": "버질 반다이크",
-          "vi": "버질 반다이크",
-          "th": "버질 반다이크"
+          "en": "Virgil van Dijk",
+          "vi": "Virgil van Dijk",
+          "th": "เวอร์จิล ฟาน ไดจ์ค"
         },
         "CDM": {
           "ko": "T. 알렉산더-아놀드",
-          "en": "T. 알렉산더-아놀드",
-          "vi": "T. 알렉산더-아놀드",
-          "th": "T. 알렉산더-아놀드"
+          "en": "T. Alexander-Arnold",
+          "vi": "T. Alexander-Arnold",
+          "th": "ที. อเล็กซานเดอร์-อาร์โนลด์"
         }
       },
       "recommended_rankers": [
         "UnLMTD김재디",
-        "선재스님의갈비찜"
+        "선재스님의갈비찜",
+        "욕졸"
       ]
     }
   ]
