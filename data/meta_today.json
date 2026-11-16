@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-15 02:14:07",
+  "updated_at": "2026-11-16 02:27:36",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -19,8 +19,8 @@
         },
         "MID": {
           "ko": "카카",
-          "en": "Kaka",
-          "vi": "Kaka",
+          "en": "kaka",
+          "vi": "kaka",
           "th": "กาก้า"
         },
         "ST": {
@@ -38,16 +38,16 @@
       },
       "recommended_rankers": [
         "FA세비어",
-        "리바이브이원희",
         "카리나",
         "KRXTak",
-        "삼켜"
+        "삼켜",
+        "퓨처입니다"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 29,
-      "share": 29.0,
+      "count": 32,
+      "share": 32.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -81,9 +81,9 @@
       "recommended_rankers": [
         "FAKWAK",
         "Prime림광철",
-        "피어스입니다",
         "크몽신경섭",
-        "OoPpPp"
+        "크묭신경섭",
+        "카이절"
       ]
     },
     {
@@ -108,10 +108,10 @@
           "th": "ฮาโกโบะ รามอน"
         },
         "MID": {
-          "ko": "카카",
-          "en": "Kaka",
-          "vi": "Kaka",
-          "th": "กาก้า"
+          "ko": "마르코스 요렌테",
+          "en": "Marcos Llorente",
+          "vi": "Marcos Llorente",
+          "th": "มาร์กอส ยอเรนเต้"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
@@ -124,14 +124,14 @@
         "GCTCrong",
         "T1YooMin",
         "KRXMINION",
-        "크묭신경섭",
-        "SainT김유민"
+        "GCTwonder08",
+        "kimwon"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 7,
-      "share": 7.0,
+      "count": 6,
+      "share": 6.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -165,50 +165,48 @@
       "recommended_rankers": [
         "Seon9min",
         "Seon9mln",
-        "성뮌",
-        "Seon9",
-        "태갓TaeGod"
+        "에넬",
+        "태갓TaeGod",
+        "성뮌"
       ]
     },
     {
       "formation": "4-1-2-3",
-      "count": 4,
-      "share": 4.0,
+      "count": 2,
+      "share": 2.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
       ],
       "key_players": {
-        "ST": {
-          "ko": "페르난도 모리엔테스",
-          "en": "Fernando Morientes",
-          "vi": "Fernando Morientes",
-          "th": "เฟร์นานโด มอริเอนเตส"
-        },
-        "MID": {
-          "ko": "스티븐 제라드",
-          "en": "steven gerrard",
-          "vi": "Steven Gerrard",
-          "th": "สตีเว่น เจอร์ราร์ด"
-        },
         "CB": {
-          "ko": "버질 반다이크",
-          "en": "Virgil van Dijk",
-          "vi": "Virgil van Dijk",
-          "th": "เวอร์จิล ฟาน ไดจ์ค"
+          "ko": "루시우",
+          "en": "Lucio",
+          "vi": "Lucio",
+          "th": "ลูซิโอ"
         },
         "CDM": {
-          "ko": "T. 알렉산더-아놀드",
-          "en": "T. Alexander-Arnold",
-          "vi": "T. Alexander-Arnold",
-          "th": "ที. อเล็กซานเดอร์-อาร์โนลด์"
+          "ko": "베켄바워",
+          "en": "Beckenbauer",
+          "vi": "Beckenbauer",
+          "th": "เบคเคนบาวเออร์"
+        },
+        "ST": {
+          "ko": "마리오 만주키치",
+          "en": "Mario Mandzukic",
+          "vi": "Mario Mandzukic",
+          "th": "มาริโอ มานด์ซูคิช"
+        },
+        "MID": {
+          "ko": "로타어 마테우스",
+          "en": "Lothar Mateus",
+          "vi": "Lothar Mateus",
+          "th": "โลธาร์ มาเตอุส"
         }
       },
       "recommended_rankers": [
-        "UnLMTD김재디",
         "선재스님의갈비찜",
-        "여수밤바다",
-        "정별이"
+        "UnLMTD김재디"
       ]
     }
   ]
