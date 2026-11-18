@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-17 04:51:11",
+  "updated_at": "2026-11-18 03:58:09",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 39,
-      "share": 39.0,
+      "count": 38,
+      "share": 38.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -14,7 +14,7 @@
         "CB": {
           "ko": "하코보 라몬",
           "en": "Jakobo Ramon",
-          "vi": "하코보 라몬",
+          "vi": "Jakobo Ramon",
           "th": "จาโคโบ รามอน"
         },
         "MID": {
@@ -38,16 +38,16 @@
       },
       "recommended_rankers": [
         "FA세비어",
+        "리바이브이원희",
         "카리나",
         "KRXTak",
-        "리바이브이원희",
-        "T1Ofel"
+        "혜원"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 33,
-      "share": 33.0,
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -80,9 +80,9 @@
       },
       "recommended_rankers": [
         "FAKWAK",
+        "크몽신경섭",
         "Prime림광철",
         "카이절",
-        "크몽신경섭",
         "크묭신경섭"
       ]
     },
@@ -96,36 +96,36 @@
       ],
       "key_players": {
         "ST": {
-          "ko": "호나우두",
-          "en": "Ronaldo",
-          "vi": "Ronaldo",
-          "th": "โรนัลโด้"
-        },
-        "MID": {
-          "ko": "굴리트",
-          "en": "R. Gullit",
-          "vi": "R. Gullit",
-          "th": "รุด กุลลิท"
-        },
-        "CDM": {
-          "ko": "로드리",
-          "en": "Rodri",
-          "vi": "Rodri",
-          "th": "โรดรี้"
+          "ko": "사뮈엘 에토",
+          "en": "Samuel Eto'o",
+          "vi": "Samuel Eto'o",
+          "th": "ซามูเอล เอโต้"
         },
         "CB": {
-          "ko": "반데이크",
-          "en": "V. van Dijk",
-          "vi": "V. van Dijk",
-          "th": "เฟอร์จิล ฟาน ไดจ์ค"
+          "ko": "하코보 라몬",
+          "en": "Jakobo Ramon",
+          "vi": "Jakobo Ramon",
+          "th": "จาโคโบ รามอน"
+        },
+        "MID": {
+          "ko": "마르코스 요렌테",
+          "en": "Marcos Llorente",
+          "vi": "Marcos Llorente",
+          "th": "มาร์กอส ยอเรนเต้"
+        },
+        "CDM": {
+          "ko": "페데리코 발베르데",
+          "en": "Federico Valverde",
+          "vi": "Federico Valverde",
+          "th": "เฟเดริโก้ บัลเบร์เด้"
         }
       },
       "recommended_rankers": [
         "DNSCrong",
         "T1YooMin",
-        "GCTwonder08",
+        "KRXMINION",
         "유이령",
-        "kimwon"
+        "GCTwonder08"
       ]
     },
     {
@@ -137,37 +137,37 @@
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
+        "CB": {
+          "ko": "비셴테 리자라쥐",
+          "en": "Vicente Lizarazu",
+          "vi": "Vicente Lizarazu",
+          "th": "วิเซนเต้ ลิซาราซู"
+        },
         "MID": {
-          "ko": "프레디 융베리",
-          "en": "Freddie Ljungberg",
-          "vi": "Freddie Ljungberg",
-          "th": "เฟรดดี้ ลุงเบิร์ก"
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
         },
         "ST": {
-          "ko": "가브리엘 제주스",
-          "en": "Gabriel Jesus",
-          "vi": "Chúa Giêsu Gabriel",
-          "th": "กาเบรียลพระเยซู"
-        },
-        "CB": {
-          "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
+          "ko": "스티븐 제라드",
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
         },
         "CDM": {
-          "ko": "브루누 기마랑이스",
-          "en": "Bruno Guimaraes",
-          "vi": "Bruno Guimaraes",
-          "th": "บรูโน่ กิมาไรส์"
+          "ko": "마이클 에시앙",
+          "en": "Michael Essien",
+          "vi": "Michael Essien",
+          "th": "มิเชล เอสเซียง"
         }
       },
       "recommended_rankers": [
-        "Seon9mln",
         "Seon9min",
+        "성뮌",
+        "Seon9mln",
         "Seon9",
-        "태갓TaeGod",
-        "에넬"
+        "태갓TaeGod"
       ]
     },
     {
