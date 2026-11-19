@@ -15,26 +15,16 @@ function parseCSV(text) {
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
     const next = text[i + 1];
-
     if (c === '"') {
-      if (inQuotes && next === '"') {
-        cell += '"';
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
+      if (inQuotes && next === '"') { cell += '"'; i++; } else { inQuotes = !inQuotes; }
     } else if (c === ',' && !inQuotes) {
-      row.push(cell.trim());
-      cell = '';
+      row.push(cell.trim()); cell = '';
     } else if ((c === '\r' || c === '\n') && !inQuotes) {
       if (c === '\r' && next === '\n') i++;
       row.push(cell.trim());
       if (row.length > 0 && row.some(v => v !== '')) rows.push(row);
-      row = [];
-      cell = '';
-    } else {
-      cell += c;
-    }
+      row = []; cell = '';
+    } else { cell += c; }
   }
   if (cell !== '' || row.length > 0) {
     row.push(cell.trim());
@@ -44,77 +34,68 @@ function parseCSV(text) {
 
   const headers = rows[0].map(h => h.replace(/^\uFEFF/, '').replace(/^"|"$/g, '').trim());
   const data = [];
-
   for (let r = 1; r < rows.length; r++) {
     const rowData = rows[r];
     if (!rowData || !rowData.some(v => v !== '')) continue;
     const obj = {};
-    headers.forEach((h, idx) => {
-      let val = rowData[idx] || '';
-      obj[h] = val.replace(/^"|"$/g, '').trim();
-    });
+    headers.forEach((h, idx) => { obj[h] = (rowData[idx] || '').replace(/^"|"$/g, '').trim(); });
     if (obj.playerName || obj.padName) data.push(obj);
   }
   return data;
 }
 
 function cleanSlug(val, fallback) {
-  if (val && val.trim()) {
-    const s = val.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
-    if (s) return s;
-  }
+  if (val && val.trim()) return val.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
   return (fallback || 'item').trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-');
 }
 
 function escapeHtml(str) {
   if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// 1. 개별 전술 상세 정적 페이지 생성 (찌꺼기 원천 차단)
+function getScoreTier(scoreVal) {
+  const n = Number(scoreVal) || 85;
+  if (n >= 90) return { cls: 'tier-purple', barCls: 'mc-bar-p', verdict: '강력 추천', g: 94, y: 5, r: 1 };
+  if (n >= 80) return { cls: 'tier-green', barCls: 'mc-bar-g', verdict: '보편적 찬사', g: 88, y: 10, r: 2 };
+  if (n >= 55) return { cls: 'tier-yellow', barCls: 'mc-bar-g', verdict: '전반적으로 긍정적', g: 55, y: 35, r: 10 };
+  return { cls: 'tier-red', barCls: 'mc-bar-g', verdict: '혼합 또는 평균', g: 25, y: 45, r: 30 };
+}
+
+function extractYoutubeId(url) {
+  if (!url || url === '-') return null;
+  const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+}
+
+// ==========================================
+// 1. 상세 페이지 클린 생성 (찌꺼기 차단 유지)
+// ==========================================
 function buildIndividualTacticPages(baseHtml, tactics) {
-  const mainOpenIdx = baseHtml.indexOf('<main>');
-  const mainCloseIdx = baseHtml.indexOf('</main>');
-  if (mainOpenIdx === -1 || mainCloseIdx === -1) return;
-
-  const headerPart = baseHtml.substring(0, mainOpenIdx + 6);
-  const footerPart = baseHtml.substring(mainCloseIdx);
-
   const startSec = baseHtml.indexOf('<section id="detail-view-tactics"');
-  const endSecStr = '</section>';
-  const endSec = baseHtml.indexOf(endSecStr, startSec);
+  const endSec = baseHtml.indexOf('</section>', startSec);
   if (startSec === -1 || endSec === -1) return;
-
-  const tacticSectionTemplate = baseHtml.substring(startSec, endSec + endSecStr.length)
-    .replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
+  const tacticSectionTemplate = baseHtml.substring(startSec, endSec + 10).replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
+  const headerPart = baseHtml.substring(0, baseHtml.indexOf('<main>') + 6);
+  const footerPart = baseHtml.substring(baseHtml.indexOf('</main>'));
 
   tactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
     const dir = path.join('tactics', slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const name = escapeHtml(t.playerName || 'Player');
-    const formation = escapeHtml(t.formation || 'FORMATION');
-    const country = escapeHtml(t.country || 'GLOBAL');
-    const version = escapeHtml(t.versionName || '-');
-    const review = escapeHtml(t.reviewText || '');
-    const currentUrl = `https://wiseplay.co.kr/tactics/${slug}/`;
-
     let currentHeader = headerPart
-      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${currentUrl}">`)
-      .replace(/<title>[\s\S]*?<\/title>/, `<title>${name} ${formation} 전술 분석 및 세팅 가이드 | WISEPLAY</title>`)
-      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${name} 선수의 ${formation} 포메이션 배치도, 개인 전술, 팀 전술 및 인게임 운영 심층 분석 - WISEPLAY">`);
+      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="https://wiseplay.co.kr/tactics/${slug}/">`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(t.playerName)} ${escapeHtml(t.formation)} 전술 분석 | WISEPLAY</title>`)
+      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${escapeHtml(t.playerName)} 선수의 ${escapeHtml(t.formation)} 포메이션 배치도, 개인 전술, 팀 전술 심층 분석">`);
 
     let currentBody = tacticSectionTemplate
-      .replace(/<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/, `<span class="card-badge" id="viewFormation">${formation}</span>`)
-      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${name}</h2>`)
-      .replace(/<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/, `<p id="viewSubInfo">${country} | ${version}</p>`)
-      .replace(/<img[^>]*id="viewImgDisplay"[^>]*>/, `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="${name} 전술">`)
-      .replace(/<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewReviewText" style="white-space:pre-line;">${review}</p>`);
+      .replace(/<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/, `<span class="card-badge" id="viewFormation">${escapeHtml(t.formation)}</span>`)
+      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${escapeHtml(t.playerName)}</h2>`)
+      .replace(/<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/, `<p id="viewSubInfo">${escapeHtml(t.country)} | ${escapeHtml(t.versionName)}</p>`)
+      .replace(/<img[^>]*id="viewImgDisplay"[^>]*>/, `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="Tactics">`)
+      .replace(/<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewReviewText" style="white-space:pre-line;">${escapeHtml(t.reviewText)}</p>`);
 
     if (t.padName && t.padName.trim() !== '' && t.padName.trim() !== '-') {
       currentBody = currentBody.replace(/<span id="viewPadNameText">[\s\S]*?<\/span>/, `<span id="viewPadNameText">${escapeHtml(t.padName)}</span>`);
@@ -122,158 +103,145 @@ function buildIndividualTacticPages(baseHtml, tactics) {
       currentBody = currentBody.replace(/<div class="detail-section" id="viewPadSection"[\s\S]*?<\/div>\s*<\/div>/, '');
     }
 
-    const finalHtml = currentHeader + '\n' + currentBody + '\n' + footerPart;
-    fs.writeFileSync(path.join(dir, 'index.html'), finalHtml, 'utf8');
+    fs.writeFileSync(path.join(dir, 'index.html'), currentHeader + '\n' + currentBody + '\n' + footerPart, 'utf8');
   });
-
-  console.log(`클린 개별 전술 정적 페이지 ${tactics.length}개 생성 완료!`);
 }
 
-// 2. 개별 컨트롤러 상세 정적 페이지 생성 (찌꺼기 원천 차단)
 function buildIndividualPadPages(baseHtml, pads) {
-  const mainOpenIdx = baseHtml.indexOf('<main>');
-  const mainCloseIdx = baseHtml.indexOf('</main>');
-  if (mainOpenIdx === -1 || mainCloseIdx === -1) return;
-
-  const headerPart = baseHtml.substring(0, mainOpenIdx + 6);
-  const footerPart = baseHtml.substring(mainCloseIdx);
-
   const startSec = baseHtml.indexOf('<section id="detail-view-pads"');
-  const endSecStr = '</section>';
-  const endSec = baseHtml.indexOf(endSecStr, startSec);
+  const endSec = baseHtml.indexOf('</section>', startSec);
   if (startSec === -1 || endSec === -1) return;
-
-  const padSectionTemplate = baseHtml.substring(startSec, endSec + endSecStr.length)
-    .replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
+  const padSectionTemplate = baseHtml.substring(startSec, endSec + 10).replace('class="detail-view-container"', 'class="detail-view-container" style="display:block;"');
+  const headerPart = baseHtml.substring(0, baseHtml.indexOf('<main>') + 6);
+  const footerPart = baseHtml.substring(baseHtml.indexOf('</main>'));
 
   pads.forEach(p => {
     const slug = cleanSlug(p.slug, p.padName);
     const dir = path.join('controllers', slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const name = escapeHtml(p.padName || 'Gamepad');
-    const mech = escapeHtml(p.stickMech || '-');
-    const score = escapeHtml(p.metaScore || '80');
-    const intro = escapeHtml(p.padIntro || p.pros || '실측 데이터 기반 정밀 벤치마크 리뷰');
-    const pros = escapeHtml(p.pros || '-');
-    const cons = escapeHtml(p.cons || '-');
-    const currentUrl = `https://wiseplay.co.kr/controllers/${slug}/`;
-
     let currentHeader = headerPart
-      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${currentUrl}">`)
-      .replace(/<title>[\s\S]*?<\/title>/, `<title>${name} 레이턴시·폴링레이트 실측 벤치마크 스펙 | WISEPLAY</title>`)
-      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${name} (${mech}) 유선·무선 폴링레이트, 스틱 및 버튼 인풋랙 정밀 계측 벤치마크 분석 - WISEPLAY">`);
+      .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="https://wiseplay.co.kr/controllers/${slug}/">`)
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(p.padName)} 레이턴시 실측 벤치마크 | WISEPLAY</title>`)
+      .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${escapeHtml(p.padName)} (${escapeHtml(p.stickMech)}) 유무선 폴링레이트 및 인풋랙 계측 벤치마크">`);
 
     let currentBody = padSectionTemplate
-      .replace(/<h2[^>]*id="viewPadName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPadName">${name}</h2>`)
-      .replace(/<p[^>]*id="viewPadSub"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadSub">스틱 방식: ${mech} | 키매핑: ${escapeHtml(p.keyMap || '-')} | 매크로: ${escapeHtml(p.macro || '-')}</p>`)
-      .replace(/<span[^>]*id="viewPadScoreVal"[^>]*>[\s\S]*?<\/span>/, `<span class="dash-big-num lj" id="viewPadScoreVal">${score}</span>`)
-      .replace(/<p[^>]*id="viewPadIntroText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadIntroText" style="white-space:pre-line;">${intro}</p>`)
-      .replace(/<span[^>]*id="viewPadPros"[^>]*>[\s\S]*?<\/span>/, `<span id="viewPadPros">${pros}</span>`)
-      .replace(/<span[^>]*id="viewPadCons"[^>]*>[\s\S]*?<\/span>/, `<span id="viewPadCons">${cons}</span>`);
+      .replace(/<h2[^>]*id="viewPadName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPadName">${escapeHtml(p.padName)}</h2>`)
+      .replace(/<p[^>]*id="viewPadSub"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadSub">스틱 방식: ${escapeHtml(p.stickMech)} | 키매핑: ${escapeHtml(p.keyMap)} | 매크로: ${escapeHtml(p.macro)}</p>`)
+      .replace(/<span[^>]*id="viewPadScoreVal"[^>]*>[\s\S]*?<\/span>/, `<span class="dash-big-num lj" id="viewPadScoreVal">${escapeHtml(p.metaScore || '80')}</span>`)
+      .replace(/<p[^>]*id="viewPadIntroText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewPadIntroText" style="white-space:pre-line;">${escapeHtml(p.padIntro || p.pros)}</p>`);
 
-    const finalHtml = currentHeader + '\n' + currentBody + '\n' + footerPart;
-    fs.writeFileSync(path.join(dir, 'index.html'), finalHtml, 'utf8');
+    fs.writeFileSync(path.join(dir, 'index.html'), currentHeader + '\n' + currentBody + '\n' + footerPart, 'utf8');
   });
-
-  console.log(`클린 개별 컨트롤러 정적 페이지 ${pads.length}개 생성 완료!`);
 }
 
-// 3. 최신 sitemap.xml 자동 생성 함수
+// ==========================================
+// 2. 메인 페이지 UI 100% 정적 렌더링 (구글봇 속도 대응)
+// ==========================================
+function generateStaticTacticsCards(tactics) {
+  return tactics.map(item => {
+    const slug = cleanSlug(item.slug, item.playerName);
+    const pageUrl = `/tactics/${slug}/`;
+    const wScore = item.wiseScore || '85';
+    const tier = getScoreTier(wScore);
+    
+    return `
+      <a href="${pageUrl}" class="card">
+        <div class="mc-top-cap ${tier.cls}">
+          <div class="card-img-wrapper">
+            <img src="${item.imgFormation || '/logo.png'}" alt="Tactics">
+          </div>
+        </div>
+        <div class="card-body">
+          <span class="card-badge">${escapeHtml(item.formation)}</span>
+          <h3 class="card-title">${escapeHtml(item.playerName)} <small style="color:#8b949e; font-size:0.8rem;">(${escapeHtml(item.country)})</small></h3>
+          <div class="tactic-cta-box"><span>📋 개인·팀 전술 세팅 및 분석 보기 →</span></div>
+          <div class="mc-score-row">
+            <div class="mc-score-text">
+              <span class="mc-score-label">WISE SCORE</span>
+              <span class="mc-score-verdict">${tier.verdict}</span>
+            </div>
+            <div class="mc-score-box ${tier.cls}">${wScore}</div>
+          </div>
+        </div>
+      </a>`;
+  }).join('\n');
+}
+
+function generateStaticPadsCards(pads) {
+  return pads.map(pad => {
+    const slug = cleanSlug(pad.slug, pad.padName);
+    const pageUrl = `/controllers/${slug}/`;
+    const score = pad.metaScore || '80';
+    const tier = getScoreTier(score);
+    const ytId = extractYoutubeId(pad.ytUrl);
+    const cardThumb = pad.imgUrl || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '/logo.png');
+
+    return `
+      <a href="${pageUrl}" class="card">
+        <div class="mc-top-cap ${tier.cls}">
+          <div class="card-img-wrapper"><img src="${cardThumb}" alt="Pad"></div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">${escapeHtml(pad.padName)}</h3>
+          <div class="tactic-cta-box"><span>📊 정밀 벤치마크 및 상세 스펙 보기 →</span></div>
+          <div class="mc-score-row">
+            <div class="mc-score-text">
+              <span class="mc-score-label">WISE META SCORE</span>
+              <span class="mc-score-verdict">${tier.verdict}</span>
+            </div>
+            <div class="mc-score-box ${tier.cls}">${score}</div>
+          </div>
+        </div>
+      </a>`;
+  }).join('\n');
+}
+
 function generateSitemap(tactics, pads) {
   const baseUrl = 'https://wiseplay.co.kr';
-  const urls = [];
-
-  urls.push({ loc: `${baseUrl}/`, priority: '1.0' });
-  urls.push({ loc: `${baseUrl}/about.html`, priority: '0.8' });
-  urls.push({ loc: `${baseUrl}/privacy.html`, priority: '0.8' });
-
-  tactics.forEach(t => {
-    const slug = cleanSlug(t.slug, t.playerName);
-    urls.push({ loc: `${baseUrl}/tactics/${slug}/`, priority: '0.9' });
-  });
-
-  pads.forEach(p => {
-    const slug = cleanSlug(p.slug, p.padName);
-    urls.push({ loc: `${baseUrl}/controllers/${slug}/`, priority: '0.9' });
-  });
-
-  const xmlLines = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-  ];
-
-  urls.forEach(u => {
-    xmlLines.push('  <url>');
-    xmlLines.push(`    <loc>${u.loc}</loc>`);
-    xmlLines.push(`    <priority>${u.priority}</priority>`);
-    xmlLines.push('  </url>');
-  });
-
-  xmlLines.push('</urlset>');
-
-  fs.writeFileSync('sitemap.xml', xmlLines.join('\n'), 'utf8');
-  console.log(`sitemap.xml 자동 생성 완료! (총 ${urls.length}개 URL 등록됨)`);
+  const urls = [{ loc: `${baseUrl}/`, priority: '1.0' }];
+  tactics.forEach(t => urls.push({ loc: `${baseUrl}/tactics/${cleanSlug(t.slug, t.playerName)}/`, priority: '0.9' }));
+  pads.forEach(p => urls.push({ loc: `${baseUrl}/controllers/${cleanSlug(p.slug, p.padName)}/`, priority: '0.9' }));
+  
+  const xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    .concat(urls.map(u => `  <url><loc>${u.loc}</loc><priority>${u.priority}</priority></url>`))
+    .concat(['</urlset>']).join('\n');
+  fs.writeFileSync('sitemap.xml', xml, 'utf8');
 }
 
 async function runBuild() {
-  console.log('1. 구글 시트에서 CSV 데이터를 가져오는 중...');
-  const [tacticsRes, padsRes] = await Promise.all([
-    fetch(TACTICS_CSV_URL),
-    fetch(PADS_CSV_URL)
-  ]);
-
-  if (!tacticsRes.ok) throw new Error(`Tactics 시트 로드 실패: ${tacticsRes.status}`);
-  if (!padsRes.ok) throw new Error(`Pads 시트 로드 실패: ${padsRes.status}`);
-
-  const tacticsText = await tacticsRes.text();
-  const padsText = await padsRes.text();
-
-  const tactics = parseCSV(tacticsText);
-  const pads = parseCSV(padsText);
-
-  console.log(`파싱 완료: 전술 ${tactics.length}개, 패드 ${pads.length}개`);
+  const [tacticsRes, padsRes] = await Promise.all([fetch(TACTICS_CSV_URL), fetch(PADS_CSV_URL)]);
+  const tactics = parseCSV(await tacticsRes.text());
+  const pads = parseCSV(await padsRes.text());
 
   const rawTemplate = fs.readFileSync('index.html', 'utf8');
 
-  // 이전 폴더 완전 클린업
-  ['tactics', 'controllers'].forEach(baseDir => {
-    if (fs.existsSync(baseDir)) {
-      fs.readdirSync(baseDir).forEach(sub => {
-        const subPath = path.join(baseDir, sub);
-        try {
-          if (fs.statSync(subPath).isDirectory()) {
-            fs.rmSync(subPath, { recursive: true, force: true });
-          }
-        } catch (e) {}
-      });
-    }
-  });
-  console.log('기존 개별 상세 폴더 클린업 완료!');
-
-  // 1) 상세 페이지 클린 생성 (찌꺼기 0%)
+  // 상세 페이지 생성
+  ['tactics', 'controllers'].forEach(dir => { if(fs.existsSync(dir)) fs.rmSync(dir, {recursive:true, force:true}); });
   buildIndividualTacticPages(rawTemplate, tactics);
   buildIndividualPadPages(rawTemplate, pads);
 
-  // 2) 메인 index.html 데이터 프리로드 주입
+  // 메인 페이지 HTML 100% 정적 렌더링 주입 (구글봇용)
   let homeHtml = rawTemplate;
-  const dStart = '/* SSG_DATA_START */';
-  const dEnd = '/* SSG_DATA_END */';
+  homeHtml = homeHtml.replace(
+    /<!-- SSG_TACTICS_START -->[\s\S]*?<!-- SSG_TACTICS_END -->/, 
+    `<!-- SSG_TACTICS_START -->\n${generateStaticTacticsCards(tactics)}\n<!-- SSG_TACTICS_END -->`
+  );
+  homeHtml = homeHtml.replace(
+    /<!-- SSG_PADS_START -->[\s\S]*?<!-- SSG_PADS_END -->/, 
+    `<!-- SSG_PADS_START -->\n${generateStaticPadsCards(pads)}\n<!-- SSG_PADS_END -->`
+  );
+
+  // JS 데이터 프리로드
+  const dStart = '/* SSG_DATA_START */', dEnd = '/* SSG_DATA_END */';
   if (homeHtml.includes(dStart) && homeHtml.includes(dEnd)) {
-    const b = homeHtml.substring(0, homeHtml.indexOf(dStart) + dStart.length);
-    const a = homeHtml.substring(homeHtml.indexOf(dEnd));
-    const dataContent = `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    `;
-    homeHtml = b + dataContent + a;
+    homeHtml = homeHtml.substring(0, homeHtml.indexOf(dStart) + dStart.length) + 
+      `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    ` + 
+      homeHtml.substring(homeHtml.indexOf(dEnd));
   }
 
   fs.writeFileSync('index.html', homeHtml, 'utf8');
-  console.log('메인 index.html 정상 업데이트 완료!');
-
-  // 3) 최신 sitemap.xml 자동 생성
   generateSitemap(tactics, pads);
 }
 
-runBuild().catch(err => {
-  console.error('빌드 중 오류 발생:', err);
-  process.exit(1);
-});
+runBuild();
