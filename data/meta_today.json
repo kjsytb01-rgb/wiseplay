@@ -1,53 +1,53 @@
 {
-  "updated_at": "2026-11-18 03:58:09",
+  "updated_at": "2026-11-19 03:54:26",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-1-1",
-      "count": 38,
-      "share": 38.0,
+      "count": 37,
+      "share": 37.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "CB": {
-          "ko": "하코보 라몬",
-          "en": "Jakobo Ramon",
-          "vi": "Jakobo Ramon",
-          "th": "จาโคโบ รามอน"
-        },
         "MID": {
-          "ko": "카카",
-          "en": "Kaka",
-          "vi": "Kaka",
-          "th": "กาก้า"
-        },
-        "ST": {
-          "ko": "킬리안 음바페",
-          "en": "Kylian Mbappe",
-          "vi": "Kylian Mbappé",
-          "th": "คีเลียน เอ็มบัปเป้"
+          "ko": "울리 회네스",
+          "en": "울리 회네스",
+          "vi": "울리 회네스",
+          "th": "울리 회네스"
         },
         "CDM": {
-          "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก้ บัลเบร์เด้"
+          "ko": "슈바인슈타이거",
+          "en": "슈바인슈타이거",
+          "vi": "슈바인슈타이거",
+          "th": "슈바인슈타이거"
+        },
+        "CB": {
+          "ko": "미첼 바이저",
+          "en": "미첼 바이저",
+          "vi": "미첼 바이저",
+          "th": "미첼 바이저"
+        },
+        "ST": {
+          "ko": "케빈 샤데",
+          "en": "케빈 샤데",
+          "vi": "케빈 샤데",
+          "th": "케빈 샤데"
         }
       },
       "recommended_rankers": [
+        "카리나",
         "FA세비어",
         "리바이브이원희",
-        "카리나",
         "KRXTak",
         "혜원"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 34,
-      "share": 34.0,
+      "count": 33,
+      "share": 33.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -55,41 +55,41 @@
       "key_players": {
         "CB": {
           "ko": "김남일",
-          "en": "Kim Nam-il",
-          "vi": "Kim Nam Il",
-          "th": "คิม นัมอิล"
+          "en": "김남일",
+          "vi": "김남일",
+          "th": "김남일"
         },
         "MID": {
           "ko": "박지성",
-          "en": "Park Ji-sung",
-          "vi": "Park Ji Sung",
-          "th": "ปาร์ค จีซอง"
+          "en": "박지성",
+          "vi": "박지성",
+          "th": "박지성"
         },
         "CDM": {
           "ko": "김정우",
-          "en": "Kim Jeong-woo",
-          "vi": "Kim Jeong Woo",
-          "th": "คิมจองอู"
+          "en": "김정우",
+          "vi": "김정우",
+          "th": "김정우"
         },
         "ST": {
           "ko": "차범근",
-          "en": "Cha Bum Geun",
-          "vi": "Cha Bum Geun",
-          "th": "ชาบุมกึน"
+          "en": "차범근",
+          "vi": "차범근",
+          "th": "차범근"
         }
       },
       "recommended_rankers": [
-        "FAKWAK",
+        "BFXKWAK",
         "크몽신경섭",
         "Prime림광철",
         "카이절",
-        "크묭신경섭"
+        "파리우승5"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 18,
-      "share": 18.0,
+      "count": 20,
+      "share": 20.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -103,70 +103,70 @@
         },
         "CB": {
           "ko": "하코보 라몬",
-          "en": "Jakobo Ramon",
-          "vi": "Jakobo Ramon",
-          "th": "จาโคโบ รามอน"
+          "en": "하코보 라몬",
+          "vi": "하코보 라몬",
+          "th": "하코보 라몬"
         },
         "MID": {
-          "ko": "마르코스 요렌테",
-          "en": "Marcos Llorente",
-          "vi": "Marcos Llorente",
-          "th": "มาร์กอส ยอเรนเต้"
+          "ko": "카카",
+          "en": "카카",
+          "vi": "카카",
+          "th": "카카"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
-          "en": "Federico Valverde",
-          "vi": "Federico Valverde",
-          "th": "เฟเดริโก้ บัลเบร์เด้"
+          "en": "페데리코 발베르데",
+          "vi": "페데리코 발베르데",
+          "th": "페데리코 발베르데"
         }
       },
       "recommended_rankers": [
         "DNSCrong",
-        "T1YooMin",
         "KRXMINION",
-        "유이령",
-        "GCTwonder08"
+        "T1YooMin",
+        "GCTwonder08",
+        "kimwon"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 7,
-      "share": 7.0,
+      "count": 6,
+      "share": 6.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
-        "CB": {
-          "ko": "비셴테 리자라쥐",
-          "en": "Vicente Lizarazu",
-          "vi": "Vicente Lizarazu",
-          "th": "วิเซนเต้ ลิซาราซู"
-        },
         "MID": {
-          "ko": "파벨 네드베드",
-          "en": "Pavel Nedved",
-          "vi": "Pavel Nedved",
-          "th": "พาเวล เนดเวด"
+          "ko": "슈바인슈타이거",
+          "en": "슈바인슈타이거",
+          "vi": "슈바인슈타이거",
+          "th": "슈바인슈타이거"
         },
         "ST": {
-          "ko": "스티븐 제라드",
-          "en": "steven gerrard",
-          "vi": "Steven Gerrard",
-          "th": "สตีเว่น เจอร์ราร์ด"
+          "ko": "해리 케인",
+          "en": "해리 케인",
+          "vi": "해리 케인",
+          "th": "해리 케인"
         },
         "CDM": {
-          "ko": "마이클 에시앙",
-          "en": "Michael Essien",
-          "vi": "Michael Essien",
-          "th": "มิเชล เอสเซียง"
+          "ko": "레온 고레츠카",
+          "en": "레온 고레츠카",
+          "vi": "레온 고레츠카",
+          "th": "레온 고레츠카"
+        },
+        "CB": {
+          "ko": "다요 우파메카노",
+          "en": "다요 우파메카노",
+          "vi": "다요 우파메카노",
+          "th": "다요 우파메카노"
         }
       },
       "recommended_rankers": [
+        "Seon9",
+        "Seon9mln",
         "Seon9min",
         "성뮌",
-        "Seon9mln",
-        "Seon9",
         "태갓TaeGod"
       ]
     },
@@ -181,27 +181,27 @@
       "key_players": {
         "CB": {
           "ko": "루시우",
-          "en": "Lucio",
-          "vi": "Lucio",
-          "th": "ลูซิโอ"
+          "en": "루시우",
+          "vi": "루시우",
+          "th": "루시우"
         },
         "CDM": {
           "ko": "베켄바워",
-          "en": "Beckenbauer",
-          "vi": "Beckenbauer",
-          "th": "เบคเคนบาวเออร์"
+          "en": "베켄바워",
+          "vi": "베켄바워",
+          "th": "베켄바워"
         },
         "ST": {
           "ko": "게르트 뮐러",
-          "en": "Gerd Müller",
-          "vi": "Gerd Müller",
-          "th": "แกร์ด มุลเลอร์"
+          "en": "게르트 뮐러",
+          "vi": "게르트 뮐러",
+          "th": "게르트 뮐러"
         },
         "MID": {
           "ko": "로타어 마테우스",
-          "en": "Lothar Mateus",
-          "vi": "Lothar Mateus",
-          "th": "โลธาร์ มาเตอุส"
+          "en": "로타어 마테우스",
+          "vi": "로타어 마테우스",
+          "th": "로타어 마테우스"
         }
       },
       "recommended_rankers": [
