@@ -1,11 +1,53 @@
 {
-  "updated_at": "2026-11-21 03:36:37",
+  "updated_at": "2026-11-22 02:43:37",
   "total_rankers": 100,
   "meta_list": [
     {
+      "formation": "4-2-2-1-1",
+      "count": 37,
+      "share": 37.0,
+      "tactical_routes": [
+        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
+        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
+      ],
+      "key_players": {
+        "CDM": {
+          "ko": "스티븐 제라드",
+          "en": "steven gerrard",
+          "vi": "Steven Gerrard",
+          "th": "สตีเว่น เจอร์ราร์ด"
+        },
+        "MID": {
+          "ko": "루이스 수아레스",
+          "en": "Luis Suarez",
+          "vi": "Luis Suarez",
+          "th": "หลุยส์ ซัวเรซ"
+        },
+        "CB": {
+          "ko": "버질 반다이크",
+          "en": "Virgil van Dijk",
+          "vi": "Virgil van Dijk",
+          "th": "เวอร์จิล ฟาน ไดจ์ค"
+        },
+        "ST": {
+          "ko": "이언 러시",
+          "en": "Ian Rush",
+          "vi": "Ian Rush",
+          "th": "เอียน รัช"
+        }
+      },
+      "recommended_rankers": [
+        "태연",
+        "KRXTak",
+        "FA세비어",
+        "카리나",
+        "리바이브이원희"
+      ]
+    },
+    {
       "formation": "4-2-3-1",
-      "count": 35,
-      "share": 35.0,
+      "count": 34,
+      "share": 34.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -33,63 +75,21 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
         "BFXKWAK",
         "크몽신경섭",
-        "파리우승5",
-        "카이절",
-        "푸우스"
-      ]
-    },
-    {
-      "formation": "4-2-2-1-1",
-      "count": 35,
-      "share": 35.0,
-      "tactical_routes": [
-        "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
-        "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
-      ],
-      "key_players": {
-        "MID": {
-          "ko": "울리 회네스",
-          "en": "Uli Hoeness",
-          "vi": "Uli Hoeness",
-          "th": "อูลี เฮอเนส"
-        },
-        "CDM": {
-          "ko": "슈바인슈타이거",
-          "en": "Schweinsteiger",
-          "vi": "Schweinsteiger",
-          "th": "ชไวน์สไตเกอร์"
-        },
-        "CB": {
-          "ko": "미첼 바이저",
-          "en": "mitchell visor",
-          "vi": "tấm che mặt mitchell",
-          "th": "กระบังหน้ามิทเชลล์"
-        },
-        "ST": {
-          "ko": "케빈 샤데",
-          "en": "Kevin Schade",
-          "vi": "Kevin Schade",
-          "th": "เควิน เชด"
-        }
-      },
-      "recommended_rankers": [
-        "카리나",
-        "FA세비어",
-        "KRXTak",
-        "리바이브이원희",
-        "NoiZ"
+        "Prime림광철",
+        "푸우스",
+        "카이절"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 22,
-      "share": 22.0,
+      "count": 19,
+      "share": 19.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -108,10 +108,10 @@
           "th": "จาโคโบ รามอน"
         },
         "MID": {
-          "ko": "마르코스 요렌테",
-          "en": "Marcos Llorente",
-          "vi": "Marcos Llorente",
-          "th": "มาร์กอส ยอเรนเต้"
+          "ko": "카카",
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
@@ -125,13 +125,13 @@
         "KRXMINION",
         "GCTwonder08",
         "kimwon",
-        "BFXRePlay"
+        "재밍구"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 5,
-      "share": 5.0,
+      "count": 6,
+      "share": 6.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
@@ -172,8 +172,8 @@
     },
     {
       "formation": "4-1-2-3",
-      "count": 2,
-      "share": 2.0,
+      "count": 3,
+      "share": 3.0,
       "tactical_routes": [
         "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
         "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
@@ -206,7 +206,8 @@
       },
       "recommended_rankers": [
         "선재스님의갈비찜",
-        "UnLMTD김재디"
+        "UnLMTD김재디",
+        "신봉자"
       ]
     }
   ]
