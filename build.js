@@ -70,9 +70,9 @@ function extractYoutubeId(url) {
 }
 
 // ==========================================
-// 1. 상세 페이지 클린 생성 (찌꺼기 차단 유지)
+// 1. 상세 페이지 클린 생성 (버전 선택 기능 추가)
 // ==========================================
-function buildIndividualTacticPages(baseHtml, tactics) {
+function buildIndividualTacticPages(baseHtml, uniqueTactics, tacticsBySlug) {
   const startSec = baseHtml.indexOf('<section id="detail-view-tactics"');
   const endSec = baseHtml.indexOf('</section>', startSec);
   if (startSec === -1 || endSec === -1) return;
@@ -80,8 +80,9 @@ function buildIndividualTacticPages(baseHtml, tactics) {
   const headerPart = baseHtml.substring(0, baseHtml.indexOf('<main>') + 6);
   const footerPart = baseHtml.substring(baseHtml.indexOf('</main>'));
 
-  tactics.forEach(t => {
+  uniqueTactics.forEach(t => {
     const slug = cleanSlug(t.slug, t.playerName);
+    const versions = tacticsBySlug[slug];
     const dir = path.join('tactics', slug);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
@@ -90,9 +91,39 @@ function buildIndividualTacticPages(baseHtml, tactics) {
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(t.playerName)} ${escapeHtml(t.formation)} 전술 분석 | WISEPLAY</title>`)
       .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${escapeHtml(t.playerName)} 선수의 ${escapeHtml(t.formation)} 포메이션 배치도, 개인 전술, 팀 전술 심층 분석">`);
 
+    // 🌟 다중 버전이 있을 경우 드롭다운(Select) 메뉴 및 스크립트 생성
+    let dropdownHtml = '';
+    let scriptHtml = '';
+    if (versions.length > 1) {
+      const safeSlug = slug.replace(/-/g, '_');
+      dropdownHtml = `
+        <div style="margin: 15px 0;">
+          <label style="color:#8b949e; font-size:0.9rem; margin-right:8px;">🎯 버전 선택:</label>
+          <select onchange="changeVersion_${safeSlug}(this.value)" style="padding:8px; border-radius:5px; background:#222; color:#fff; border:1px solid #444; outline:none; cursor:pointer;">
+            ${versions.map((v, i) => `<option value="${i}">${escapeHtml(v.versionName)} (${escapeHtml(v.formation)})</option>`).join('')}
+          </select>
+        </div>
+      `;
+      scriptHtml = `
+        <script>
+          const versions_${safeSlug} = ${JSON.stringify(versions)};
+          function changeVersion_${safeSlug}(idx) {
+            const data = versions_${safeSlug}[idx];
+            document.getElementById('viewFormation').textContent = data.formation;
+            document.getElementById('viewSubInfo').textContent = data.country + ' | ' + data.versionName;
+            document.getElementById('viewImgDisplay').src = data.imgFormation || '/logo.png';
+            document.getElementById('viewReviewText').textContent = data.reviewText;
+            if(document.getElementById('viewPadNameText') && data.padName) {
+              document.getElementById('viewPadNameText').textContent = data.padName;
+            }
+          }
+        </script>
+      `;
+    }
+
     let currentBody = tacticSectionTemplate
       .replace(/<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/, `<span class="card-badge" id="viewFormation">${escapeHtml(t.formation)}</span>`)
-      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${escapeHtml(t.playerName)}</h2>`)
+      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${escapeHtml(t.playerName)}</h2>\n${dropdownHtml}`)
       .replace(/<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/, `<p id="viewSubInfo">${escapeHtml(t.country)} | ${escapeHtml(t.versionName)}</p>`)
       .replace(/<img[^>]*id="viewImgDisplay"[^>]*>/, `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="Tactics">`)
       .replace(/<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewReviewText" style="white-space:pre-line;">${escapeHtml(t.reviewText)}</p>`);
@@ -102,6 +133,9 @@ function buildIndividualTacticPages(baseHtml, tactics) {
     } else {
       currentBody = currentBody.replace(/<div class="detail-section" id="viewPadSection"[\s\S]*?<\/div>\s*<\/div>/, '');
     }
+
+    // 버전 체인지 스크립트를 body 맨 끝에 주입
+    currentBody += '\n' + scriptHtml;
 
     fs.writeFileSync(path.join(dir, 'index.html'), currentHeader + '\n' + currentBody + '\n' + footerPart, 'utf8');
   });
@@ -136,10 +170,10 @@ function buildIndividualPadPages(baseHtml, pads) {
 }
 
 // ==========================================
-// 2. 메인 페이지 UI 100% 정적 렌더링 (구글봇 속도 대응)
+// 2. 메인 페이지 정적 렌더링 (중복 방지 추가)
 // ==========================================
-function generateStaticTacticsCards(tactics) {
-  return tactics.map(item => {
+function generateStaticTacticsCards(uniqueTactics) {
+  return uniqueTactics.map(item => {
     const slug = cleanSlug(item.slug, item.playerName);
     const pageUrl = `/tactics/${slug}/`;
     const wScore = item.wiseScore || '85';
@@ -197,10 +231,10 @@ function generateStaticPadsCards(pads) {
   }).join('\n');
 }
 
-function generateSitemap(tactics, pads) {
+function generateSitemap(uniqueTactics, pads) {
   const baseUrl = 'https://wiseplay.co.kr';
   const urls = [{ loc: `${baseUrl}/`, priority: '1.0' }];
-  tactics.forEach(t => urls.push({ loc: `${baseUrl}/tactics/${cleanSlug(t.slug, t.playerName)}/`, priority: '0.9' }));
+  uniqueTactics.forEach(t => urls.push({ loc: `${baseUrl}/tactics/${cleanSlug(t.slug, t.playerName)}/`, priority: '0.9' }));
   pads.forEach(p => urls.push({ loc: `${baseUrl}/controllers/${cleanSlug(p.slug, p.padName)}/`, priority: '0.9' }));
   
   const xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
@@ -214,34 +248,40 @@ async function runBuild() {
   const tactics = parseCSV(await tacticsRes.text());
   const pads = parseCSV(await padsRes.text());
 
+  // 🌟 중복 슬러그(버전) 그룹화 로직
+  const tacticsBySlug = {};
+  const uniqueTactics = [];
+  tactics.forEach(t => {
+    const slug = cleanSlug(t.slug, t.playerName);
+    if (!tacticsBySlug[slug]) {
+      tacticsBySlug[slug] = [];
+      uniqueTactics.push(t); // 첫 번째 등장하는 버전을 대표로 선정
+    }
+    tacticsBySlug[slug].push(t);
+  });
+
   const rawTemplate = fs.readFileSync('index.html', 'utf8');
 
   // 상세 페이지 생성
   ['tactics', 'controllers'].forEach(dir => { if(fs.existsSync(dir)) fs.rmSync(dir, {recursive:true, force:true}); });
-  buildIndividualTacticPages(rawTemplate, tactics);
+  
+  // 중복이 제거된 uniqueTactics와 그룹화된 tacticsBySlug를 넘겨줌
+  buildIndividualTacticPages(rawTemplate, uniqueTactics, tacticsBySlug);
   buildIndividualPadPages(rawTemplate, pads);
 
   // 메인 페이지 HTML 100% 정적 렌더링 주입 (구글봇용)
   let homeHtml = rawTemplate;
   homeHtml = homeHtml.replace(
     /<!-- SSG_TACTICS_START -->[\s\S]*?<!-- SSG_TACTICS_END -->/, 
-    `<!-- SSG_TACTICS_START -->\n${generateStaticTacticsCards(tactics)}\n<!-- SSG_TACTICS_END -->`
+    `<!-- SSG_TACTICS_START -->\n${generateStaticTacticsCards(uniqueTactics)}\n<!-- SSG_TACTICS_END -->`
   );
   homeHtml = homeHtml.replace(
     /<!-- SSG_PADS_START -->[\s\S]*?<!-- SSG_PADS_END -->/, 
     `<!-- SSG_PADS_START -->\n${generateStaticPadsCards(pads)}\n<!-- SSG_PADS_END -->`
   );
 
-  // JS 데이터 프리로드
-  const dStart = '/* SSG_DATA_START */', dEnd = '/* SSG_DATA_END */';
-  if (homeHtml.includes(dStart) && homeHtml.includes(dEnd)) {
-    homeHtml = homeHtml.substring(0, homeHtml.indexOf(dStart) + dStart.length) + 
-      `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(tactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    ` + 
-      homeHtml.substring(homeHtml.indexOf(dEnd));
-  }
-
   fs.writeFileSync('index.html', homeHtml, 'utf8');
-  generateSitemap(tactics, pads);
+  generateSitemap(uniqueTactics, pads);
 }
 
 runBuild();
