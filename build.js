@@ -69,9 +69,6 @@ function extractYoutubeId(url) {
   return match ? match[1] : null;
 }
 
-// ==========================================
-// 1. 상세 페이지 클린 생성 (드롭다운 삭제 방어 로직 추가)
-// ==========================================
 function buildIndividualTacticPages(baseHtml, uniqueTactics, tacticsBySlug) {
   const startSec = baseHtml.indexOf('<section id="detail-view-tactics"');
   const endSec = baseHtml.indexOf('</section>', startSec);
@@ -91,57 +88,28 @@ function buildIndividualTacticPages(baseHtml, uniqueTactics, tacticsBySlug) {
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(t.playerName)} ${escapeHtml(t.formation)} 전술 분석 | WISEPLAY</title>`)
       .replace(/<meta\s+name="description"[^>]*>/i, `<meta name="description" id="metaDesc" content="${escapeHtml(t.playerName)} 선수의 ${escapeHtml(t.formation)} 포메이션 배치도, 개인 전술, 팀 전술 심층 분석">`);
 
+    let dropdownHtml = '';
     let scriptHtml = '';
     if (versions.length > 1) {
       const safeSlug = slug.replace(/-/g, '_');
+      dropdownHtml = `
+        <div id="versionDropdownContainer" style="margin: 15px 0;">
+          <label style="color:#8b949e; font-size:0.9rem; margin-right:8px;">🎯 버전 선택:</label>
+          <select onchange="changeVersion_${safeSlug}(this.value)" style="padding:8px; border-radius:5px; background:#222; color:#fff; border:1px solid #444; outline:none; cursor:pointer;">
+            ${versions.map((v, i) => `<option value="${i}">${escapeHtml(v.versionName)} (${escapeHtml(v.formation)})</option>`).join('')}
+          </select>
+        </div>
+      `;
       scriptHtml = `
         <script>
           const versions_${safeSlug} = ${JSON.stringify(versions)};
-          
-          // 기존 사이트 JS가 렌더링을 끝낸 직후에 드롭다운을 안전하게 삽입하는 방어 코드
-          window.addEventListener('DOMContentLoaded', () => {
-            const injectDropdown = () => {
-              if (document.getElementById('version-dropdown-container')) return; // 이미 있으면 통과
-              
-              const target = document.getElementById('viewPlayerName');
-              if (target) {
-                const div = document.createElement('div');
-                div.id = 'version-dropdown-container';
-                div.style.margin = '15px 0';
-                div.innerHTML = \`
-                  <label style="color:#8b949e; font-size:0.9rem; margin-right:8px;">🎯 버전 선택:</label>
-                  <select onchange="changeVersion_${safeSlug}(this.value)" style="padding:8px; border-radius:5px; background:#222; color:#fff; border:1px solid #444; outline:none; cursor:pointer;">
-                    ${versions.map((v, i) => `<option value="${i}">${escapeHtml(v.versionName)} (${escapeHtml(v.formation)})</option>`).join('')}
-                  </select>
-                \`;
-                // 선수 이름(KWAK) 바로 밑에 드롭다운 강제 삽입
-                target.parentNode.insertBefore(div, target.nextSibling);
-              }
-            };
-            
-            // 즉시 실행 및 0.5초 뒤 한 번 더 실행 (초기화 덮어쓰기 완벽 방어)
-            injectDropdown();
-            setTimeout(injectDropdown, 500);
-          });
-
-          // 드롭다운 변경 시 텍스트/이미지 교체 함수
           window.changeVersion_${safeSlug} = function(idx) {
             const data = versions_${safeSlug}[idx];
-            
-            const formEl = document.getElementById('viewFormation');
-            if(formEl) formEl.textContent = data.formation;
-            
-            const subEl = document.getElementById('viewSubInfo');
-            if(subEl) subEl.textContent = data.country + ' | ' + data.versionName;
-            
-            const imgEl = document.getElementById('viewImgDisplay');
-            if(imgEl) imgEl.src = data.imgFormation || '/logo.png';
-            
-            const revEl = document.getElementById('viewReviewText');
-            if(revEl) revEl.textContent = data.reviewText;
-            
-            const padEl = document.getElementById('viewPadNameText');
-            if(padEl && data.padName) padEl.textContent = data.padName;
+            const formEl = document.getElementById('viewFormation'); if(formEl) formEl.textContent = data.formation;
+            const subEl = document.getElementById('viewSubInfo'); if(subEl) subEl.textContent = data.country + ' | ' + data.versionName;
+            const imgEl = document.getElementById('viewImgDisplay'); if(imgEl) imgEl.src = data.imgFormation || '/logo.png';
+            const revEl = document.getElementById('viewReviewText'); if(revEl) revEl.textContent = data.reviewText;
+            const padEl = document.getElementById('viewPadNameText'); if(padEl && data.padName) padEl.textContent = data.padName;
           };
         </script>
       `;
@@ -149,12 +117,17 @@ function buildIndividualTacticPages(baseHtml, uniqueTactics, tacticsBySlug) {
 
     let currentBody = tacticSectionTemplate
       .replace(/<span[^>]*id="viewFormation"[^>]*>[\s\S]*?<\/span>/, `<span class="card-badge" id="viewFormation">${escapeHtml(t.formation)}</span>`)
-      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${escapeHtml(t.playerName)}</h2>`)
+      .replace(/<h2[^>]*id="viewPlayerName"[^>]*>[\s\S]*?<\/h2>/, `<h2 id="viewPlayerName">${escapeHtml(t.playerName)}</h2>\n${dropdownHtml}`)
       .replace(/<p[^>]*id="viewSubInfo"[^>]*>[\s\S]*?<\/p>/, `<p id="viewSubInfo">${escapeHtml(t.country)} | ${escapeHtml(t.versionName)}</p>`)
       .replace(/<img[^>]*id="viewImgDisplay"[^>]*>/, `<img id="viewImgDisplay" class="view-display-img" src="${t.imgFormation || '/logo.png'}" alt="Tactics">`)
       .replace(/<p[^>]*id="viewReviewText"[^>]*>[\s\S]*?<\/p>/, `<p id="viewReviewText" style="white-space:pre-line;">${escapeHtml(t.reviewText)}</p>`);
 
-    // 본문 맨 아래에 스크립트 블록 주입
+    if (t.padName && t.padName.trim() !== '' && t.padName.trim() !== '-') {
+      currentBody = currentBody.replace(/<span id="viewPadNameText">[\s\S]*?<\/span>/, `<span id="viewPadNameText">${escapeHtml(t.padName)}</span>`);
+    } else {
+      currentBody = currentBody.replace(/<div class="detail-section" id="viewPadSection"[\s\S]*?<\/div>\s*<\/div>/, '');
+    }
+
     currentBody += '\n' + scriptHtml;
     fs.writeFileSync(path.join(dir, 'index.html'), currentHeader + '\n' + currentBody + '\n' + footerPart, 'utf8');
   });
@@ -295,7 +268,7 @@ async function runBuild() {
   const dStart = '/* SSG_DATA_START */', dEnd = '/* SSG_DATA_END */';
   if (homeHtml.includes(dStart) && homeHtml.includes(dEnd)) {
     homeHtml = homeHtml.substring(0, homeHtml.indexOf(dStart) + dStart.length) + 
-      `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(uniqueTactics)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    ` + 
+      `\n    window.__PRELOADED_TACTICS__ = ${JSON.stringify(uniqueTactics)};\n    window.__TACTICS_VERSIONS__ = ${JSON.stringify(tacticsBySlug)};\n    window.__PRELOADED_PADS__ = ${JSON.stringify(pads)};\n    ` + 
       homeHtml.substring(homeHtml.indexOf(dEnd));
   }
 
