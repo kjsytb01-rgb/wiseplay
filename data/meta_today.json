@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24 06:34:01",
+  "updated_at": "2026-11-25 05:07:14",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -53,37 +53,37 @@
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
       ],
       "key_players": {
+        "CB": {
+          "ko": "김남일",
+          "en": "Kim Nam-il",
+          "vi": "Kim Nam Il",
+          "th": "คิม นัมอิล"
+        },
         "MID": {
           "ko": "박지성",
           "en": "Park Ji-sung",
           "vi": "Park Ji Sung",
           "th": "ปาร์ค จีซอง"
         },
-        "CB": {
-          "ko": "최진철",
-          "en": "Choi Jin-cheol",
-          "vi": "Choi Jin Cheol",
-          "th": "ชอย จินชอล"
-        },
         "CDM": {
-          "ko": "유상철",
-          "en": "Sangcheol Yoo",
-          "vi": "Sangcheol Yoo",
-          "th": "ซังชอล ยู"
+          "ko": "김정우",
+          "en": "Kim Jeong-woo",
+          "vi": "Kim Jeong Woo",
+          "th": "คิมจองอู"
         },
         "ST": {
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบุมกึน"
+          "th": "ชาบอมกึน"
         }
       },
       "recommended_rankers": [
-        "크몽신경섭",
         "BFXKWAK",
-        "크묭신경섭",
-        "카이절",
-        "뚜환"
+        "크몽신경섭",
+        "OFel",
+        "GCTShype",
+        "OoPpPp"
       ]
     },
     {
@@ -103,9 +103,9 @@
         },
         "CB": {
           "ko": "하코보 라몬",
-          "en": "Hakobo Ramon",
-          "vi": "Hakobo Ramon",
-          "th": "ฮาโกโบะ รามอน"
+          "en": "Jakobo Ramon",
+          "vi": "Jakobo Ramon",
+          "th": "จาโคโบ รามอน"
         },
         "MID": {
           "ko": "마르코스 요렌테",
@@ -122,68 +122,65 @@
       },
       "recommended_rankers": [
         "DNSCrong",
+        "크롱",
         "KRXMINION",
         "T1YooMin",
-        "크롱",
         "kimwon"
       ]
     },
     {
       "formation": "4-1-4-1",
-      "count": 8,
-      "share": 8.0,
+      "count": 7,
+      "share": 7.0,
       "tactical_routes": [
         "촘촘한 미드필더 라인을 바탕으로 한 안정적인 수비 밸런스 및 지공 빌드업",
         "2선 미드필더 전진을 통해 상대 4백을 상대로 공격 5명을 형성하는 수적 우위 전개"
       ],
       "key_players": {
+        "CB": {
+          "ko": "가브리엘 마갈량이스",
+          "en": "Gabriel Magalliance",
+          "vi": "Gabriel Magalliance",
+          "th": "กาเบรียล มากาลิเซียนซ์"
+        },
         "MID": {
-          "ko": "루카 모드리치",
-          "en": "Luka Modric",
-          "vi": "Luka Modric",
-          "th": "ลูก้า โมดริช"
+          "ko": "데클런 라이스",
+          "en": "Declan Rice",
+          "vi": "Gạo Declan",
+          "th": "เดแคลน ไรซ์"
         },
         "ST": {
-          "ko": "다비드 지놀라",
-          "en": "David Ginola",
-          "vi": "David Ginola",
-          "th": "เดวิด จิโนลา"
-        },
-        "CB": {
-          "ko": "앤드루 로버트슨",
-          "en": "Andrew Robertson",
-          "vi": "Andrew Robertson",
-          "th": "แอนดรูว์ โรเบิร์ตสัน"
+          "ko": "빅토르 요케레스",
+          "en": "Victor Yoqueres",
+          "vi": "Victor Yoqueres",
+          "th": "วิคเตอร์ โยเกเรส"
         },
         "CDM": {
-          "ko": "산드로 토날리",
-          "en": "Sandro Tonali",
-          "vi": "Sandro Tonali",
-          "th": "ซานโดร โตนาลี"
+          "ko": "수비멘디",
+          "en": "Subi Mendi",
+          "vi": "Subi Mendi",
+          "th": "ซูบี เมนดิ"
         }
       },
       "recommended_rankers": [
+        "성민Seon9min",
         "Seon9min",
-        "Seon9mln",
         "Seon9",
         "성뮌",
-        "태갓TaeGod"
+        "에넬"
       ]
     },
     {
-      "formation": "4-1-2-3",
+      "formation": "4-3-3",
       "count": 2,
       "share": 2.0,
-      "tactical_routes": [
-        "4-1-4-1 대비 안정감은 다소 낮으나, 3톱을 활용해 훨씬 빠르고 파괴적인 직선 역습 전개",
-        "중앙 미드필더의 침투를 더해 상대 4백을 무너뜨리는 최전방 5인 수적 우위 공략"
-      ],
+      "tactical_routes": [],
       "key_players": {
         "CB": {
-          "ko": "최진철",
-          "en": "Choi Jin-cheol",
-          "vi": "Choi Jin Cheol",
-          "th": "ชอย จินชอล"
+          "ko": "김동진",
+          "en": "Dongjin Kim",
+          "vi": "Dongjin Kim",
+          "th": "ดงจิน คิม"
         },
         "MID": {
           "ko": "유상철",
@@ -192,21 +189,15 @@
           "th": "ซังชอล ยู"
         },
         "ST": {
-          "ko": "이근호",
-          "en": "Lee Geun-ho",
-          "vi": "Lee Geun Ho",
-          "th": "ลี กึน-โฮ"
-        },
-        "CDM": {
-          "ko": "기성용",
-          "en": "Ki Sung-yong",
-          "vi": "Ki Sung Yong",
-          "th": "กี ซองยอง"
+          "ko": "차범근",
+          "en": "Cha Bum Geun",
+          "vi": "Cha Bum Geun",
+          "th": "ชาบอมกึน"
         }
       },
       "recommended_rankers": [
-        "선재스님의갈비찜",
-        "UnLMTD김재디"
+        "제이드",
+        "Prime림광철"
       ]
     }
   ]
