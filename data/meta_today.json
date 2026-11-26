@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25 05:07:14",
+  "updated_at": "2026-11-26 04:34:30",
   "total_rankers": 100,
   "meta_list": [
     {
@@ -11,43 +11,43 @@
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
       ],
       "key_players": {
-        "MID": {
-          "ko": "울리 회네스",
-          "en": "Uli Hoeness",
-          "vi": "Uli Hoeness",
-          "th": "อูลี เฮอเนส"
+        "CB": {
+          "ko": "파트리크 비에이라",
+          "en": "Patrick Vieira",
+          "vi": "Patrick Vieira",
+          "th": "ปาทริค วิเอร่า"
         },
         "CDM": {
-          "ko": "슈바인슈타이거",
-          "en": "Schweinsteiger",
-          "vi": "Schweinsteiger",
-          "th": "ชไวน์สไตเกอร์"
+          "ko": "잔루카 잠브로타",
+          "en": "Gianluca Zambrotta",
+          "vi": "Gianluca Zambrotta",
+          "th": "จานลูก้า ซัมบรอตต้า"
         },
-        "CB": {
-          "ko": "미첼 바이저",
-          "en": "mitchell visor",
-          "vi": "tấm che mặt mitchell",
-          "th": "กระบังหน้ามิทเชลล์"
+        "MID": {
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
         },
         "ST": {
-          "ko": "케빈 샤데",
-          "en": "Kevin Schade",
-          "vi": "Kevin Schade",
-          "th": "เควิน เชด"
+          "ko": "이언 러시",
+          "en": "Ian Rush",
+          "vi": "Ian Rush",
+          "th": "เอียน รัช"
         }
       },
       "recommended_rankers": [
-        "카리나",
-        "FA세비어",
         "KRXTak",
-        "리바이브이원희",
-        "태연"
+        "혜원",
+        "지헌",
+        "카리나",
+        "FA세비어"
       ]
     },
     {
       "formation": "4-2-3-1",
-      "count": 29,
-      "share": 29.0,
+      "count": 30,
+      "share": 30.0,
       "tactical_routes": [
         "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
         "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
@@ -60,12 +60,6 @@
           "th": "คิม นัมอิล"
         },
         "MID": {
-          "ko": "박지성",
-          "en": "Park Ji-sung",
-          "vi": "Park Ji Sung",
-          "th": "ปาร์ค จีซอง"
-        },
-        "CDM": {
           "ko": "김정우",
           "en": "Kim Jeong-woo",
           "vi": "Kim Jeong Woo",
@@ -75,21 +69,21 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
         "BFXKWAK",
-        "크몽신경섭",
-        "OFel",
+        "T1Ofel",
         "GCTShype",
-        "OoPpPp"
+        "OFel",
+        "크몽신경섭"
       ]
     },
     {
       "formation": "4-2-2-2",
-      "count": 24,
-      "share": 24.0,
+      "count": 23,
+      "share": 23.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
@@ -103,15 +97,15 @@
         },
         "CB": {
           "ko": "하코보 라몬",
-          "en": "Jakobo Ramon",
-          "vi": "Jakobo Ramon",
-          "th": "จาโคโบ รามอน"
+          "en": "Hakobo Ramon",
+          "vi": "Hakobo Ramon",
+          "th": "ฮาโกโบะ รามอน"
         },
         "MID": {
-          "ko": "마르코스 요렌테",
-          "en": "Marcos Llorente",
-          "vi": "Marcos Llorente",
-          "th": "มาร์กอส ยอเรนเต้"
+          "ko": "카카",
+          "en": "kaka",
+          "vi": "kaka",
+          "th": "กาก้า"
         },
         "CDM": {
           "ko": "페데리코 발베르데",
@@ -123,9 +117,9 @@
       "recommended_rankers": [
         "DNSCrong",
         "크롱",
-        "KRXMINION",
         "T1YooMin",
-        "kimwon"
+        "kimwon",
+        "피구"
       ]
     },
     {
@@ -138,22 +132,22 @@
       ],
       "key_players": {
         "CB": {
-          "ko": "가브리엘 마갈량이스",
-          "en": "Gabriel Magalliance",
-          "vi": "Gabriel Magalliance",
-          "th": "กาเบรียล มากาลิเซียนซ์"
+          "ko": "파트리크 비에이라",
+          "en": "Patrick Vieira",
+          "vi": "Patrick Vieira",
+          "th": "ปาทริค วิเอร่า"
         },
         "MID": {
+          "ko": "세스크 파브레가스",
+          "en": "Cesc Fabregas",
+          "vi": "Cesc Fabregas",
+          "th": "เชส ฟาเบรกาส"
+        },
+        "ST": {
           "ko": "데클런 라이스",
           "en": "Declan Rice",
           "vi": "Gạo Declan",
           "th": "เดแคลน ไรซ์"
-        },
-        "ST": {
-          "ko": "빅토르 요케레스",
-          "en": "Victor Yoqueres",
-          "vi": "Victor Yoqueres",
-          "th": "วิคเตอร์ โยเกเรส"
         },
         "CDM": {
           "ko": "수비멘디",
@@ -164,8 +158,8 @@
       },
       "recommended_rankers": [
         "성민Seon9min",
-        "Seon9min",
         "Seon9",
+        "Seon9min",
         "성뮌",
         "에넬"
       ]
@@ -192,7 +186,7 @@
           "ko": "차범근",
           "en": "Cha Bum Geun",
           "vi": "Cha Bum Geun",
-          "th": "ชาบอมกึน"
+          "th": "ชาบุมกึน"
         }
       },
       "recommended_rankers": [
