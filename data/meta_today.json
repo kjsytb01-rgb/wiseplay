@@ -1,95 +1,53 @@
 {
-  "updated_at": "2026-11-27 04:38:11",
+  "updated_at": "2026-11-28 04:23:19",
   "total_rankers": 100,
   "meta_list": [
     {
       "formation": "4-2-2-2",
-      "count": 30,
-      "share": 30.0,
+      "count": 31,
+      "share": 31.0,
       "tactical_routes": [
         "투톱 연계를 활용한 빠른 템포의 카운터 어택 및 상대 센터백 라인 붕괴",
         "측면 배치에 따른 분기: LM·RM의 다이렉트 사이드 전환, LAM·RAM의 풀백 연계 컷백 플레이"
       ],
       "key_players": {
-        "ST": {
-          "ko": "티에리 앙리",
-          "en": "Thierry Henry",
-          "vi": "Thierry Henry",
-          "th": "เธียร์รี อองรี"
-        },
         "MID": {
-          "ko": "프레디 융베리",
-          "en": "Freddie Ljungberg",
-          "vi": "Freddie Ljungberg",
-          "th": "เฟรดดี้ ลุงเบิร์ก"
-        },
-        "CB": {
-          "ko": "애슐리 콜",
-          "en": "Ashley Cole",
-          "vi": "Ashley Cole",
-          "th": "แอชลีย์ โคล"
+          "ko": "델피에로",
+          "en": "Del Piero",
+          "vi": "Del Piero",
+          "th": "เดล ปิเอโร่"
         },
         "CDM": {
-          "ko": "데클런 라이스",
-          "en": "Declan Rice",
-          "vi": "Gạo Declan",
-          "th": "เดแคลน ไรซ์"
+          "ko": "잔루카 잠브로타",
+          "en": "Gianluca Zambrotta",
+          "vi": "Gianluca Zambrotta",
+          "th": "จานลูก้า ซัมบรอตต้า"
+        },
+        "ST": {
+          "ko": "파벨 네드베드",
+          "en": "Pavel Nedved",
+          "vi": "Pavel Nedved",
+          "th": "พาเวล เนดเวด"
+        },
+        "CB": {
+          "ko": "블레즈 마튀이디",
+          "en": "Blaise Matuidi",
+          "vi": "Blaise Matuidi",
+          "th": "แบลส มาตุยดี้"
         }
       },
       "recommended_rankers": [
-        "Volition케이",
         "송하영",
-        "방배우",
+        "KT김정민",
         "점킹",
-        "벼랑위의퐁뇨"
-      ]
-    },
-    {
-      "formation": "4-2-3-1",
-      "count": 27,
-      "share": 27.0,
-      "tactical_routes": [
-        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
-        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
-      ],
-      "key_players": {
-        "MID": {
-          "ko": "프랭크 램파드",
-          "en": "frank lampard",
-          "vi": "Lampard thẳng thắn",
-          "th": "แฟรงค์ แลมพาร์ด"
-        },
-        "CDM": {
-          "ko": "마이콘",
-          "en": "Mycon",
-          "vi": "Mycon",
-          "th": "ไมคอน"
-        },
-        "ST": {
-          "ko": "세르히오 아구에로",
-          "en": "Sergio Aguero",
-          "vi": "Sergio Aguero",
-          "th": "เซร์คิโอ อเกวโร่"
-        },
-        "CB": {
-          "ko": "존 스톤스",
-          "en": "John Stones",
-          "vi": "John đá",
-          "th": "จอห์น สโตนส์"
-        }
-      },
-      "recommended_rankers": [
-        "T1Ofel",
-        "푸우스",
-        "카이절",
-        "KTUTA",
-        "DNSNova"
+        "벼랑위의퐁뇨",
+        "Colorado"
       ]
     },
     {
       "formation": "4-2-2-1-1",
-      "count": 27,
-      "share": 27.0,
+      "count": 30,
+      "share": 30.0,
       "tactical_routes": [
         "롱패스를 통한 사이드 전환 및 하프스페이스 뒷공간 공략",
         "풀백과 윙어의 유기적인 지원을 통한 크로스, 컷백 연계 및 박스 안 마무리"
@@ -124,8 +82,50 @@
         "정아현",
         "농심류크",
         "패박에서무서운놈",
-        "조똘복",
-        "Keiler사카"
+        "혜원",
+        "호식이두마리"
+      ]
+    },
+    {
+      "formation": "4-2-3-1",
+      "count": 24,
+      "share": 24.0,
+      "tactical_routes": [
+        "CAM 중심의 빠른 역습 전개 및 LAM·RAM의 침투를 통한 박스 타격",
+        "2선 윙포워드가 창출한 측면 공간으로 풀백이 오버래핑하여 크로스 및 컷백 연계"
+      ],
+      "key_players": {
+        "MID": {
+          "ko": "울리 회네스",
+          "en": "Uli Hoeness",
+          "vi": "Uli Hoeness",
+          "th": "อูลี เฮอเนส"
+        },
+        "CDM": {
+          "ko": "슈바인슈타이거",
+          "en": "Schweinsteiger",
+          "vi": "Schweinsteiger",
+          "th": "ชไวน์สไตเกอร์"
+        },
+        "CB": {
+          "ko": "안토니오 뤼디거",
+          "en": "Antonio Rudiger",
+          "vi": "Antonio Rudiger",
+          "th": "อันโตนิโอ รูดิเกอร์"
+        },
+        "ST": {
+          "ko": "제이미 레벨링",
+          "en": "Jamie Leveling",
+          "vi": "Jamie lên cấp",
+          "th": "เจมี่ เลเวลลิ่ง"
+        }
+      },
+      "recommended_rankers": [
+        "카이절",
+        "KTUTA",
+        "BFX곽",
+        "BFXKaiser",
+        "DNSRILLA"
       ]
     },
     {
@@ -166,8 +166,8 @@
         "성민Seon9min",
         "Seon9",
         "Seon9min",
-        "성뮌",
-        "Dh텍즈"
+        "방산원룸",
+        "퍼터스스충"
       ]
     },
     {
@@ -180,34 +180,34 @@
       ],
       "key_players": {
         "CB": {
-          "ko": "최진철",
-          "en": "Choi Jin-cheol",
-          "vi": "Choi Jin Cheol",
-          "th": "ชอย จินชอล"
+          "ko": "이영표",
+          "en": "Youngpyo Lee",
+          "vi": "Lee Youngpyo",
+          "th": "ยองพโย ลี"
         },
         "MID": {
-          "ko": "유상철",
-          "en": "Sangcheol Yoo",
-          "vi": "Sangcheol Yoo",
-          "th": "ซังชอล ยู"
+          "ko": "박지성",
+          "en": "Park Ji-sung",
+          "vi": "Park Ji Sung",
+          "th": "ปาร์ค จีซอง"
         },
         "ST": {
-          "ko": "이근호",
-          "en": "Lee Geun-ho",
-          "vi": "Lee Geun Ho",
-          "th": "ลี กึน-โฮ"
+          "ko": "차범근",
+          "en": "Cha Bum Geun",
+          "vi": "Cha Bum Geun",
+          "th": "ชาบุมกึน"
         },
         "CDM": {
-          "ko": "기성용",
-          "en": "Ki Sung-yong",
-          "vi": "Ki Sung Yong",
-          "th": "กี ซองยอง"
+          "ko": "박주호",
+          "en": "Park Joo-ho",
+          "vi": "Park Joo Ho",
+          "th": "ปาร์ค จูโฮ"
         }
       },
       "recommended_rankers": [
-        "선재스님의갈비찜",
         "이세혁",
-        "TAA아카데미"
+        "서명원",
+        "욕졸"
       ]
     }
   ]
